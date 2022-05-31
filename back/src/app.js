@@ -39,7 +39,7 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 
-app.use(basicRouter);
+app.use("/basic", basicRouter);
 
 app.use(Sentry.Handlers.errorHandler());
 
