@@ -49,9 +49,7 @@ basicRouter.get("/", async (req, res) => {
  */
 basicRouter.post("/post", async (req, res) => {
   const { name } = req.body;
-  console.log(test);
   const body = await BasicService.postTest(name);
-  console.log(body);
   return res.status(200).json(body);
 });
 /**
