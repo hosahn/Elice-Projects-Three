@@ -49,7 +49,8 @@ basicRouter.get("/", async (req, res) => {
  */
 basicRouter.post("/post", async (req, res) => {
   const { name } = req.body;
-  const body = await BasicService.postTest({ name });
+  console.log(test);
+  const body = await BasicService.postTest(name);
   console.log(body);
   return res.status(200).json(body);
 });
@@ -72,7 +73,7 @@ basicRouter.post("/post", async (req, res) => {
  */
 basicRouter.get("/query", async (req, res) => {
   const { name } = req.query;
-  const body = await BasicService.queryTest({ name });
+  const body = await BasicService.queryTest(name);
   return res.status(200).json(body);
 });
 /**
@@ -94,7 +95,7 @@ basicRouter.get("/query", async (req, res) => {
  */
 basicRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const body = BasicService.pathTest({ id });
+  const body = await BasicService.pathTest(id);
   return res.status(200).json(body);
 });
 

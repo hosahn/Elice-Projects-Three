@@ -1,3 +1,4 @@
+//@ts-check
 export default class BasicService {
   static async serverCheck() {
     const body = {
@@ -7,10 +8,11 @@ export default class BasicService {
     return body;
   }
   /**
-   * @param {number} id - 출력할 ID 값
-   * @returns {{success: boolean, message: string}} - 성공여부와 입력한 ID가 담긴 객체를 return
+   * @template T
+   * @param {T} id - 출력할 ID 값
+   * @returns {Promise<{success: boolean, message: string}>} - 성공여부와 입력한 ID가 담긴 객체를 return
    */
-  static async pathTest({ id }) {
+  static async pathTest(id) {
     const body = {
       success: true,
       message: `입력한 ID : ${id}`,
@@ -20,9 +22,9 @@ export default class BasicService {
 
   /**
    * @param {string} name - 출력할 이름
-   * @returns {{success: boolean, message: string}} - 성공여부와 요청한 이름을 담은 객체를 return
+   * @returns {Promise<{success: boolean, message: string}>}  - 성공여부와 요청한 이름을 담은 객체를 return
    */
-  static async postTest({ name }) {
+  static async postTest(name) {
     const body = {
       success: true,
       message: `Post Body 에 입력된 name 값 : ${name}`,
@@ -32,9 +34,9 @@ export default class BasicService {
 
   /**
    * @param {string} name - 출력할 이름
-   * @returns {{success: boolean, message: string}} - 성공여부와 입력한 이름이 담긴 객체를 return
+   * @returns {Promise<{success: boolean, message: string}>} - 성공여부와 입력한 이름이 담긴 객체를 return
    */
-  static async queryTest({ name }) {
+  static async queryTest(name) {
     const body = {
       success: true,
       message: `입력한 이름 : ${name}`,
