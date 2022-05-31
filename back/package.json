@@ -1,0 +1,38 @@
+{
+  "name": "express-structure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon ./bin/www",
+    "babel": "babel-node"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
+    "babel-jest": "^28.1.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.5",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/register": "^7.17.7",
+    "@types/jest": "^27.5.1",
+    "jest": "^28.1.0",
+    "jest-extended": "^2.0.0",
+    "nodemon": "^2.0.16",
+    "superagent": "^7.1.3",
+    "supertest": "^6.2.3"
+  }
+}
