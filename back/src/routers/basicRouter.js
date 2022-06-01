@@ -21,6 +21,7 @@ const basicRouter = Router();
  *       '200':
  *         description: "서버 연결 확인 완료"
  */
+
 basicRouter.get("/", async (req, res) => {
   const body = await BasicService.serverCheck();
   return res.status(200).json(body);
