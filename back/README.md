@@ -22,21 +22,21 @@
 > ### 폴더 구조
 >
 > 📦src
-> ┣ 📂config
-> ┃ ┣ 📜env.js
-> ┃ ┗ 📜swaggerDoc.js
-> ┣ 📂db
-> ┃ ┣ 📂models
-> ┃ ┣ 📂schemas
-> ┃ ┗ 📜index.js
-> ┣ 📂middlewares
-> ┣ 📂routers
-> ┃ ┗ 📜basicRouter.js
-> ┣ 📂services
-> ┃ ┗ 📜basicService.js
-> ┣ 📂test
-> ┃ ┗ 📜test.js
-> ┗ 📜app.js
+> ┣ 📂config  
+> ┃ ┣ 📜env.js  
+> ┃ ┗ 📜swaggerDoc.js  
+> ┣ 📂db  
+> ┃ ┣ 📂models  
+> ┃ ┣ 📂schemas  
+> ┃ ┗ 📜index.js  
+> ┣ 📂middlewares  
+> ┣ 📂routers  
+> ┃ ┗ 📜basicRouter.js  
+> ┣ 📂services  
+> ┃ ┗ 📜basicService.js  
+> ┣ 📂test  
+> ┃ ┗ 📜test.js  
+> ┗ 📜app.js  
 >
 > ---
 >
