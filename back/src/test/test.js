@@ -1,5 +1,4 @@
 import request from "supertest";
-import { basicRouter } from "../routers/basicRouter.js";
 import { app } from "../app.js";
 
 describe("GET / 테스트", () => {
