@@ -1,4 +1,5 @@
 //@ts-check
+import Basic from "../db/models/Basic.js";
 export default class BasicService {
   static async serverCheck() {
     const body = {
@@ -41,6 +42,23 @@ export default class BasicService {
       success: true,
       message: `입력한 이름 : ${name}`,
     };
+    return body;
+  }
+
+  /**
+   * @param {Object} body - 들어오는 body 값
+   * @param {string} body.name - 생성할 유저 이름
+   * @param {number} body.age - 생성할 유저 나이
+   * @return {Promise<{name: string, age:number}>} - 생성한 유저에 대한 정보를 반환
+   */
+  static async create({ name, age }) {
+    const newBasic = {
+      name,
+      age,
+    };
+    // const body = await Basic.createBasic(newBasic);
+    const { name: getName, age: getAge } = await Basic.createBasic(newBasic);
+    const body = { name: getName, age: getAge };
     return body;
   }
 }

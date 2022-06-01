@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Basic from "../db/models/Basic.js";
 import BasicService from "../services/basicService.js";
 const basicRouter = Router();
 
@@ -96,6 +97,13 @@ basicRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   const body = await BasicService.pathTest(id);
   return res.status(200).json(body);
+});
+
+basicRouter.post("/", async (req, res) => {
+  const { name, age } = req.body;
+  const newUser = { name, age };
+  const body = await BasicService.create(newUser);
+  return res.status(201).json(body);
 });
 
 export { basicRouter };

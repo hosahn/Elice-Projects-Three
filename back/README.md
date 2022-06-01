@@ -21,23 +21,23 @@
 >
 > ### 폴더 구조
 >
-> 📦src
-> ┣ 📂config
-> ┃ ┣ 📜env.js
-> ┃ ┗ 📜swaggerDoc.js
-> ┣ 📂db
-> ┃ ┣ 📂models
-> ┃ ┣ 📂schemas
-> ┃ ┗ 📜index.js
-> ┣ 📂middlewares
-> ┣ 📂routers
-> ┃ ┗ 📜basicRouter.js
-> ┣ 📂services
-> ┃ ┗ 📜basicService.js
-> ┣ 📂test
-> ┃ ┗ 📜test.js
+> 📦src  
+> ┣ 📂config  
+> ┃ ┣ 📜env.js  
+> ┃ ┗ 📜swaggerDoc.js  
+> ┣ 📂db  
+> ┃ ┣ 📂models  
+> ┃ ┣ 📂schemas  
+> ┃ ┗ 📜index.js  
+> ┣ 📂middlewares  
+> ┣ 📂routers  
+> ┃ ┗ 📜basicRouter.js  
+> ┣ 📂services  
+> ┃ ┗ 📜basicService.js  
+> ┣ 📂test  
+> ┃ ┗ 📜test.js  
 > ┗ 📜app.js
->
+
 > ---
 >
 > - **config** : 설정 파일을 모아두는 폴더
