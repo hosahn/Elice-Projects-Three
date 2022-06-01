@@ -36,8 +36,8 @@
 > ┃ ┗ 📜basicService.js  
 > ┣ 📂test  
 > ┃ ┗ 📜test.js  
-> ┗ 📜app.js
-
+> ┗ 📜app.js  
+>
 > ---
 >
 > - **config** : 설정 파일을 모아두는 폴더
