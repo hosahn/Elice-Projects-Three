@@ -11,13 +11,13 @@ import helmet from "helmet";
 import { loginRouter } from "./routers/loginRouter.js";
 import rateLimit from "express-rate-limit";
 import passport from "passport";
-import { GoogleStrategy } from "./passport/googleStrategy.js";
-import { KakaoStrategy } from "./passport/kakaoStrategy.js";
-import { JwtStrategy } from "./passport/jwtStrategy.js";
+import { passportStrategies } from "./passport/finalStrategy.js";
 import { userRouter } from "./routers/userRouter.js";
+import session from "express-session";
 import "./config/env.js";
+import { default as connectMongoDBSession } from "connect-mongodb-session";
+const MongoDBStore = connectMongoDBSession(session);
 export const app = express();
-
 Sentry.init({
   dsn: process.env.DSN,
 });
@@ -35,11 +35,24 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
-app.use(passport.initialize());
-GoogleStrategy();
-KakaoStrategy();
-JwtStrategy();
 
+//passport
+app.use(passport.initialize());
+app.use(
+  session({
+    secret: "secret key",
+    store: new MongoDBStore({
+      uri: process.env.MONGODB_URL,
+      collection: "wineProject",
+    }),
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+passportStrategies();
+app.use(passport.session());
+
+//Sentry
 if (process.env.NODE_ENV === "production") {
   app.use(
     morgan("dev", {
@@ -53,14 +66,12 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(Sentry.Handlers.requestHandler());
-
 app.use(
   "/swagger",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
 app.use("/login", loginRouter);
-app.use("/user", passport.authenticate(["jwt", "google", "kakao"]), userRouter);
+app.use("/user", userRouter);
 app.use(Sentry.Handlers.errorHandler());
-
 export default app;
