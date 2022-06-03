@@ -22,7 +22,7 @@ db.on("error", (error) => {
   throw new Error("몽고 DB 연결에 실패하였습니다.");
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`정상적으로 서버를 시작하였습니다. http://localhost:${PORT}`);

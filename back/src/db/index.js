@@ -1,3 +1,2 @@
-import { BasicModel } from "./schemas/basic.js";
-
-export { BasicModel };
+import { User } from "./models/User.js";
+export { User };
