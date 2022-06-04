@@ -15,12 +15,20 @@ import { passportStrategies } from "./passport/finalStrategy.js";
 import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
 import "./config/env.js";
-import { default as connectMongoDBSession } from "connect-mongodb-session";
-const MongoDBStore = connectMongoDBSession(session);
+import { default as mysqlSession } from "express-mysql-session";
+import mysql from "mysql";
+
+const mysqlStore = mysqlSession(session);
 export const app = express();
-Sentry.init({
-  dsn: process.env.DSN,
-});
+var options = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "password",
+  database: "sessionstore",
+};
+var connection = mysql.createConnection(options);
+var sessionStore = new mysqlStore(options, connection);
 
 const csrfProtection = csurf({ cookie: true });
 const limiter = rateLimit({
@@ -35,23 +43,20 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
-
 //passport
-app.use(passport.initialize());
 app.use(
   session({
     secret: "secret key",
-    store: new MongoDBStore({
-      uri: process.env.MONGODB_URL,
-      collection: "wineProject",
-    }),
+    store: sessionStore,
     resave: false,
     saveUninitialized: false,
+    rolling: true,
+    expires: new Date(Date.now() + 60 * 30),
   })
 );
+app.use(passport.initialize());
 passportStrategies();
 app.use(passport.session());
-
 //Sentry
 if (process.env.NODE_ENV === "production") {
   app.use(
@@ -73,5 +78,4 @@ app.use(
 );
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
-app.use(Sentry.Handlers.errorHandler());
 export default app;

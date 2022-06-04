@@ -3,14 +3,18 @@ import { Strategy } from "passport-kakao";
 import passport from "passport";
 import "../config/env.js";
 
-export const KakaoStrategy = new Strategy(
-  {
-    clientID: process.env.KAKAO_CLIENT_ID,
-    clientSecret: process.env.KAKAO_CLIENT_SECRET,
-    callbackURL: "http://localhost:5001/user/complete",
-  },
-  async (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
-    return done(null, profile);
-  }
-);
+export const KakaoStrategy = () => {
+  passport.use(
+    new Strategy(
+      {
+        clientID: "74a5687fe9d1d20e9b33afbb85317995",
+        clientSecret: "Qte99kpuJKNq1DWF3M3v7cEbc9LUuNPt",
+        callbackURL: "http://localhost:5001/user/kakaocomplete",
+      },
+      (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
+        return done(null, profile);
+      }
+    )
+  );
+};
