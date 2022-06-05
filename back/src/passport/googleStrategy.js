@@ -2,6 +2,7 @@ import { User } from "../db/index.js";
 import { Strategy } from "passport-google-oauth20";
 import passport from "passport";
 import "../config/env.js";
+import { pool } from "../../pool.js";
 
 const option = {
   clientID:

@@ -9,4 +9,4 @@ const pool = mysql.createPool({
   database: "ai_project",
 });
 
-module.exports = pool;
+export { pool };

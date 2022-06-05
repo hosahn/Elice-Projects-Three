@@ -5,9 +5,9 @@ const userRouter = Router();
 userRouter.get("/complete", (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect("/");
+    res.redirect("/user/main");
   } else {
-    res.redirect("/");
+    res.redirect("/error");
   }
 });
 
@@ -17,9 +17,9 @@ userRouter.get(
   (req, res) => {
     console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
-      res.redirect("/");
+      res.redirect("/user/main");
     } else {
-      res.redirect("/");
+      res.redirect("/error");
     }
   }
 );
@@ -27,9 +27,9 @@ userRouter.get(
 userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect("/");
+    res.redirect("/user/main");
   } else {
-    res.redirect("/");
+    res.redirect("/error");
   }
 });
 
@@ -38,9 +38,9 @@ userRouter.get("/logout", (req, res) => {
     req.logout((err) => {
       if (err) return next(err);
     });
-    res.redirect("/");
+    res.redirect("http://localhost:3000");
   }
-  res.send("error");
+  res.redirect("/user/error");
 });
 
 userRouter.get("/main", (req, res) => {
@@ -49,6 +49,10 @@ userRouter.get("/main", (req, res) => {
   } else {
     res.redirect("http://localhost:3000");
   }
+});
+
+userRouter.get("/error", (req, res) => {
+  res.send("Userinformation nicht vorhanden");
 });
 
 export { userRouter };
