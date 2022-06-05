@@ -2,48 +2,53 @@ import { Router } from "express";
 import passport from "passport";
 const userRouter = Router();
 
+userRouter.get("/complete", (req, res) => {
+  console.log(req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  } else {
+    res.redirect("/");
+  }
+});
+
 userRouter.get(
   "/googlecomplete",
   passport.authenticate("google"),
   (req, res) => {
     console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
-      res.send("login success!");
+      res.redirect("/");
     } else {
-      res.send("login failed...");
+      res.redirect("/");
     }
   }
 );
 
-userRouter.get("/complete", (req, res) => {
-  console.log(req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    res.send("login success!");
-  } else {
-    res.send("login failed...");
-  }
-});
-
 userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.send("login success!");
+    res.redirect("/");
   } else {
-    res.send("login failed...");
+    res.redirect("/");
   }
 });
 
 userRouter.get("/logout", (req, res) => {
   if (req.isAuthenticated()) {
-    req.logout(function (err) {
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/");
+    req.logout((err) => {
+      if (err) return next(err);
     });
-    res.send("logout");
+    res.redirect("/");
   }
   res.send("error");
+});
+
+userRouter.get("/main", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send("Here comes main page");
+  } else {
+    res.redirect("http://localhost:3000");
+  }
 });
 
 export { userRouter };

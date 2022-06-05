@@ -10,12 +10,12 @@ loginRouter.get("/local", passport.authenticate("local"));
 loginRouter.get(
   "/google",
   passport.authenticate("google", { scope: ["email"] }, (req, res) => {
-    console.log("abc");
+    console.log("completed");
   })
 );
 
 loginRouter.get("/kakao", passport.authenticate("kakao"), (req, res) => {
-  console.log("a");
+  console.log("completed");
 });
 
 export { loginRouter };
