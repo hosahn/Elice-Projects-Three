@@ -1,13 +1,13 @@
 import { app } from "./src/app.js";
 import "./src/config/env.js";
 import "./src/db/index.js";
-import mysql from "mysql";
+import mysql2 from "mysql2";
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "final_project",
+const connection = mysql2.createConnection({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: "ai_project",
 });
 
 connection.connect(function (err) {

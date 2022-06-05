@@ -21,10 +21,10 @@ import mysql from "mysql";
 const mysqlStore = mysqlSession(session);
 export const app = express();
 var options = {
-  host: "localhost",
+  host: process.env.MYSQL_HOST,
   port: 3306,
-  user: "root",
-  password: "password",
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
   database: "sessionstore",
 };
 var connection = mysql.createConnection(options);
