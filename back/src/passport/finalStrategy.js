@@ -1,4 +1,3 @@
-import { User } from "../db/index.js";
 import passport from "passport";
 import { KakaoStrategy } from "./kakaoStrategy.js";
 import { GoogleStrategy } from "./googleStrategy.js";

@@ -1,6 +1,5 @@
 import { app } from "./src/app.js";
 import "./src/config/env.js";
-import "./src/db/index.js";
 import mysql2 from "mysql2";
 
 const connection = mysql2.createConnection({
