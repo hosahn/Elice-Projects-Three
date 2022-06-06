@@ -18,6 +18,7 @@ import session from "express-session";
 import "./config/env.js";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
+import { basicRouter } from "./routers/basicRouter.js";
 
 const mysqlStore = mysqlSession(session);
 export const app = express();
@@ -27,7 +28,6 @@ Sentry.init({
   integrations: [new BrowserTracing()],
   tracesSampleRate: 1.0,
 });
-
 
 const csrfProtection = csurf({ cookie: true });
 
@@ -88,4 +88,7 @@ app.use(
 );
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
+app.use("/basic", basicRouter);
+
+app.use(Sentry.Handlers.errorHandler());
 export default app;
