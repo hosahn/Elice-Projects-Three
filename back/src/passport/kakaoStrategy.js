@@ -2,7 +2,6 @@ import { Strategy } from "passport-kakao";
 import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
 
 const option = {
@@ -22,7 +21,6 @@ const verify = async (accessToken, refreshToken, profile, done) => {
   try {
     if (result.length > 0) {
       console.log("logged in");
-      console.log(result);
       return done(null, profile);
     } else {
       console.log("signed up");

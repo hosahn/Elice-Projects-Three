@@ -2,6 +2,7 @@ import passport from "passport";
 import { KakaoStrategy } from "./kakaoStrategy.js";
 import { GoogleStrategy } from "./googleStrategy.js";
 import { LocalStrategy } from "./localStrategy.js";
+import { NaverStrategy } from "./naverStrategy.js";
 
 export const passportStrategies = () => {
   passport.serializeUser((user, done) => {
@@ -16,4 +17,6 @@ export const passportStrategies = () => {
   KakaoStrategy();
   GoogleStrategy();
   LocalStrategy();
+  KakaoStrategy();
+  NaverStrategy();
 };

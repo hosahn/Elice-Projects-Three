@@ -15,7 +15,6 @@ import passport from "passport";
 import { passportStrategies } from "./passport/finalStrategy.js";
 import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
-import "./config/env.js";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
 import { basicRouter } from "./routers/basicRouter.js";

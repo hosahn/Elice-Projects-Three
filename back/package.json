@@ -36,6 +36,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
+    "passport-naver": "^1.0.6",
     "prisma": "^3.14.0",
     "safe-regex": "^2.1.1",
     "swagger-jsdoc": "^6.2.1",

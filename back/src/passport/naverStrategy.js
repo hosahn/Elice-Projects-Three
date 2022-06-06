@@ -1,27 +1,22 @@
-import { Strategy } from "passport-google-oauth20";
+import { Strategy } from "passport-naver";
 import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-// use `prisma` in your application to read and write data in your DB
 
 const option = {
-  clientID:
-    "179133829251-7vr8utiaenff1sheqp8rgdlill3qa34d.apps.googleusercontent.com",
-  clientSecret: "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",
-  callbackURL: "http://localhost:5001/user/googlecomplete",
-  passReqToCallback: true,
+  clientID: "7hJkySe9Xcnn2I_rpM6q",
+  clientSecret: "uZ5kmRv9QQ",
+  callbackURL: "http://localhost:5001/user/navercomplete",
 };
 
-const verify = async (request, accessToken, refreshToken, profile, done) => {
-  console.log(profile.id);
-  console.log(profile.emails[0].value);
-  const email = profile.emails[0].value;
+const verify = async (accessToken, refreshToken, profile, done) => {
+  const email = profile._json.email;
   const result = await prisma.users.findMany({
     where: {
       email: email,
-      social: "google",
+      social: "naver",
     },
   });
   try {
@@ -34,7 +29,7 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
         data: {
           email: email,
           pw: "1234",
-          social: "google",
+          social: "naver",
         },
       });
       console.log(createdUser);
@@ -44,6 +39,7 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
     return done(false, profile);
   }
 };
-export const GoogleStrategy = () => {
+
+export const NaverStrategy = () => {
   passport.use(new Strategy(option, verify));
 };
