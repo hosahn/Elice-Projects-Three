@@ -48,17 +48,15 @@ export default class BasicService {
   /**
    * @param {Object} body - 들어오는 body 값
    * @param {string} body.name - 생성할 유저 이름
-   * @param {number} body.age - 생성할 유저 나이
-   * @return {Promise<{name: string, age:number}>} - 생성한 유저에 대한 정보를 반환
+   * @return {Promise<{name: string}>} - 생성한 유저에 대한 정보를 반환
    */
-  static async create({ name, age }) {
+  static async create({ name }) {
     const newBasic = {
       name,
-      age,
     };
     // const body = await Basic.createBasic(newBasic);
-    const { name: getName, age: getAge } = await Basic.createBasic(newBasic);
-    const body = { name: getName, age: getAge };
+    const { name: getName } = await Basic.createBasic(newBasic);
+    const body = { name: getName };
     return body;
   }
 }

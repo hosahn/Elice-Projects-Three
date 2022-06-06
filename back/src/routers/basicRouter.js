@@ -101,7 +101,7 @@ basicRouter.get("/:id", async (req, res) => {
 
 basicRouter.post("/", async (req, res) => {
   const { name, age } = req.body;
-  const newUser = { name, age };
+  const newUser = { name };
   const body = await BasicService.create(newUser);
   return res.status(201).json(body);
 });
