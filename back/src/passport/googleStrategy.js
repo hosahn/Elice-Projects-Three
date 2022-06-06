@@ -7,9 +7,8 @@ const prisma = new PrismaClient();
 // use `prisma` in your application to read and write data in your DB
 
 const option = {
-  clientID:
-    "179133829251-7vr8utiaenff1sheqp8rgdlill3qa34d.apps.googleusercontent.com",
-  clientSecret: "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",
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:5001/user/googlecomplete",
   passReqToCallback: true,
 };

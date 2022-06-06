@@ -6,8 +6,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const option = {
-  clientID: "7hJkySe9Xcnn2I_rpM6q",
-  clientSecret: "uZ5kmRv9QQ",
+  clientID: process.env.NAVER_CLIENT_ID,
+  clientSecret: process.env.NAVER_CLIENT_SECRET,
   callbackURL: "http://localhost:5001/user/navercomplete",
 };
 

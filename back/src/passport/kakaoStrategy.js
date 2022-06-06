@@ -5,8 +5,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const option = {
-  clientID: "74a5687fe9d1d20e9b33afbb85317995",
-  clientSecret: "Qte99kpuJKNq1DWF3M3v7cEbc9LUuNPt",
+  clientID: process.env.KAKAO_CLIENT_ID,
+  clientSecret: process.env.KAKAO_CLIENT_SECRET,
   callbackURL: "http://localhost:5001/user/kakaocomplete",
 };
 
