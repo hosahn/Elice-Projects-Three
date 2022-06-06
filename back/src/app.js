@@ -5,6 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swaggerDoc.js";
 import "./config/env.js";
 import * as Sentry from "@sentry/node";
+import { BrowserTracing } from "@sentry/tracing";
 import compression from "compression";
 import csurf from "csurf";
 import helmet from "helmet";
@@ -20,6 +21,16 @@ import mysql from "mysql";
 
 const mysqlStore = mysqlSession(session);
 export const app = express();
+
+Sentry.init({
+  dsn: process.env.DSN,
+  integrations: [new BrowserTracing()],
+  tracesSampleRate: 1.0,
+});
+
+
+const csrfProtection = csurf({ cookie: true });
+
 var options = {
   host: process.env.MYSQL_HOST,
   port: 3306,
@@ -30,7 +41,6 @@ var options = {
 var connection = mysql.createConnection(options);
 var sessionStore = new mysqlStore(options, connection);
 
-const csrfProtection = csurf({ cookie: true });
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
