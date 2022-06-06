@@ -30,6 +30,7 @@ describe("POST /basic 테스트", () => {
       pw: "1234",
       social: "local",
     });
+    console.log(res.body);
     expect(res.body.email).toEqual("test@example.com");
   });
 });
