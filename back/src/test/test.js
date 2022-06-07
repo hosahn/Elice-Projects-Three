@@ -2,11 +2,9 @@ import request from "supertest";
 import { app } from "../app.js";
 import DiaryService from "../services/diaryService.js";
 import Diary from "../db/models/Diary.js";
-import { diaryRouter } from "../routers/diaryRouter.js";
 import newDiary from "./data/new-product.json";
 import * as httpMocks from "node-mocks-http";
 import "../config/env.js";
-
 // test("GET / URL 테스트", async () => {
 //   const res = await request(app).get("/basic");
 //   expect(res.body).toEqual("서버가 정상적으로 열렸습니다!");
@@ -62,9 +60,8 @@ describe("Diary Crate 테스트 ", () => {
     // 즉 이때는 Diary.create에 newDiary 라는 이름으로 파라미터가 들어갔는지 확인
   });
   test("should return 201 response code", async () => {
-    const res = await request(app).post("/diary").send({ id: 10 });
+    const res = await request(app).post("/diary").send(newDiary);
     console.log(res.body);
-    expect(res.body.id).toEqual(10);
     expect(res.statusCode).toEqual(201);
   });
 });

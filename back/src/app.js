@@ -89,7 +89,7 @@ app.use(
 );
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
-app.use("/basic", basicRouter);
 app.use("/diary", diaryRouter);
+app.use("/basic", basicRouter);
 app.use(Sentry.Handlers.errorHandler());
 export default app;
