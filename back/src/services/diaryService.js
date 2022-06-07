@@ -1,4 +1,4 @@
-import Diary from "../db/models/Diary.js";
+import { Diary } from "../db/index.js";
 //@ts-check
 export default class DiaryService {
   /**

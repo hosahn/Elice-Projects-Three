@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 //@ts-check
-export default class Diary {
+class Diary {
   /**
    *
    * @param {object} newDiary
@@ -26,3 +26,4 @@ export default class Diary {
     return deleteDiary;
   }
 }
+export { Diary };

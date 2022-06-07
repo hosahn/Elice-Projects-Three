@@ -41,7 +41,6 @@ userRouter.get("/localcomplete", (req, res) => {
 });
 
 //Logout
-
 userRouter.get("/logout", (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
@@ -54,6 +53,7 @@ userRouter.get("/logout", (req, res) => {
 
 //CallBack Url이 리다이렉트 하는 경로
 
+//성공이면 true
 userRouter.get("/success", (req, res) => {
   if (req.isAuthenticated()) {
     res.send(true);
@@ -62,11 +62,12 @@ userRouter.get("/success", (req, res) => {
   }
 });
 
+//실패면 false
 userRouter.get("/failed", (req, res) => {
   res.send(false);
 });
-// 회원가입
 
+// 회원가입
 userRouter.post("/signup", async (req, res) => {
   const { email, pw } = req.body;
   const social = "local";

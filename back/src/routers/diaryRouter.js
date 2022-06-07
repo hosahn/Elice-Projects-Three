@@ -22,7 +22,7 @@ diaryRouter.delete("/:id", async (req, res, next) => {
 });
 
 diaryRouter.post("/images", upload.single("image"), async (req, res, next) => {
-  console.log(req.file)
+  console.log(req.file);
 });
 
 export { diaryRouter };

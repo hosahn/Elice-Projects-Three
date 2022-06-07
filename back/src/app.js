@@ -7,19 +7,17 @@ import "./config/env.js";
 import * as Sentry from "@sentry/node";
 import { BrowserTracing } from "@sentry/tracing";
 import compression from "compression";
-import csurf from "csurf";
 import helmet from "helmet";
-import { loginRouter } from "./routers/loginRouter.js";
 import rateLimit from "express-rate-limit";
 import passport from "passport";
 import { passportStrategies } from "./passport/finalStrategy.js";
-import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
-import { basicRouter } from "./routers/basicRouter.js";
 import { calendarRouter } from "./routers/calendarRouter.js";
 import { diaryRouter } from "./routers/diaryRouter.js";
+import { userRouter } from "./routers/userRouter.js";
+import { loginRouter } from "./routers/loginRouter.js";
 
 process.setMaxListeners(15);
 const mysqlStore = mysqlSession(session);
@@ -30,8 +28,6 @@ Sentry.init({
   integrations: [new BrowserTracing()],
   tracesSampleRate: 1.0,
 });
-
-const csrfProtection = csurf({ cookie: true });
 
 var options = {
   host: process.env.MYSQL_HOST,
@@ -97,7 +93,6 @@ app.use(
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
-app.use("/basic", basicRouter);
 app.use("/calendar", calendarRouter);
 app.use(Sentry.Handlers.errorHandler());
 export default app;
