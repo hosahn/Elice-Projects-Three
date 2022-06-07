@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
@@ -37,6 +37,8 @@ const HighLight = styled.div`
 `;
 
 const Nav = () => {
+  const navigate = useNavigate();
+
   return (
     <NavWrap>
       <Btn>
@@ -45,10 +47,13 @@ const Nav = () => {
       <Btn>
         <HighLight>리포트</HighLight>
       </Btn>
+      <Btn onClick={() => navigate('/write')}>
+        <HighLight>일기 쓰기</HighLight>
+      </Btn>
       <Btn>
         <HighLight>전체 일기</HighLight>
       </Btn>
-      <UserBtn>
+      <UserBtn onClick={() => navigate('/userInfo')}>
         <FontAwesomeIcon icon={faCircleUser} className="user" />
       </UserBtn>
     </NavWrap>

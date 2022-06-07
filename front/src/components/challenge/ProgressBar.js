@@ -10,7 +10,7 @@ const BarWrap = styled.div`
 
 const Filter = styled.div`
   height: 100%;
-  width: ${(props) => (props.completed ? props.completed : 0)}%;
+  width: ${(props) => (props.completed ? props.completed * 10 : 0)}%;
   background-color: #916bbf;
   border-radius: 50px;
   text-align: right;
@@ -27,7 +27,7 @@ const ProgressBar = (props) => {
   return (
     <BarWrap>
       <Filter completed={completed}>
-        <Label>{`${completed}%`}</Label>
+        <Label>{`${completed}회차`}</Label>
       </Filter>
     </BarWrap>
   );
