@@ -73,15 +73,11 @@ model user_challenge {
 
 model users {
   id             Int              @id @default(autoincrement())
-  email          String?          @unique @db.VarChar(50)
+  email          String?          @db.VarChar(50)
   pw             String?          @db.VarChar(25)
   social         String?          @db.VarChar(10)
   inserted_at    DateTime?        @default(now()) @db.Timestamp(0)
-<<<<<<< HEAD
-  updated_at     DateTime?        @default(now()) @db.Timestamp(0)
-=======
   updated_at     DateTime?        @default(now()) @updatedAt @db.Timestamp(0)
->>>>>>> origin/dev-back
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]

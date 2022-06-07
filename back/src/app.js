@@ -56,7 +56,6 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -65,7 +64,7 @@ app.use(compression());
 //passport
 app.use(
   session({
-    secret: "secret key",
+    secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
