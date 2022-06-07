@@ -19,10 +19,8 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
   const result = await User.findUser({ email, social: "google" });
   try {
     if (result) {
-      console.log("logged in");
       return done(null, profile);
     } else {
-      console.log("signed up");
       const createdUser = await prisma.users.create({
         data: {
           email: email,
@@ -30,7 +28,6 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
           social: "google",
         },
       });
-      console.log(createdUser);
       return done(null, profile);
     }
   } catch (error) {

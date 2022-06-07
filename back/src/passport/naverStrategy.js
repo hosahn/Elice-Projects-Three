@@ -16,10 +16,8 @@ const verify = async (accessToken, refreshToken, profile, done) => {
   const result = await User.findUser({ email, social: "naver" });
   try {
     if (result) {
-      console.log("logged in");
       return done(null, profile);
     } else {
-      console.log("signed up");
       const createdUser = await prisma.users.create({
         data: {
           email: email,
@@ -27,7 +25,6 @@ const verify = async (accessToken, refreshToken, profile, done) => {
           social: "naver",
         },
       });
-      console.log(createdUser);
       return done(null, profile);
     }
   } catch (error) {

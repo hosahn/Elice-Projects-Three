@@ -33,6 +33,7 @@ function App() {
       email: Email,
       pw: Password,
     };
+    axios.defaults.withCredentials = true;
     axios.post("http://localhost:5001/login/local", body).then((res) => {
       console.log(res);
     });

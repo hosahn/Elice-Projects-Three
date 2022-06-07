@@ -49,11 +49,18 @@ const limiter = rateLimit({
 });
 
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // server의 url이 아닌, 요청하는 client의 url
+    credentials: true,
+  })
+);
+
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
+
 //passport
 app.use(
   session({
@@ -61,13 +68,13 @@ app.use(
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    rolling: true,
     expires: new Date(Date.now() + 60 * 30),
   })
 );
-app.use(passport.initialize());
 passportStrategies();
+app.use(passport.initialize());
 app.use(passport.session());
+
 //Sentry
 if (process.env.NODE_ENV === "production") {
   app.use(

@@ -12,15 +12,12 @@ const option = {
   passwordField: "pw",
 };
 const verify = async (username, password, done) => {
-  console.log(username, password);
   const result = await User.findUser({
     email: username,
     pw: password,
     social: "local",
   });
   if (result) {
-    console.log("success");
-    console.log(result);
     done(null, result);
   } else {
     done(null, false);

@@ -3,21 +3,10 @@ import passport from "passport";
 import { User } from "../db/models/User.js";
 const userRouter = Router();
 
-// 콜백 URL
-userRouter.get("/complete", (req, res) => {
-  console.log(req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    res.redirect("/user/success");
-  } else {
-    res.redirect("/user/failed");
-  }
-});
-
 userRouter.get(
   "/googlecomplete",
   passport.authenticate("google"),
   (req, res) => {
-    console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
       res.redirect("/user/success");
     } else {
@@ -27,7 +16,6 @@ userRouter.get(
 );
 
 userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.redirect("/user/success");
   } else {
@@ -36,7 +24,6 @@ userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
 });
 
 userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.redirect("/user/success");
   } else {
@@ -46,7 +33,6 @@ userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
 
 userRouter.get("/localcomplete", (req, res) => {
   passport.authenticate("local");
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.redirect("/user/success");
   } else {
@@ -59,10 +45,8 @@ userRouter.get("/localcomplete", (req, res) => {
 userRouter.get("/logout", (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
-      console.log(err);
-      res.send("error");
+      res.send(true);
     });
-    res.send(true);
   } else {
     res.redirect("/user/failed");
   }
@@ -87,7 +71,6 @@ userRouter.post("/signup", async (req, res) => {
   const { email, pw } = req.body;
   const social = "local";
   const result = await User.createUser({ email, pw, social });
-  console.log(result);
   if (result == null) {
     res.send(false);
   } else {

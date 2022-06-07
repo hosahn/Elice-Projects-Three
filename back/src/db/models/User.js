@@ -10,7 +10,6 @@ class User {
       },
     });
     if (isUser) {
-      console.log("가입된 이메일");
       return null;
     }
     const createdUser = await prisma.users.create({
