@@ -15,12 +15,13 @@ import passport from "passport";
 import { passportStrategies } from "./passport/finalStrategy.js";
 import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
-import "./config/env.js";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
 import { basicRouter } from "./routers/basicRouter.js";
+import { calendarRouter } from "./routers/calendarRouter.js";
 import { diaryRouter } from "./routers/diaryRouter.js";
 
+process.setMaxListeners(15);
 const mysqlStore = mysqlSession(session);
 export const app = express();
 
@@ -49,25 +50,31 @@ const limiter = rateLimit({
 });
 
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // server의 url이 아닌, 요청하는 client의 url
+    credentials: true,
+  })
+);
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
+
 //passport
 app.use(
   session({
-    secret: "secret key",
+    secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    rolling: true,
     expires: new Date(Date.now() + 60 * 30),
   })
 );
-app.use(passport.initialize());
 passportStrategies();
+app.use(passport.initialize());
 app.use(passport.session());
+
 //Sentry
 if (process.env.NODE_ENV === "production") {
   app.use(
@@ -91,5 +98,6 @@ app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/basic", basicRouter);
+app.use("/calendar", calendarRouter);
 app.use(Sentry.Handlers.errorHandler());
 export default app;
