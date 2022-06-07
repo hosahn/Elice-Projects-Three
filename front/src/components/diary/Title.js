@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { titleState } from '../../atoms';
 
 const TitleInput = styled.input`
   min-height: 3rem;
@@ -19,7 +21,7 @@ const TitleInput = styled.input`
 `;
 
 const Title = () => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useRecoilState(titleState);
 
   return (
     <TitleInput

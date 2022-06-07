@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { tagState } from '../../atoms';
 
 const TagBox = styled.div`
   display: flex;
@@ -50,7 +52,7 @@ const TagInput = styled.input`
 
 const Tag = () => {
   const [tagItem, setTagItem] = useState('');
-  const [inputTag, setInputTag] = useState('');
+  const [inputTag, setInputTag] = useRecoilState(tagState);
 
   const onKeyPress = (e) => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {

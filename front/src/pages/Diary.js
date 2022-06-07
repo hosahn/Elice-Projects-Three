@@ -4,8 +4,8 @@ import Btn from '../components/Btn';
 import Tag from '../components/diary/Tag';
 import Title from '../components/diary/Title';
 import DiaryEditor from '../components/diary/DiaryEditor';
-import { diaryItemState } from '../atoms/DiaryAtom';
-import { useRecoilState } from 'recoil';
+import { titleState, textState, tagState } from '../atoms';
+import { useRecoilValue } from 'recoil';
 
 const TextContent = styled.div`
   font-family: 'EliceDigitalBaeum';
@@ -20,6 +20,16 @@ const TextContent = styled.div`
 `;
 
 const Diary = () => {
+  const title = useRecoilValue(titleState);
+  const tag = useRecoilValue(tagState);
+  const text = useRecoilValue(textState);
+
+  useEffect(() => {
+    console.log(title);
+    console.log(tag);
+    console.log(text);
+  }, [title, tag, text]);
+
   return (
     <>
       <div style={{ margin: '2rem' }}>

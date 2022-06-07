@@ -2,14 +2,14 @@ import React, { useRef } from 'react';
 import * as Api from '../../api';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-import { diaryItemState } from '../../atoms/DiaryAtom';
+import { textState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
+  const setText = useSetRecoilState(textState);
 
   const uploadImage = async (blob) => {
-    console.log('이미지');
     const formData = new FormData();
     formData.append('image', blob);
     const url = await Api.postImg('/img', formData);
@@ -19,6 +19,7 @@ const DiaryEditor = () => {
   const handleClick = () => {
     const editorInstance = editorRef.current.getInstance();
     const temp = editorInstance.getMarkdown();
+    setText(temp);
   };
 
   return (
@@ -37,6 +38,7 @@ const DiaryEditor = () => {
           },
         }}
       />
+      <button onClick={handleClick}>btn</button>
     </>
   );
 };
