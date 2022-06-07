@@ -2,9 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const localHandler = () => {
-    window.open("http://localhost:5001/login/google", "_self");
-  };
   const googleHandler = () => {
     window.open("http://localhost:5001/login/google", "_self");
   };
@@ -36,14 +33,13 @@ function App() {
       email: Email,
       pw: Password,
     };
-    await axios.post("http://localhost:5001/login/local", body).then((e) => {
-      window.open("http://localhost:5001/user/main", "_self");
+    axios.post("http://localhost:5001/login/local", body).then((res) => {
+      console.log(res);
     });
   };
 
   return (
     <div>
-      <button onClick={localHandler}>locallogin</button>
       <button onClick={googleHandler}>googleLogin</button>
       <button onClick={kakaoHandler}>kakaoLogin</button>
       <button onClick={naverHandler}>naverLogin</button>

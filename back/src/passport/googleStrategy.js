@@ -2,7 +2,7 @@ import { Strategy } from "passport-google-oauth20";
 import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
-import { User } from "../db/models/User.js";
+import { User } from "../db/index.js";
 
 const prisma = new PrismaClient();
 // use `prisma` in your application to read and write data in your DB

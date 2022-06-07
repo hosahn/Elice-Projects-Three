@@ -45,11 +45,12 @@ userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
 });
 
 userRouter.get("/localcomplete", (req, res) => {
+  passport.authenticate("local");
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect(307, "/user/main");
+    res.redirect("/user/main");
   } else {
-    res.redirect(307, "/user/error");
+    res.redirect("/user/error");
   }
 });
 
@@ -58,9 +59,10 @@ userRouter.get("/localcomplete", (req, res) => {
 userRouter.get("/logout", (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
-      if (err) return next(err);
+      console.log(err);
+      res.send("error");
     });
-    res.redirect("http://localhost:3000");
+    res.send(true);
   }
   res.redirect("/user/error");
 });
@@ -69,23 +71,27 @@ userRouter.get("/logout", (req, res) => {
 
 userRouter.get("/main", (req, res) => {
   if (req.isAuthenticated()) {
-    res.send("Here comes main page");
+    res.send(true);
   } else {
-    res.redirect("/user/error");
+    res.send(false);
   }
 });
 
 userRouter.get("/error", (req, res) => {
   res.send("Userinformation nicht vorhanden");
 });
-
 // 회원가입
 
 userRouter.post("/signup", async (req, res) => {
   const { email, pw } = req.body;
   const social = "local";
   const result = await User.createUser({ email, pw, social });
-  res.send(result);
+  console.log(result);
+  if (result == null) {
+    res.send("이미 가입된 이메일입니다");
+  } else {
+    res.send(result);
+  }
 });
 
 export { userRouter };

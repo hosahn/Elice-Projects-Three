@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
-import { User } from "../db/models/User.js";
+import { User } from "../db/index.js";
 
 const prisma = new PrismaClient();
 //config
@@ -20,6 +20,7 @@ const verify = async (username, password, done) => {
   });
   if (result) {
     console.log("success");
+    console.log(result);
     done(null, result);
   } else {
     done(null, false);

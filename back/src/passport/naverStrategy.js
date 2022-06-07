@@ -2,7 +2,7 @@ import { Strategy } from "passport-naver";
 import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
-import { User } from "../db/models/User.js";
+import { User } from "../db/index.js";
 const prisma = new PrismaClient();
 
 const option = {
