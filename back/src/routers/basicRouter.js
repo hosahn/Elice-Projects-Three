@@ -1,6 +1,6 @@
 import { Router } from "express";
 import BasicService from "../services/basicService.js";
-const basicRouter = Router();
+const basicRouter = Router("basic");
 
 /**
  *  @swagger
