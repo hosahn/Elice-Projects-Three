@@ -2,6 +2,7 @@ import { Strategy } from "passport-google-oauth20";
 import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
+import { User } from "../db/models/User.js";
 
 const prisma = new PrismaClient();
 // use `prisma` in your application to read and write data in your DB
@@ -14,17 +15,10 @@ const option = {
 };
 
 const verify = async (request, accessToken, refreshToken, profile, done) => {
-  console.log(profile.id);
-  console.log(profile.emails[0].value);
   const email = profile.emails[0].value;
-  const result = await prisma.users.findMany({
-    where: {
-      email: email,
-      social: "google",
-    },
-  });
+  const result = await User.findUser({ email, social: "google" });
   try {
-    if (result.length > 0) {
+    if (result) {
       console.log("logged in");
       return done(null, profile);
     } else {
@@ -44,5 +38,5 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
   }
 };
 export const GoogleStrategy = () => {
-  passport.use(new Strategy(option, verify));
+  passport.use("google", new Strategy(option, verify));
 };

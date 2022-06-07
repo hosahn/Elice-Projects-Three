@@ -19,6 +19,7 @@ import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
 import { basicRouter } from "./routers/basicRouter.js";
 
+process.setMaxListeners(15);
 const mysqlStore = mysqlSession(session);
 export const app = express();
 

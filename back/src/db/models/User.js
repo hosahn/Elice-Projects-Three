@@ -1,18 +1,20 @@
 // import { BasicModel } from "../index.js";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-export default class User {
+class User {
   static async createUser({ social, pw, email }) {
     const createdUser = await prisma.users.create({
-      social: social,
-      email: email,
-      pw: pw,
+      data: {
+        social: social,
+        email: email,
+        pw: pw,
+      },
     });
     return createdUser;
   }
   static async findUser({ email, social, pw }) {
     if (pw) {
-      const foundUser = await prisma.users.findUnique({
+      const foundUser = await prisma.users.findFirst({
         where: {
           email: email,
           social: social,
@@ -21,7 +23,7 @@ export default class User {
       });
       return foundUser;
     } else {
-      const foundUser = await prisma.users.findUnique({
+      const foundUser = await prisma.users.findFirst({
         where: {
           email: email,
           social: social,
@@ -31,3 +33,5 @@ export default class User {
     }
   }
 }
+
+export { User };

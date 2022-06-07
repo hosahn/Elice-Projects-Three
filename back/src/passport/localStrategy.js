@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
+import { User } from "../db/models/User.js";
 
 const prisma = new PrismaClient();
 //config
@@ -11,20 +12,20 @@ const option = {
   passwordField: "pw",
 };
 const verify = async (username, password, done) => {
-  const result = await prisma.users.findMany({
-    where: {
-      email: username,
-      pw: password,
-      social: "local",
-    },
+  console.log(username, password);
+  const result = await User.findUser({
+    email: username,
+    pw: password,
+    social: "local",
   });
-  if (result.length > 0) {
-    done(null, username);
+  if (result) {
+    console.log("success");
+    done(null, result);
   } else {
-    done(false, username);
+    done(null, false);
   }
 };
 
 export const LocalStrategy = () => {
-  passport.use(new Strategy(option, verify));
+  passport.use("local", new Strategy(option, verify));
 };

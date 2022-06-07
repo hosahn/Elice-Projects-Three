@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-import User from "../db/models/User";
+import { User } from "../db/models/User.js";
 const userRouter = Router();
 
 // 콜백 URL
@@ -9,7 +9,7 @@ userRouter.get("/complete", (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/user/main");
   } else {
-    res.redirect("/error");
+    res.redirect("/user/error");
   }
 });
 
@@ -21,7 +21,7 @@ userRouter.get(
     if (req.isAuthenticated()) {
       res.redirect("/user/main");
     } else {
-      res.redirect("/error");
+      res.redirect("/user/error");
     }
   }
 );
@@ -31,7 +31,7 @@ userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/user/main");
   } else {
-    res.redirect("/error");
+    res.redirect("/user/error");
   }
 });
 
@@ -40,7 +40,16 @@ userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/user/main");
   } else {
-    res.redirect("/error");
+    res.redirect("/user/error");
+  }
+});
+
+userRouter.get("/localcomplete", (req, res) => {
+  console.log(req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    res.redirect(307, "/user/main");
+  } else {
+    res.redirect(307, "/user/error");
   }
 });
 
@@ -62,7 +71,7 @@ userRouter.get("/main", (req, res) => {
   if (req.isAuthenticated()) {
     res.send("Here comes main page");
   } else {
-    res.redirect("http://localhost:3000");
+    res.redirect("/user/error");
   }
 });
 

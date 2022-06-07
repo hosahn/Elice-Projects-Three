@@ -2,7 +2,7 @@ import { Strategy } from "passport-naver";
 import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
-
+import { User } from "../db/models/User.js";
 const prisma = new PrismaClient();
 
 const option = {
@@ -13,14 +13,9 @@ const option = {
 
 const verify = async (accessToken, refreshToken, profile, done) => {
   const email = profile._json.email;
-  const result = await prisma.users.findMany({
-    where: {
-      email: email,
-      social: "naver",
-    },
-  });
+  const result = await User.findUser({ email, social: "naver" });
   try {
-    if (result.length > 0) {
+    if (result) {
       console.log("logged in");
       return done(null, profile);
     } else {
@@ -41,5 +36,5 @@ const verify = async (accessToken, refreshToken, profile, done) => {
 };
 
 export const NaverStrategy = () => {
-  passport.use(new Strategy(option, verify));
+  passport.use("naver", new Strategy(option, verify));
 };
