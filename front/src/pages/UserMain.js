@@ -55,7 +55,7 @@ const UserMain = () => {
   const mockOpen = async () => {
     const mainUrl = 'https://12team.com/user/1234';
     const challengeUrl = 'https://12team.com/userChallenge/1234';
-    axios
+    await axios
       .all([axios.get(mainUrl), axios.get(challengeUrl)])
       .then(
         axios.spread((r1, r2) => {
@@ -63,7 +63,7 @@ const UserMain = () => {
           const res2 = r2.data;
           const res = { ...res1, ...res2 };
           setUser(res);
-          setRegisterDate(getDateDiff(user.inserted_at));
+          getDateDiff(res.inserted_at); // 적용되기 전에 불렀다.
         })
       )
       .catch((error) => {
@@ -76,7 +76,7 @@ const UserMain = () => {
     const now = new Date();
     const diffDate = date.getTime() - now.getTime();
     const dateDays = Math.floor(diffDate / (1000 * 60 * 60 * 24)) * -1 + 1;
-    return dateDays;
+    setRegisterDate(dateDays);
   };
 
   return (

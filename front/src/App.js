@@ -6,7 +6,8 @@ import Introduction from './pages/Introduction';
 import UserMain from './pages/UserMain';
 import UserInfo from './pages/UserInfo';
 import Nav from './components/nav/Nav';
-import Write from './pages/Write';
+import Write from './pages/Diary';
+import Diary from './pages/Diary';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" exact element={<Introduction />} />
         <Route path="/userMain" element={<UserMain />} />
         <Route path="/userInfo" element={<UserInfo />} />
-        <Route path="/write" element={<Write />} />
+        <Route path="/diaryEditor" element={<Diary />} />
       </Routes>
     </Router>
   );

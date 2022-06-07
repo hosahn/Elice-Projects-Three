@@ -16,7 +16,7 @@ const CustomButton = styled.button`
 
 const Btn = ({ text, type, onClick, disabled }) => {
   const btnType = ['main', 'sub'].includes(type) ? type : 'main';
-  console.log(btnType);
+
   return (
     <CustomButton type={btnType} onClick={onClick} disabled={disabled}>
       {text}

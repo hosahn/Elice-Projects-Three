@@ -47,13 +47,13 @@ const Nav = () => {
       <Btn>
         <HighLight>리포트</HighLight>
       </Btn>
-      <Btn onClick={() => navigate('/write')}>
+      <Btn onClick={() => navigate('/diaryEditor')}>
         <HighLight>일기 쓰기</HighLight>
       </Btn>
       <Btn>
         <HighLight>전체 일기</HighLight>
       </Btn>
-      <UserBtn onClick={() => navigate('/userInfo')}>
+      <UserBtn onClick={() => navigate('/usermain')}>
         <FontAwesomeIcon icon={faCircleUser} className="user" />
       </UserBtn>
     </NavWrap>
