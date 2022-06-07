@@ -5,7 +5,7 @@ const loginRouter = Router();
 loginRouter.post(
   "/local",
   passport.authenticate("local", {
-    failureRedirect: "/user/error",
+    failureRedirect: "/user/failed",
     successRedirect: "/user/localcomplete",
   }),
   (err) => {

@@ -18,6 +18,7 @@ import session from "express-session";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
 import { basicRouter } from "./routers/basicRouter.js";
+import { calendarRouter } from "./routers/calendarRouter.js";
 
 process.setMaxListeners(15);
 const mysqlStore = mysqlSession(session);
@@ -89,6 +90,7 @@ app.use(
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/basic", basicRouter);
+app.use("/calendar", calendarRouter);
 
 app.use(Sentry.Handlers.errorHandler());
 export default app;

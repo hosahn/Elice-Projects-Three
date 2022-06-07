@@ -7,9 +7,9 @@ const userRouter = Router();
 userRouter.get("/complete", (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect("/user/main");
+    res.redirect("/user/success");
   } else {
-    res.redirect("/user/error");
+    res.redirect("/user/failed");
   }
 });
 
@@ -19,9 +19,9 @@ userRouter.get(
   (req, res) => {
     console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
-      res.redirect("/user/main");
+      res.redirect("/user/success");
     } else {
-      res.redirect("/user/error");
+      res.redirect("/user/failed");
     }
   }
 );
@@ -29,18 +29,18 @@ userRouter.get(
 userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect("/user/main");
+    res.redirect("/user/success");
   } else {
-    res.redirect("/user/error");
+    res.redirect("/user/failed");
   }
 });
 
 userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect("/user/main");
+    res.redirect("/user/success");
   } else {
-    res.redirect("/user/error");
+    res.redirect("/user/failed");
   }
 });
 
@@ -48,9 +48,9 @@ userRouter.get("/localcomplete", (req, res) => {
   passport.authenticate("local");
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    res.redirect("/user/main");
+    res.redirect("/user/success");
   } else {
-    res.redirect("/user/error");
+    res.redirect("/user/failed");
   }
 });
 
@@ -63,13 +63,14 @@ userRouter.get("/logout", (req, res) => {
       res.send("error");
     });
     res.send(true);
+  } else {
+    res.redirect("/user/failed");
   }
-  res.redirect("/user/error");
 });
 
 //CallBack Url이 리다이렉트 하는 경로
 
-userRouter.get("/main", (req, res) => {
+userRouter.get("/success", (req, res) => {
   if (req.isAuthenticated()) {
     res.send(true);
   } else {
@@ -77,8 +78,8 @@ userRouter.get("/main", (req, res) => {
   }
 });
 
-userRouter.get("/error", (req, res) => {
-  res.send("Userinformation nicht vorhanden");
+userRouter.get("/failed", (req, res) => {
+  res.send(false);
 });
 // 회원가입
 
@@ -88,9 +89,9 @@ userRouter.post("/signup", async (req, res) => {
   const result = await User.createUser({ email, pw, social });
   console.log(result);
   if (result == null) {
-    res.send("이미 가입된 이메일입니다");
+    res.send(false);
   } else {
-    res.send(result);
+    res.send(true);
   }
 });
 
