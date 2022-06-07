@@ -1,21 +1,31 @@
 import { Router } from "express";
 import passport from "passport";
-import { passportStrategies } from "../passport/finalStrategy.js";
 const loginRouter = Router();
 
-passport.authenticate();
-passportStrategies();
-loginRouter.get("/local", passport.authenticate("local"));
+loginRouter.post(
+  "/local",
+  passport.authenticate("local", {
+    failureRedirect: "/user/failed",
+    successRedirect: "/user/localcomplete",
+  }),
+  (err) => {
+    console.log(err);
+  }
+);
 
 loginRouter.get(
   "/google",
-  passport.authenticate("google", { scope: ["email"] }, (req, res) => {
-    console.log("completed");
+  passport.authenticate("google", { scope: ["email"] }, (err) => {
+    console.log(err);
   })
 );
 
-loginRouter.get("/kakao", passport.authenticate("kakao"), (req, res) => {
-  console.log("completed");
+loginRouter.get("/kakao", passport.authenticate("kakao"), (err) => {
+  console.log(err);
+});
+
+loginRouter.get("/naver", passport.authenticate("naver"), (err) => {
+  console.log(err);
 });
 
 export { loginRouter };
