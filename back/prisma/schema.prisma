@@ -23,11 +23,11 @@ model diary {
   text    String?   @db.Text
   title   String?   @db.VarChar(50)
   tag     String?   @db.VarChar(50)
-  date    DateTime? @db.Timestamp(0)
+  date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?
-  image   String?   @db.TinyText
-  users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
+  users   users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "diary_ibfk_1")
   emotion emotion[]
+  images  images[]
 
   @@index([user_id], map: "user_id")
 }
@@ -36,7 +36,7 @@ model emotion {
   id       Int       @id @default(autoincrement())
   user_id  Int?
   diary_id Int?
-  date     DateTime? @db.Timestamp(0)
+  date     DateTime? @default(now()) @db.Timestamp(0)
   emotion  String?   @db.VarChar(10)
   diary    diary?    @relation(fields: [diary_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_2")
   users    users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_1")
@@ -60,7 +60,7 @@ model user_challenge {
   id           Int        @id @default(autoincrement())
   user_id      Int?
   challenge_id Int?
-  start_date   DateTime?  @db.Timestamp(0)
+  start_date   DateTime?  @default(now()) @db.Timestamp(0)
   end_date     DateTime?  @db.Timestamp(0)
   is_completed Boolean?
   is_broken    Boolean?
@@ -81,4 +81,13 @@ model users {
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]
+}
+
+model images {
+  id       Int     @id @default(autoincrement())
+  diary_id Int?
+  image    String? @db.TinyText
+  diary    diary?  @relation(fields: [diary_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "images_ibfk_1")
+
+  @@index([diary_id], map: "diary_id")
 }
