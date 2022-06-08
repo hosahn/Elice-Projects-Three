@@ -1,19 +1,22 @@
-import React, { useRef } from 'react';
-import * as Api from '../../api';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import React, { useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 import { textState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
+import axios from 'axios';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
   const setText = useSetRecoilState(textState);
+  const [url, setUrl] = useState('');
 
   const uploadImage = async (blob) => {
+    const imageUrl = 'https://12team.com/userDiary/img';
     const formData = new FormData();
     formData.append('image', blob);
-    const url = await Api.postImg('/img', formData);
-    return url;
+    const res = await axios.get(imageUrl);
+    console.log(res.data.imageUrl);
+    return res.data.imageUrl;
   };
 
   const handleClick = () => {
@@ -29,12 +32,14 @@ const DiaryEditor = () => {
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
+        toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
         useCommandShortcut={true}
         ref={editorRef}
         hooks={{
-          addImageBlobHook: (blob, callback) => {
-            const img_url = uploadImage(blob);
-            callback(img_url, 'alt_text');
+          addImageBlobHook: async (blob, callback) => {
+            const imgUrl = uploadImage(blob);
+            callback('text', imgUrl);
+            return false;
           },
         }}
       />

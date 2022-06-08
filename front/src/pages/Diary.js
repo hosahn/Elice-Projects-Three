@@ -30,6 +30,12 @@ const Diary = () => {
     console.log(text);
   }, [title, tag, text]);
 
+  const submitDiaryItem = () => {
+    console.log(title);
+    console.log(tag);
+    console.log(text);
+  };
+
   return (
     <>
       <div style={{ margin: '2rem' }}>
@@ -37,7 +43,7 @@ const Diary = () => {
         <Tag />
         <DiaryEditor />
         <div style={{ float: 'right', margin: '1rem' }}>
-          <Btn text={'저장하기'} type={'main'} onClick />
+          <Btn text={'저장하기'} type={'main'} onClick={submitDiaryItem} />
         </div>
       </div>
     </>
