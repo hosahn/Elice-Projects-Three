@@ -85,9 +85,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(Sentry.Handlers.requestHandler());
-app.use("/", (req, res) => {
-  res.send("Server Connected");
-});
 app.use(
   "/swagger",
   swaggerUi.serve,

@@ -1,4 +1,4 @@
-import Diary from "../db/models/Diary.js";
+import { Diary } from "../db/index.js";
 import { diaryRouter } from "../routers/diaryRouter.js";
 import ImagesService from "./imagesService.js";
 //@ts-check

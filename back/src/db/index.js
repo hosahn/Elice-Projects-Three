@@ -2,5 +2,6 @@
 import { User } from "./models/User.js";
 import { Diary } from "./models/Diary.js";
 import { Emotion } from "./models/Emotion.js";
-
-export { User, Emotion, Diary };
+import { Images } from "./models/Images.js";
+import { Calendar } from "./models/Calendar.js";
+export { User, Emotion, Diary, Images, Calendar };

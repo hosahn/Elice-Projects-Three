@@ -1,4 +1,4 @@
-import Images from "../db/models/Images.js";
+import { Images } from "../db/index.js";
 //@ts-check
 export default class ImagesService {
   static async postImages(diary_id, images) {

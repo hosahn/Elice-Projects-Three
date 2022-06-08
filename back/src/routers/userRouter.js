@@ -41,6 +41,7 @@ userRouter.get("/localcomplete", (req, res) => {
 });
 
 //Logout
+
 userRouter.get("/logout", (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
@@ -62,12 +63,12 @@ userRouter.get("/success", (req, res) => {
   }
 });
 
-//실패면 false
+// 실패면
 userRouter.get("/failed", (req, res) => {
   res.send(false);
 });
-
 // 회원가입
+
 userRouter.post("/signup", async (req, res) => {
   const { email, pw } = req.body;
   const social = "local";

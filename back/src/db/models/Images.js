@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 //@ts-check
-export default class Images {
+class Images {
   static async create(data) {
     console.log(data);
     const body = await prisma.images.createMany({
@@ -10,3 +10,5 @@ export default class Images {
     return body;
   }
 }
+
+export { Images };
