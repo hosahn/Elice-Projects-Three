@@ -20,18 +20,12 @@ const diaryRouter = Router();
  *     requestBody:
  *       required: true
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
- *             type: object
  *             properties:
- *               images:
- *                 type: array
- *                 items:
- *                   type: string
- *                   format: binary
  *               user_id:
  *                 type: number
- *                 example: 10
+ *                 example: 1
  *                 description: "현재 로그인한 유저의 ID값"
  *               text:
  *                 type: string
@@ -96,7 +90,7 @@ diaryRouter.post("/", async (req, res, next) => {
  *     - in: path
  *       name: id
  *       required: true
- *       example: 10
+ *       example: 2
  *     responses:
  *       '204':
  *         description: "삭제 성공"
@@ -123,7 +117,7 @@ diaryRouter.delete("/:id", async (req, res, next) => {
  *     - in: path
  *       name: id
  *       required: true
- *       example: 10
+ *       example: 2
  *     responses:
  *       '200':
  *         description: "다이어리 개별 조회 성공"
@@ -183,7 +177,7 @@ diaryRouter.get("/:id", async (req, res, next) => {
  *     - in: path
  *       name: user_id
  *       required: true
- *       example: 10
+ *       example: 1
  *     responses:
  *       '200':
  *         description: "유저가 작성한 일기 조회 성공"

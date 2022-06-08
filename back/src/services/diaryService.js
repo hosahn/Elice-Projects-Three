@@ -2,6 +2,7 @@ import Diary from "../db/models/Diary.js";
 //@ts-check
 export default class DiaryService {
   /**
+   * - 일기 생성 Service 함수
    * @param {object} body - router에서 보내준 객체
    * @param {number} body.user_id - 일기를 작성한 유저 ID
    * @param {string} body.text - 일기 내용
@@ -21,6 +22,7 @@ export default class DiaryService {
     return body;
   }
   /**
+   * - 일기 삭제 Service 함수
    * @param {number} id - 삭제할 ID 값
    */
   static async delete(id) {
@@ -28,6 +30,7 @@ export default class DiaryService {
     return body;
   }
   /**
+   * - 일기 개별 조회 Service 함수
    * @param {number} id - 조회할 다이어리 ID 값
    */
   static async read(id) {
@@ -36,6 +39,7 @@ export default class DiaryService {
   }
 
   /**
+   *  - 일기 목록 조회 Service 함수
    * @param {number} user_id - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
    */
   static async readList(user_id) {
