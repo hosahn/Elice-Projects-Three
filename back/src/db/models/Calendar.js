@@ -8,7 +8,21 @@ class Calendar {
     console.log(result);
     return result;
   }
-  static async findMonthlyEmotion({ year, month, user_id }) {}
+  static async findMonthlyEmotion({ fromDate, toDate, user_id }) {
+    const result =
+      await prisma.$queryRaw`SELECT * FROM diary  WHERE user_id = ${user_id} AND (date between date_format(${fromDate}, '%Y-%m-%d/%H:%m:%s') and date_format(${toDate}, '%Y-%m-%d/%H:%m:%s'))`;
+    return 0;
+  }
+  static async findMonthlyChallenge({ fromDate, toDate, user_id }) {
+    const result =
+      await prisma.$queryRaw`SELECT * FROM diary  WHERE user_id = ${user_id} AND (date between date_format(${fromDate}, '%Y-%m-%d/%H:%m:%s') and date_format(${toDate}, '%Y-%m-%d/%H:%m:%s'))`;
+    return 0;
+  }
+  static async findMonthlyViews({ fromDate, toDate, user_id }) {
+    const result =
+      await prisma.$queryRaw`SELECT * FROM diary  WHERE user_id = ${user_id} AND (date between date_format(${fromDate}, '%Y-%m-%d/%H:%m:%s') and date_format(${toDate}, '%Y-%m-%d/%H:%m:%s'))`;
+    return 0;
+  }
 }
 
 export { Calendar };

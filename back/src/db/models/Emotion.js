@@ -2,9 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 class Emotion {
-  static async createEmotion() {}
-  static async getEmotionDay() {}
-  static async getEmotionMonth() {}
+  static async getMonthlyEmotion() {}
 }
 
 export { Emotion };

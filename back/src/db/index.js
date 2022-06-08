@@ -4,4 +4,6 @@ import { Diary } from "./models/Diary.js";
 import { Emotion } from "./models/Emotion.js";
 import { Images } from "./models/Images.js";
 import { Calendar } from "./models/Calendar.js";
-export { User, Emotion, Diary, Images, Calendar };
+import { UserChallenge } from "./models/UserCh.js";
+import { Challenge } from "./models/Challenge.js";
+export { User, Emotion, Diary, Images, Calendar, UserChallenge, Challenge };
