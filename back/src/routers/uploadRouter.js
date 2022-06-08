@@ -1,6 +1,7 @@
 import upload from "../middlewares/multer.js";
 import { Router } from "express";
 import s3 from "../config/s3.js";
+import createUrl from "../test/preSign.js";
 const uploadRouter = Router();
 
 /**
@@ -47,5 +48,12 @@ uploadRouter.delete("/", async (req, res, next) => {
 //     throw new Error(`이미지 업로드 에러\n Error : ${error.message}`);
 //   }
 // });
+
+uploadRouter.get("/:file", async (req, res) => {
+  const { file } = req.params;
+  const fileName = `diary/${Date.now()}${file}`;
+  const url = createUrl(fileName);
+  return res.status(200).send(url);
+});
 
 export default uploadRouter;
