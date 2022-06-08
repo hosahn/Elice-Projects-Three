@@ -6,4 +6,4 @@ AWS.config.loadFromPath(__dirname + "/src/config/s3.json"); // 인증
 
 const s3 = new AWS.S3();
 
-export { s3 };
+export default s3;

@@ -228,4 +228,4 @@ diaryRouter.get("/list/:user_id", async (req, res, next) => {
 //   res.status(201).json(images);
 // });
 
-export { diaryRouter };
+export default diaryRouter ;

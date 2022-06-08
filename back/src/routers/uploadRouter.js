@@ -1,6 +1,6 @@
-import { upload } from "../middlewares/multer.js";
+import upload from "../middlewares/multer.js";
 import { Router } from "express";
-import { s3 } from "../config/s3.js";
+import s3 from "../config/s3.js";
 const uploadRouter = Router();
 
 /**
@@ -11,7 +11,6 @@ const uploadRouter = Router();
  */
 uploadRouter.post("/", upload.single("image"), async (req, res, next) => {
   try {
-    console.log(req.file);
     res.status(201).send(req.file.location);
   } catch (error) {
     throw new Error(`이미지 업로드 에러 \n Error : ${error.message}`);
@@ -49,4 +48,4 @@ uploadRouter.delete("/", async (req, res, next) => {
 //   }
 // });
 
-export { uploadRouter };
+export default uploadRouter;
