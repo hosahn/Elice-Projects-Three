@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import * as Api from '../api';
 import axios from 'axios';
 import ChallengeCard from '../components/challenge/ChallengeCard';
+import Container from '../components/card/Container';
+import MainText from '../components/card/MainText';
+import SubText from '../components/card/SubTitle';
+import { MainTitle, SubContext, HighLightPuple } from '../styles/CommonStyle';
 
 // 달력, 설명
 const UserMainContainer = styled.div`
@@ -12,36 +16,14 @@ const UserMainContainer = styled.div`
   align-items: center;
 `;
 
-const TextContent = styled.div`
-  font-family: 'EliceDigitalBaeum_Bold';
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin-top: 2rem;
-  margin-left: 13rem;
-  margin-bottom: 1rem;
-  span {
-    color: #3d2c8d;
-  }
-`;
-
 const ChallengeContainer = styled.div`
   position: absolute;
-  width: 1124px;
+  width: 70rem;
   height: 15rem;
+  padding: 10px;
   background: rgba(243, 240, 255, 0.5);
   box-shadow: 1px 3px 1px #dadce0;
   border-radius: 20px;
-`;
-
-const ChallengeTitle = styled.div`
-  font-family: 'EliceDigitalBaeum_Bold';
-  font-size: 1.8rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  margin-left: 6rem;
-  span {
-    color: #3d2c8d;
-  }
 `;
 
 const UserMain = () => {
@@ -81,21 +63,24 @@ const UserMain = () => {
 
   return (
     <>
-      <TextContent>
-        안녕하세요. <span>{user.name}</span>님! <br />
-        저희와 <span>{registerDate}</span>일째 인연을 지속하고 계시네요.
-      </TextContent>
+      <SubContext>
+        안녕하세요. <HighLightPuple>{user.name}</HighLightPuple>님! <br />
+        저희와 <HighLightPuple>{registerDate}</HighLightPuple>일째 인연을
+        지속하고 계시네요.
+      </SubContext>
       <UserMainContainer>
         <ChallengeContainer>
           {user.is_broken ? (
             <>
-              <ChallengeTitle>
-                현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ
-              </ChallengeTitle>
+              <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
             </>
           ) : (
             <>
-              <ChallengeCard user={user} />
+              <ChallengeCard user={user} props={'안녕'} />
+              <Container>
+                <MainText text={'안녕'} />
+                <SubText text={'확인'} />
+              </Container>
             </>
           )}
         </ChallengeContainer>

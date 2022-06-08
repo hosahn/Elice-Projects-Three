@@ -1,31 +1,15 @@
 import React, { useState } from 'react';
+import { TextInput } from '../../styles/CommonStyle';
 import { useRecoilState } from 'recoil';
-import styled from 'styled-components';
 import { titleState } from '../../atoms';
-
-const TitleInput = styled.input`
-  min-height: 3rem;
-  width: 30rem;
-  margin: 0.5rem;
-  padding: 0 1rem;
-  border: none;
-  border-bottom: 2px solid #ccc;
-  font-size: 2rem;
-  &:focus {
-    outline: none;
-    border-color: #3d2c8d;
-  }
-  &:focus::-webkit-input-placeholder {
-    color: #748ffc;
-  }
-`;
 
 const Title = () => {
   const [title, setTitle] = useRecoilState(titleState);
 
   return (
-    <TitleInput
+    <TextInput
       type="text"
+      size={2}
       onChange={(e) => setTitle(e.target.value)}
       placeholder="제목을 입력해주세요"
       value={title}

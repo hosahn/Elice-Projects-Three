@@ -8,12 +8,9 @@ import axios from 'axios';
 const DiaryEditor = () => {
   const editorRef = useRef();
   const setText = useSetRecoilState(textState);
-  const [url, setUrl] = useState('');
 
-  const uploadImage = async (blob) => {
+  const uploadImage = async () => {
     const imageUrl = 'https://12team.com/userDiary/img';
-    const formData = new FormData();
-    formData.append('image', blob);
     const res = await axios.get(imageUrl);
     console.log(res.data.imageUrl);
     return res.data.imageUrl;
@@ -37,8 +34,8 @@ const DiaryEditor = () => {
         ref={editorRef}
         hooks={{
           addImageBlobHook: async (blob, callback) => {
-            const imgUrl = uploadImage(blob);
-            callback('text', imgUrl);
+            const imgUrl = await uploadImage(blob);
+            callback(imgUrl, 'text');
             return false;
           },
         }}

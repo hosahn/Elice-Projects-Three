@@ -1,29 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import {
+  MainContext,
+  HighLightPink,
+  ExplainContext,
+  ExplainHighLight,
+} from '../../styles/CommonStyle';
 import styled from 'styled-components';
 import ProgressBar from './ProgressBar';
-
-const SubTextContent = styled.div`
-  font-family: 'EliceDigitalBaeum';
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  margin-left: 6rem;
-  span {
-    font-family: EliceDigitalBaeum_Bold;
-    color: #e64980;
-    font-weight: 900;
-  }
-`;
-
-const ChallengeTitle = styled.div`
-  font-family: 'EliceDigitalBaeum_Bold';
-  font-size: 1.8rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  margin-left: 6rem;
-  span {
-    color: #e64980;
-  }
-`;
 
 const ProgressBarContainer = styled.div`
   display: flex;
@@ -59,17 +42,18 @@ const ChallengeCard = (user) => {
 
   return (
     <>
-      <ChallengeTitle>
-        현재 <span>{user.user.challengeName} 챌린지</span>에{' '}
-        <span>{challengeDate}</span>
+      <MainContext>
+        현재 <HighLightPink>{user.user.challengeName} 챌린지</HighLightPink>에{' '}
+        <HighLightPink>{challengeDate}</HighLightPink>
         일째 도전 중 입니다.🏁 <br />
-      </ChallengeTitle>
-      <SubTextContent>
+      </MainContext>
+      <ExplainContext left={6}>
         현재까지 달성률은 {(round - 1) * 10}%입니다. <br />
-        <span>{round}</span>회차 종료일 <span>{roundFinishDate}</span>까지{' '}
-        <span>{roundDate}</span>
+        <ExplainHighLight>{round}</ExplainHighLight>회차 종료일{' '}
+        <ExplainHighLight>{roundFinishDate}</ExplainHighLight>까지{' '}
+        <ExplainHighLight>{roundDate}</ExplainHighLight>
         일 남았어요.😊 <br />
-      </SubTextContent>
+      </ExplainContext>
       <ProgressBarContainer>
         <ProgressBar completed={round - 1} />
       </ProgressBarContainer>
