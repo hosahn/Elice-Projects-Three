@@ -25,4 +25,44 @@ export default class Diary {
     });
     return deleteDiary;
   }
+
+  /**
+   *
+   * @param {number} diary_id - 조회할 다이어리 ID
+   */
+  static async read(id) {
+    const updatePosts = await prisma.diary.updateMany({
+      data: {
+        view: {
+          increment: 1,
+        },
+      },
+    });
+    const readDiary = await prisma.diary.findUnique({
+      where: {
+        id: +id,
+      },
+      include: {
+        images: {
+          select: {
+            image: true,
+          },
+        },
+      },
+    });
+    return readDiary;
+  }
+
+  /**
+   *
+   * @param {number} user_id - 다이어리 목록을 조회할 유저 ID
+   */
+  static async readList(user_id) {
+    const diaryList = await prisma.diary.findMany({
+      where: {
+        user_id: +user_id,
+      },
+    });
+    return diaryList;
+  }
 }

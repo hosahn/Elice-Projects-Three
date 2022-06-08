@@ -27,8 +27,6 @@ model diary {
   view    Int?      @default(1)
   users   users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "diary_ibfk_1")
   emotion emotion[]
-  images  images[]
-
   @@index([user_id], map: "user_id")
 }
 
@@ -85,9 +83,5 @@ model users {
 
 model images {
   id       Int     @id @default(autoincrement())
-  diary_id Int?
   image    String? @db.TinyText
-  diary    diary?  @relation(fields: [diary_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "images_ibfk_1")
-
-  @@index([diary_id], map: "diary_id")
 }

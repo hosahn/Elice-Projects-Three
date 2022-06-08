@@ -1,6 +1,4 @@
 import Diary from "../db/models/Diary.js";
-import { diaryRouter } from "../routers/diaryRouter.js";
-import ImagesService from "./imagesService.js";
 //@ts-check
 export default class DiaryService {
   /**
@@ -12,7 +10,7 @@ export default class DiaryService {
    * @param {string[]} images - 일기에 들어간 이미지 배열
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number, count: number}>}
    */
-  static async create({ user_id, text, title, tag }, images) {
+  static async create({ user_id, text, title, tag }) {
     const newDiary = {
       user_id: +user_id,
       text,
@@ -20,9 +18,6 @@ export default class DiaryService {
       tag,
     };
     const body = await Diary.create(newDiary);
-    const { id } = body;
-    const post_images = await ImagesService.postImages(id, images);
-    body["count"] = post_images.count; // 일기에 들어간 이미지 개수
     return body;
   }
   /**
@@ -32,6 +27,19 @@ export default class DiaryService {
     const body = await Diary.delete(id);
     return body;
   }
+  /**
+   * @param {number} id - 조회할 다이어리 ID 값
+   */
+  static async read(id) {
+    const body = await Diary.read(id);
+    return body;
+  }
 
-  static async imageCreate() {}
+  /**
+   * @param {number} user_id - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
+   */
+  static async readList(user_id) {
+    const body = await Diary.readList(user_id);
+    return body;
+  }
 }

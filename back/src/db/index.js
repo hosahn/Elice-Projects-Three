@@ -1,5 +1,6 @@
 //파일 구조를 위한 txt입니다!
 import { User } from "./models/User.js";
 import { Calendar } from "./models/Calendar.js";
-
-export { User, Calendar };
+import Diary from "./models/Diary.js";
+import Images from "./models/Images.js";
+export { User, Calendar, Diary, Images };
