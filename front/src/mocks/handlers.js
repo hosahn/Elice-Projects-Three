@@ -25,8 +25,10 @@ export const handlers = [
       })
     );
   }),
+
   rest.post('https://12team.com/userDiary/img', (req, res, ctx) => {
-    console.log(req.body, typeof req.body);
+    console.log(req.body);
+    console.log(req);
     return res(ctx.status(200));
   }),
   rest.get('https://12team.com/userDiary/img', (req, res, ctx) => {

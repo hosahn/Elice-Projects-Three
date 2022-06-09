@@ -3,7 +3,7 @@ import {
   MainContext,
   HighLightPink,
   ExplainContext,
-  ExplainHighLight,
+  HighLightExplain,
 } from '../../styles/CommonStyle';
 import styled from 'styled-components';
 import ProgressBar from './ProgressBar';
@@ -49,9 +49,9 @@ const ChallengeCard = (user) => {
       </MainContext>
       <ExplainContext left={6}>
         현재까지 달성률은 {(round - 1) * 10}%입니다. <br />
-        <ExplainHighLight>{round}</ExplainHighLight>회차 종료일{' '}
-        <ExplainHighLight>{roundFinishDate}</ExplainHighLight>까지{' '}
-        <ExplainHighLight>{roundDate}</ExplainHighLight>
+        <HighLightExplain>{round}</HighLightExplain>회차 종료일{' '}
+        <HighLightExplain>{roundFinishDate}</HighLightExplain>까지{' '}
+        <HighLightExplain>{roundDate}</HighLightExplain>
         일 남았어요.😊 <br />
       </ExplainContext>
       <ProgressBarContainer>

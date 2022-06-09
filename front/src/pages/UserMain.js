@@ -6,7 +6,7 @@ import ChallengeCard from '../components/challenge/ChallengeCard';
 import Container from '../components/card/Container';
 import MainText from '../components/card/MainText';
 import SubText from '../components/card/SubTitle';
-import { MainTitle, SubContext, HighLightPuple } from '../styles/CommonStyle';
+import { MainTitle, SubContext, HighLightPurple } from '../styles/CommonStyle';
 
 // 달력, 설명
 const UserMainContainer = styled.div`
@@ -64,8 +64,8 @@ const UserMain = () => {
   return (
     <>
       <SubContext>
-        안녕하세요. <HighLightPuple>{user.name}</HighLightPuple>님! <br />
-        저희와 <HighLightPuple>{registerDate}</HighLightPuple>일째 인연을
+        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! <br />
+        저희와 <HighLightPurple>{registerDate}</HighLightPurple>일째 인연을
         지속하고 계시네요.
       </SubContext>
       <UserMainContainer>
