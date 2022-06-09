@@ -6,9 +6,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "PAPAGO API Docs",
+      title: "밤 하늘 API Docs",
       version: "1.0.0",
-      description: "PAPAGO prototype",
+      description: "밤 하늘 prototype",
     },
     components: {
       securitySchemes: {
