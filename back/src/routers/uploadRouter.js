@@ -54,6 +54,33 @@ const uploadRouter = Router();
 //   }
 // });
 
+/**
+ * @swagger
+ * /upload/{file}:
+ *   get:
+ *     tags: [Upload]
+ *     description: 일기 작성 API
+ *     parameters:
+ *     - in: path
+ *       name: file
+ *       required: true
+ *       example: "file"
+ *     responses:
+ *       "201":
+ *         content:
+ *           aplication/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 suceess:
+ *                   type: boolean
+ *                   description: 응답 여부
+ *                   example: true
+ *                 location:
+ *                   type: string
+ *                   description: 이미지 주소
+ *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654738493690TypeScript_inflearn.png"
+ */
 uploadRouter.get("/:file", (req, res, next) => {
   try {
     const { file } = req.params;
