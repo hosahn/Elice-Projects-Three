@@ -37,7 +37,7 @@ export const SubTitle = styled.h2`
 
 // HighLight
 
-export const HighLightPuple = styled.span`
+export const HighLightPurple = styled.span`
   color: #3d2c8d;
 `;
 
@@ -45,7 +45,7 @@ export const HighLightPink = styled.span`
   color: #e64980;
 `;
 
-export const ExplainHighLight = styled.span`
+export const HighLightExplain = styled.span`
   font-family: EliceDigitalBaeum_Bold;
   color: #e64980;
   font-weight: 900;
