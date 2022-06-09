@@ -89,6 +89,7 @@ uploadRouter.get("/:file", (req, res, next) => {
     const body = {
       success: true,
       url: url,
+      imageUrl: `https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}`,
     };
     res.status(201).json(body);
   } catch (error) {
