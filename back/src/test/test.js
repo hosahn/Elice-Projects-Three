@@ -5,6 +5,7 @@ import Diary from "../db/models/Diary.js";
 import newDiary from "./data/new-product.json";
 import * as httpMocks from "node-mocks-http";
 import "../config/env.js";
+
 // test("GET / URL 테스트", async () => {
 //   const res = await request(app).get("/basic");
 //   expect(res.body).toEqual("서버가 정상적으로 열렸습니다!");
