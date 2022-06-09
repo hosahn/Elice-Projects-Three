@@ -1,19 +1,34 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { textState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
+import * as Api from '../../api';
 import axios from 'axios';
+import { response } from 'msw';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
   const setText = useSetRecoilState(textState);
 
-  const uploadImage = async () => {
-    const imageUrl = 'https://12team.com/userDiary/img';
-    const res = await axios.get(imageUrl);
-    console.log(res.data.imageUrl);
-    return res.data.imageUrl;
+  const uploadImage = async (blob) => {
+    console.log(blob);
+    const formData = new FormData();
+    formData.append('imgFile', blob);
+    formData.append('img', blob.name);
+    const name = formData.get('img');
+    console.log('fileName', name);
+    const file = formData.get('imgFile');
+    console.log('file', file);
+
+    const res = await Api.putImg(`upload/${name}`);
+    console.log(res.data);
+    const result = await fetch(res.data.url, {
+      method: 'PUT',
+      body: blob,
+    });
+
+    console.log(result);
   };
 
   const handleClick = () => {
