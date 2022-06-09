@@ -25,7 +25,7 @@ model diary {
   tag     String?   @db.VarChar(50)
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
-  deleted_at DateTime? @db.Timestamp(0)
+  deleted Boolean? @default(false)
   users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
   emotion emotion[]
   @@index([user_id], map: "user_id")
@@ -76,7 +76,7 @@ model users {
   pw             String?          @db.VarChar(25)
   social         String?          @db.VarChar(10)
   inserted_at    DateTime?        @default(now()) @db.Timestamp(0)
-  updated_at     DateTime?        @default(now()) @updatedAt @db.Timestamp(0)
+  updated_at     DateTime?        @updatedAt @db.Timestamp(0)
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]

@@ -20,9 +20,12 @@ export default class Diary {
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async delete(id) {
-    const deleteDiary = await prisma.diary.delete({
+    const deleteDiary = await prisma.diary.update({
       where: {
         id: +id,
+      },
+      data: {
+        deleted: true,
       },
     });
     return deleteDiary;
@@ -33,7 +36,10 @@ export default class Diary {
    * @param {number} diary_id - 조회할 다이어리 ID
    */
   static async read(id) {
-    const updatePosts = await prisma.diary.updateMany({
+    const updatePosts = await prisma.diary.update({
+      where: {
+        id: +id,
+      },
       data: {
         view: {
           increment: 1,
@@ -56,6 +62,7 @@ export default class Diary {
     const diaryList = await prisma.diary.findMany({
       where: {
         user_id: +user_id,
+        deleted: false,
       },
     });
     return diaryList;
