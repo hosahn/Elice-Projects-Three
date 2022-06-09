@@ -5,11 +5,16 @@ import { textState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
 import * as Api from '../../api';
 import axios from 'axios';
-import { response } from 'msw';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
   const setText = useSetRecoilState(textState);
+
+  const blobToBinary = async (blob) => {
+    const buffer = await blob.arrayBuffer();
+    const view = new Int8Array(buffer);
+    return [...view].map((n) => n.toString(2)).join('');
+  };
 
   const uploadImage = async (blob) => {
     console.log(blob);
@@ -23,12 +28,22 @@ const DiaryEditor = () => {
 
     const res = await Api.putImg(`upload/${name}`);
     console.log(res.data);
-    const result = await fetch(res.data.url, {
+    console.log(blobToBinary(blob));
+    await axios(res.data.url, {
       method: 'PUT',
-      body: blob,
-    });
+      body: blobToBinary(blob),
+      headers: new Headers({
+        'Content-Type': 'text/plain',
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    console.log(result);
+    return res.data.imgUrl;
   };
 
   const handleClick = () => {
@@ -48,8 +63,8 @@ const DiaryEditor = () => {
         useCommandShortcut={true}
         ref={editorRef}
         hooks={{
-          addImageBlobHook: async (blob, callback) => {
-            const imgUrl = await uploadImage(blob);
+          addImageBlobHook: async (e, callback) => {
+            const imgUrl = await uploadImage(e);
             callback(imgUrl, 'text');
             return false;
           },
