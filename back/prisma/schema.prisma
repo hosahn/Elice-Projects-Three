@@ -25,7 +25,8 @@ model diary {
   tag     String?   @db.VarChar(50)
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
-  users   users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "diary_ibfk_1")
+  deleted_at DateTime? @db.Timestamp(0)
+  users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
   emotion emotion[]
   @@index([user_id], map: "user_id")
 }
@@ -79,9 +80,4 @@ model users {
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]
-}
-
-model images {
-  id       Int     @id @default(autoincrement())
-  image    String? @db.TinyText
 }

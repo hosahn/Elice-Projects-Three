@@ -7,23 +7,75 @@ const uploadRouter = Router();
 /**
  *  @swagger
  *  tags:
- *    name: upload
+ *    name: Upload
  *    description: 이미지 관련 API
  */
-uploadRouter.post("/", upload.single("image"), async (req, res, next) => {
+
+// /**
+//  * @swagger
+//  * /upload:
+//  *   post:
+//  *     tags: [Upload]
+//  *     description: 일기 작성 API
+//  *     requestBody:
+//  *       content:
+//  *         multipart/form-data:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               image:
+//  *                 type: string
+//  *                 format: binary
+//  *     responses:
+//  *       "201":
+//  *         content:
+//  *           aplication/json:
+//  *             schema:
+//  *               type: object
+//  *               properties:
+//  *                 suceess:
+//  *                   type: boolean
+//  *                   description: 응답 여부
+//  *                   example: true
+//  *                 location:
+//  *                   type: string
+//  *                   description: 이미지 주소
+//  *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654738493690TypeScript_inflearn.png"
+//  */
+// uploadRouter.post("/", upload.single("image"), async (req, res, next) => {
+//   try {
+//     const body = {
+//       success: true,
+//       location: req.file.location,
+//     };
+//     res.status(201).json(body);
+//   } catch (error) {
+//     throw new Error(`이미지 업로드 에러 \n Error : ${error.message}`);
+//   }
+// });
+
+uploadRouter.get("/:file", (req, res, next) => {
   try {
-    res.status(201).send(req.file.location);
+    const { file } = req.params;
+    const fileName = Date.now() + file;
+    const url = createUrl(`diary/${fileName}`);
+    const body = {
+      success: true,
+      url: url,
+    };
+    res.status(201).json(body);
   } catch (error) {
     throw new Error(`이미지 업로드 에러 \n Error : ${error.message}`);
   }
 });
 
-uploadRouter.delete("/", async (req, res, next) => {
+uploadRouter.delete("/:file", async (req, res, next) => {
   try {
+    const { file } = req.params;
     s3.deleteObject(
       {
         Bucket: "ai-project-last", // 삭제하고 싶은 이미지가 있는 버킷 이름
-        Key: "diary/1654676700888TypeScript_inflearn.png", // 삭제하고 싶은 이미지의 key
+        Key: `diary/${file}`, // 삭제하고 싶은 이미지의 key
       },
       (err, data) => {
         if (err) console.log(err); // 실패 시 에러 메시지
@@ -48,12 +100,5 @@ uploadRouter.delete("/", async (req, res, next) => {
 //     throw new Error(`이미지 업로드 에러\n Error : ${error.message}`);
 //   }
 // });
-
-uploadRouter.get("/:file", async (req, res) => {
-  const { file } = req.params;
-  const fileName = `diary/${Date.now()}${file}`;
-  const url = createUrl(fileName);
-  return res.status(200).send(url);
-});
 
 export default uploadRouter;
