@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import * as Api from '../api';
 import axios from 'axios';
-import ChallengeCard from '../components/challenge/ChallengeCard';
-import Container from '../components/card/Container';
-import MainText from '../components/card/MainText';
-import SubText from '../components/card/SubTitle';
-import { MainTitle, SubContext, HighLightPurple } from '../styles/CommonStyle';
+import ChallengeCard from './challenge/ChallengeCard';
+import Container from '../../components/card/Container';
+import MainText from '../../components/card/MainText';
+import SubText from '../../components/card/SubTitle';
+import {
+  MainTitle,
+  SubContext,
+  HighLightPurple,
+} from '../../styles/CommonStyle';
+import BattlePass from './challenge/BattlePass';
 
 // 달력, 설명
 const UserMainContainer = styled.div`
@@ -19,7 +23,6 @@ const UserMainContainer = styled.div`
 const ChallengeContainer = styled.div`
   position: absolute;
   width: 70rem;
-  height: 15rem;
   padding: 10px;
   background: rgba(243, 240, 255, 0.5);
   box-shadow: 1px 3px 1px #dadce0;
@@ -77,10 +80,6 @@ const UserMain = () => {
           ) : (
             <>
               <ChallengeCard user={user} props={'안녕'} />
-              <Container>
-                <MainText text={'안녕'} />
-                <SubText text={'확인'} />
-              </Container>
             </>
           )}
         </ChallengeContainer>

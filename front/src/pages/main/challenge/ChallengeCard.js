@@ -4,9 +4,10 @@ import {
   HighLightPink,
   ExplainContext,
   HighLightExplain,
-} from '../../styles/CommonStyle';
+} from '../../../styles/CommonStyle';
 import styled from 'styled-components';
 import ProgressBar from './ProgressBar';
+import BattlePass from './BattlePass';
 
 const ProgressBarContainer = styled.div`
   display: flex;
@@ -56,6 +57,9 @@ const ChallengeCard = (user) => {
       </ExplainContext>
       <ProgressBarContainer>
         <ProgressBar completed={round - 1} />
+      </ProgressBarContainer>
+      <ProgressBarContainer>
+        <BattlePass />
       </ProgressBarContainer>
     </>
   );

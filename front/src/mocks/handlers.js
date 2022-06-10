@@ -14,6 +14,7 @@ export const handlers = [
       })
     );
   }),
+
   rest.get('https://12team.com/userChallenge/1234', (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -22,6 +23,18 @@ export const handlers = [
         start_date: '2022-03-27',
         is_completed: false,
         is_broken: false,
+      })
+    );
+  }),
+
+  rest.get('https://12team.com/challengeList', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        challengeName: '매일 쓰기',
+        duraction: 50,
+        description: '50일동안 매일 쓰는 일기',
+        reward: 5,
       })
     );
   }),

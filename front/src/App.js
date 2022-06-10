@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import * as Api from './api';
 import Introduction from './pages/Introduction';
-import UserMain from './pages/UserMain';
+import UserMain from './pages/main/UserMain';
 import UserInfo from './pages/UserInfo';
 import Nav from './components/nav/Nav';
-import Write from './pages/Diary';
-import Diary from './pages/Diary';
+import Diary from './pages/diary/Diary';
 
 function App() {
   return (

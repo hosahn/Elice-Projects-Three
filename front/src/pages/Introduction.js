@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getDate } from '../utils/getDay';
 
 export default function Introduction() {
   const navigate = useNavigate();

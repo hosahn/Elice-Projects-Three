@@ -5,8 +5,8 @@ export const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 13rem;
-  height: 15rem;
+  width: 17rem;
+  height: 10rem;
   text-align: center;
   background-color: #f3d9fa;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 25px 0px;
