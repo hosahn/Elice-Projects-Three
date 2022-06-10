@@ -1,5 +1,7 @@
 import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
+import { validate } from "../middlewares/validator.js";
+import { check, param, body } from "express-validator";
 const diaryRouter = Router();
 
 /**
@@ -68,15 +70,34 @@ const diaryRouter = Router();
  *                   type: number
  *                   example: 1
  */
-diaryRouter.post("/", async (req, res, next) => {
-  try {
-    const data = req.body;
-    const body = await DiaryService.create(data);
-    return res.status(201).json(body);
-  } catch (error) {
-    throw new Error(`일기 생성 에러\n Error : ${error.message}`);
+diaryRouter.post(
+  "/",
+  [
+    body("userId")
+      .exists()
+      .withMessage("현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
+      .bail(),
+    body("title")
+      .exists()
+      .isLength({ min: 1 })
+      .withMessage("제목은 필수로 입력해야 합니다.")
+      .bail(),
+    body("text")
+      .exists()
+      .isLength({ min: 1 })
+      .withMessage("일기 내용은 필수로 적어주셔야 합니다.")
+      .bail(),
+  ],
+  async (req, res, next) => {
+    try {
+      const data = req.body;
+      const body = await DiaryService.create(data);
+      return res.status(201).json(body);
+    } catch (error) {
+      throw new Error(`일기 생성 에러\n Error : ${error.message}`);
+    }
   }
-});
+);
 
 /**
  * @swagger
@@ -95,15 +116,27 @@ diaryRouter.post("/", async (req, res, next) => {
  *       '204':
  *         description: "삭제 성공"
  */
-diaryRouter.delete("/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const body = await DiaryService.delete(id);
-    return res.status(204).end();
-  } catch (error) {
-    throw new Error(`일기 삭제 에러\n Error : ${error.message}`);
+diaryRouter.delete(
+  "/:id",
+  [
+    param("id")
+      .trim()
+      .exists()
+      .isInt()
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .bail(),
+    validate,
+  ],
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = await DiaryService.delete(id);
+      return res.status(204).end();
+    } catch (error) {
+      throw new Error(`일기 삭제 에러\n Error : ${error.message}`);
+    }
   }
-});
+);
 
 /**
  * @swagger

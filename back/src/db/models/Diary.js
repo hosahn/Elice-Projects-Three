@@ -56,12 +56,12 @@ export default class Diary {
 
   /**
    * - 일기 목록 조회 Model 함수
-   * @param {number} user_id - 다이어리 목록을 조회할 유저 ID
+   * @param {number} userId - 다이어리 목록을 조회할 유저 ID
    */
-  static async readList(user_id) {
+  static async readList(userId) {
     const diaryList = await prisma.diary.findMany({
       where: {
-        user_id: +user_id,
+        user_id: +userId,
         deleted: false,
       },
     });
