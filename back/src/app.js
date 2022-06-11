@@ -17,10 +17,11 @@ import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
-import { basicRouter } from "./routers/basicRouter.js";
 import { calendarRouter } from "./routers/calendarRouter.js";
 import diaryRouter from "./routers/diaryRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
+
 process.setMaxListeners(15);
 const mysqlStore = mysqlSession(session);
 export const app = express();
@@ -97,8 +98,8 @@ app.use(
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
-app.use("/basic", basicRouter);
 app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);
 app.use(Sentry.Handlers.errorHandler());
+app.use(errorMiddleware);
 export default app;
