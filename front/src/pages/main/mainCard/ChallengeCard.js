@@ -59,7 +59,7 @@ const ChallengeCard = (user) => {
         <ProgressBar completed={round - 1} />
       </ProgressBarContainer>
       <ProgressBarContainer>
-        <BattlePass width={17} height={10} />
+        <BattlePass width={17} height={10} containerWdith={60} margin={6} />
       </ProgressBarContainer>
     </>
   );

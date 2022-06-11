@@ -8,7 +8,12 @@ const Challenge = () => {
       <MainContainer>
         <Record />
         <div style={{ marginTop: '3rem' }}>
-          <BattlePass width={18} height={20} />
+          <BattlePass
+            width={15}
+            height={20}
+            containerWdith={70}
+            challenge={'ture'}
+          />
         </div>
       </MainContainer>
     </div>
