@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import TEXT from '../../pages/main/mainCard/TEXT';
-import Container from '../card/Container';
-import MainText from '../card/MainText';
-import SubText from '../card/SubTitle';
+import TEXT from '../../pages/main/TEXT';
+import Container from './Container';
+import MainText from './MainText';
+import SubText from './SubTitle';
 import { ArrowButton } from '../../styles/BtnStyle';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,7 +53,7 @@ const BattlePass = (props) => {
       <ArrowButton onClick={clickLeftButton} left={1}>
         <FontAwesomeIcon icon={faAnglesLeft} className="user" />
       </ArrowButton>
-      <ArrowButton onClick={clickRightButton} right={2}>
+      <ArrowButton onClick={clickRightButton} right={1}>
         <FontAwesomeIcon icon={faAnglesRight} className="user" />
       </ArrowButton>
       <CardsContainer ref={container}>
@@ -63,7 +63,7 @@ const BattlePass = (props) => {
               <Container key={index} width={width} height={height}>
                 <MainText text={it.title} />
                 <SubText text={it.description} />
-                {challenge && <Btn text={'일단 임의로'} />}
+                {challenge && <Btn text={'버튼'} />}
               </Container>
             </CardWrap>
           );

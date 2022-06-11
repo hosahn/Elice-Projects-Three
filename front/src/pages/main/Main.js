@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CurrentChallenge from './CurrentChallenge';
+import CurrentChallenge from './MainChallenge';
 import {
   MainTitle,
   SubContext,

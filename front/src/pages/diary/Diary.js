@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import Tag from './Tag';
-import Title from './Title';
+import Tag from './DiaryTag';
+import Title from './DiaryTitle';
 import DiaryEditor from './DiaryEditor';
-import Text from './Text';
+import Text from './DiaryText';
 import styled from 'styled-components';
 
 const DiaryContext = styled.div`

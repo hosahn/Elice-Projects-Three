@@ -6,8 +6,8 @@ import {
   HighLightExplain,
 } from '../../styles/CommonStyle';
 import styled from 'styled-components';
-import ProgressBar from './ProgressBar';
-import BattlePass from '../../components/challenge/BattlePass';
+import ProgressBar from './MainProgressBar';
+import Cards from '../../components/card/Cards';
 
 const ProgressBarContainer = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ const CurrentChallenge = (user) => {
         <ProgressBar completed={round - 1} />
       </ProgressBarContainer>
       <ProgressBarContainer>
-        <BattlePass width={17} height={10} containerWdith={60} margin={6} />
+        <Cards width={17} height={10} containerWdith={60} margin={6} />
       </ProgressBarContainer>
     </>
   );
