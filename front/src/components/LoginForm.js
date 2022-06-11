@@ -33,8 +33,12 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const validateEmail = email => {
-    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  const validateEmail = (email) => {
+    return email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
   };
 
   const isEmailValid = validateEmail(email);
@@ -42,16 +46,20 @@ function LoginForm() {
 
   const isFormValid = isEmailValid && isPasswordValid;
 
-  const onClickKakao = async () => {
-    const res = await axios({
-      method: 'get',
-      url: 'http://localhost:5001/login/kakao',
-    });
-
-    console.log('res', res);
+  const googleHandler = () => {
+    window.open('http://localhost:5001/login/google', '_self');
+  };
+  const kakaoHandler = () => {
+    window.open('http://localhost:5001/login/kakao', '_self');
+  };
+  const naverHandler = () => {
+    window.open('http://localhost:5001/login/naver', '_self');
+  };
+  const logoutHandler = () => {
+    window.open('http://localhost:5001/user/logout', '_self');
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -79,39 +87,49 @@ function LoginForm() {
       <LoginContainer>
         <div lg={12}>
           <div onSubmit={handleSubmit}>
-            <div controlId='loginEmail'>
+            <div controlId="loginEmail">
               <div>이메일 주소</div>
               <LoginInput
-                type='email'
-                autoComplete='on'
+                type="email"
+                autoComplete="on"
                 value={email}
                 style={{
                   border: 'solid 2px #DBC7FF',
                 }}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              {!isEmailValid && <div className='text-success'>이메일 형식이 올바르지 않습니다.</div>}
+              {!isEmailValid && (
+                <div className="text-success">
+                  이메일 형식이 올바르지 않습니다.
+                </div>
+              )}
             </div>
 
-            <div controlId='loginPassword' className='mt-3'>
+            <div controlId="loginPassword" className="mt-3">
               <div>비밀번호</div>
               <LoginInput
-                type='password'
-                autoComplete='on'
+                type="password"
+                autoComplete="on"
                 value={password}
                 style={{
                   border: 'solid 2px #DBC7FF',
                 }}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              {!isPasswordValid && <div className='text-success'>비밀번호는 4글자 이상입니다.</div>}
+              {!isPasswordValid && (
+                <div className="text-success">비밀번호는 4글자 이상입니다.</div>
+              )}
             </div>
 
-            <div className='mt-3 text-center'>
+            <div className="mt-3 text-center">
               <div sm={{ span: 20 }}>
                 <Btn text={'로그인'} type={'sub'} />
 
-                <Btn text={'회원가입'} type={'sub'} onClick={() => navigate('/register')} />
+                <Btn
+                  text={'회원가입'}
+                  type={'sub'}
+                  onClick={() => navigate('/register')}
+                />
               </div>
             </div>
           </div>
@@ -122,7 +140,9 @@ function LoginForm() {
             <img src={process.env.PUBLIC_URL + '/kakao.png'} style={{ width: '30px', height: '30px', marginRight: '30px' }} />
           </a>
           <img src={process.env.PUBLIC_URL + '/naver.png'} style={{ width: '30px', height: '30px', marginRight: '30px' }} /> */}
-          <button onClick={onClickKakao}>카카오</button>
+          <button onClick={googleHandler}>구글</button>
+          <button onClick={kakaoHandler}>카카오</button>
+          <button onClick={naverHandler}>네이버</button>
         </div>
       </LoginContainer>
     </>

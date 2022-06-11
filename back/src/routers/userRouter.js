@@ -1,60 +1,61 @@
-import { Router } from "express";
-import passport from "passport";
-import { User } from "../db/models/User.js";
+import { Router } from 'express';
+import passport from 'passport';
+import { User } from '../db/models/User.js';
 const userRouter = Router();
 
 userRouter.get(
-  "/googlecomplete",
-  passport.authenticate("google"),
+  '/googlecomplete',
+  passport.authenticate('google'),
   (req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect("/user/success");
+      res.redirect('http://localhost:3000/usermain');
     } else {
-      res.redirect("/user/failed");
+      res.redirect('/user/failed');
     }
   }
 );
 
-userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
+userRouter.get('/navercomplete', passport.authenticate('naver'), (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("/user/success");
+    res.redirect('http://localhost:3000/usermain');
   } else {
-    res.redirect("/user/failed");
+    res.redirect('/user/failed');
   }
 });
 
-userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
+userRouter.get('/kakaocomplete', passport.authenticate('kakao'), (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("/user/success");
+    res.redirect('http://localhost:3000/usermain');
   } else {
-    res.redirect("/user/failed");
+    res.redirect('/user/failed');
   }
 });
 
-userRouter.get("/localcomplete", (req, res) => {
-  passport.authenticate("local");
+userRouter.get('/localcomplete', (req, res) => {
+  passport.authenticate('local');
   if (req.isAuthenticated()) {
-    res.redirect("/user/success");
+    res.redirect('http://localhost:3000/usermain');
   } else {
-    res.redirect("/user/failed");
+    res.redirect('/user/failed');
   }
 });
 
 //Logout
 
-userRouter.get("/logout", (req, res) => {
+userRouter.get('/logout', (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
       res.send(true);
     });
   } else {
-    res.redirect("/user/failed");
+    res.redirect('/user/failed');
   }
 });
 
 //CallBack Url이 리다이렉트 하는 경로
 
-userRouter.get("/success", (req, res) => {
+//성공이면 true
+userRouter.get('/success', (req, res) => {
   if (req.isAuthenticated()) {
     res.send(true);
   } else {
@@ -62,14 +63,15 @@ userRouter.get("/success", (req, res) => {
   }
 });
 
-userRouter.get("/failed", (req, res) => {
+// 실패면
+userRouter.get('/failed', (req, res) => {
   res.send(false);
 });
 // 회원가입
 
-userRouter.post("/signup", async (req, res) => {
+userRouter.post('/signup', async (req, res) => {
   const { email, pw } = req.body;
-  const social = "local";
+  const social = 'local';
   const result = await User.createUser({ email, pw, social });
   if (result == null) {
     res.send(false);
