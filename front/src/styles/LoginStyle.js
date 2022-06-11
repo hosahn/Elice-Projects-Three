@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
 export const SocialBtn = styled.button`
-  width: 1rem;
-  height: 1rem;
-  margin: 3rem;
+  position: relative;
+  width: 4rem;
+  height: 4rem;
   border: none;
   background-color: transparent;
 `;
 
 export const Img = styled.img`
+  position: absolute;
   width: 4rem;
   height: 4rem;
+  border-radius: 10rem;
 `;
