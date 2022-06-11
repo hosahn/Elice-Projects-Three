@@ -46,4 +46,31 @@ export default class DiaryService {
     const body = await Diary.readList(userId);
     return body;
   }
+
+  /**
+   *  - 일기가 존재하는지 확인하는 함수
+   * @param {number} id - 다이어리 고유 ID
+   */
+  static async find(id) {
+    const diary = await Diary.find(id);
+    return diary;
+  }
+
+  /**
+   * - 유저가 챌린지 참여하고 있을 때 그날 글을 썼는지 검사하는 함수
+   * @param {number} userId - diary를 작성한 user_id
+   */
+  static async check(userId) {
+    const check = await Diary.check(userId);
+    return check;
+  }
+
+  /**
+   * - 유저가 현재 진행 중인 챌린지가 있는지 검사하는 함수
+   * @param {number} userId - diary를 작성한 user_id
+   */
+  static async challengeCheck(userId) {
+    const challenge = await Diary.challengeCheck(userId);
+    return challenge;
+  }
 }

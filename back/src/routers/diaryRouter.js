@@ -121,10 +121,19 @@ diaryRouter.delete(
   [
     param("id")
       .trim()
-      .exists()
-      .isInt()
+      .exists({ checkFalsy: true })
       .withMessage("Diary ID 값을 path로 넣어주세요.")
-      .bail(),
+      .bail()
+      .toInt()
+      .isInt()
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .bail()
+      .custom(async (value) => {
+        const diary = await DiaryService.find(value);
+        if (!diary) {
+          throw new Error("Diary가 존재하지 않습니다.");
+        }
+      }),
     validate,
   ],
   async (req, res, next) => {
@@ -188,15 +197,32 @@ diaryRouter.delete(
  *                         type: string
  *                         example:  "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654656839850docker.png"
  */
-diaryRouter.get("/:id", async (req, res, next) => {
-  try {
+diaryRouter.get(
+  "/:id",
+  [
+    param("id")
+      .trim()
+      .exists({ checkFalsy: true })
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .bail()
+      .toInt()
+      .isInt()
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .bail()
+      .custom(async (value) => {
+        const diary = await DiaryService.find(value);
+        if (!diary) {
+          throw new Error("Diary가 존재하지 않습니다.");
+        }
+      }),
+    validate,
+  ],
+  async (req, res, next) => {
     const { id } = req.params;
     const body = await DiaryService.read(id);
     return res.status(200).send(body);
-  } catch (error) {
-    throw new Error(`일기 조회 에러\n Error: ${error.message}`);
   }
-});
+);
 
 /**
  * @swagger
