@@ -21,7 +21,7 @@ const GetDayExplain = (props) => {
       answer = '주말의 시작 토요일';
       break;
     case '일':
-      answer = '주말의 끝 일요일 ㅠㅠ';
+      answer = '주말의 끝 일요일 ';
       break;
     default:
       console.log('error');
