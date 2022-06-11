@@ -6,6 +6,7 @@ import * as Api from './api';
 import Introduction from './pages/Introduction';
 import UserMain from './pages/UserMain';
 import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -50,6 +51,7 @@ function App() {
             <Route path='/' exact element={<Introduction />} />
             <Route path='/userMain' element={<UserMain />} />
             <Route path='/login' element={<LoginForm />} />
+            <Route path='/register' element={<RegisterForm />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
