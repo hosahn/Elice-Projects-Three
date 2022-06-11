@@ -1,4 +1,3 @@
-import upload from "../middlewares/multer.js";
 import { Router } from "express";
 import s3 from "../config/s3.js";
 import createUrl from "../test/preSign.js";
