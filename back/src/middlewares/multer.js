@@ -1,11 +1,8 @@
 import multer from "multer";
 import multerS3 from "multer-s3";
-import AWS from "aws-sdk";
-import path from "path";
-const __dirname = path.resolve();
-AWS.config.loadFromPath(__dirname + "/src/config/s3.json"); // 인증
 
-const s3 = new AWS.S3();
+import s3 from "../config/s3.js";
+
 const upload = multer({
   storage: multerS3({
     s3: s3,
@@ -24,4 +21,4 @@ const upload = multer({
   }),
 });
 
-export { upload };
+export default upload;
