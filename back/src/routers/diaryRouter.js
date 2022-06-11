@@ -2,6 +2,7 @@ import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
+import Diary from "../db/models/Diary.js";
 const diaryRouter = Router();
 
 /**
@@ -51,7 +52,7 @@ const diaryRouter = Router();
  *                 id:
  *                   type: number
  *                   example: 4
- *                 user_id:
+ *                 userId:
  *                   type: number
  *                   example: 1
  *                 text:
@@ -74,7 +75,7 @@ diaryRouter.post(
   "/",
   [
     body("userId")
-      .exists()
+      .exists({ checkFalsy: true })
       .withMessage("현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
       .bail(),
     body("title")
@@ -87,10 +88,15 @@ diaryRouter.post(
       .isLength({ min: 1 })
       .withMessage("일기 내용은 필수로 적어주셔야 합니다.")
       .bail(),
+    validate,
   ],
   async (req, res, next) => {
     try {
       const data = req.body;
+      const { userId } = data;
+      if (await DiaryService.challengeCheck(userId)) {
+        await DiaryService.check(userId);
+      }
       const body = await DiaryService.create(data);
       return res.status(201).json(body);
     } catch (error) {
@@ -111,7 +117,7 @@ diaryRouter.post(
  *     - in: path
  *       name: id
  *       required: true
- *       example: 2
+ *       example: 2x`
  *     responses:
  *       '204':
  *         description: "삭제 성공"
@@ -270,10 +276,10 @@ diaryRouter.get(
  *                     example: 1
  *
  */
-diaryRouter.get("/list/:user_id", async (req, res, next) => {
+diaryRouter.get("/list/:userId", async (req, res, next) => {
   try {
-    const { user_id } = req.params;
-    const body = await DiaryService.readList(user_id);
+    const { userId } = req.params;
+    const body = await DiaryService.readList(userId);
     return res.status(200).send(body);
   } catch (error) {
     throw new Error(`일기 조회 에러\n Error : ${error.message}`);
