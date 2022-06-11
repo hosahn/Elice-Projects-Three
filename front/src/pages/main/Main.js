@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ChallengeCard from './mainCard/ChallengeCard';
+import CurrentChallenge from './CurrentChallenge';
 import {
   MainTitle,
   SubContext,
@@ -59,7 +59,7 @@ const UserMain = () => {
             </>
           ) : (
             <>
-              <ChallengeCard user={user} props={'안녕'} />
+              <CurrentChallenge user={user} props={'안녕'} />
             </>
           )}
         </MiainChallengeContainer>

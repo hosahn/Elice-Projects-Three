@@ -1,5 +1,4 @@
-import { BarWrap, Filter, Label } from '../../../styles/ProgressStyle';
-import Api from '../../../api';
+import { BarWrap, Filter, Label } from '../../styles/ProgressStyle';
 
 const ProgressBar = (props) => {
   const { completed } = props;

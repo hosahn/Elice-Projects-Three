@@ -4,17 +4,17 @@ import {
   HighLightPink,
   ExplainContext,
   HighLightExplain,
-} from '../../../styles/CommonStyle';
+} from '../../styles/CommonStyle';
 import styled from 'styled-components';
 import ProgressBar from './ProgressBar';
-import BattlePass from '../../../components/challenge/BattlePass';
+import BattlePass from '../../components/challenge/BattlePass';
 
 const ProgressBarContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const ChallengeCard = (user) => {
+const CurrentChallenge = (user) => {
   const [challengeDate, setChallengeDate] = useState();
   const [round, setRound] = useState();
   const [roundDate, setRoundDate] = useState();
@@ -65,4 +65,4 @@ const ChallengeCard = (user) => {
   );
 };
 
-export default ChallengeCard;
+export default CurrentChallenge;

@@ -1,16 +1,16 @@
 import BattlePass from '../../components/challenge/BattlePass';
-import Record from './challengeCard/Record';
+import ChallengeList from './ChallengeList';
 import { MainContainer } from '../../styles/CommonStyle';
 
 const Challenge = () => {
   return (
     <div style={{ marginTop: '5rem' }}>
       <MainContainer>
-        <Record />
+        <ChallengeList />
         <div style={{ marginTop: '3rem' }}>
           <BattlePass
             width={15}
-            height={20}
+            height={16}
             containerWdith={70}
             challenge={'ture'}
           />

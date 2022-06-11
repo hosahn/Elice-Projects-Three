@@ -124,6 +124,10 @@ table {
   border-spacing: 0;
 }
 
+.App {
+  height: 100%;
+}
+
 /* font */
 @font-face {
   font-family: 'EliceDigitalBaeum_Bold';
