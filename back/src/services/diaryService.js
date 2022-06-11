@@ -72,4 +72,21 @@ export default class DiaryService {
     const check = await Diary.check(userId);
     return check;
   }
+
+  /**
+   * - 유저가 가진 일기를 조회하기 위해 존재하는 유저인지 확인
+   * @param {number} userId - user의 고유 ID
+   */
+  static async userCheck(userId) {
+    const user = await Diary.userCheck(userId);
+    return user;
+  }
+
+  /**
+   * - 유저가 가진 일기 중 랜덤으로 3개를 보여주는 함수
+   */
+  static async randomDiarys() {
+    const diarys = await Diary.randomDiarys();
+    return diarys;
+  }
 }

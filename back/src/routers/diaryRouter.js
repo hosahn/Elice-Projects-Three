@@ -276,14 +276,40 @@ diaryRouter.get(
  *                     example: 1
  *
  */
-diaryRouter.get("/list/:userId", async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const body = await DiaryService.readList(userId);
-    return res.status(200).send(body);
-  } catch (error) {
-    throw new Error(`일기 조회 에러\n Error : ${error.message}`);
+diaryRouter.get(
+  "/list/:userId",
+  [
+    param("userId")
+      .trim()
+      .exists({ checkFalsy: true })
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .bail()
+      .toInt()
+      .isInt()
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .bail()
+      .custom(async (value) => {
+        const user = await DiaryService.userCheck(value);
+        if (!user) {
+          throw new Error("유저가 존재하지 않습니다.");
+        }
+      }),
+    validate,
+  ],
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const body = await DiaryService.readList(userId);
+      return res.status(200).send(body);
+    } catch (error) {
+      throw new Error(`일기 조회 에러\n Error : ${error.message}`);
+    }
   }
+);
+
+diaryRouter.get("/random/list", async (req, res, next) => {
+  const diarys = await DiaryService.randomDiarys();
+  return res.status(200).send(diarys);
 });
 
 // diaryRouter.post("/images", upload.array("image"), async (req, res, next) => {

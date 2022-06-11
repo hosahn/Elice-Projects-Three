@@ -111,4 +111,19 @@ export default class Diary {
     });
     return challenge;
   }
+
+  static async userCheck(userId) {
+    const user = await prisma.users.findFirst({
+      where: {
+        id: +userId,
+      },
+    });
+    return user;
+  }
+
+  static async randomDiarys() {
+    const diarys =
+      await prisma.$queryRaw`SELECT * FROM diary order by RAND() limit 3;`;
+    return diarys;
+  }
 }
