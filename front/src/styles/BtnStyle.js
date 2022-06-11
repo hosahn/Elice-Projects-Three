@@ -16,7 +16,7 @@ export const CustomButton = styled.button`
 export const ArrowButton = styled.button`
   position: absolute;
   z-index: 10;
-  top: 30%;
+  top: 50%;
   left: ${(props) => `${props.left}rem`};
   right: ${(props) => `${props.right}rem`};
   transform: translateY(-50%);

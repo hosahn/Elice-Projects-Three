@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import TEXT from './TEXT';
-import Container from '../../../components/card/Container';
-import MainText from '../../../components/card/MainText';
-import SubText from '../../../components/card/SubTitle';
-import { ArrowButton } from '../../../styles/BtnStyle';
+import TEXT from '../../pages/main/mainCard/TEXT';
+import Container from '../card/Container';
+import MainText from '../card/MainText';
+import SubText from '../card/SubTitle';
+import { ArrowButton } from '../../styles/BtnStyle';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +19,8 @@ const CardWrap = styled.div`
   float: left;
 `;
 
-const BattlePass = () => {
+const BattlePass = (props) => {
+  const { width, height } = props;
   const container = useRef();
   const [move, setMove] = useState(0);
 
@@ -49,7 +50,7 @@ const BattlePass = () => {
         {TEXT.map((it, index) => {
           return (
             <CardWrap>
-              <Container key={index}>
+              <Container key={index} width={width} height={height}>
                 <MainText text={it.title} />
                 <SubText text={it.description} />
               </Container>

@@ -9,7 +9,7 @@ const Nav = () => {
 
   return (
     <NavWrap>
-      <Btn>
+      <Btn onClick={() => navigate('/challenge')}>
         <HighLight>챌린지</HighLight>
       </Btn>
       <Btn>

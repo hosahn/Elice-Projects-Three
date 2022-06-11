@@ -21,7 +21,7 @@ export const ExplainContext = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1.2rem;
   line-height: 1.5rem;
-  margin-left: ${(props) => `${props.left}rem`}; ;
+  margin-left: ${(props) => `${props.left}rem`};
 `;
 
 export const MainTitle = styled.h1`
@@ -67,4 +67,12 @@ export const TextInput = styled.input`
   &:focus::-webkit-input-placeholder {
     color: #748ffc;
   }
+`;
+
+// container
+export const MainContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

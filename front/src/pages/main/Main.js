@@ -1,33 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
-import ChallengeCard from './challenge/ChallengeCard';
-import Container from '../../components/card/Container';
-import MainText from '../../components/card/MainText';
-import SubText from '../../components/card/SubTitle';
+import ChallengeCard from './mainCard/ChallengeCard';
 import {
   MainTitle,
   SubContext,
   HighLightPurple,
+  MainContainer,
 } from '../../styles/CommonStyle';
-import BattlePass from './challenge/BattlePass';
-
-// 달력, 설명
-const UserMainContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ChallengeContainer = styled.div`
-  position: absolute;
-  width: 70rem;
-  padding: 10px;
-  background: rgba(243, 240, 255, 0.5);
-  box-shadow: 1px 3px 1px #dadce0;
-  border-radius: 20px;
-`;
+import { MiainChallengeContainer } from '../../styles/MainStyle';
 
 const UserMain = () => {
   const [user, setUser] = useState({}); // 백에서 받아오는 user정보
@@ -71,8 +51,8 @@ const UserMain = () => {
         저희와 <HighLightPurple>{registerDate}</HighLightPurple>일째 인연을
         지속하고 계시네요.
       </SubContext>
-      <UserMainContainer>
-        <ChallengeContainer>
+      <MainContainer>
+        <MiainChallengeContainer>
           {user.is_broken ? (
             <>
               <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
@@ -82,8 +62,8 @@ const UserMain = () => {
               <ChallengeCard user={user} props={'안녕'} />
             </>
           )}
-        </ChallengeContainer>
-      </UserMainContainer>
+        </MiainChallengeContainer>
+      </MainContainer>
     </>
   );
 };

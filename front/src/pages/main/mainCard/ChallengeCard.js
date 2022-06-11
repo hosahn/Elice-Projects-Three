@@ -7,7 +7,7 @@ import {
 } from '../../../styles/CommonStyle';
 import styled from 'styled-components';
 import ProgressBar from './ProgressBar';
-import BattlePass from './BattlePass';
+import BattlePass from '../../../components/challenge/BattlePass';
 
 const ProgressBarContainer = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ const ChallengeCard = (user) => {
         <ProgressBar completed={round - 1} />
       </ProgressBarContainer>
       <ProgressBarContainer>
-        <BattlePass />
+        <BattlePass width={17} height={10} />
       </ProgressBarContainer>
     </>
   );

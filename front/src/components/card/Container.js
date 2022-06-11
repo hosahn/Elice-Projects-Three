@@ -1,7 +1,12 @@
 import { CardContainer } from '../../styles/CardStyle';
 
 const Container = (props) => {
-  return <CardContainer>{props.children}</CardContainer>;
+  const { width, height } = props;
+  return (
+    <CardContainer width={width} height={height}>
+      {props.children}
+    </CardContainer>
+  );
 };
 
 export default Container;
