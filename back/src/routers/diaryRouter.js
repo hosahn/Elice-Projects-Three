@@ -2,7 +2,6 @@ import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
-import Diary from "../db/models/Diary.js";
 const diaryRouter = Router();
 
 /**
@@ -117,7 +116,7 @@ diaryRouter.post(
  *     - in: path
  *       name: id
  *       required: true
- *       example: 2x`
+ *       example: 2
  *     responses:
  *       '204':
  *         description: "삭제 성공"
@@ -307,6 +306,57 @@ diaryRouter.get(
   }
 );
 
+/**
+ * @swagger
+ * /diary/random/list:
+ *   get:
+ *     tags: [Diary]
+ *     description: 유저가 작성한 일기 조회
+ *     produces:
+ *     - application/json
+ *     responses:
+ *       '200':
+ *         summary: "랜덤한 일기 3개를 반환 합니다."
+ *         description: |
+ *           반환 형식
+ *           ```js
+ *           [
+ *            {
+ *            "id": 1,
+ *            "text": "일기 내용",
+ *            "title": "일기 제목",
+ *            "tag": "공부",
+ *            "date": "2022-06-09T10:45:55+00:00",
+ *            "view": 4,
+ *            }
+ *           ]
+ *           ```
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: number
+ *                     example: 37
+ *                   text:
+ *                     type: string
+ *                     example: "일기 내용 입니다."
+ *                   title:
+ *                     type: string
+ *                     example: "제목"
+ *                   tag:
+ *                     type: string
+ *                     example: "공부"
+ *                   date:
+ *                     type: Date
+ *                     example: "2022-06-07T07:21:56.000Z"
+ *                   view:
+ *                     type: number
+ *                     example: 1
+ */
 diaryRouter.get("/random/list", async (req, res, next) => {
   const diarys = await DiaryService.randomDiarys();
   return res.status(200).send(diarys);

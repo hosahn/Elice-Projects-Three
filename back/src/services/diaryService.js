@@ -8,8 +8,7 @@ export default class DiaryService {
    * @param {string} body.text - 일기 내용
    * @param {string} body.title - 일기 제목
    * @param {string} body.tag - 일기 태그 [ 주제 ]
-   * @param {string[]} images - 일기에 들어간 이미지 배열
-   * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number, count: number}>}
+   * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async create({ userId, text, title, tag }) {
     const newDiary = {
@@ -32,6 +31,7 @@ export default class DiaryService {
   /**
    * - 일기 개별 조회 Service 함수
    * @param {number} id - 조회할 다이어리 ID 값
+   * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async read(id) {
     const body = await Diary.read(id);
@@ -41,6 +41,7 @@ export default class DiaryService {
   /**
    *  - 일기 목록 조회 Service 함수
    * @param {number} userId - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
+   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
@@ -84,6 +85,7 @@ export default class DiaryService {
 
   /**
    * - 유저가 가진 일기 중 랜덤으로 3개를 보여주는 함수
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async randomDiarys() {
     const diarys = await Diary.randomDiarys();

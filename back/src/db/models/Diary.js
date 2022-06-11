@@ -58,6 +58,7 @@ export default class Diary {
   /**
    * - 일기 목록 조회 Model 함수
    * @param {number} userId - 다이어리 목록을 조회할 유저 ID
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async readList(userId) {
     const diaryList = await prisma.diary.findMany({
@@ -112,6 +113,10 @@ export default class Diary {
     return challenge;
   }
 
+  /**
+   * - 현재 존재하는 유저인지 확인
+   * @param {number} userId - diary를 작성한 user_id
+   */
   static async userCheck(userId) {
     const user = await prisma.users.findFirst({
       where: {
@@ -121,9 +126,13 @@ export default class Diary {
     return user;
   }
 
+  /**
+   * - 랜덤한 일기 3개를 반환합니다.
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
   static async randomDiarys() {
     const diarys =
-      await prisma.$queryRaw`SELECT * FROM diary order by RAND() limit 3;`;
+      await prisma.$queryRaw`SELECT id, title, text, tag, date, view FROM diary WHERE deleted=0 ORDER BY RAND() limit 3;`;
     return diarys;
   }
 }
