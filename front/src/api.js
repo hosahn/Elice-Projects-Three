@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-const backendPortNumber = '5000';
+const backendPortNumber = '5001';
 const serverUrl = `http://${window.location.hostname}:${backendPortNumber}/`;
 
 async function get(endpoint, params = '') {
-  console.log(
-    `%cGET 요청 ${`${serverUrl + endpoint}/${params}`}`,
-    'color: #a25cd1;'
-  );
+  console.log(`%cGET 요청 ${`${serverUrl + endpoint}/${params}`}`, 'color: #a25cd1;');
 
   return axios
     .get(`${serverUrl + endpoint}/${params}`, {
@@ -16,8 +13,8 @@ async function get(endpoint, params = '') {
         Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
       },
     })
-    .then((res) => res)
-    .catch((error) => error.response.data);
+    .then(res => res)
+    .catch(error => error.response.data);
 }
 
 async function post(endpoint, data) {
@@ -34,8 +31,8 @@ async function post(endpoint, data) {
         Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
       },
     })
-    .then((res) => res)
-    .catch((error) => error.response.data);
+    .then(res => res)
+    .catch(error => error.response.data);
 }
 
 async function put(endpoint, data) {
@@ -52,8 +49,8 @@ async function put(endpoint, data) {
         Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
       },
     })
-    .then((res) => res)
-    .catch((error) => error.response.data);
+    .then(res => res)
+    .catch(error => error.response.data);
 }
 
 // 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,

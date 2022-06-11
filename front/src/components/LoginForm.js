@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Btn from './Btn';
-import { KAKAO_AUTH_URL } from './OAuth.js';
+import axios from 'axios';
 
 // import { Container, Col, Row, Form, Button } from 'react-bootstrap';
 
@@ -41,6 +41,15 @@ function LoginForm() {
   const isPasswordValid = password.length >= 4;
 
   const isFormValid = isEmailValid && isPasswordValid;
+
+  const onClickKakao = async () => {
+    const res = await axios({
+      method: 'get',
+      url: 'http://localhost:5001/login/kakao',
+    });
+
+    console.log('res', res);
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -108,11 +117,12 @@ function LoginForm() {
           </div>
         </div>
         <div sm={{ span: 20 }}>
-          <img src={process.env.PUBLIC_URL + '/google.png'} alt='구글' style={{ width: '30px', height: '30pxt', marginRight: '30px' }} />
+          {/* <img src={process.env.PUBLIC_URL + '/google.png'} alt='구글' style={{ width: '30px', height: '30pxt', marginRight: '30px' }} />
           <a href={KAKAO_AUTH_URL}>
             <img src={process.env.PUBLIC_URL + '/kakao.png'} style={{ width: '30px', height: '30px', marginRight: '30px' }} />
           </a>
-          <img src={process.env.PUBLIC_URL + '/naver2.png'} style={{ width: '30px', height: '30px', marginRight: '30px' }} />
+          <img src={process.env.PUBLIC_URL + '/naver.png'} style={{ width: '30px', height: '30px', marginRight: '30px' }} /> */}
+          <button onClick={onClickKakao}>카카오</button>
         </div>
       </LoginContainer>
     </>
