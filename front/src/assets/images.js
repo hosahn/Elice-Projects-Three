@@ -4,10 +4,10 @@ import Kakao from './image/Kakao.png';
 import Naver from './image/Naver.png';
 
 const images = {
-  Background: Background,
-  Google: Google,
-  Kakao: Kakao,
-  Naver: Naver,
+  Background,
+  Google,
+  Kakao,
+  Naver,
 };
 
 export default images;
