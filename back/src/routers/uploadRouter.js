@@ -42,20 +42,20 @@ const uploadRouter = Router();
  *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}"
  */
 uploadRouter.get("/:file", (req, res, next) => {
+  const { file } = req.params;
+  const fileName = Date.now() + file;
   try {
-    const { file } = req.params;
-    const fileName = Date.now() + file;
     const url = createUrl(`diary/${fileName}`);
-    const imageUrl = `https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}`;
-    const body = {
-      success: true,
-      url,
-      imageUrl,
-    };
-    res.status(201).json(body);
   } catch (error) {
-    throw new Error(`이미지 업로드 에러 \n Error : ${error.message}`);
+    next(error);
   }
+  const imageUrl = `https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}`;
+  const body = {
+    success: true,
+    url,
+    imageUrl,
+  };
+  res.status(201).json(body);
 });
 
 uploadRouter.delete("/:file", async (req, res, next) => {
@@ -71,10 +71,10 @@ uploadRouter.delete("/:file", async (req, res, next) => {
         else console.log(data); // 성공 시 데이터 출력
       }
     );
-    res.send("완료");
   } catch (error) {
-    throw new Error(`S3 이미지 삭제 실패\nError: ${error.message}`);
+    next(error);
   }
+  res.send("완료");
 });
 
 export default uploadRouter;

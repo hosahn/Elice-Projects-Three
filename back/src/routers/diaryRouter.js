@@ -90,16 +90,20 @@ diaryRouter.post(
     validate,
   ],
   async (req, res, next) => {
+    const data = req.body;
+    const { userId } = data;
     try {
-      const data = req.body;
-      const { userId } = data;
       if (await DiaryService.challengeCheck(userId)) {
         await DiaryService.check(userId);
       }
+    } catch (error) {
+      next(error);
+    }
+    try {
       const body = await DiaryService.create(data);
       return res.status(201).json(body);
     } catch (error) {
-      throw new Error(`일기 생성 에러\n Error : ${error.message}`);
+      next(error);
     }
   }
 );
@@ -142,12 +146,12 @@ diaryRouter.delete(
     validate,
   ],
   async (req, res, next) => {
+    const { id } = req.params;
     try {
-      const { id } = req.params;
       const body = await DiaryService.delete(id);
       return res.status(204).end();
     } catch (error) {
-      throw new Error(`일기 삭제 에러\n Error : ${error.message}`);
+      next(error);
     }
   }
 );
@@ -224,8 +228,13 @@ diaryRouter.get(
   ],
   async (req, res, next) => {
     const { id } = req.params;
-    const body = await DiaryService.read(id);
-    return res.status(200).send(body);
+    console.log(id);
+    try {
+      const body = await DiaryService.read(id);
+      return res.status(200).send(body);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
@@ -296,12 +305,12 @@ diaryRouter.get(
     validate,
   ],
   async (req, res, next) => {
+    const { userId } = req.params;
     try {
-      const { userId } = req.params;
       const body = await DiaryService.readList(userId);
       return res.status(200).send(body);
     } catch (error) {
-      throw new Error(`일기 조회 에러\n Error : ${error.message}`);
+      next(error);
     }
   }
 );
@@ -358,8 +367,12 @@ diaryRouter.get(
  *                     example: 1
  */
 diaryRouter.get("/random/list", async (req, res, next) => {
-  const diarys = await DiaryService.randomDiarys();
-  return res.status(200).send(diarys);
+  try {
+    const diarys = await DiaryService.randomDiarys();
+    return res.status(200).send(diarys);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // diaryRouter.post("/images", upload.array("image"), async (req, res, next) => {
