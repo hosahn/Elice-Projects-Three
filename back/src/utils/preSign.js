@@ -1,14 +1,3 @@
-import {
-  CreateBucketCommand,
-  PutObjectCommand,
-  GetObjectCommand,
-  DeleteObjectCommand,
-  DeleteBucketCommand,
-  ListObjectsCommand,
-} from "@aws-sdk/client-s3";
-import s3Client from "./S3Client.js"; // Helper function that creates an Amazon S3 service client module.
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import fetch from "node-fetch";
 import AWS from "aws-sdk";
 
 AWS.config.update({
@@ -20,7 +9,6 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 const myBucket = process.env.BUCKET_NAME;
-const myKey = `diary/${Date.now()}`;
 const signedUrlExpireSeconds = 60 * 5;
 
 export default function createUrl(fileName) {

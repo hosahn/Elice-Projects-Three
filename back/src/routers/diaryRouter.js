@@ -140,7 +140,7 @@ diaryRouter.delete(
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.");
+          throw new Error("Diary가 존재하지 않습니다.", 404);
         }
       }),
     validate,
