@@ -38,7 +38,6 @@ function App() {
       console.log(res);
     });
   };
-
   return (
     <div>
       <button onClick={googleHandler}>googleLogin</button>

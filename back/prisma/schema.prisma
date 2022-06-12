@@ -8,25 +8,29 @@ datasource db {
 }
 
 model challenge {
-  id             Int              @id @default(autoincrement())
-  name           String?          @db.VarChar(50)
-  duration       Int?
-  description    String?          @db.TinyText
-  reward         String?          @db.TinyText
-  inserted_at    DateTime?        @db.Timestamp(0)
-  user_challenge user_challenge[]
+  id                       Int              @id @default(autoincrement())
+  name                     String?          @db.VarChar(50)
+  duration                 Int?
+  description              String?          @db.TinyText
+  reward                   String?          @db.TinyText
+  inserted_at              DateTime?        @db.Timestamp(0)
+  type                     Int?
+  reward_challengeToreward reward[]
+  user_challenge           user_challenge[]
 }
 
 model diary {
   id      Int       @id @default(autoincrement())
   user_id Int?
   text    String?   @db.Text
-  title   String   @db.VarChar(50)
+  title   String    @db.VarChar(50)
   tag     String?   @db.VarChar(50)
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
-  users   users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "diary_ibfk_1")
+  deleted Boolean?  @default(false)
+  users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
   emotion emotion[]
+
   @@index([user_id], map: "user_id")
 }
 
@@ -62,6 +66,7 @@ model user_challenge {
   end_date     DateTime?  @db.Timestamp(0)
   is_completed Boolean?
   is_broken    Boolean?
+  type         Int?
   challenge    challenge? @relation(fields: [challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_challenge_ibfk_2")
   users        users?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_challenge_ibfk_1")
 
@@ -75,13 +80,20 @@ model users {
   pw             String?          @db.VarChar(25)
   social         String?          @db.VarChar(10)
   inserted_at    DateTime?        @default(now()) @db.Timestamp(0)
-  updated_at     DateTime?        @default(now()) @updatedAt @db.Timestamp(0)
+  updated_at     DateTime?        @updatedAt @db.Timestamp(0)
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]
 }
 
-model images {
-  id       Int     @id @default(autoincrement())
-  image    String? @db.TinyText
+model reward {
+  id           Int       @id @default(autoincrement())
+  challenge_id Int
+  insereted_at String    @db.VarChar(25)
+  type         Int?
+  duration     Int?
+  reward       String?   @db.VarChar(30)
+  challenge    challenge @relation(fields: [challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reward_ibfk_1")
+
+  @@index([challenge_id], map: "challenge_id")
 }

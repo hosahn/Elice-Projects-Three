@@ -19,6 +19,8 @@ import { diaryRouter } from "./routers/diaryRouter.js";
 import { userRouter } from "./routers/userRouter.js";
 import { loginRouter } from "./routers/loginRouter.js";
 import { uploadRouter } from "./routers/uploadRouter.js";
+import { challengeRouter } from "./routers/challengeRouter.js";
+
 process.setMaxListeners(15);
 const mysqlStore = mysqlSession(session);
 export const app = express();
@@ -95,5 +97,6 @@ app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);
+app.use("/challenge", challengeRouter);
 app.use(Sentry.Handlers.errorHandler());
 export default app;
