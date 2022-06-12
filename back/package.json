@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest --forceExit",
+    "test": "jest --forceExit --detectOpenHandles",
     "start": "nodemon ./bin/www",
     "babel": "babel-node",
     "migrate": "npx prisma migrate dev",
