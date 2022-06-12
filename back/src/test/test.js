@@ -1,58 +1,81 @@
 import request from "supertest";
-import { app } from "../app.js";
-import DiaryService from "../services/diaryService.js";
-import Diary from "../db/models/Diary.js";
-import newDiary from "./data/new-product.json";
-import * as httpMocks from "node-mocks-http";
 import "../config/env.js";
+import DiaryService from "../services/diaryService.js";
+import app from "../app.js";
 
-// test("GET / URL 테스트", async () => {
-//   const res = await request(app).get("/basic");
-//   expect(res.body).toEqual("서버가 정상적으로 열렸습니다!");
-// });
+const diaryMock = {
+  userId: 2,
+  title: "일기 제목",
+  text: "이건 일기 내용",
+  tag: "공부",
+};
 
-// describe("Basic Router 테스트", () => {
-//   test("Basic Create 요청", async () => {
-//     const res = await request(app).post("/basic").send({
-//       email: "test@example.com",
-//       pw: "1234",
-//       social: "local",
-//     });
-//     expect(res.body.email).toEqual("test@example.com");
-//   });
+const diaryResultMock = {
+  id: 0,
+  title: "일기 제목",
+  text: "이건 일기 내용",
+  tag: "공부",
+};
 
-//   test("GET /basic/:id", async () => {
-//     const res = await request(app).get("/basic/test");
-//     expect(res.body.id).toEqual("test");
-//   });
-
-//   test("포스트 요청 테스트", async () => {
-//     const res = await request(app).post("/basic/post").send({ name: "Shin" });
-//     expect(res.body.name).toEqual("Shin");
-//   });
-
-//   test("Query 요청 확인", async () => {
-//     const res = await request(app)
-//       .get("/basic/query")
-//       .query({ name: "신광천" });
-//     expect(res.body.name).toEqual("신광천");
-//   });
-// });
-
-Diary.create = jest.fn();
-
-describe("Diary Crate 테스트 ", () => {
+describe("Diary Crate Test ", () => {
   test("should have a DiaryService.create function", async () => {
     expect(typeof DiaryService.create).toBe("function");
   });
-  // test("should call Diary.create()", async () => {
-  //   DiaryService.create(req.body); // DiaryService.create 에 필요한 파라미터를 넣어준다.
-  //   expect(Diary.create).toBeCalledWith(newDiary); //  해당 파라미터를 가진 함수가 한번이라도 호출됐는지 확인
-  //   // 즉 이때는 Diary.create에 newDiary 라는 이름으로 파라미터가 들어갔는지 확인
-  // });
-  // test("should return 201 response code", async () => {
-  //   const res = await request(app).post("/diary").send(newDiary);
-  //   console.log(res.body);
-  //   expect(res.statusCode).toEqual(201);
-  // });
+  test("Diary.create() Compare response values", async () => {
+    const result = await DiaryService.create(diaryMock); // DiaryService.create 에 필요한 파라미터를 넣어준다.
+    diaryResultMock["id"] = result.id;
+    expect(result).toEqual(diaryResultMock);
+  });
+  test("should return 201 response code", async () => {
+    const res = await request(app).post("/diary").send(diaryMock);
+    expect(res.statusCode).toBe(201);
+  });
+});
+
+describe("Diary Read One Test", () => {
+  test("should have a DiaryService.read function", async () => {
+    expect(typeof DiaryService.read).toBe("function");
+  });
+  test("DiaryService.read() Compare response value", async () => {
+    const result = await DiaryService.read(diaryResultMock.id);
+    expect(result).toEqual(
+      expect.objectContaining({
+        id: expect.any(Number),
+        title: expect.any(String),
+        text: expect.any(String),
+        tag: expect.any(String),
+        date: expect.any(Date),
+        view: expect.any(Number),
+      })
+    );
+  });
+  test("should return 200 response code", async () => {
+    const res = await request(app).get(`/diary/${diaryResultMock.id}`);
+    expect(res.statusCode).toBe(200);
+  });
+});
+
+describe("Diary Read List Test", () => {
+  test("should have a DiaryService.readList", async () => {
+    expect(typeof DiaryService.readList).toBe("function");
+  });
+  test("DiarySerivce.readList Compare response value", async () => {
+    const result = await DiaryService.readList(diaryMock.userId);
+    expect(result).toEqual(
+      expect.objectContaining([
+        {
+          id: expect.any(Number),
+          title: expect.any(String),
+          text: expect.any(String),
+          tag: expect.any(String),
+          date: expect.any(Date),
+          view: expect.any(Number),
+        },
+      ])
+    );
+  });
+  test("should return 200 response code", async () => {
+    const res = await request(app).get(`/diary/${diaryMock.userId}`);
+    expect(res.statusCode).toBe(200);
+  });
 });

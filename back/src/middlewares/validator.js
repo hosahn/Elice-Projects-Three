@@ -6,7 +6,7 @@ export const validate = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-  return res.status(STATUS_400_BADREQUEST).json({
+  return res.status(errors.code ?? STATUS_400_BADREQUEST).json({
     success: false,
     error: {
       code: STATUS_400_BADREQUEST,
