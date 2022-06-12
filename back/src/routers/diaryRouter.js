@@ -228,7 +228,6 @@ diaryRouter.get(
   ],
   async (req, res, next) => {
     const { id } = req.params;
-    console.log(id);
     try {
       const body = await DiaryService.read(id);
       return res.status(200).send(body);

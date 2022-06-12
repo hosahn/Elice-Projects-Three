@@ -23,7 +23,6 @@ import uploadRouter from "./routers/uploadRouter.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 
 process.setMaxListeners(15);
-const mysqlStore = mysqlSession(session);
 export const app = express();
 
 Sentry.init({
@@ -34,16 +33,18 @@ Sentry.init({
 
 const csrfProtection = csurf({ cookie: true });
 
-var options = {
-  host: process.env.MYSQL_HOST,
-  port: 3306,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: "sessionstore",
-};
-var connection = mysql.createConnection(options);
-var sessionStore = new mysqlStore(options, connection);
-
+if (process.env.NODE_ENV !== "test") {
+  const mysqlStore = mysqlSession(session);
+  var options = {
+    host: process.env.MYSQL_HOST,
+    port: 3306,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: "sessionstore",
+  };
+  var connection = mysql.createConnection(options);
+  var sessionStore = new mysqlStore(options, connection);
+}
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs

@@ -21,7 +21,7 @@ describe("Diary Crate Test ", () => {
   test("should have a DiaryService.create function", async () => {
     expect(typeof DiaryService.create).toBe("function");
   });
-  test("Diary.create() Compare response values", async () => {
+  test("Diary.create() Check the response structure", async () => {
     const result = await DiaryService.create(diaryMock); // DiaryService.create 에 필요한 파라미터를 넣어준다.
     diaryResultMock["id"] = result.id;
     expect(result).toEqual(diaryResultMock);
@@ -36,7 +36,7 @@ describe("Diary Read One Test", () => {
   test("should have a DiaryService.read function", async () => {
     expect(typeof DiaryService.read).toBe("function");
   });
-  test("DiaryService.read() Compare response value", async () => {
+  test("DiaryService.read() Check the response structure", async () => {
     const result = await DiaryService.read(diaryResultMock.id);
     expect(result).toEqual(
       expect.objectContaining({
@@ -56,10 +56,10 @@ describe("Diary Read One Test", () => {
 });
 
 describe("Diary Read List Test", () => {
-  test("should have a DiaryService.readList", async () => {
+  test("should have a DiaryService.readList function", async () => {
     expect(typeof DiaryService.readList).toBe("function");
   });
-  test("DiarySerivce.readList Compare response value", async () => {
+  test("DiarySerivce.readList Check the response structure", async () => {
     const result = await DiaryService.readList(diaryMock.userId);
     expect(result).toEqual(
       expect.objectContaining([
