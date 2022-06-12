@@ -54,13 +54,9 @@ const UserMain = () => {
       <MainContainer>
         <MiainChallengeContainer>
           {user.is_broken ? (
-            <>
-              <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
-            </>
+            <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
           ) : (
-            <>
-              <CurrentChallenge user={user} props={'안녕'} />
-            </>
+            <CurrentChallenge user={user} props={'안녕'} />
           )}
         </MiainChallengeContainer>
       </MainContainer>

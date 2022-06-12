@@ -35,6 +35,7 @@ export const LoginInput = styled.input`
   color: white;
   background: transparent;
   padding: 1rem;
+  border: solid 1px #dbc7ff;
   border-radius: 1rem;
   outline: none;
   font-size: 1rem;

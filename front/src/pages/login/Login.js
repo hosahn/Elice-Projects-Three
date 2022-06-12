@@ -23,23 +23,11 @@ const Login = () => {
       <div>
         <div style={{ marginTop: '1rem' }}>
           <LoginText>이메일 주소</LoginText>
-          <LoginInput
-            type="email"
-            autoComplete="on"
-            style={{
-              border: 'solid 1px #DBC7FF',
-            }}
-          />
+          <LoginInput type="email" autoComplete="on" />
         </div>
         <div style={{ marginTop: '1rem' }}>
           <LoginText>비밀번호</LoginText>
-          <LoginInput
-            type="email"
-            autoComplete="on"
-            style={{
-              border: 'solid 1px #DBC7FF',
-            }}
-          />
+          <LoginInput type="email" autoComplete="on" />
         </div>
         <SocialLoginContainer>
           <SocialLogin />
