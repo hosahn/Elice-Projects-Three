@@ -10,6 +10,12 @@ export default class Diary {
   static async create(newDiary) {
     const createDiary = await prisma.diary.create({
       data: newDiary,
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        tag: true,
+      },
     });
     return createDiary;
   }
@@ -50,6 +56,14 @@ export default class Diary {
     const readDiary = await prisma.diary.findUnique({
       where: {
         id: +id,
+      },
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        tag: true,
+        date: true,
+        view: true,
       },
     });
     return readDiary;
