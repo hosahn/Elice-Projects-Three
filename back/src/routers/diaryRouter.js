@@ -101,10 +101,10 @@ diaryRouter.post(
     }
     try {
       const body = await DiaryService.create(data);
+      return res.status(201).json(body);
     } catch (error) {
       next(error);
     }
-    return res.status(201).json(body);
   }
 );
 
@@ -147,12 +147,12 @@ diaryRouter.delete(
   ],
   async (req, res, next) => {
     const { id } = req.params;
-    const body = await DiaryService.delete(id);
     try {
+      const body = await DiaryService.delete(id);
+      return res.status(204).end();
     } catch (error) {
-      throw new Error(`일기 삭제 에러\n Error : ${error.message}`);
+      next(error);
     }
-    return res.status(204).end();
   }
 );
 
@@ -228,12 +228,13 @@ diaryRouter.get(
   ],
   async (req, res, next) => {
     const { id } = req.params;
+    console.log(id);
     try {
       const body = await DiaryService.read(id);
+      return res.status(200).send(body);
     } catch (error) {
       next(error);
     }
-    return res.status(200).send(body);
   }
 );
 
@@ -307,10 +308,10 @@ diaryRouter.get(
     const { userId } = req.params;
     try {
       const body = await DiaryService.readList(userId);
+      return res.status(200).send(body);
     } catch (error) {
       next(error);
     }
-    return res.status(200).send(body);
   }
 );
 
@@ -368,10 +369,10 @@ diaryRouter.get(
 diaryRouter.get("/random/list", async (req, res, next) => {
   try {
     const diarys = await DiaryService.randomDiarys();
+    return res.status(200).send(diarys);
   } catch (error) {
     next(error);
   }
-  return res.status(200).send(diarys);
 });
 
 // diaryRouter.post("/images", upload.array("image"), async (req, res, next) => {
