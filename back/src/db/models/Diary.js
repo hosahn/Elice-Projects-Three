@@ -80,6 +80,14 @@ export default class Diary {
         user_id: +userId,
         deleted: false,
       },
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        tag: true,
+        date: true,
+        view: true,
+      },
     });
     return diaryList;
   }

@@ -17,7 +17,7 @@ const diaryResultMock = {
   tag: "공부",
 };
 
-describe("Diary Crate 테스트 ", () => {
+describe("Diary Crate Test ", () => {
   test("should have a DiaryService.create function", async () => {
     expect(typeof DiaryService.create).toBe("function");
   });
@@ -32,13 +32,12 @@ describe("Diary Crate 테스트 ", () => {
   });
 });
 
-describe("Diary Read 테스트", () => {
+describe("Diary Read One Test", () => {
   test("should have a DiaryService.read function", async () => {
     expect(typeof DiaryService.read).toBe("function");
   });
-  test("Diary.read() Compare response value", async () => {
+  test("DiaryService.read() Compare response value", async () => {
     const result = await DiaryService.read(diaryResultMock.id);
-    console.log(result);
     expect(result).toEqual(
       expect.objectContaining({
         id: expect.any(Number),
@@ -52,6 +51,31 @@ describe("Diary Read 테스트", () => {
   });
   test("should return 200 response code", async () => {
     const res = await request(app).get(`/diary/${diaryResultMock.id}`);
+    expect(res.statusCode).toBe(200);
+  });
+});
+
+describe("Diary Read List Test", () => {
+  test("should have a DiaryService.readList", async () => {
+    expect(typeof DiaryService.readList).toBe("function");
+  });
+  test("DiarySerivce.readList Compare response value", async () => {
+    const result = await DiaryService.readList(diaryMock.userId);
+    expect(result).toEqual(
+      expect.objectContaining([
+        {
+          id: expect.any(Number),
+          title: expect.any(String),
+          text: expect.any(String),
+          tag: expect.any(String),
+          date: expect.any(Date),
+          view: expect.any(Number),
+        },
+      ])
+    );
+  });
+  test("should return 200 response code", async () => {
+    const res = await request(app).get(`/diary/${diaryMock.userId}`);
     expect(res.statusCode).toBe(200);
   });
 });
