@@ -15,16 +15,14 @@ const DiaryContext = styled.div`
 
 const Diary = () => {
   return (
-    <>
-      <div style={{ margin: '2rem' }}>
-        <DiaryContext>
-          <Text />
-        </DiaryContext>
-        <Title />
-        <Tag />
-        <DiaryEditor />
-      </div>
-    </>
+    <div style={{ margin: '2rem' }}>
+      <DiaryContext>
+        <Text />
+      </DiaryContext>
+      <Title />
+      <Tag />
+      <DiaryEditor />
+    </div>
   );
 };
 
