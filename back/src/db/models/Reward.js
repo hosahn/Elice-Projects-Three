@@ -22,6 +22,19 @@ class Reward {
       });
     }
   }
+  static async findRewardNames({ array }) {
+    const result = prisma.reward.findMany({
+      where: {
+        id: {
+          in: array,
+        },
+      },
+      select: {
+        reward: true,
+      },
+    });
+    return result;
+  }
   static async findReward({ challenge_id, duration }) {
     const result = prisma.reward.findMany({
       where: {
@@ -30,6 +43,14 @@ class Reward {
       },
       select: {
         id: true,
+      },
+    });
+    return result;
+  }
+  static async findUserRewards({ user_id }) {
+    const result = prisma.user_rewards.findMany({
+      where: {
+        user_id: user_id,
       },
     });
     return result;

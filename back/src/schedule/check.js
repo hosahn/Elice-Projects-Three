@@ -1,6 +1,6 @@
 import schedule from "node-schedule";
 import nodemailer from "nodemailer";
-import { Reward, User, UserChallenge } from "../db/index.js";
+import { Reward, UserChallenge } from "../db/index.js";
 import { ChallengeService } from "../services/challengeService";
 
 const rule = '0 0 20 * * *';
@@ -18,9 +18,9 @@ schedule.scheduleJob(rule, () => {
       });
       const text = "오늘의 도전과제를 아직 완료하지 않으셨습니다!"
       for(let i = 0; i < result.length; i++){
-        let info = await transporter.sendMail({
+        await transporter.sendMail({
             from: `"밤하늘" <${process.env.NODEMAILER_USER}>`,
-            to: result[i],
+            to: result[i].email,
             subject: 'Auth Number',
             text: text,
             html: `<b>${text}</b>`,
@@ -34,6 +34,8 @@ schedule.scheduleJob(rule, () => {
 const checkRule = '0 24 2 * * *';
 schedule.scheduleJob(checkRule, () => {
     const result = ChallengeService.findFailedPeople();
+    const array = result.map((result) => result.id);
+    await ChallengeService.deleteFailedPeople({ array });
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             host: 'hosahn13@gmail.com',
@@ -46,9 +48,9 @@ schedule.scheduleJob(checkRule, () => {
           });
           const text = "챌린지를 실패하셨습니다 ,다음에 다시 도전해주세요!"
           for(let i = 0; i < result.length; i++){
-            let info = await transporter.sendMail({
+            await transporter.sendMail({
                 from: `"밤하늘" <${process.env.NODEMAILER_USER}>`,
-                to: result[i],
+                to: result[i].email,
                 subject: 'Auth Number',
                 text: text,
                 html: `<b>${text}</b>`,
