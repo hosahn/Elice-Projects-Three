@@ -3,17 +3,17 @@ import styled from 'styled-components';
 export const MainContext = styled.div`
   font-family: 'EliceDigitalBaeum_Bold';
   font-size: 1.8rem;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin-top: 5px;
+  margin-bottom: 10px;
   margin-left: 95px;
 `;
 
 export const SubContext = styled.div`
   font-family: 'EliceDigitalBaeum_Bold';
   font-size: 1.4rem;
-  line-height: 2rem;
-  margin-top: 2rem;
-  margin-left: 13rem;
+  line-height: 30px;
+  margin-top: 32px;
+  margin-left: 300px;
   margin-bottom: 1rem;
 `;
 
