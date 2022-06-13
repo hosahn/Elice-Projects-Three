@@ -1,5 +1,7 @@
 import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
+import { validate } from "../middlewares/validator.js";
+import { check, param, body } from "express-validator";
 const diaryRouter = Router();
 
 /**
@@ -49,7 +51,7 @@ const diaryRouter = Router();
  *                 id:
  *                   type: number
  *                   example: 4
- *                 user_id:
+ *                 userId:
  *                   type: number
  *                   example: 1
  *                 text:
@@ -68,15 +70,35 @@ const diaryRouter = Router();
  *                   type: number
  *                   example: 1
  */
-diaryRouter.post("/", async (req, res, next) => {
-  try {
+diaryRouter.post(
+  "/",
+  [
+    body("userId", "현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
+      .exists({ checkFalsy: true })
+      .bail(),
+    body("title", "제목은 필수로 입력해야 합니다.")
+      .exists()
+      .bail(),
+    body("text", "일기 내용은 필수로 적어주셔야 합니다.")
+      .exists()
+      .bail(),
+    validate,
+  ],
+  async (req, res, next) => {
     const data = req.body;
-    const body = await DiaryService.create(data);
-    return res.status(201).json(body);
-  } catch (error) {
-    throw new Error(`일기 생성 에러\n Error : ${error.message}`);
+    const { userId } = data;
+    if (await DiaryService.challengeCheck(userId))
+    {
+      await DiaryService.check(userId);
+    }
+    try {
+      const body = await DiaryService.create(data);
+      return res.status(201).json(body);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 /**
  * @swagger
@@ -95,15 +117,36 @@ diaryRouter.post("/", async (req, res, next) => {
  *       '204':
  *         description: "삭제 성공"
  */
-diaryRouter.delete("/:id", async (req, res, next) => {
-  try {
+diaryRouter.delete(
+  "/:id",
+  [
+    param("id")
+      .trim()
+      .exists({ checkFalsy: true })
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .bail()
+      .toInt()
+      .isInt()
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .bail()
+      .custom(async (value) => {
+        const diary = await DiaryService.find(value);
+        if (!diary) {
+          throw new Error("Diary가 존재하지 않습니다.", 404);
+        }
+      }),
+    validate,
+  ],
+  async (req, res, next) => {
     const { id } = req.params;
-    const body = await DiaryService.delete(id);
-    return res.status(204).end();
-  } catch (error) {
-    throw new Error(`일기 삭제 에러\n Error : ${error.message}`);
+    try {
+      const body = await DiaryService.delete(id);
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 /**
  * @swagger
@@ -155,15 +198,36 @@ diaryRouter.delete("/:id", async (req, res, next) => {
  *                         type: string
  *                         example:  "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654656839850docker.png"
  */
-diaryRouter.get("/:id", async (req, res, next) => {
-  try {
+diaryRouter.get(
+  "/:id",
+  [
+    param("id")
+      .trim()
+      .exists({ checkFalsy: true })
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .bail()
+      .toInt()
+      .isInt()
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .bail()
+      .custom(async (value) => {
+        const diary = await DiaryService.find(value);
+        if (!diary) {
+          throw new Error("Diary가 존재하지 않습니다.");
+        }
+      }),
+    validate,
+  ],
+  async (req, res, next) => {
     const { id } = req.params;
-    const body = await DiaryService.read(id);
-    return res.status(200).send(body);
-  } catch (error) {
-    throw new Error(`일기 조회 에러\n Error: ${error.message}`);
+    try {
+      const body = await DiaryService.read(id);
+      return res.status(200).send(body);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 /**
  * @swagger
@@ -211,21 +275,95 @@ diaryRouter.get("/:id", async (req, res, next) => {
  *                     example: 1
  *
  */
-diaryRouter.get("/list/:user_id", async (req, res, next) => {
+diaryRouter.get(
+  "/list/:userId",
+  [
+    param("userId")
+      .trim()
+      .exists({ checkFalsy: true })
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .bail()
+      .toInt()
+      .isInt()
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .bail()
+      .custom(async (value) => {
+        const user = await DiaryService.userCheck(value);
+        if (!user) {
+          throw new Error("유저가 존재하지 않습니다.");
+        }
+      }),
+    validate,
+  ],
+  async (req, res, next) => {
+    const { userId } = req.params;
+    try {
+      const body = await DiaryService.readList(userId);
+      return res.status(200).send(body);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
+ * @swagger
+ * /diary/random/list:
+ *   get:
+ *     tags: [Diary]
+ *     description: 유저가 작성한 일기 조회
+ *     produces:
+ *     - application/json
+ *     responses:
+ *       '200':
+ *         summary: "랜덤한 일기 3개를 반환 합니다."
+ *         description: |
+ *           반환 형식
+ *           ```js
+ *           [
+ *            {
+ *            "id": 1,
+ *            "text": "일기 내용",
+ *            "title": "일기 제목",
+ *            "tag": "공부",
+ *            "date": "2022-06-09T10:45:55+00:00",
+ *            "view": 4,
+ *            }
+ *           ]
+ *           ```
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: number
+ *                     example: 37
+ *                   text:
+ *                     type: string
+ *                     example: "일기 내용 입니다."
+ *                   title:
+ *                     type: string
+ *                     example: "제목"
+ *                   tag:
+ *                     type: string
+ *                     example: "공부"
+ *                   date:
+ *                     type: Date
+ *                     example: "2022-06-07T07:21:56.000Z"
+ *                   view:
+ *                     type: number
+ *                     example: 1
+ */
+diaryRouter.get("/random/list", async (req, res, next) => {
   try {
-    const { user_id } = req.params;
-    const body = await DiaryService.readList(user_id);
-    return res.status(200).send(body);
+    const diarys = await DiaryService.randomDiarys();
+    return res.status(200).send(diarys);
   } catch (error) {
-    throw new Error(`일기 조회 에러\n Error : ${error.message}`);
+    next(error);
   }
 });
 
-// diaryRouter.post("/images", upload.array("image"), async (req, res, next) => {
-//   const images = [];
-//   req.files.forEach((file) => images.push(file.location));
-//   const body = await ImagesService.transData(images, id);
-//   res.status(201).json(images);
-// });
-
-export { diaryRouter };
+export default diaryRouter;
