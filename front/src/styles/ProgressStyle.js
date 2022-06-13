@@ -11,7 +11,7 @@ export const BarWrap = styled.div`
 export const Filter = styled.div`
   height: 100%;
   width: ${(props) => (props.completed ? props.completed * 10 : 0)}%;
-  background-color: #916bbf;
+  background-color: ${({ theme }) => theme.color.purple};
   border-radius: 50px;
   text-align: right;
 `;

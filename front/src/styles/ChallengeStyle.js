@@ -4,7 +4,7 @@ export const ChallengeContainer = styled.div`
   width: 70rem;
   height: 15rem;
   padding: 1rem;
-  background-color: #916bbf;
+  background-color: ${({ theme }) => theme.color.purple};
   overflow: auto;
   border-radius: 0.5rem;
   &::-webkit-scrollbar {

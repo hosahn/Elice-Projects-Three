@@ -8,9 +8,9 @@ export const TagBox = styled.div`
   margin: 0.5rem;
   padding: 0 1rem;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
   &:focus-within {
-    border-color: #3d2c8d;
+    border-color: ${({ theme }) => theme.color.mainPurple};
   }
 `;
 
@@ -21,7 +21,7 @@ export const TagItem = styled.div`
   background-color: #f3f0ff;
   opacity: 0.7;
   border-radius: 5px;
-  color: #3d2c8d;
+  color: ${({ theme }) => theme.color.mainPurple};
   font-size: 13px;
   font-weight: bold;
   cursor: pointer;
