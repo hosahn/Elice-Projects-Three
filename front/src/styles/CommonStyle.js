@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const MainContext = styled.div`
   font-family: 'EliceDigitalBaeum_Bold';
   font-size: 1.8rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  margin-left: 6rem;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 95px;
 `;
 
 export const SubContext = styled.div`

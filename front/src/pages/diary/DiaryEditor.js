@@ -10,6 +10,7 @@ const DiaryEditor = () => {
   const editorRef = useRef();
   const title = useRecoilValue(titleState);
   const tag = useRecoilValue(tagState);
+  const Name = '나연';
 
   const uploadImage = async (blob) => {
     const name = blob.name;
@@ -42,6 +43,7 @@ const DiaryEditor = () => {
   return (
     <>
       <Editor
+        initialValue={'✏️'}
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
