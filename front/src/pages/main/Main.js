@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CurrentChallenge from './MainChallenge';
+import MainChallenge from './MainChallenge';
 import {
   MainTitle,
   SubContext,
@@ -56,7 +56,7 @@ const UserMain = () => {
           {user.is_broken ? (
             <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
           ) : (
-            <CurrentChallenge user={user} props={'안녕'} />
+            <MainChallenge user={user} props={'안녕'} />
           )}
         </MiainChallengeContainer>
       </MainContainer>

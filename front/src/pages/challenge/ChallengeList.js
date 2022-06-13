@@ -3,7 +3,11 @@ import ChallengeCard from './ChallengeCard';
 import { ChallengeContainer } from '../../styles/ChallengeStyle';
 
 const ChallengeList = () => {
-  return <ChallengeContainer></ChallengeContainer>;
+  return (
+    <ChallengeContainer>
+      <ChallengeCard />
+    </ChallengeContainer>
+  );
 };
 
 export default ChallengeList;
