@@ -12,12 +12,15 @@ class Challenge {
     return result;
   }
 
-  static async findChallenges({ challenge_array }) {
+  static async findChallengesById({ challenge_array }) {
     const result = await prisma.challenge.findMany({
       where: {
         id: {
           in: challenge_array,
         },
+      },
+      select: {
+        name: true,
       },
     });
     return result;

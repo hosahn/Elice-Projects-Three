@@ -22,11 +22,16 @@ class ChallengeService {
     });
     return deleted;
   }
-  static async getChallenges({ user_id }) {
-    const challenge_array = await UserChallenge.findUncompleted({ user_id });
-    const result = await Challenge.findChallenges({ challenge_array });
-    return result;
+  static async getChallengeLog({ user_id }) {
+    const challenge = await UserChallenge.findChallengesByUser({ user_id });
+    const challenge_array = challenge.map(
+      (challenge) => challenge.challenge_id
+    );
+    const completed = challenge.map((challenge) => challenge.is_Completed);
+    const result = await Challenge.findChallengesById({ challenge_array });
+    return { completed: completed, challenge: result };
   }
+
   static async findFailedPeople() {
     const result = await UserChallenge.findFailed({});
     const array = result.map((result) => result.user_id);

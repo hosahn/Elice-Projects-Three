@@ -2,14 +2,6 @@ import { PrismaClient } from "@prisma/client";
 import moment from "moment";
 const prisma = new PrismaClient();
 class UserChallenge {
-  static async findChallengeByUser({ user_id }) {
-    const result = prisma.user_challenge.findFirst({
-      where: {
-        user_id: user_id,
-      },
-    });
-    return result;
-  }
   static async findChallengesByUser({ user_id }) {
     const result = prisma.user_challenge.findMany({
       where: {
@@ -17,8 +9,10 @@ class UserChallenge {
       },
       select: {
         challenge_id: true,
+        is_completed: true,
       },
     });
+    return result;
   }
   static async findChallenge({ user_id, challenge_id }) {
     const result = prisma.user_challenge.findFirst({
