@@ -28,7 +28,8 @@ class ChallengeService {
     return result;
   }
   static async findFailedPeople() {
-    const array = await UserChallenge.findFailed({});
+    const result = await UserChallenge.findFailed({});
+    const array = result.map((result) => result.user_id);
     const array2 = await User.findUserByEmail({ id: array });
     return array2;
   }
@@ -36,6 +37,10 @@ class ChallengeService {
     const array = await UserChallenge.findSucceed({ duration, type });
     const array2 = await User.findUserByEmail({ id: array });
     return array2;
+  }
+  static async deleteFailedPeople({ array }) {
+    const result = await UserChallenge.deleteChallengeByIds({ array });
+    return result;
   }
 }
 

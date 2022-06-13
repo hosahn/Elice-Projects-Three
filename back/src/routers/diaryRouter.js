@@ -76,19 +76,14 @@ diaryRouter.post(
     body("userId", "현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
       .exists({ checkFalsy: true })
       .bail(),
-    body("title", "제목은 필수로 입력해야 합니다.")
-      .exists()
-      .bail(),
-    body("text", "일기 내용은 필수로 적어주셔야 합니다.")
-      .exists()
-      .bail(),
+    body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
+    body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
     validate,
   ],
   async (req, res, next) => {
     const data = req.body;
     const { userId } = data;
-    if (await DiaryService.challengeCheck(userId))
-    {
+    if (await DiaryService.challengeCheck(userId)) {
       await DiaryService.check(userId);
     }
     try {
@@ -366,4 +361,4 @@ diaryRouter.get("/random/list", async (req, res, next) => {
   }
 });
 
-export default diaryRouter;
+export { diaryRouter };

@@ -77,4 +77,4 @@ uploadRouter.delete("/:file", async (req, res, next) => {
   res.send("완료");
 });
 
-export default uploadRouter;
+export { uploadRouter };

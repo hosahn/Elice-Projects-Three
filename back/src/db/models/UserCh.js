@@ -71,7 +71,7 @@ class UserChallenge {
   static async deleteChallengeByIds({ array }) {
     const result = prisma.user_challenge.deleteMany({
       where: {
-        id: {
+        user_id: {
           in: array,
         },
       },
@@ -91,9 +91,7 @@ class UserChallenge {
   }
 
   static async getTemporarySuccess({ tempo, duration, type }) {
-    const result = prisma.$queryRaw(
-      `select user_id, challenge_id from user_challenge WHERE date_sub(NOW(), INTERVAL ${tempo} DAY) >= start_date AND type = ${type} AND date_sub(end_date, INTERVAL ${duration} day) = start_date; `
-    );
+    const result = prisma.$queryRaw`select user_id, challenge_id from user_challenge WHERE date_sub(NOW(), INTERVAL ${tempo} DAY) >= start_date AND type = ${type} AND date_sub(end_date, INTERVAL ${duration} day) = start_date; `;
     return result;
   }
 }
