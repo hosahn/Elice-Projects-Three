@@ -11,6 +11,7 @@ class ChallengeService {
       user_id,
       challenge_id,
       type: result.type,
+      duration: result.duration,
     });
     return add;
   }

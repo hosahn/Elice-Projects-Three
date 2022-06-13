@@ -17,6 +17,7 @@ model challenge {
   type                     Int?
   reward_challengeToreward reward[]
   user_challenge           user_challenge[]
+  user_rewards             user_rewards[]
 }
 
 model diary {
@@ -84,16 +85,32 @@ model users {
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]
+  user_rewards   user_rewards[]
 }
 
 model reward {
-  id           Int       @id @default(autoincrement())
+  id           Int            @id @default(autoincrement())
   challenge_id Int
-  insereted_at String    @db.VarChar(25)
+  insereted_at String         @db.VarChar(25)
   type         Int?
   duration     Int?
-  reward       String?   @db.VarChar(30)
-  challenge    challenge @relation(fields: [challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reward_ibfk_1")
+  reward       String?        @db.VarChar(30)
+  challenge    challenge      @relation(fields: [challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reward_ibfk_1")
+  user_rewards user_rewards[]
 
   @@index([challenge_id], map: "challenge_id")
+}
+
+model user_rewards {
+  id           Int       @id @default(autoincrement())
+  user_id      Int
+  challenge_id Int
+  reward_id    Int
+  challenge    challenge @relation(fields: [challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_rewards_ibfk_2")
+  reward       reward    @relation(fields: [reward_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_rewards_ibfk_3")
+  users        users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_rewards_ibfk_1")
+
+  @@index([user_id], map: "user_id")
+  @@index([challenge_id], map: "challenge_id")
+  @@index([reward_id], map: "reward_id")
 }

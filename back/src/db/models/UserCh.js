@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import moment from "moment";
 const prisma = new PrismaClient();
 class UserChallenge {
   static async findChallengeByUser({ user_id }) {
@@ -41,7 +42,9 @@ class UserChallenge {
       },
     });
   }
-  static async addChallenge({ user_id, challenge_id, type }) {
+  static async addChallenge({ user_id, challenge_id, type, duration }) {
+    const start = moment().format();
+    const end = moment().add(duration, "d").format();
     const result = prisma.user_challenge.create({
       data: {
         user_id: Number(user_id),
@@ -49,7 +52,8 @@ class UserChallenge {
         type: Number(type),
         is_completed: false,
         is_broken: true,
-        start_date: null,
+        start_date: start,
+        end_date: end,
       },
     });
     return result;
@@ -86,27 +90,11 @@ class UserChallenge {
     return result;
   }
 
-  static async getSucceed({ duration, type }) {
-    const result = prisma.user_challenge.findMany({
-      where: {
-        type: type,
-        challenge: {
-          duration: duration,
-        },
-      },
-      include: {
-        challenge: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    }); // 성공한 유저 + challengeID return
-  }
-  static async getTemporarySuccess({ tempo }) {
-    const result = prisma.user_challenge.findMany({
-      where: {},
-    });
+  static async getTemporarySuccess({ tempo, duration, type }) {
+    const result = prisma.$queryRaw(
+      `select user_id, challenge_id from user_challenge WHERE date_sub(NOW(), INTERVAL ${tempo} DAY) >= start_date AND type = ${type} AND date_sub(end_date, INTERVAL ${duration} day) = start_date; `
+    );
+    return result;
   }
 }
 export { UserChallenge };
