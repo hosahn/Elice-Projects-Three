@@ -79,12 +79,10 @@ diaryRouter.post(
       .bail(),
     body("title")
       .exists()
-      .isLength({ min: 1 })
       .withMessage("제목은 필수로 입력해야 합니다.")
       .bail(),
     body("text")
       .exists()
-      .isLength({ min: 1 })
       .withMessage("일기 내용은 필수로 적어주셔야 합니다.")
       .bail(),
     validate,
