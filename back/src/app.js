@@ -101,6 +101,9 @@ app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);
+app.use(function(req, res, next) {
+  res.status(404).send('존재하지 않는 페이지 입니다!');
+});
 app.use(Sentry.Handlers.errorHandler());
 app.use(errorMiddleware);
 export default app;
