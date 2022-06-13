@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from './Theme';
 
 export const MainContext = styled.div`
   font-family: 'EliceDigitalBaeum_Bold';
@@ -42,12 +41,12 @@ export const HighLightPurple = styled.span`
 `;
 
 export const HighLightPink = styled.span`
-  color: ${({ theme }) => theme.color.pink};
+  color: ${({ theme }) => theme.color.mainPink};
 `;
 
 export const HighLightExplain = styled.span`
   font-family: EliceDigitalBaeum_Bold;
-  color: ${({ theme }) => theme.color.pink};
+  color: ${({ theme }) => theme.color.mainPink};
   font-weight: 900;
 `;
 
