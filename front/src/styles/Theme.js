@@ -11,7 +11,8 @@ const color = {
   subPurple: '#c996cc', // Nav
   purple: '#916bbf',
   subGray: '#EFF0F2', // button
-  pink: '#e64980',
+  mainPink: '#e64980',
+  subPink: '#f3d9fa',
 };
 
 const deviceSizes = {
