@@ -366,11 +366,4 @@ diaryRouter.get("/random/list", async (req, res, next) => {
   }
 });
 
-// diaryRouter.post("/images", upload.array("image"), async (req, res, next) => {
-//   const images = [];
-//   req.files.forEach((file) => images.push(file.location));
-//   const body = await ImagesService.transData(images, id);
-//   res.status(201).json(images);
-// });
-
 export default diaryRouter;

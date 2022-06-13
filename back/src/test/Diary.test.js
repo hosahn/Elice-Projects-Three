@@ -30,9 +30,6 @@ describe("Diary Crate Success Test", () => {
     const res = await request(app).post("/diary").send(diaryMock);
     expect(res.statusCode).toBe(201);
   });
-});
-
-describe("Diary Create Fail Test", () => {
   test("UserId parameter error test", async() => {
     const userIdErrorMock = {...diaryMock}
     delete userIdErrorMock.userId;
@@ -40,7 +37,6 @@ describe("Diary Create Fail Test", () => {
     expect(res.body.error.message).toBe("현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
     expect(res.statusCode).toBe(400)
   })
-  
   test("Title parameter error test", async () => {
     const titleErrorMock = {...diaryMock}
     delete titleErrorMock.title;
@@ -48,7 +44,6 @@ describe("Diary Create Fail Test", () => {
     expect(res.body.error.message).toBe("제목은 필수로 입력해야 합니다.")
     expect(res.statusCode).toBe(400)
   });
-
   test("Text parameter error test", async() => {
     const textErrorMock = {...diaryMock}
     delete textErrorMock.text
@@ -58,7 +53,7 @@ describe("Diary Create Fail Test", () => {
   })
 });
 
-describe("Diary Read One Test", () => {
+describe("Diary Read Test", () => {
   test("should have a DiaryService.read function", async () => {
     expect(typeof DiaryService.read).toBe("function");
   });
@@ -79,9 +74,6 @@ describe("Diary Read One Test", () => {
     const res = await request(app).get(`/diary/${diaryResultMock.id}`);
     expect(res.statusCode).toBe(200);
   });
-});
-
-describe("Diary Read List Test", () => {
   test("should have a DiaryService.readList function", async () => {
     expect(typeof DiaryService.readList).toBe("function");
   });
