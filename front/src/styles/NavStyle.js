@@ -7,22 +7,19 @@ export const NavWrap = styled.div`
   justify-content: end;
   align-items: center;
   background-color: ${({ theme }) => theme.color.subPurple};
-  button {
-    border: none;
-    margin-right: 30px;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: 15px;
-  }
 `;
 
 export const Btn = styled.button`
-  margin-right: 10px;
+  margin-right: 30px;
+  font-size: 15px;
+  margin-right: 20px;
   color: white;
   font-weight: bold;
 `;
 
 export const UserBtn = styled.button`
+  margin-right: 30px;
+  font-size: 25px;
   color: white;
 `;
 

@@ -23,6 +23,11 @@ body{
   position: relative;
 }
 
+button{
+  border: none;
+  background-color: transparent;
+}
+
 button:hover{
   cursor: pointer;
 }

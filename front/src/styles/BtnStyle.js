@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const CustomButton = styled.button`
-  cursor: pointer;
-  border: none;
   border-radius: 5rem;
   padding: 0.5rem 1rem;
   font-size: 18px;
@@ -21,8 +19,6 @@ export const ArrowButton = styled.button`
   right: ${(props) => `${props.right}rem`};
   transform: translateY(-50%);
   padding: 10px;
-  cursor: pointer;
-  border: none;
   border-radius: 2rem;
   background-color: #eff0f2;
   opacity: 0.6;
