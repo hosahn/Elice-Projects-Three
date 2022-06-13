@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from './Theme';
 
 export const MainContext = styled.div`
   font-family: 'EliceDigitalBaeum_Bold';
@@ -36,18 +37,17 @@ export const SubTitle = styled.h2`
 `;
 
 // HighLight
-
 export const HighLightPurple = styled.span`
-  color: #3d2c8d;
+  color: ${({ theme }) => theme.color.mainPurple};
 `;
 
 export const HighLightPink = styled.span`
-  color: #e64980;
+  color: ${({ theme }) => theme.color.pink};
 `;
 
 export const HighLightExplain = styled.span`
   font-family: EliceDigitalBaeum_Bold;
-  color: #e64980;
+  color: ${({ theme }) => theme.color.pink};
   font-weight: 900;
 `;
 
@@ -62,7 +62,7 @@ export const TextInput = styled.input`
   font-size: ${(props) => `${props.size}rem`};
   &:focus {
     outline: none;
-    border-color: #3d2c8d;
+    border-color: ${({ theme }) => theme.color.mainPurple};
   }
   &:focus::-webkit-input-placeholder {
     color: #748ffc;
