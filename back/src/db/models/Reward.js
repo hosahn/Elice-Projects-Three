@@ -3,20 +3,21 @@ import { PrismaClient } from "@prisma/client";
 import moment from "moment";
 const prisma = new PrismaClient();
 class Reward {
-  static async giveReward({ reward, user_id }) {
-    const alreadyGiven = prisma.user_rewards.findFirst({
+  static async giveReward({ reward, user, challenge_id }) {
+    const alreadyGiven = await prisma.user_rewards.findFirst({
       where: {
         reward_id: reward,
-        user_id: user_id,
+        user_id: user,
       },
     });
     if (alreadyGiven) return false;
     else {
+      console.log("created");
       return await prisma.user_rewards.create({
         data: {
+          challenge_id: challenge_id,
           reward_id: reward,
-          user_id: user_id,
-          inserted_at: moment().format(),
+          user_id: user,
         },
       });
     }

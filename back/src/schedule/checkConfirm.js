@@ -31,10 +31,13 @@ class Schedule {
         duration: 10,
       }); //challengeId와 duration을 이용해 보상 확인
       for (let i = 0; i < user11.length; i++) {
-        await Reward.giveReward({ reward: reward11, user: user11[i] }); //giveReward로 성공한 사람의 아이디와 challengeID를 받아 user_reward필드에 보상 넣어주기
+        await Reward.giveReward({
+          reward: reward11[0].id,
+          user: user11[i],
+          challenge_id: temporarySuccess11[0].challenge_id,
+        }); //giveReward로 성공한 사람의 아이디와 challengeID를 받아 user_reward필드에 보상 넣어주기
       }
     }
-    console.log(temporarySuccess11);
     const temporarySuccess21 = await UserChallenge.getTemporarySuccess({
       tempo: 30,
       type: 1,
@@ -48,11 +51,14 @@ class Schedule {
         challenge_id: temporarySuccess21[0].challenge_id,
         duration: 30,
       });
-      for (let i = 0; i < user11.length; i++) {
-        await Reward.giveReward({ reward: reward21, user: user21[i] });
+      for (let i = 0; i < user21.length; i++) {
+        await Reward.giveReward({
+          reward: reward21[0].id,
+          user: user21[i],
+          challenge_id: temporarySuccess21[0].challenge_id,
+        });
       }
     }
-    console.log(temporarySuccess21);
     const completelySuccess1 = await UserChallenge.getTemporarySuccess({
       tempo: 50,
       type: 1,
@@ -67,26 +73,12 @@ class Schedule {
         duration: 50,
       });
       for (let i = 0; i < user1.length; i++) {
-        await Reward.giveReward({ reward: reward1, user_id: user1[i] });
-      }
-    }
-    console.log(completelySuccess1);
-    const completelySuccess2 = await UserChallenge.getTemporarySuccess({
-      tempo: 5,
-      type: 1,
-      duration: 5,
-    });
-    console.log(completelySuccess2);
-    if (completelySuccess2.length > 0) {
-      const user2 = completelySuccess1.map(
-        (completelySuccess2) => completelySuccess2.user_id
-      );
-      const reward2 = await Reward.findReward({
-        challenge_id: completelySuccess2[0].challenge_id,
-        duration: 50,
-      });
-      for (let i = 0; i < user1.length; i++) {
-        await Reward.giveReward({ reward: reward2, user_id: user2[i] });
+        console.log();
+        await Reward.giveReward({
+          reward: reward1[0].id,
+          user: user1[i],
+          challenge_id: completelySuccess1[0].challenge_id,
+        });
       }
     }
   }

@@ -91,7 +91,8 @@ class UserChallenge {
   }
 
   static async getTemporarySuccess({ tempo, duration, type }) {
-    const result = prisma.$queryRaw`select user_id, challenge_id from user_challenge WHERE date_sub(NOW(), INTERVAL ${tempo} DAY) >= start_date AND type = ${type} AND date_sub(end_date, INTERVAL ${duration} day) = start_date; `;
+    const result =
+      await prisma.$queryRaw`select user_id, challenge_id from user_challenge WHERE date_sub(NOW(), INTERVAL ${tempo} DAY) >= start_date AND type = ${type} AND date_sub(end_date, INTERVAL ${duration} day) = start_date; `;
     return result;
   }
 }
