@@ -75,18 +75,3 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-// Background
-export const Background = styled.div`
-  z-index: 90;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.3);
-`;

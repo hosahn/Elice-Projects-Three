@@ -11,7 +11,19 @@ export const CardWrap = styled.div`
   width: ${(props) => `${props.width}rem`};
   height: ${(props) => `${props.height}rem`};
   text-align: center;
-  background-color: ${({ theme }) => theme.color.subPink};
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 25px 0px;
+  background-color: ${(props) => props.color};
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 10px 0px;
   border-radius: 1rem;
+`;
+
+export const BattlePassContainer = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+`;
+
+export const CardsContainer = styled.div`
+  width: 300vw;
+  height: 10vw;
+  transition: transform 0.5s;
 `;

@@ -5,7 +5,7 @@ import { titleState, tagState } from '../../atoms';
 import Btn from '../../components/Btn';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { Background } from '../../styles/CommonStyle';
+import { Background } from '../../styles/ModalStyle';
 import { HeartSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
 
