@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, createContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Introduction from './pages/Introduction';
@@ -7,6 +7,7 @@ import UserInfo from './pages/UserInfo';
 import Nav from './components/nav/Nav';
 import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
+import RegisterForm from './components/RegisterForm';
 import Login from './pages/login/Login';
 import './App.css';
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/diaryEditor" element={<Diary />} />
         <Route path="/challenge" element={<Challenge />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </Router>
   );

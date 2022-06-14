@@ -10,7 +10,6 @@
 
 # production
 /build
-modal/
 
 # misc
 .DS_Store

@@ -15,7 +15,7 @@ const DiaryEditor = () => {
   const tag = useRecoilValue(tagState);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const image = [];
+  const [imageList, setImageList] = useState([]);
 
   const uploadImage = async (blob) => {
     const name = blob.name;
@@ -23,27 +23,36 @@ const DiaryEditor = () => {
       method: 'get',
       url: `http://localhost:5001/upload/${name}`,
     });
+
+    setImageList((data) => [res.data.imageUrl, ...data]);
+    console.log(imageList);
+
     await axios({
       method: 'put',
       url: res.data.url,
       data: blob,
     });
-    image.push(res.data.imageUrl);
+
     return res.data.imageUrl;
   };
 
   const handleClick = () => {
     const editorInstance = editorRef.current.getInstance();
     const text = editorInstance.getMarkdown();
-    const url = 'https://12team.com/userDiary/img';
-    axios.post(url, {
-      title,
-      tag,
-      text,
-    });
-    setSubmit((prev) => !prev);
-    setLoading((prev) => !prev);
-    setTimeout(() => setLoading((prev) => !prev), 1500);
+    if (title.length > 0 && text.length > 2) {
+      const url = 'https://12team.com/userDiary/img';
+      axios.post(url, {
+        tag,
+        text,
+        title,
+        imageList,
+      });
+      setSubmit((prev) => !prev);
+      setLoading((prev) => !prev);
+      setTimeout(() => setLoading((prev) => !prev), 1500);
+    } else {
+      alert('일기 작성 문구 ~~~~~');
+    }
   };
 
   return (
