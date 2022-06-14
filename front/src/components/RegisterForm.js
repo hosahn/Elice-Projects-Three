@@ -3,26 +3,39 @@ import { useNavigate } from 'react-router-dom';
 import Btn from './Btn';
 import * as Api from '../api';
 import styled from 'styled-components';
+import images from '../assets/images';
 
 const RegisterInput = styled.input`
-  width: 680px;
-  height: 73px;
-  top: 270px;
-  left: 343px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
+  display: inline-flex;
+  width: 30rem;
+  height: 3rem;
+  color: white;
+  background: transparent;
+  padding: 1rem;
+  border: solid 1px #dbc7ff;
+  border-radius: 1rem;
+  outline: none;
+  font-size: 1rem;
+  cursor: text;
+`;
+
+const RegisterContainer = styled.div`
+  position: realtive;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-image: url(${images.Bg});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const RegisterLabel = styled.label``;
 
 function RegisterForm() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
-
   const [password, setPassword] = useState('');
-
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const [name, setName] = useState('');
 
   const validateEmail = (email) => {
@@ -61,72 +74,76 @@ function RegisterForm() {
   };
 
   return (
-    <div onSubmit={handleSubmit}>
-      <div>
-        <RegisterLabel>이메일 주소</RegisterLabel>
-        <RegisterInput
-          type="email"
-          autoComplete="off"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {!isEmailValid && (
-          <text className="text-success">이메일 형식이 올바르지 않습니다.</text>
-        )}
-      </div>
+    <RegisterContainer>
+      <div onSubmit={handleSubmit}>
+        <div>
+          <RegisterLabel>이메일 주소</RegisterLabel>
+          <RegisterInput
+            type="email"
+            autoComplete="off"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {!isEmailValid && (
+            <text className="text-success">
+              이메일 형식이 올바르지 않습니다.
+            </text>
+          )}
+        </div>
 
-      <div>
-        <RegisterLabel>비밀번호</RegisterLabel>
-        <RegisterInput
-          type="password"
-          autoComplete="off"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {!isPasswordValid && (
-          <text className="text-success">
-            비밀번호는 4글자 이상으로 설정해 주세요.
-          </text>
-        )}
-      </div>
+        <div>
+          <RegisterLabel>비밀번호</RegisterLabel>
+          <RegisterInput
+            type="password"
+            autoComplete="off"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {!isPasswordValid && (
+            <text className="text-success">
+              비밀번호는 4글자 이상으로 설정해 주세요.
+            </text>
+          )}
+        </div>
 
-      <div>
-        <RegisterLabel>비밀번호 재확인</RegisterLabel>
-        <RegisterInput
-          type="password"
-          autoComplete="off"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        {!isPasswordSame && (
-          <text className="text-success">비밀번호가 일치하지 않습니다.</text>
-        )}
-      </div>
+        <div>
+          <RegisterLabel>비밀번호 재확인</RegisterLabel>
+          <RegisterInput
+            type="password"
+            autoComplete="off"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          {!isPasswordSame && (
+            <text className="text-success">비밀번호가 일치하지 않습니다.</text>
+          )}
+        </div>
 
-      <div>
-        <RegisterLabel>닉네임</RegisterLabel>
-        <RegisterInput
-          type="text"
-          autoComplete="off"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        {!isNameValid && (
-          <text className="text-success">
-            닉네임은 2글자 이상으로 설정해 주세요.
-          </text>
-        )}
-      </div>
+        <div>
+          <RegisterLabel>닉네임</RegisterLabel>
+          <RegisterInput
+            type="text"
+            autoComplete="off"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          {!isNameValid && (
+            <text className="text-success">
+              닉네임은 2글자 이상으로 설정해 주세요.
+            </text>
+          )}
+        </div>
 
-      <div>
-        <Btn
-          text={'회원가입'}
-          type={'sub'}
-          disabled={!isFormValid}
-          onClick={() => navigate('/login')}
-        />
+        <div>
+          <Btn
+            text={'회원가입'}
+            type={'sub'}
+            disabled={!isFormValid}
+            onClick={() => navigate('/login')}
+          />
+        </div>
       </div>
-    </div>
+    </RegisterContainer>
   );
 }
 
