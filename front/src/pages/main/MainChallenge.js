@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import ProgressBar from './MainProgressBar';
+import { BarWrap, Filter, Label } from '../../styles/ProgressStyle';
 import Cards from '../../components/card/Cards';
 import useGetChallenge from '../../hooks/useGetChallenge';
 
@@ -19,7 +19,11 @@ const CurrentChallenge = (user) => {
   return (
     <>
       <ProgressBarContainer>
-        <ProgressBar completed={round - 1} />
+        <BarWrap>
+          <Filter completed={round - 1}>
+            <Label>{`${round - 1}회차`}</Label>
+          </Filter>
+        </BarWrap>
       </ProgressBarContainer>
       <ProgressBarContainer>
         <Cards width={17} height={10} containerWdith={60} margin={6} />
