@@ -1,7 +1,7 @@
-import { Router } from "express";
-import DiaryService from "../services/diaryService.js";
-import { validate } from "../middlewares/validator.js";
-import { check, param, body } from "express-validator";
+import { Router } from 'express';
+import DiaryService from '../services/diaryService.js';
+import { validate } from '../middlewares/validator.js';
+import { check, param, body } from 'express-validator';
 const diaryRouter = Router();
 
 /**
@@ -71,13 +71,13 @@ const diaryRouter = Router();
  *                   example: 1
  */
 diaryRouter.post(
-  "/",
+  '/',
   [
-    body("userId", "현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
+    body('userId', '현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.')
       .exists({ checkFalsy: true })
       .bail(),
-    body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
-    body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
+    body('title', '제목은 필수로 입력해야 합니다.').exists().bail(),
+    body('text', '일기 내용은 필수로 적어주셔야 합니다.').exists().bail(),
     validate,
   ],
   async (req, res, next) => {
@@ -109,21 +109,21 @@ diaryRouter.post(
  *         description: "삭제 성공"
  */
 diaryRouter.delete(
-  "/:id",
+  '/:id',
   [
-    param("id")
+    param('id')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.", 404);
+          throw new Error('Diary가 존재하지 않습니다.', 404);
         }
       }),
     validate,
@@ -186,21 +186,21 @@ diaryRouter.delete(
  *                         example:  "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654656839850docker.png"
  */
 diaryRouter.get(
-  "/:id",
+  '/:id',
   [
-    param("id")
+    param('id')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.");
+          throw new Error('Diary가 존재하지 않습니다.');
         }
       }),
     validate,
@@ -259,21 +259,21 @@ diaryRouter.get(
  *
  */
 diaryRouter.get(
-  "/list/:userId",
+  '/list/:userId',
   [
-    param("userId")
+    param('userId')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const user = await DiaryService.userCheck(value);
         if (!user) {
-          throw new Error("유저가 존재하지 않습니다.");
+          throw new Error('유저가 존재하지 않습니다.');
         }
       }),
     validate,
@@ -336,7 +336,7 @@ diaryRouter.get(
  *                     type: number
  *                     example: 1
  */
-diaryRouter.get("/random/list", async (req, res, next) => {
+diaryRouter.get('/random/list', async (req, res, next) => {
   const diarys = await DiaryService.randomDiarys();
   return res.status(200).send(diarys);
 });
