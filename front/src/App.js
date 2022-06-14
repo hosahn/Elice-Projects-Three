@@ -9,6 +9,7 @@ import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
 import Login from './pages/login/Login';
 import './App.css';
+import RegisterForm from './components/Registerform';
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -18,12 +19,13 @@ function App() {
     <Router>
       <Nav />
       <Routes>
-        <Route path="/" exact element={<Introduction />} />
-        <Route path="/userMain" element={<UserMain />} />
-        <Route path="/userInfo" element={<UserInfo />} />
-        <Route path="/diaryEditor" element={<Diary />} />
-        <Route path="/challenge" element={<Challenge />} />
-        <Route path="/login" element={<Login />} />
+        <Route path='/' exact element={<Introduction />} />
+        <Route path='/userMain' element={<UserMain />} />
+        <Route path='/userInfo' element={<UserInfo />} />
+        <Route path='/diaryEditor' element={<Diary />} />
+        <Route path='/challenge' element={<Challenge />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<RegisterForm />} />
       </Routes>
     </Router>
   );

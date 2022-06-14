@@ -5,10 +5,10 @@ import * as Api from '../api';
 import styled from 'styled-components';
 
 const RegisterInput = styled.input`
-    width: 680px
-    height: 73px
-    top: 270px
-    left: 343px
+  width: 680px;
+  height: 73px;
+  top: 270px;
+  left: 343px;
 
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `;
