@@ -9,7 +9,7 @@ import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
 import Login from './pages/login/Login';
 import './App.css';
-import RegisterForm from './components/Registerform';
+import RegisterForm from './components/RegisterForm';
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
