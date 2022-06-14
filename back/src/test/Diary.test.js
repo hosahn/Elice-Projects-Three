@@ -17,6 +17,16 @@ const diaryResultMock = {
   tag: "공부",
 };
 
+function deleteMock(del) {
+  const data = Object.keys(diaryMock).reduce((acc, key) => {
+    if (key !== del) {
+        acc[key] = diaryMock[key]
+    }
+    return acc
+}, {})
+return data
+}
+
 describe("Diary Crate Success Test", () => {
   test("should have a DiaryService.create function", async () => {
     expect(typeof DiaryService.create).toBe("function");
@@ -31,22 +41,19 @@ describe("Diary Crate Success Test", () => {
     expect(res.statusCode).toBe(201);
   });
   test("UserId parameter error test", async() => {
-    const userIdErrorMock = {...diaryMock}
-    delete userIdErrorMock.userId;
+    const userIdErrorMock = deleteMock('userId')
     const res = await request(app).post("/diary").send(userIdErrorMock);
     expect(res.body.error.message).toBe("현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
     expect(res.statusCode).toBe(400)
   })
   test("Title parameter error test", async () => {
-    const titleErrorMock = {...diaryMock}
-    delete titleErrorMock.title;
+    const titleErrorMock = deleteMock('title')
     const res = await request(app).post("/diary").send(titleErrorMock);
     expect(res.body.error.message).toBe("제목은 필수로 입력해야 합니다.")
     expect(res.statusCode).toBe(400)
   });
   test("Text parameter error test", async() => {
-    const textErrorMock = {...diaryMock}
-    delete textErrorMock.text
+    const textErrorMock = deleteMock('text')
     const res = await request(app).post("/diary").send(textErrorMock);
     expect(res.body.error.message).toBe("일기 내용은 필수로 적어주셔야 합니다.")
     expect(res.statusCode).toBe(400)
@@ -96,6 +103,7 @@ describe("Diary Read Test", () => {
     const res = await request(app).get(`/diary/${diaryMock.userId}`);
     expect(res.statusCode).toBe(200);
   });
+
 });
 
 describe("Diary Delete Test", () => {
