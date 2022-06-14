@@ -14,6 +14,21 @@ class UserChallenge {
     });
     return result;
   }
+
+  static async finishChallenge({ user_id, challenge_id }) {
+    const result = prisma.user_challenge.updateMany({
+      where: {
+        user_id: user_id,
+        challenge_id: challenge_id,
+      },
+      data: {
+        is_completed: true,
+        is_broken: false,
+      },
+    });
+    return result;
+  }
+
   static async findChallenge({ user_id, challenge_id }) {
     const result = prisma.user_challenge.findFirst({
       where: {
