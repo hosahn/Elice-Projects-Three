@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // battlepass 17rme /10rem
 // challenge  10rem/17rem
 
-export const CardContainer = styled.div`
+export const CardWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

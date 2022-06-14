@@ -10,9 +10,6 @@ import Challenge from './pages/challenge/Challenge';
 import Login from './pages/login/Login';
 import './App.css';
 
-export const UserStateContext = createContext(null);
-export const DispatchContext = createContext(null);
-
 function App() {
   return (
     <Router>

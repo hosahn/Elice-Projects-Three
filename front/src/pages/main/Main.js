@@ -8,6 +8,7 @@ import {
   MainContainer,
 } from '../../styles/CommonStyle';
 import { MiainChallengeContainer } from '../../styles/MainStyle';
+import Container from '../../components/modal/Container';
 
 const UserMain = () => {
   const [user, setUser] = useState({}); // 백에서 받아오는 user정보
