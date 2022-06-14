@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import TEXT from '../../pages/main/TEXT';
-import Container from './Container';
+import TEXT from '../../dummy/TEXT';
+import CardContainer from './CardContainer';
 import MainText from './MainText';
 import SubText from './SubTitle';
 import { ArrowButton } from '../../styles/BtnStyle';
@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import Btn from '../Btn';
+import ColorCard from './ColorCard';
 
 const BattlePassContainer = styled.div`
   overflow: hidden;
@@ -60,11 +61,12 @@ const BattlePass = (props) => {
         {TEXT.map((it, index) => {
           return (
             <CardWrap>
-              <Container key={index} width={width} height={height}>
+              <CardContainer key={index} width={width} height={height}>
                 <MainText text={it.title} />
                 <SubText text={it.description} />
                 {challenge && <Btn text={'버튼'} />}
-              </Container>
+                <ColorCard />
+              </CardContainer>
             </CardWrap>
           );
         })}

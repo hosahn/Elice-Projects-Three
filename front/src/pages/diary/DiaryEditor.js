@@ -1,24 +1,31 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { titleState, tagState } from '../../atoms';
 import Btn from '../../components/Btn';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
+import { Background } from '../../styles/CommonStyle';
+import { HeartSpinner } from 'react-spinners-kit';
+import DiaryModal from './DiaryModal';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
   const title = useRecoilValue(titleState);
   const tag = useRecoilValue(tagState);
-  const Name = '나연';
+  const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [imageList, setImageList] = useState([]);
 
   const uploadImage = async (blob) => {
     const name = blob.name;
-
     const res = await axios({
       method: 'get',
       url: `http://localhost:5001/upload/${name}`,
     });
+
+    setImageList((data) => [res.data.imageUrl, ...data]);
+    console.log(imageList);
 
     await axios({
       method: 'put',
@@ -32,12 +39,20 @@ const DiaryEditor = () => {
   const handleClick = () => {
     const editorInstance = editorRef.current.getInstance();
     const text = editorInstance.getMarkdown();
-    const url = 'https://12team.com/userDiary/img';
-    axios.post(url, {
-      title,
-      tag,
-      text,
-    });
+    if (title.length > 0 && text.length > 2) {
+      const url = 'https://12team.com/userDiary/img';
+      axios.post(url, {
+        tag,
+        text,
+        title,
+        imageList,
+      });
+      setSubmit((prev) => !prev);
+      setLoading((prev) => !prev);
+      setTimeout(() => setLoading((prev) => !prev), 1500);
+    } else {
+      alert('일기 작성 문구 ~~~~~');
+    }
   };
 
   return (
@@ -58,9 +73,17 @@ const DiaryEditor = () => {
           },
         }}
       />
-      <div style={{ float: 'right', margin: '1rem' }}>
+      <div style={{ float: 'right' }}>
         <Btn text={'저장하기'} type={'main'} onClick={handleClick} />
       </div>
+      {submit &&
+        (loading ? (
+          <Background>
+            <HeartSpinner size={100} color="pink" />
+          </Background>
+        ) : (
+          <DiaryModal />
+        ))}
     </>
   );
 };

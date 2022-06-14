@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React from 'react';
 import Tag from './DiaryTag';
 import Title from './DiaryTitle';
 import DiaryEditor from './DiaryEditor';
