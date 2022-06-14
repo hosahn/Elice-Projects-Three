@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import Btn from '../Btn';
+import ColorCard from './ColorCard';
 
 const BattlePassContainer = styled.div`
   overflow: hidden;
@@ -64,6 +65,7 @@ const BattlePass = (props) => {
                 <MainText text={it.title} />
                 <SubText text={it.description} />
                 {challenge && <Btn text={'버튼'} />}
+                <ColorCard />
               </CardContainer>
             </CardWrap>
           );

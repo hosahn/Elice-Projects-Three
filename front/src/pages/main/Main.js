@@ -8,7 +8,7 @@ import {
   MainContainer,
 } from '../../styles/CommonStyle';
 import { MiainChallengeContainer } from '../../styles/MainStyle';
-import Container from '../../components/modal/Container';
+import MainCallengeInfo from './MainCallengeInfo';
 
 const UserMain = () => {
   const [user, setUser] = useState({}); // 백에서 받아오는 user정보
@@ -57,7 +57,10 @@ const UserMain = () => {
           {user.is_broken ? (
             <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
           ) : (
-            <MainChallenge user={user} props={'안녕'} />
+            <>
+              <MainCallengeInfo user={user} />
+              <MainChallenge user={user} />
+            </>
           )}
         </MiainChallengeContainer>
       </MainContainer>
