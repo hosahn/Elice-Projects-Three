@@ -83,7 +83,6 @@ class Schedule {
     }
   }
 }
-Schedule.findUnconfirmed();
 Schedule.deleteFailed();
 Schedule.findSucceed();
 
