@@ -21,7 +21,7 @@ const verify = async (accessToken, refreshToken, profile, done) => {
       const createdUser = await prisma.users.create({
         data: {
           email: email,
-          pw: "1234",
+          pw: process.env.LOCAL_PASSWORD,
           social: "naver",
         },
       });
