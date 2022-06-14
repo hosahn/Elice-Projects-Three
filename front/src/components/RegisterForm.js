@@ -58,33 +58,33 @@ function RegisterForm() {
 
   return (
     <div onSubmit={handleSubmit}>
-      <form>
+      <div>
         <RegisterLabel>이메일 주소</RegisterLabel>
         <RegisterInput type='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
         {!isEmailValid && <text className='text-success'>이메일 형식이 올바르지 않습니다.</text>}
-      </form>
+      </div>
 
-      <form>
+      <div>
         <RegisterLabel>비밀번호</RegisterLabel>
         <RegisterInput type='password' autoComplete='off' value={password} onChange={e => setPassword(e.target.value)} />
         {!isPasswordValid && <text className='text-success'>비밀번호는 4글자 이상으로 설정해 주세요.</text>}
-      </form>
+      </div>
 
-      <form>
+      <div>
         <RegisterLabel>비밀번호 재확인</RegisterLabel>
         <RegisterInput type='password' autoComplete='off' value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
         {!isPasswordSame && <text className='text-success'>비밀번호가 일치하지 않습니다.</text>}
-      </form>
+      </div>
 
-      <form>
+      <div>
         <RegisterLabel>닉네임</RegisterLabel>
         <RegisterInput type='text' autoComplete='off' value={name} onChange={e => setName(e.target.value)} />
         {!isNameValid && <text className='text-success'>닉네임은 2글자 이상으로 설정해 주세요.</text>}
-      </form>
+      </div>
 
-      <form>
+      <div>
         <Btn text={'회원가입'} type={'sub'} disabled={!isFormValid} onClick={() => navigate('/login')} />
-      </form>
+      </div>
     </div>
   );
 }
