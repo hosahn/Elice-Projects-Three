@@ -5,18 +5,18 @@ import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swaggerDoc.js";
 import "./config/env.js";
 import * as Sentry from "@sentry/node";
-import { BrowserTracing } from "@sentry/tracing";
+import * as Tracing from '@sentry/tracing';
 import compression from "compression";
 import csurf from "csurf";
 import helmet from "helmet";
-import { loginRouter } from "./routers/loginRouter.js";
 import rateLimit from "express-rate-limit";
 import passport from "passport";
 import { passportStrategies } from "./passport/finalStrategy.js";
-import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
+import { loginRouter } from "./routers/loginRouter.js";
+import { userRouter } from "./routers/userRouter.js";
 import { calendarRouter } from "./routers/calendarRouter.js";
 import diaryRouter from "./routers/diaryRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
@@ -27,7 +27,7 @@ export const app = express();
 
 Sentry.init({
   dsn: process.env.DSN,
-  integrations: [new BrowserTracing()],
+  integrations: [new Sentry.Integrations.Http({ tracing: true }), new Tracing.BrowserTracing(), new Tracing.Integrations.Express({app})],
   tracesSampleRate: 1.0,
 });
 
@@ -91,6 +91,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
 app.use(
   "/swagger",
   swaggerUi.serve,
@@ -102,8 +103,15 @@ app.use("/diary", diaryRouter);
 app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);
 app.use(function(req, res, next) {
-  res.status(404).send('존재하지 않는 페이지 입니다!');
+    res.status(404).send('존재하지 않는 페이지 입니다!');
 });
-app.use(Sentry.Handlers.errorHandler());
-app.use(errorMiddleware);
+app.use(Sentry.Handlers.errorHandler({
+  shouldHandleError(error){
+    if(error.status >= 400){
+      return true;
+    }
+    return false;
+  }
+}));
+// app.use(errorMiddleware);
 export default app;
