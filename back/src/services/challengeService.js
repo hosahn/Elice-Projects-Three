@@ -3,7 +3,9 @@ import { Challenge, Diary, User, UserChallenge } from "../db/index.js";
 class ChallengeService {
   static async setChallenge({ user_id, challenge_id }) {
     const result = await Challenge.findChallenge({ challenge_id });
-    const def = false;
+    if (!result) {
+      return false;
+    }
     if (await UserChallenge.findChallenge({ user_id, challenge_id })) {
       return "Challenge already exists";
     }

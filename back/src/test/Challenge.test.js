@@ -4,32 +4,29 @@ import request from "supertest";
 import "../config/env.js";
 import app from "../app.js";
 
-const diaryMock = {
-  userId: 2,
-  title: "일기 제목",
-  text: "이건 일기 내용",
-  tag: "공부",
+const challengeStartMock = {
+  user_id: 2,
+  challenge_id: 4,
 };
 
-const diaryResultMock = {
-  id: 0,
-  title: "일기 제목",
-  text: "이건 일기 내용",
-  tag: "공부",
+const challengeStopMock = {
+  user_id: 2,
+  challenge_id: 4,
 };
 
 describe("Challenge Start Test", () => {
   test("should have a ChallengeService.create function", async () => {
-    expect(typeof DiaryService.create).toBe("function");
+    expect(typeof ChallengeService.setChallenge).toBe("function");
   });
-  test("Diary.create() Check the response structure", async () => {
-    const result = await DiaryService.create(diaryMock); // DiaryService.create 에 필요한 파라미터를 넣어준다.
-    diaryResultMock["id"] = result.id;
-    expect(result).toEqual(diaryResultMock);
+  test("Challege.setChallege() Check the response structure", async () => {
+    const result = await ChallengeService.setChallenge(challengeStartMock); // DiaryService.create 에 필요한 파라미터를 넣어준다.
+    expect(result).toEqual(challengeStartMock);
   });
-  test("should return 201 response code", async () => {
-    const res = await request(app).post("/diary").send(diaryMock);
-    expect(res.statusCode).toBe(201);
+  test("ChallegeID Parameter error test", async () => {
+    const res = await request(app)
+      .get("/challenge/start")
+      .send(challengeStartMock);
+    expect(res).toBe("올바르지 않은 접근입니다.");
   });
   test("UserId parameter error test", async () => {
     const userIdErrorMock = { ...diaryMock };
@@ -55,50 +52,5 @@ describe("Challenge Start Test", () => {
       "일기 내용은 필수로 적어주셔야 합니다."
     );
     expect(res.statusCode).toBe(400);
-  });
-});
-
-describe("Diary Read Test", () => {
-  test("should have a DiaryService.read function", async () => {
-    expect(typeof DiaryService.read).toBe("function");
-  });
-  test("DiaryService.read() Check the response structure", async () => {
-    const result = await DiaryService.read(diaryResultMock.id);
-    expect(result).toEqual(
-      expect.objectContaining({
-        id: expect.any(Number),
-        title: expect.any(String),
-        text: expect.any(String),
-        tag: expect.any(String),
-        date: expect.any(Date),
-        view: expect.any(Number),
-      })
-    );
-  });
-  test("should return 200 response code", async () => {
-    const res = await request(app).get(`/diary/${diaryResultMock.id}`);
-    expect(res.statusCode).toBe(200);
-  });
-  test("should have a DiaryService.readList function", async () => {
-    expect(typeof DiaryService.readList).toBe("function");
-  });
-  test("DiarySerivce.readList Check the response structure", async () => {
-    const result = await DiaryService.readList(diaryMock.userId);
-    expect(result).toEqual(
-      expect.objectContaining([
-        {
-          id: expect.any(Number),
-          title: expect.any(String),
-          text: expect.any(String),
-          tag: expect.any(String),
-          date: expect.any(Date),
-          view: expect.any(Number),
-        },
-      ])
-    );
-  });
-  test("should return 200 response code", async () => {
-    const res = await request(app).get(`/diary/${diaryMock.userId}`);
-    expect(res.statusCode).toBe(200);
   });
 });

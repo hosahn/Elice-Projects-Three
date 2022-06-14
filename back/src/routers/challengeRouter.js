@@ -15,9 +15,16 @@ challengeRouter.get("/", async (req, res) => {
   }
 });
 
+challengeRouter.get("/start", (req, res) => {
+  res.send("올바르지 않은 접근입니다.");
+});
+
 challengeRouter.get("/start/:id", async (req, res) => {
   if (req.isAuthenticated()) {
     const user_id = req.user.id;
+    if (!user_id) {
+      res.send(false);
+    }
     const challenge_id = req.params.id;
     const result = await ChallengeService.setChallenge({
       user_id,

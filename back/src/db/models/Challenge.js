@@ -11,7 +11,6 @@ class Challenge {
         id: Number(challenge_id),
       },
     });
-    console.log(result);
     return result;
   }
 
