@@ -124,6 +124,7 @@ schedule.scheduleJob(sendRule, async () => {
         user: user1[i],
         challenge_id: completelySuccess1[0].challenge_id,
       });
+      await UserChallenge.findChallenge({user_id : user1[i], challenge_id : completelySuccess1[0].challenge_id});
     }
   }
 }); // 챌린지를 성공한 사람들에게 메일 발송, 보상 지급

@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class Challenge {
+  static async findAllChallenges() {
+    return await prisma.challenge.findMany({});
+  }
   static async findChallenge({ challenge_id }) {
     const result = await prisma.challenge.findFirst({
       where: {

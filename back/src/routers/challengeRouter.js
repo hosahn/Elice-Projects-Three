@@ -8,7 +8,8 @@ challengeRouter.get("/", async (req, res) => {
   if (req.isAuthenticated()) {
     const user_id = req.user.id;
     const result = await ChallengeService.getChallengeLog({ user_id });
-    res.send(result);
+    const challenges = await ChallengeService.findAllChallenges();
+    res.send({ log: result, challenge: challenges });
   } else {
     res.send(false);
   }

@@ -24,12 +24,21 @@ class ChallengeService {
   }
   static async getChallengeLog({ user_id }) {
     const challenge = await UserChallenge.findChallengesByUser({ user_id });
-    const challenge_array = challenge.map(
-      (challenge) => challenge.challenge_id
-    );
-    const completed = challenge.map((challenge) => challenge.is_Completed);
+    let isRunning = false;
+    let challenge_array = challenge.map((challenge) => {
+      if (challenge.is_completed == false) {
+        isRunning = true;
+      }
+      return challenge.challenge_id;
+    });
+    let completed = challenge.map((challenge) => {
+      return challenge.is_completed;
+    });
     const result = await Challenge.findChallengesById({ challenge_array });
-    return { completed: completed, challenge: result };
+    const name = result.map((result) => {
+      return result.name;
+    });
+    return { completed: completed, challenge: name, isRunning: isRunning };
   }
 
   static async findFailedPeople() {
@@ -46,6 +55,10 @@ class ChallengeService {
   static async deleteFailedPeople({ array }) {
     const result = await UserChallenge.deleteChallengeByIds({ array });
     return result;
+  }
+
+  static async findAllChallenges() {
+    return await Challenge.findAllChallenges();
   }
 }
 
