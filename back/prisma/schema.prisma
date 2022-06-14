@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model challenge {
+  id             Int              @id @default(autoincrement())
+  name           String?          @db.VarChar(50)
+  duration       Int?
+  description    String?          @db.TinyText
+  reward         String?          @db.TinyText
+  inserted_at    DateTime?        @db.Timestamp(0)
+  type           Int?
+  user_challenge user_challenge[]
+}
+
+model diary {
+  id      Int       @id @default(autoincrement())
+  user_id Int?
+  text    String?   @db.Text
+  title   String    @db.VarChar(50)
+  tag     String?   @db.VarChar(50)
+  date    DateTime? @default(now()) @db.Timestamp(0)
+  view    Int?      @default(1)
+  deleted Boolean?  @default(false)
+  users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
+  emotion emotion[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model emotion {
+  id       Int       @id @default(autoincrement())
+  user_id  Int?
+  diary_id Int?
+  date     DateTime? @default(now()) @db.Timestamp(0)
+  emotion  String?   @db.VarChar(10)
+  diary    diary?    @relation(fields: [diary_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_2")
+  users    users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_1")
+
+  @@index([diary_id], map: "diary_id")
+  @@index([user_id], map: "user_id")
+}
+
+model fortune {
+  id   Int     @id @default(autoincrement())
+  text String? @db.TinyText
+}
+
+model question {
+  id      Int     @id @default(autoincrement())
+  text    String? @db.TinyText
+  emotion String? @db.VarChar(10)
+}
+
+model user_challenge {
+  id           Int        @id @default(autoincrement())
+  user_id      Int?
+  challenge_id Int?
+  start_date   DateTime?  @default(now()) @db.Timestamp(0)
+  end_date     DateTime?  @db.Timestamp(0)
+  is_completed Boolean?
+  is_broken    Boolean?
+  type         Int?
+  challenge    challenge? @relation(fields: [challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_challenge_ibfk_2")
+  users        users?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_challenge_ibfk_1")
+
+  @@index([challenge_id], map: "challenge_id")
+  @@index([user_id], map: "user_id")
+}
+
+model users {
+  id             Int              @id @default(autoincrement())
+  email          String?          @db.VarChar(50)
+  pw             String?          @db.VarChar(25)
+  social         String?          @db.VarChar(10)
+  inserted_at    DateTime?        @default(now()) @db.Timestamp(0)
+  updated_at     DateTime?        @updatedAt @db.Timestamp(0)
+  diary          diary[]
+  emotion        emotion[]
+  user_challenge user_challenge[]
+}
