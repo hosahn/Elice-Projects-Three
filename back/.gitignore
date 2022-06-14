@@ -1,4 +1,0 @@
-.env
-node_modules
-coverage
-/src/config/s3.json
