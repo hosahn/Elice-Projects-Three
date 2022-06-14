@@ -17,12 +17,12 @@ import { userRouter } from "./routers/userRouter.js";
 import session from "express-session";
 import { default as mysqlSession } from "express-mysql-session";
 import mysql from "mysql";
-import { basicRouter } from "./routers/basicRouter.js";
 import { calendarRouter } from "./routers/calendarRouter.js";
-import { diaryRouter } from "./routers/diaryRouter.js";
+import diaryRouter from "./routers/diaryRouter.js";
+import uploadRouter from "./routers/uploadRouter.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 
 process.setMaxListeners(15);
-const mysqlStore = mysqlSession(session);
 export const app = express();
 
 Sentry.init({
@@ -33,16 +33,18 @@ Sentry.init({
 
 const csrfProtection = csurf({ cookie: true });
 
-var options = {
-  host: process.env.MYSQL_HOST,
-  port: 3306,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: "sessionstore",
-};
-var connection = mysql.createConnection(options);
-var sessionStore = new mysqlStore(options, connection);
-
+if (process.env.NODE_ENV !== "test") {
+  const mysqlStore = mysqlSession(session);
+  var options = {
+    host: process.env.MYSQL_HOST,
+    port: 3306,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: "sessionstore",
+  };
+  var connection = mysql.createConnection(options);
+  var sessionStore = new mysqlStore(options, connection);
+}
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
@@ -97,7 +99,11 @@ app.use(
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
-app.use("/basic", basicRouter);
 app.use("/calendar", calendarRouter);
+app.use("/upload", uploadRouter);
+app.use(function(req, res, next) {
+  res.status(404).send('존재하지 않는 페이지 입니다!');
+});
 app.use(Sentry.Handlers.errorHandler());
+app.use(errorMiddleware);
 export default app;
