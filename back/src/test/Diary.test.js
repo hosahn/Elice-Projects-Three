@@ -106,9 +106,8 @@ describe("Diary Read Test", () => {
       ])
     );
   });
-
   test("should return 200 response code", async () => {
-    const res = await request(app).get(`/diary/${diaryResultMock.id}`);
+    const res = await request(app).get(`/diary/list/2`);
     expect(res.statusCode).toBe(200);
   });
 
@@ -135,6 +134,16 @@ describe("Diary Read Test", () => {
     const res = await request(app).get(`/diary/random/list`);
     expect(res.statusCode).toBe(200);
   });
+
+  test("Read non-existent Diary ID Test", async () => {
+    const res = await request(app).get(`/diary/001`);
+    expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
+  });
+
+  test("List Read non-existent Diary ID Test", async () => {
+    const res = await request(app).get(`/diary/list/-1`);
+    expect(res.body.error.message).toBe("유저가 존재하지 않습니다.");
+  });
 });
 
 describe("Diary Delete Test", () => {
@@ -147,7 +156,7 @@ describe("Diary Delete Test", () => {
   });
 
   test("Delete non-existent diary ID Test", async () => {
-    const res = await request(app).delete(`/diary/001`);
+    const res = await request(app).delete(`/diary/-1`);
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
 });
