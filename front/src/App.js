@@ -8,6 +8,7 @@ import Nav from "./components/nav/Nav";
 import Diary from "./pages/diary/Diary";
 import Challenge from "./pages/challenge/Challenge";
 import Login from "./pages/login/Login";
+import RegisterForm from "./components/RegisterForm";
 import "./App.css";
 
 export const UserStateContext = createContext(null);
@@ -24,6 +25,7 @@ function App() {
         <Route path="/diaryEditor" element={<Diary />} />
         <Route path="/challenge" element={<Challenge />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </Router>
   );

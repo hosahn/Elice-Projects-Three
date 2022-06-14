@@ -5,12 +5,11 @@ import * as Api from '../api';
 import styled from 'styled-components';
 
 const RegisterInput = styled.input`
-    width: 680px
-    height: 73px
-    top: 270px
-    left: 343px
-
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  width: 680px;
+  height: 73px;
+  top: 270px;
+  left: 343px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
 `;
 
 const RegisterLabel = styled.label``;
@@ -26,8 +25,12 @@ function RegisterForm() {
 
   const [name, setName] = useState('');
 
-  const validateEmail = email => {
-    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  const validateEmail = (email) => {
+    return email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
   };
 
   const isEmailValid = validateEmail(email);
@@ -38,9 +41,10 @@ function RegisterForm() {
 
   const isNameValid = name.length >= 2;
 
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+  const isFormValid =
+    isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -60,30 +64,67 @@ function RegisterForm() {
     <div onSubmit={handleSubmit}>
       <div>
         <RegisterLabel>이메일 주소</RegisterLabel>
-        <RegisterInput type='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
-        {!isEmailValid && <text className='text-success'>이메일 형식이 올바르지 않습니다.</text>}
+        <RegisterInput
+          type="email"
+          autoComplete="off"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {!isEmailValid && (
+          <text className="text-success">이메일 형식이 올바르지 않습니다.</text>
+        )}
       </div>
 
       <div>
         <RegisterLabel>비밀번호</RegisterLabel>
-        <RegisterInput type='password' autoComplete='off' value={password} onChange={e => setPassword(e.target.value)} />
-        {!isPasswordValid && <text className='text-success'>비밀번호는 4글자 이상으로 설정해 주세요.</text>}
+        <RegisterInput
+          type="password"
+          autoComplete="off"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {!isPasswordValid && (
+          <text className="text-success">
+            비밀번호는 4글자 이상으로 설정해 주세요.
+          </text>
+        )}
       </div>
 
       <div>
         <RegisterLabel>비밀번호 재확인</RegisterLabel>
-        <RegisterInput type='password' autoComplete='off' value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-        {!isPasswordSame && <text className='text-success'>비밀번호가 일치하지 않습니다.</text>}
+        <RegisterInput
+          type="password"
+          autoComplete="off"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        {!isPasswordSame && (
+          <text className="text-success">비밀번호가 일치하지 않습니다.</text>
+        )}
       </div>
 
       <div>
         <RegisterLabel>닉네임</RegisterLabel>
-        <RegisterInput type='text' autoComplete='off' value={name} onChange={e => setName(e.target.value)} />
-        {!isNameValid && <text className='text-success'>닉네임은 2글자 이상으로 설정해 주세요.</text>}
+        <RegisterInput
+          type="text"
+          autoComplete="off"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        {!isNameValid && (
+          <text className="text-success">
+            닉네임은 2글자 이상으로 설정해 주세요.
+          </text>
+        )}
       </div>
 
       <div>
-        <Btn text={'회원가입'} type={'sub'} disabled={!isFormValid} onClick={() => navigate('/login')} />
+        <Btn
+          text={'회원가입'}
+          type={'sub'}
+          disabled={!isFormValid}
+          onClick={() => navigate('/login')}
+        />
       </div>
     </div>
   );
