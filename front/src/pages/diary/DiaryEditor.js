@@ -1,6 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import { titleState, tagState } from '../../atoms';
 import Btn from '../../components/Btn';
 import { useRecoilValue } from 'recoil';
@@ -62,7 +66,8 @@ const DiaryEditor = () => {
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
-        toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
+        plugins={[colorSyntax]}
+        language="ko-KR"
         useCommandShortcut={true}
         ref={editorRef}
         hooks={{
