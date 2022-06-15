@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../../components/nav/Nav';
@@ -33,17 +34,24 @@ const BoardContainer = styled.div`
 
 const Note = () => {
   const [open, setOpen] = useState(true);
+  const emotionList = useRef();
 
-  const clickBtn = () => {
-    setOpen((prev) => !prev);
+  const clickEmotion = () => {
+    setOpen(true);
+  };
+
+  const clickTag = () => {
+    setOpen(false);
   };
 
   return (
     <>
       <Nav />
       <BtnContainer>
-        <NoteBtn onClick={clickBtn}>전체글</NoteBtn>
-        <NoteBtn onClick={clickBtn}>태그</NoteBtn>
+        <NoteBtn onClick={clickEmotion} ref={emotionList}>
+          전체글
+        </NoteBtn>
+        <NoteBtn onClick={clickTag}>태그</NoteBtn>
       </BtnContainer>
       <BoardContainer>{open ? <EmotionList /> : <TagList />}</BoardContainer>
     </>
