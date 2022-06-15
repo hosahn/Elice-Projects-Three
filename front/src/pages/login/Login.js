@@ -12,7 +12,7 @@ const LoginMainContainer = styled.div`
   display: grid;
   place-items: center;
   height: 100vh;
-  background-image: url(${images.Background});
+  background-image: url(${images.Bg});
   background-repeat: no-repeat;
   background-size: cover;
 `;

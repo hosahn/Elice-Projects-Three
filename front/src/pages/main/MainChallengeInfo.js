@@ -13,7 +13,6 @@ const MainCallengeInfo = (user) => {
 
   useEffect(() => {
     getChallengeInfo();
-    console.log('실행');
   }, [user]);
 
   const getChallengeInfo = () => {
