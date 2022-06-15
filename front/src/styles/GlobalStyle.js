@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import images from '../assets/images';
 
 // css reset
 const GlobalStyle = createGlobalStyle`

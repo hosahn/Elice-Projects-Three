@@ -8,7 +8,8 @@ import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
 import Login from './pages/login/Login';
 import RegisterForm from './components/RegisterForm';
-import Search from './pages/search/Search';
+import Note from './pages/note/Note';
+import View from './pages/note/View';
 
 import './App.css';
 
@@ -23,7 +24,9 @@ function App() {
         <Route path="/userInfo" element={<UserInfo />} />
         <Route path="/diaryEditor" element={<Diary />} />
         <Route path="/challenge" element={<Challenge />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/note" element={<Note />} />
+        <Route path="/diary/:diaryId" element={<View />} />
+        <Route path="*" exact element={<Introduction />} />
       </Routes>
     </Router>
   );

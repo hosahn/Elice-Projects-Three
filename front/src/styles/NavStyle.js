@@ -6,7 +6,7 @@ export const NavWrap = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.subPurple};
+  background-color: black;
   button {
     border: none;
     margin-right: 30px;
