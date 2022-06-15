@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1655300788632" clover="3.2.0">
-  <project timestamp="1655300788633" name="All files">
-    <metrics statements="286" coveredstatements="203" conditionals="58" coveredconditionals="25" methods="60" coveredmethods="37" elements="404" coveredelements="265" complexity="0" loc="286" ncloc="286" packages="9" files="23" classes="23"/>
+<coverage generated="1655301404331" clover="3.2.0">
+  <project timestamp="1655301404331" name="All files">
+    <metrics statements="284" coveredstatements="203" conditionals="58" coveredconditionals="25" methods="59" coveredmethods="37" elements="401" coveredelements="265" complexity="0" loc="284" ncloc="284" packages="9" files="23" classes="23"/>
     <package name="src">
       <metrics statements="39" coveredstatements="31" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\app.js">
@@ -335,9 +335,9 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="19" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
+      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
       <file name="diaryService.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\services\diaryService.js">
-        <metrics statements="19" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
         <line num="14" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
@@ -353,10 +353,8 @@
         <line num="66" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="91" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
