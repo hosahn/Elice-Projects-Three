@@ -3,12 +3,11 @@ import { Emotion } from "../db/index.js";
 export default class EmotionService {
   static async create({ userId, diaryId, emotion }) {
     const body = {
-      userId,
-      diaryId,
+      user_id: +userId,
+      diary_id: +diaryId,
       emotion,
     };
-
-    const result = Emotion.create(body);
+    const result = await Emotion.create(body);
     return result;
   }
 }

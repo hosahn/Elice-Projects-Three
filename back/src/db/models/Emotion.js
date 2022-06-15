@@ -9,11 +9,9 @@ export default class Emotion {
    * @param {string} emotion - 일기를 감정분석한 결과로 나온 감정
    * @returns {Promise<{user_id: number, diary_id: number, emotion: string, date:Date}>}
    */
-  static async create({ userId, diaryId, emotion }) {
+  static async create(newEmotion) {
     const createEmotion = await prisma.emotion.create({
-      user_id: +userId,
-      diary_id: +diaryId,
-      emotion,
+      data: newEmotion,
     });
     return createEmotion;
   }

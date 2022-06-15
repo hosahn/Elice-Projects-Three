@@ -1,7 +1,6 @@
 import request from "supertest";
 import "../config/env.js";
 import DiaryService from "../services/diaryService.js";
-import EmotionService from "../services/emotionService.js";
 import app from "../app.js";
 import createUrl from "../utils/preSign.js";
 const diaryMock = {
@@ -190,11 +189,5 @@ describe("Get PreSignURL Test", () => {
   test("should return 200 response code", async () => {
     const res = await request(app).get("/upload/test");
     expect(res.statusCode).toBe(200);
-  });
-});
-
-describe("Emotion Create Test", () => {
-  test("should have a create function", () => {
-    expect(typeof EmotionService.create).toBe("function");
   });
 });
