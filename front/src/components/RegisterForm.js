@@ -20,13 +20,25 @@ const RegisterInput = styled.input`
 `;
 
 const RegisterContainer = styled.div`
-  position: realtive;
+  position: relative;
   display: grid;
   place-items: center;
   height: 100vh;
-  background-image: url(${images.Bg});
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 1;
+
+  ::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: url(${images.Bg});
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.7;
+  }
 `;
 
 const RegisterLabel = styled.div`
@@ -57,6 +69,28 @@ function RegisterForm() {
 
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
+  // const emailCheck = (e) => {
+  //   e.preventDefault();
+  //   const { usableId } = this.state; // usableID state를 비구조화 할당!
+  //   // ⬇︎은 백엔드로 fetch해서 입력된 값을 POST!
+  //   fetch("http://10.58.6.197:8000/sign-up/check", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type" : "application/json"
+  //     },
+  //     body: JSON.stringify({user_id: this.state.user_id})
+  //   })
+  //   .then(response => {if(response.status === 200){
+  //     alert("사용 가능한 아이디 입니다.");// 백엔드로 보낸 데이터 결과 200 일 경우
+  //     this.setState({usable_id: true})//사용 가능한 아이디 일 경우 state상태에 true값으로 변경, 나중에 회원가입 버튼 클릭 이벤트핸들러에 필요!
+  //   }else if(response.status === 409){
+  //     alert("이미 사용중인 아이디 입니다.") // 이미 데이터베이스에 있는 아이디일 경우 409
+  //   }else{ // 그 외에는 사용 불가한 아이디
+  //     alert("사용 불가한 아이디입니다.")
+  //   }
+  //  })
+  // }
+
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -74,7 +108,7 @@ function RegisterForm() {
   };
 
   return (
-    <RegisterContainer>
+    <RegisterContainer id='RC'>
       <div onSubmit={handleSubmit}>
         <div style={{ marginBottom: '30px' }}>
           <RegisterLabel>이메일 주소</RegisterLabel>
