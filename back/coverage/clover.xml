@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1655267642283" clover="3.2.0">
-  <project timestamp="1655267642283" name="All files">
-    <metrics statements="280" coveredstatements="185" conditionals="54" coveredconditionals="21" methods="61" coveredmethods="35" elements="395" coveredelements="241" complexity="0" loc="280" ncloc="280" packages="9" files="23" classes="23"/>
+<coverage generated="1655287710790" clover="3.2.0">
+  <project timestamp="1655287710790" name="All files">
+    <metrics statements="289" coveredstatements="190" conditionals="58" coveredconditionals="23" methods="61" coveredmethods="35" elements="408" coveredelements="248" complexity="0" loc="289" ncloc="289" packages="9" files="23" classes="23"/>
     <package name="src">
       <metrics statements="39" coveredstatements="31" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\app.js">
@@ -61,7 +61,7 @@
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.db">
@@ -115,13 +115,14 @@
       </file>
     </package>
     <package name="src.middlewares">
-      <metrics statements="10" coveredstatements="10" conditionals="10" coveredconditionals="9" methods="2" coveredmethods="2"/>
+      <metrics statements="11" coveredstatements="11" conditionals="10" coveredconditionals="9" methods="2" coveredmethods="2"/>
       <file name="errorMiddleware.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\middlewares\errorMiddleware.js">
-        <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
-        <line num="5" count="1" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="15" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="17" count="1" type="cond" truecount="2" falsecount="0"/>
       </file>
       <file name="validator.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\middlewares\validator.js">
         <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
@@ -210,7 +211,7 @@
       </file>
     </package>
     <package name="src.routers">
-      <metrics statements="102" coveredstatements="53" conditionals="26" coveredconditionals="7" methods="24" coveredmethods="7"/>
+      <metrics statements="110" coveredstatements="57" conditionals="30" coveredconditionals="9" methods="24" coveredmethods="7"/>
       <file name="calendarRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\calendarRouter.js">
         <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
@@ -220,41 +221,49 @@
         <line num="10" count="0" type="stmt"/>
       </file>
       <file name="diaryRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\diaryRouter.js">
-        <metrics statements="34" coveredstatements="34" conditionals="8" coveredconditionals="7" methods="7" coveredmethods="7"/>
+        <metrics statements="42" coveredstatements="38" conditionals="12" coveredconditionals="9" methods="7" coveredmethods="7"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="79" count="0" type="stmt"/>
         <line num="81" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
         <line num="83" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="84" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
         <line num="87" count="1" type="stmt"/>
-        <line num="107" count="1" type="stmt"/>
-        <line num="120" count="2" type="stmt"/>
-        <line num="121" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="128" count="1" type="stmt"/>
-        <line num="129" count="1" type="stmt"/>
-        <line num="130" count="1" type="stmt"/>
-        <line num="180" count="1" type="stmt"/>
-        <line num="181" count="2" type="stmt"/>
-        <line num="182" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="123" count="2" type="stmt"/>
+        <line num="124" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="132" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="178" count="1" type="stmt"/>
+        <line num="179" count="2" type="stmt"/>
+        <line num="180" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="181" count="1" type="stmt"/>
         <line num="183" count="1" type="stmt"/>
+        <line num="184" count="1" type="stmt"/>
         <line num="185" count="1" type="stmt"/>
-        <line num="186" count="1" type="stmt"/>
         <line num="187" count="1" type="stmt"/>
-        <line num="189" count="1" type="stmt"/>
-        <line num="243" count="1" type="stmt"/>
-        <line num="256" count="2" type="stmt"/>
-        <line num="257" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="258" count="1" type="stmt"/>
+        <line num="241" count="1" type="stmt"/>
+        <line num="254" count="2" type="stmt"/>
+        <line num="255" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="256" count="1" type="stmt"/>
+        <line num="262" count="1" type="stmt"/>
+        <line num="263" count="1" type="stmt"/>
         <line num="264" count="1" type="stmt"/>
-        <line num="265" count="1" type="stmt"/>
-        <line num="266" count="1" type="stmt"/>
-        <line num="320" count="1" type="stmt"/>
-        <line num="321" count="1" type="stmt"/>
-        <line num="322" count="1" type="stmt"/>
+        <line num="318" count="1" type="stmt"/>
+        <line num="319" count="1" type="stmt"/>
+        <line num="320" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="321" count="0" type="stmt"/>
         <line num="323" count="1" type="stmt"/>
+        <line num="324" count="1" type="stmt"/>
+        <line num="325" count="1" type="stmt"/>
+        <line num="327" count="0" type="stmt"/>
       </file>
       <file name="loginRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\loginRouter.js">
         <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
