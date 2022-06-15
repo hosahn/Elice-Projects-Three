@@ -51,8 +51,8 @@ export const HighLightExplain = styled.span`
 `;
 
 export const TextInput = styled.input`
-  min-height: 2rem;
-  width: 30rem;
+  min-height: 20px;
+  width: 700px;
   margin: 0.5rem;
   padding: 0 1rem;
   border: none;
