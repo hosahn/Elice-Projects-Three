@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1655301404331" clover="3.2.0">
-  <project timestamp="1655301404331" name="All files">
-    <metrics statements="284" coveredstatements="203" conditionals="58" coveredconditionals="25" methods="59" coveredmethods="37" elements="401" coveredelements="265" complexity="0" loc="284" ncloc="284" packages="9" files="23" classes="23"/>
+<coverage generated="1655309098616" clover="3.2.0">
+  <project timestamp="1655309098616" name="All files">
+    <metrics statements="290" coveredstatements="204" conditionals="58" coveredconditionals="25" methods="61" coveredmethods="37" elements="409" coveredelements="266" complexity="0" loc="290" ncloc="290" packages="9" files="25" classes="25"/>
     <package name="src">
       <metrics statements="39" coveredstatements="31" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\app.js">
@@ -71,7 +71,7 @@
       </file>
     </package>
     <package name="src.db.models">
-      <metrics statements="30" coveredstatements="23" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="9"/>
+      <metrics statements="33" coveredstatements="24" conditionals="4" coveredconditionals="1" methods="11" coveredmethods="9"/>
       <file name="Calendar.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Calendar.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
@@ -96,6 +96,12 @@
         <line num="135" count="1" type="stmt"/>
         <line num="144" count="1" type="stmt"/>
         <line num="145" count="1" type="stmt"/>
+      </file>
+      <file name="Emotion.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Emotion.js">
+        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
       </file>
       <file name="User.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\User.js">
         <metrics statements="11" coveredstatements="4" conditionals="4" coveredconditionals="1" methods="2" coveredmethods="1"/>
@@ -335,7 +341,7 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
+      <metrics statements="20" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
       <file name="diaryService.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\services\diaryService.js">
         <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
         <line num="14" count="1" type="stmt"/>
@@ -355,6 +361,12 @@
         <line num="74" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
         <line num="83" count="1" type="stmt"/>
+      </file>
+      <file name="emotionService.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\services\emotionService.js">
+        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
