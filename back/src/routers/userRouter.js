@@ -8,7 +8,7 @@ userRouter.get(
   passport.authenticate("google"),
   (req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect("user/main");
+      res.redirect("/user/main");
     } else {
       res.redirect("/user/failed");
     }
