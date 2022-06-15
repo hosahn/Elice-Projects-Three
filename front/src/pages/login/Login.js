@@ -8,7 +8,7 @@ import images from '../../assets/images';
 import styled from 'styled-components';
 
 const LoginMainContainer = styled.div`
-  position: realtive;
+  position: relative;
   display: grid;
   place-items: center;
   height: 100vh;

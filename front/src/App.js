@@ -8,6 +8,7 @@ import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
 import Login from './pages/login/Login';
 import RegisterForm from './components/RegisterForm';
+import Search from './pages/search/Search';
 
 import './App.css';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/userInfo" element={<UserInfo />} />
         <Route path="/diaryEditor" element={<Diary />} />
         <Route path="/challenge" element={<Challenge />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </Router>
   );

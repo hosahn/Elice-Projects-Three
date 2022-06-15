@@ -4,6 +4,7 @@ import Title from './DiaryTitle';
 import DiaryEditor from './DiaryEditor';
 import Text from './DiaryText';
 import styled from 'styled-components';
+import Nav from '../../components/nav/Nav';
 
 const DiaryContext = styled.div`
   background-color: #f8f9fd;
@@ -15,13 +16,16 @@ const DiaryContext = styled.div`
 
 const Diary = () => {
   return (
-    <div style={{ margin: '2rem' }}>
-      <DiaryContext>
-        <Text />
-      </DiaryContext>
-      <Title />
-      <Tag />
-      <DiaryEditor />
+    <div>
+      <Nav />
+      <div style={{ margin: '2rem' }}>
+        <DiaryContext>
+          <Text />
+        </DiaryContext>
+        <Title />
+        <Tag />
+        <DiaryEditor />
+      </div>
     </div>
   );
 };

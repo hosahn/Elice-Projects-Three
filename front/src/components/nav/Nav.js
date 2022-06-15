@@ -18,7 +18,7 @@ const Nav = () => {
       <Btn onClick={() => navigate('/diaryEditor')}>
         <HighLight>일기 쓰기</HighLight>
       </Btn>
-      <Btn onClick={() => navigate('/board')}>
+      <Btn onClick={() => navigate('/search')}>
         <HighLight>전체 일기</HighLight>
       </Btn>
       <UserBtn onClick={() => navigate('/usermain')}>
