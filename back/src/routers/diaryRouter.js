@@ -25,10 +25,6 @@ const diaryRouter = Router();
  *         application/json:
  *           schema:
  *             properties:
- *               user_id:
- *                 type: number
- *                 example: 1
- *                 description: "현재 로그인한 유저의 ID값"
  *               text:
  *                 type: string
  *                 example: "일기 내용 입니다."
@@ -133,17 +129,12 @@ diaryRouter.delete(
 
 /**
  * @swagger
- * /diary/list/{user_id}:
+ * /diary/list:
  *   get:
  *     tags: [Diary]
  *     description: 유저가 작성한 일기 조회
  *     produces:
  *     - application/json
- *     parameters:
- *     - in: path
- *       name: user_id
- *       required: true
- *       example: 1
  *     responses:
  *       '200':
  *         description: "유저가 작성한 일기 조회 성공"
