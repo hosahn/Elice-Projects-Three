@@ -136,19 +136,6 @@ export default class Diary {
   }
 
   /**
-   * - 현재 존재하는 유저인지 확인
-   * @param {number} userId - diary를 작성한 user_id
-   */
-  static async userCheck(userId) {
-    const user = await prisma.users.findFirst({
-      where: {
-        id: +userId,
-      },
-    });
-    return user;
-  }
-
-  /**
    * - 랜덤한 일기 3개를 반환합니다.
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */

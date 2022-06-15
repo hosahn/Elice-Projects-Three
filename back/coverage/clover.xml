@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1655287710790" clover="3.2.0">
-  <project timestamp="1655287710790" name="All files">
-    <metrics statements="289" coveredstatements="190" conditionals="58" coveredconditionals="23" methods="61" coveredmethods="35" elements="408" coveredelements="248" complexity="0" loc="289" ncloc="289" packages="9" files="23" classes="23"/>
+<coverage generated="1655300788632" clover="3.2.0">
+  <project timestamp="1655300788633" name="All files">
+    <metrics statements="286" coveredstatements="203" conditionals="58" coveredconditionals="25" methods="60" coveredmethods="37" elements="404" coveredelements="265" complexity="0" loc="286" ncloc="286" packages="9" files="23" classes="23"/>
     <package name="src">
       <metrics statements="39" coveredstatements="31" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\app.js">
@@ -41,9 +41,9 @@
         <line num="109" count="1" type="stmt"/>
         <line num="110" count="0" type="stmt"/>
         <line num="112" count="1" type="stmt"/>
-        <line num="115" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="115" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="116" count="0" type="stmt"/>
-        <line num="118" count="1" type="stmt"/>
+        <line num="118" count="3" type="stmt"/>
         <line num="122" count="1" type="stmt"/>
       </file>
     </package>
@@ -71,13 +71,13 @@
       </file>
     </package>
     <package name="src.db.models">
-      <metrics statements="32" coveredstatements="23" conditionals="4" coveredconditionals="1" methods="11" coveredmethods="9"/>
+      <metrics statements="30" coveredstatements="23" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="9"/>
       <file name="Calendar.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Calendar.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
       </file>
       <file name="Diary.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Diary.js">
-        <metrics statements="20" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
+        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
         <line num="2" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
@@ -94,10 +94,8 @@
         <line num="122" count="1" type="stmt"/>
         <line num="130" count="1" type="stmt"/>
         <line num="135" count="1" type="stmt"/>
-        <line num="143" count="0" type="stmt"/>
-        <line num="148" count="0" type="stmt"/>
-        <line num="157" count="1" type="stmt"/>
-        <line num="158" count="1" type="stmt"/>
+        <line num="144" count="1" type="stmt"/>
+        <line num="145" count="1" type="stmt"/>
       </file>
       <file name="User.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\User.js">
         <metrics statements="11" coveredstatements="4" conditionals="4" coveredconditionals="1" methods="2" coveredmethods="1"/>
@@ -118,18 +116,18 @@
       <metrics statements="11" coveredstatements="11" conditionals="10" coveredconditionals="9" methods="2" coveredmethods="2"/>
       <file name="errorMiddleware.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\middlewares\errorMiddleware.js">
         <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="17" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="17" count="3" type="cond" truecount="2" falsecount="0"/>
       </file>
       <file name="validator.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\middlewares\validator.js">
         <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="6" count="7" type="stmt"/>
-        <line num="7" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="3" type="stmt"/>
+        <line num="6" count="8" type="stmt"/>
+        <line num="7" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="11" count="4" type="cond" truecount="2" falsecount="0"/>
       </file>
@@ -211,7 +209,7 @@
       </file>
     </package>
     <package name="src.routers">
-      <metrics statements="110" coveredstatements="57" conditionals="30" coveredconditionals="9" methods="24" coveredmethods="7"/>
+      <metrics statements="108" coveredstatements="67" conditionals="30" coveredconditionals="11" methods="24" coveredmethods="8"/>
       <file name="calendarRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\calendarRouter.js">
         <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
@@ -221,49 +219,49 @@
         <line num="10" count="0" type="stmt"/>
       </file>
       <file name="diaryRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\diaryRouter.js">
-        <metrics statements="42" coveredstatements="38" conditionals="12" coveredconditionals="9" methods="7" coveredmethods="7"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="78" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
+        <metrics statements="42" coveredstatements="42" conditionals="12" coveredconditionals="11" methods="7" coveredmethods="7"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="79" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="80" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
-        <line num="83" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="84" count="1" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="85" count="1" type="stmt"/>
         <line num="87" count="1" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="110" count="1" type="stmt"/>
-        <line num="123" count="2" type="stmt"/>
-        <line num="124" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="125" count="1" type="stmt"/>
-        <line num="131" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="111" count="1" type="stmt"/>
+        <line num="124" count="2" type="stmt"/>
+        <line num="125" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="126" count="1" type="stmt"/>
         <line num="132" count="1" type="stmt"/>
         <line num="133" count="1" type="stmt"/>
-        <line num="178" count="1" type="stmt"/>
-        <line num="179" count="2" type="stmt"/>
-        <line num="180" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="181" count="1" type="stmt"/>
-        <line num="183" count="1" type="stmt"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="179" count="1" type="stmt"/>
+        <line num="180" count="2" type="stmt"/>
+        <line num="181" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="182" count="1" type="stmt"/>
         <line num="184" count="1" type="stmt"/>
         <line num="185" count="1" type="stmt"/>
-        <line num="187" count="1" type="stmt"/>
-        <line num="241" count="1" type="stmt"/>
-        <line num="254" count="2" type="stmt"/>
-        <line num="255" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="256" count="1" type="stmt"/>
-        <line num="262" count="1" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
+        <line num="188" count="1" type="stmt"/>
+        <line num="242" count="1" type="stmt"/>
+        <line num="255" count="2" type="stmt"/>
+        <line num="256" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="257" count="1" type="stmt"/>
         <line num="263" count="1" type="stmt"/>
         <line num="264" count="1" type="stmt"/>
-        <line num="318" count="1" type="stmt"/>
+        <line num="265" count="1" type="stmt"/>
         <line num="319" count="1" type="stmt"/>
-        <line num="320" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="321" count="0" type="stmt"/>
-        <line num="323" count="1" type="stmt"/>
+        <line num="320" count="2" type="stmt"/>
+        <line num="321" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="322" count="1" type="stmt"/>
         <line num="324" count="1" type="stmt"/>
         <line num="325" count="1" type="stmt"/>
-        <line num="327" count="0" type="stmt"/>
+        <line num="326" count="1" type="stmt"/>
+        <line num="328" count="1" type="stmt"/>
       </file>
       <file name="loginRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\loginRouter.js">
         <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
@@ -278,25 +276,23 @@
         <line num="28" count="0" type="stmt"/>
       </file>
       <file name="uploadRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\uploadRouter.js">
-        <metrics statements="18" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="70" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
+        <metrics statements="16" coveredstatements="9" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
       </file>
       <file name="userRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\userRouter.js">
         <metrics statements="36" coveredstatements="9" conditionals="14" coveredconditionals="0" methods="9" coveredmethods="0"/>
@@ -364,27 +360,28 @@
       </file>
     </package>
     <package name="src.utils">
-      <metrics statements="15" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="preSign.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\utils\preSign.js">
-        <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
       </file>
       <file name="status.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\utils\status.js">
-        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="13" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
       </file>
     </package>
   </project>
