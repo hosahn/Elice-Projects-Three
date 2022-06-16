@@ -47,6 +47,8 @@ const Tag = styled.span`
 const IconWrapper = styled.div`
   margin-left: 450px;
   font-size: 40px;
+  color: #495057;
+  cursor: pointer;
 `;
 
 const View = () => {

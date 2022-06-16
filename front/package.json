@@ -20,6 +20,7 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-spinners-kit": "^1.9.1",
+    "react-use-cookie": "^1.4.0",
     "recoil": "^0.7.3-alpha.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.1",

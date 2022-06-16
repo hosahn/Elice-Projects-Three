@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -31,7 +31,6 @@ const DiaryEditor = () => {
 
     setImageList((data) => [res.data.imageUrl, ...data]);
     console.log(imageList);
-
     await axios({
       method: 'put',
       url: res.data.url,
@@ -42,6 +41,7 @@ const DiaryEditor = () => {
   };
 
   const handleClick = async () => {
+    console.log(document.cookie);
     const editorInstance = editorRef.current.getInstance();
     const text = editorInstance.getMarkdown();
     if (title.length > 0 && text.length > 2) {

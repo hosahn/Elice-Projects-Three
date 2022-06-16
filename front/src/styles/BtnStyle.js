@@ -15,11 +15,11 @@ export const CustomButton = styled.button`
 export const ArrowButton = styled.button`
   position: absolute;
   z-index: 1;
-  top: 35%;
+  top: 40%;
   left: ${(props) => `${props.left}rem`};
   right: ${(props) => `${props.right}rem`};
   transform: translateY(-50%);
-  padding: 5px;
+  padding: 9px;
   border-radius: 2rem;
   background-color: #eff0f2;
   opacity: 0.6;
