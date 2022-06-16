@@ -29,7 +29,6 @@ Sentry.init({
   dsn: process.env.DSN,
   integrations: [
     new Sentry.Integrations.Http({ tracing: true }),
-    new Tracing.BrowserTracing(),
     new Tracing.Integrations.Express({ app }),
   ],
   tracesSampleRate: 1.0,

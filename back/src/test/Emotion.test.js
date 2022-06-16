@@ -27,4 +27,8 @@ describe("Emotion Create Test", () => {
       .set("Cookie", cookie);
     expect(res.statusCode).toBe(201);
   });
+  test("Emotion non-logged-in users Test", async () => {
+    const res = await request(app).post("/emotion").send(emotionMock);
+    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
+  });
 });
