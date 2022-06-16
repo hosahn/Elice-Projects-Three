@@ -78,7 +78,7 @@ diaryRouter.post(
     validate,
   ],
   async (req, res, next) => {
-    console.log(req.isAuthenticated());
+    console.log(req.user);
     const userId = req.user.id;
     const data = { userId, ...req.body };
     if (await DiaryService.challengeCheck(userId)) {
@@ -324,4 +324,4 @@ diaryRouter.get("/random/list", async (req, res, next) => {
   return res.status(200).send(diarys);
 });
 
-export default diaryRouter;
+export { diaryRouter };

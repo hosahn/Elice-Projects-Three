@@ -11,7 +11,7 @@ class Diary {
     const createDiary = await prisma.diary.create({
       data: newDiary,
       select: {
-        id: true,
+        user_id: true,
         title: true,
         text: true,
         tag: true,

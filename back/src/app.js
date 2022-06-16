@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -70,6 +69,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     expires: new Date(Date.now() + 60 * 30),
+    cookie: {
+      sameSite: false, // this may need to be false is you are accessing from another React app
+      httpOnly: false, // this must be false if you want to access the cookie
+    },
   })
 );
 passportStrategies();

@@ -1,16 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { Editor } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import 'tui-color-picker/dist/tui-color-picker.css';
-import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
-import { titleState, tagState } from '../../atoms';
-import Btn from '../../components/Btn';
-import { useRecoilValue } from 'recoil';
-import axios from 'axios';
-import { Background } from '../../styles/ModalStyle';
-import { HeartSpinner } from 'react-spinners-kit';
-import DiaryModal from './DiaryModal';
+import React, { useRef, useState } from "react";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import { titleState, tagState } from "../../atoms";
+import Btn from "../../components/Btn";
+import { useRecoilValue } from "recoil";
+import axios from "axios";
+import { Background } from "../../styles/ModalStyle";
+import { HeartSpinner } from "react-spinners-kit";
+import DiaryModal from "./DiaryModal";
+import * as Api from "../../api";
 
 const DiaryEditor = () => {
   const editorRef = useRef();
@@ -23,7 +24,7 @@ const DiaryEditor = () => {
   const uploadImage = async (blob) => {
     const name = blob.name;
     const res = await axios({
-      method: 'get',
+      method: "get",
       url: `http://localhost:5001/upload/${name}`,
     });
 
@@ -31,37 +32,39 @@ const DiaryEditor = () => {
     console.log(imageList);
 
     await axios({
-      method: 'put',
+      method: "put",
       url: res.data.url,
       data: blob,
     });
 
     return res.data.imageUrl;
   };
-
-  const handleClick = () => {
+  const handleClick = async () => {
     const editorInstance = editorRef.current.getInstance();
     const text = editorInstance.getMarkdown();
     if (title.length > 0 && text.length > 2) {
-      const url = 'https://12team.com/userDiary/img';
-      axios.post(url, {
-        tag,
-        text,
-        title,
-        imageList,
-      });
+      await axios.post(
+        "http://localhost:5001/diary",
+        {
+          tag,
+          text,
+          title,
+          imageList,
+        },
+        { withCredentials: true }
+      );
       setSubmit((prev) => !prev);
       setLoading((prev) => !prev);
       setTimeout(() => setLoading((prev) => !prev), 1500);
     } else {
-      alert('일기 작성 문구 ~~~~~');
+      alert("일기 작성 문구 ~~~~~");
     }
   };
 
   return (
     <>
       <Editor
-        initialValue={'✏️'}
+        initialValue={"✏️"}
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
@@ -71,13 +74,13 @@ const DiaryEditor = () => {
         hooks={{
           addImageBlobHook: async (e, callback) => {
             const imgUrl = await uploadImage(e);
-            callback(imgUrl, 'text');
+            callback(imgUrl, "text");
             return false;
           },
         }}
       />
-      <div style={{ float: 'right' }}>
-        <Btn text={'저장하기'} type={'main'} onClick={handleClick} />
+      <div style={{ float: "right" }}>
+        <Btn text={"저장하기"} type={"main"} onClick={handleClick} />
       </div>
       {submit &&
         (loading ? (

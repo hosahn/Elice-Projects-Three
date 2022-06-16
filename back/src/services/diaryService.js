@@ -11,6 +11,7 @@ export default class DiaryService {
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async create({ userId, text, title, tag }) {
+    console.log(userId, text, title, tag);
     const newDiary = {
       user_id: +userId,
       text,

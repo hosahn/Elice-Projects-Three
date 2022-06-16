@@ -1,15 +1,15 @@
-import images from '../../assets/images';
-import { SocialBtn, Img } from '../../styles/LoginStyle';
+import images from "../../assets/images";
+import { SocialBtn, Img } from "../../styles/LoginStyle";
 
 const SocialLogin = () => {
   const clickGoogle = () => {
-    window.open('http://localhost:5001/login/google', '_self');
+    window.open("http://localhost:5001/login/google", "_self");
   };
   const clickKakao = () => {
-    window.open('http://localhost:5001/login/kakao', '_self');
+    window.open("http://localhost:5001/login/kakao", "_self");
   };
   const clickNaver = () => {
-    window.open('http://localhost:5001/login/naver', '_self');
+    window.open("http://localhost:5001/login/naver", "_self");
   };
 
   return (
