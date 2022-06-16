@@ -4,20 +4,21 @@ import Btn from './Btn';
 import * as Api from '../api';
 import styled from 'styled-components';
 import images from '../assets/images';
+import { LoginInput, LoginText } from '../styles/LoginStyle';
 
-const RegisterInput = styled.input`
-  display: inline-flex;
-  width: 30rem;
-  height: 3rem;
-  color: white;
-  background: transparent;
-  padding: 1rem;
-  border: solid 1px #dbc7ff;
-  border-radius: 1rem;
-  outline: none;
-  font-size: 1rem;
-  cursor: text;
-`;
+// const RegisterInput = styled.input`
+//   display: inline-flex;
+//   width: 30rem;
+//   height: 3rem;
+//   color: white;
+//   background: transparent;
+//   padding: 1rem;
+//   border: solid 1px #dbc7ff;
+//   border-radius: 1rem;
+//   outline: none;
+//   font-size: 1rem;
+//   cursor: text;
+// `;
 
 const RegisterContainer = styled.div`
   position: relative;
@@ -41,12 +42,12 @@ const RegisterContainer = styled.div`
   }
 `;
 
-const RegisterLabel = styled.div`
-  font-family: 'EliceDigitalBaeum';
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: white;
-`;
+// const RegisterLabel = styled.div`
+//   font-family: 'EliceDigitalBaeum';
+//   font-size: 1rem;
+//   line-height: 1.5rem;
+//   color: white;
+// `;
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
+  const [duplicate, setDuplicate] = useState('');
 
   const validateEmail = email => {
     return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -67,8 +69,23 @@ function RegisterForm() {
 
   const isNameValid = name.length >= 2;
 
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+  const isEmailDuplicate = async e => {
+    e.preventDefault();
 
+    try {
+      await Api.post(
+        'user/signup',
+        {
+          email,
+        }.then(response => setDuplicate(response))
+      );
+    } catch (err) {
+      console.log('중복검사실패');
+    }
+    return duplicate;
+  };
+
+  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid && isEmailDuplicate;
   // const emailCheck = (e) => {
   //   e.preventDefault();
   //   const { usableId } = this.state; // usableID state를 비구조화 할당!
@@ -97,7 +114,7 @@ function RegisterForm() {
     try {
       await Api.post('user/signup', {
         email,
-        password,
+        pw: password,
         name,
       });
 
@@ -111,27 +128,30 @@ function RegisterForm() {
     <RegisterContainer id='RC'>
       <div onSubmit={handleSubmit}>
         <div style={{ marginBottom: '30px' }}>
-          <RegisterLabel>이메일 주소</RegisterLabel>
-          <RegisterInput type='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
-          {!isEmailValid && <RegisterLabel className='text-success'>이메일 형식이 올바르지 않습니다.</RegisterLabel>}
+          <LoginText>이메일 주소</LoginText>
+          <LoginInput type='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
+
+          <Btn text={'중복체크'} type={'sub'} disabled={!isFormValid} onClick={isEmailDuplicate} />
+
+          {!isEmailValid && <LoginText className='text-success'>이메일 형식이 올바르지 않습니다.</LoginText>}
         </div>
 
         <div style={{ marginBottom: '30px' }}>
-          <RegisterLabel>비밀번호</RegisterLabel>
-          <RegisterInput type='password' autoComplete='off' value={password} onChange={e => setPassword(e.target.value)} />
-          {!isPasswordValid && <RegisterLabel className='text-success'>비밀번호는 4글자 이상으로 설정해 주세요.</RegisterLabel>}
+          <LoginText>비밀번호</LoginText>
+          <LoginInput type='password' autoComplete='off' value={password} onChange={e => setPassword(e.target.value)} />
+          {!isPasswordValid && <LoginText className='text-success'>비밀번호는 4글자 이상으로 설정해 주세요.</LoginText>}
         </div>
 
         <div style={{ marginBottom: '30px' }}>
-          <RegisterLabel>비밀번호 재확인</RegisterLabel>
-          <RegisterInput type='password' autoComplete='off' value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-          {!isPasswordSame && <RegisterLabel className='text-success'>비밀번호가 일치하지 않습니다.</RegisterLabel>}
+          <LoginText>비밀번호 재확인</LoginText>
+          <LoginInput type='password' autoComplete='off' value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+          {!isPasswordSame && <LoginText className='text-success'>비밀번호가 일치하지 않습니다.</LoginText>}
         </div>
 
         <div style={{ marginBottom: '30px' }}>
-          <RegisterLabel>닉네임</RegisterLabel>
-          <RegisterInput type='text' autoComplete='off' value={name} onChange={e => setName(e.target.value)} />
-          {!isNameValid && <RegisterLabel className='text-success'>닉네임은 2글자 이상으로 설정해 주세요.</RegisterLabel>}
+          <LoginText>닉네임</LoginText>
+          <LoginInput type='text' autoComplete='off' value={name} onChange={e => setName(e.target.value)} />
+          {!isNameValid && <LoginText className='text-success'>닉네임은 2글자 이상으로 설정해 주세요.</LoginText>}
         </div>
 
         <div style={{ textAlign: 'center' }}>
