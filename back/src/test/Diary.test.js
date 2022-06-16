@@ -2,7 +2,7 @@ import request from "supertest";
 import "../config/env.js";
 import DiaryService from "../services/diaryService.js";
 import app from "../app.js";
-
+import createUrl from "../utils/preSign.js";
 const diaryMock = {
   title: "일기 제목",
   text: "이건 일기 내용",
@@ -73,6 +73,11 @@ describe("Diary Crate Success Test", () => {
       "일기 내용은 필수로 적어주셔야 합니다."
     );
     expect(res.statusCode).toBe(400);
+  });
+
+  test("Diary Create non-logged-in users Test", async () => {
+    const res = await request(app).post("/diary").send(diaryMock);
+    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
 });
 
@@ -151,8 +156,13 @@ describe("Diary Read Test", () => {
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
 
-  test("List Read non-existent Diary ID Test", async () => {
+  test("List Read non-logged-in users Test", async () => {
     const res = await request(app).get(`/diary/list`);
+    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
+  });
+
+  test("Random List non-logged-in users Test", async () => {
+    const res = await request(app).get(`/diary/random/list`);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
 });
@@ -171,3 +181,15 @@ describe("Diary Delete Test", () => {
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
 });
+
+describe("Get PreSignURL Test", () => {
+  test("shuold have a createUrl function", () => {
+    expect(typeof createUrl).toBe("function");
+  });
+  test("should return 200 response code", async () => {
+    const res = await request(app).get("/upload/test");
+    expect(res.statusCode).toBe(200);
+  });
+});
+
+
