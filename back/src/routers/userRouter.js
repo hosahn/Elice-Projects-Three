@@ -7,7 +7,7 @@ userRouter.get(
   passport.authenticate('google'),
   (req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect('user/main');
+      res.redirect('http://localhost:3000/usermain');
     } else {
       res.redirect('/user/failed');
     }
@@ -16,7 +16,7 @@ userRouter.get(
 
 userRouter.get('/navercomplete', passport.authenticate('naver'), (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect('user/main');
+    res.redirect('http://localhost:3000/usermain');
   } else {
     res.redirect('/user/failed');
   }
@@ -24,7 +24,7 @@ userRouter.get('/navercomplete', passport.authenticate('naver'), (req, res) => {
 
 userRouter.get('/kakaocomplete', passport.authenticate('kakao'), (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect('user/main');
+    res.redirect('http://localhost:3000/usermain');
   } else {
     res.redirect('/user/failed');
   }
@@ -33,7 +33,7 @@ userRouter.get('/kakaocomplete', passport.authenticate('kakao'), (req, res) => {
 userRouter.get('/localcomplete', (req, res) => {
   passport.authenticate('local');
   if (req.isAuthenticated()) {
-    res.redirect('/user/main');
+    res.redirect('/http://localhost:3000/usermain');
   } else {
     res.redirect('/user/failed');
   }

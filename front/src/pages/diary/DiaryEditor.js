@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Background } from '../../styles/ModalStyle';
 import { HeartSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
+import * as Api from '../../api';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
@@ -39,12 +40,11 @@ const DiaryEditor = () => {
     return res.data.imageUrl;
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const editorInstance = editorRef.current.getInstance();
     const text = editorInstance.getMarkdown();
     if (title.length > 0 && text.length > 2) {
-      const url = 'https://12team.com/userDiary/img';
-      axios.post(url, {
+      await Api.post('diary', {
         tag,
         text,
         title,
