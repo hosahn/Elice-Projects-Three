@@ -152,10 +152,11 @@ class Diary {
    * - 랜덤한 일기 3개를 반환합니다.
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
-  static async randomDiarys() {
+  static async randomDiarys(userId) {
     const diarys =
-      await prisma.$queryRaw`SELECT id, title, text, tag, date, view FROM diary WHERE deleted=0 ORDER BY RAND() limit 3;`;
+      await prisma.$queryRaw`SELECT * FROM diary WHERE deleted=0 AND user_id=${userId} ORDER BY RAND() limit 3;`;
     return diarys;
   }
 }
+
 export { Diary };

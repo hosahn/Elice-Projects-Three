@@ -2,7 +2,6 @@ import { Router } from "express";
 import passport from "passport";
 import { User } from "../db/models/User.js";
 const userRouter = Router();
-
 userRouter.get(
   "/googlecomplete",
   passport.authenticate("google"),

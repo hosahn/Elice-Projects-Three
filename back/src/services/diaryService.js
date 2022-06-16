@@ -1,6 +1,4 @@
 import { Diary } from "../db/index.js";
-import { diaryRouter } from "../routers/diaryRouter.js";
-import ImagesService from "./imagesService.js";
 //@ts-check
 export default class DiaryService {
   /**
@@ -89,8 +87,8 @@ export default class DiaryService {
    * - 유저가 가진 일기 중 랜덤으로 3개를 보여주는 함수
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
-  static async randomDiarys() {
-    const diarys = await Diary.randomDiarys();
+  static async randomDiarys(userId) {
+    const diarys = await Diary.randomDiarys(userId);
     return diarys;
   }
 }
