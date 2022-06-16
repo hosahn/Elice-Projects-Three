@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -12,6 +12,7 @@ import { Background } from '../../styles/ModalStyle';
 import { HeartSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
 import * as Api from '../../api';
+import { useCookies } from 'react-cookie';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
@@ -20,8 +21,19 @@ const DiaryEditor = () => {
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageList, setImageList] = useState([]);
+  const [cookies, setCookie] = useCookies(['connet.sid']);
+
+  useEffect(() => {
+    getCookieFunc();
+  }, []);
+
+  const getCookieFunc = () => {
+    let result = 'getCookie : ' + cookies['connet.sid'];
+    console.log(result);
+  };
 
   const uploadImage = async (blob) => {
+    setCookie('hello');
     const name = blob.name;
     const res = await axios({
       method: 'get',
@@ -41,6 +53,7 @@ const DiaryEditor = () => {
   };
 
   const handleClick = async () => {
+    getCookieFunc();
     const editorInstance = editorRef.current.getInstance();
     const text = editorInstance.getMarkdown();
     if (title.length > 0 && text.length > 2) {
