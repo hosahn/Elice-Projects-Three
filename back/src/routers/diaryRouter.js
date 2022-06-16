@@ -1,7 +1,8 @@
-import { Router } from "express";
-import DiaryService from "../services/diaryService.js";
-import { validate } from "../middlewares/validator.js";
-import { check, param, body } from "express-validator";
+import { Router } from 'express';
+import DiaryService from '../services/diaryService.js';
+import { validate } from '../middlewares/validator.js';
+import { check, param, body } from 'express-validator';
+import * as status from '../utils/status.js';
 const diaryRouter = Router();
 
 /**
@@ -25,10 +26,6 @@ const diaryRouter = Router();
  *         application/json:
  *           schema:
  *             properties:
- *               user_id:
- *                 type: number
- *                 example: 1
- *                 description: "현재 로그인한 유저의 ID값"
  *               text:
  *                 type: string
  *                 example: "일기 내용 입니다."
@@ -71,20 +68,28 @@ const diaryRouter = Router();
  *                   example: 1
  */
 diaryRouter.post(
-  "/",
+  '/',
   [
-    body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
-    body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
+    body('title', '제목은 필수로 입력해야 합니다.').exists().bail(),
+    body('text', '일기 내용은 필수로 적어주셔야 합니다.').exists().bail(),
     validate,
   ],
   async (req, res, next) => {
-    const userId = req.user.id;
-    const data = { userId, ...req.body };
-    if (await DiaryService.challengeCheck(userId)) {
-      await DiaryService.check(userId);
+    console.log(req.user);
+    try {
+      if (!req.user) {
+        throw new Error('로그인 후 사용해야 합니다.');
+      }
+      const userId = req.user.id;
+      const data = { userId, ...req.body };
+      if (await DiaryService.challengeCheck(userId)) {
+        await DiaryService.check(userId);
+      }
+      const body = await DiaryService.create(data);
+      return res.status(status.STATUS_201_CREATED).json(body);
+    } catch (error) {
+      next(error);
     }
-    const body = await DiaryService.create(data);
-    return res.status(201).json(body);
   }
 );
 /**
@@ -105,21 +110,21 @@ diaryRouter.post(
  *         description: "삭제 성공"
  */
 diaryRouter.delete(
-  "/:id",
+  '/:id',
   [
-    param("id")
+    param('id')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.", 404);
+          throw new Error('Diary가 존재하지 않습니다.', 400);
         }
       }),
     validate,
@@ -127,23 +132,18 @@ diaryRouter.delete(
   async (req, res, next) => {
     const { id } = req.params;
     const body = await DiaryService.delete(id);
-    return res.status(204).end();
+    return res.status(status.STATUS_204_NO_RESOURCE).end();
   }
 );
 
 /**
  * @swagger
- * /diary/list/{user_id}:
+ * /diary/list:
  *   get:
  *     tags: [Diary]
  *     description: 유저가 작성한 일기 조회
  *     produces:
  *     - application/json
- *     parameters:
- *     - in: path
- *       name: user_id
- *       required: true
- *       example: 1
  *     responses:
  *       '200':
  *         description: "유저가 작성한 일기 조회 성공"
@@ -177,14 +177,14 @@ diaryRouter.delete(
  *                     example: 1
  *
  */
-diaryRouter.get("/list", async (req, res, next) => {
+diaryRouter.get('/list', async (req, res, next) => {
   try {
     if (!req.user) {
-      throw new SyntaxError("로그인 후 사용해야 합니다.");
+      throw new Error('로그인 후 사용해야 합니다.');
     }
     const userId = req.user.id;
     const body = await DiaryService.readList(userId);
-    return res.status(200).send(body);
+    return res.status(status.STATUS_200_OK).send(body);
   } catch (error) {
     next(error);
   }
@@ -241,21 +241,21 @@ diaryRouter.get("/list", async (req, res, next) => {
  *                         example:  "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654656839850docker.png"
  */
 diaryRouter.get(
-  "/:id",
+  '/:id',
   [
-    param("id")
+    param('id')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.");
+          throw new Error('Diary가 존재하지 않습니다.');
         }
       }),
     validate,
@@ -263,7 +263,7 @@ diaryRouter.get(
   async (req, res, next) => {
     const { id } = req.params;
     const body = await DiaryService.read(id);
-    return res.status(200).send(body);
+    return res.status(status.STATUS_200_OK).send(body);
   }
 );
 /**
@@ -317,10 +317,17 @@ diaryRouter.get(
  *                     type: number
  *                     example: 1
  */
-diaryRouter.get("/random/list", async (req, res, next) => {
-  const userId = req.user.id;
-  const diarys = await DiaryService.randomDiarys(userId);
-  return res.status(200).send(diarys);
+diaryRouter.get('/random/list', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      throw new Error('로그인 후 사용해야 합니다.');
+    }
+    const userId = req.user.id;
+    const diarys = await DiaryService.randomDiarys(userId);
+    return res.status(status.STATUS_200_OK).send(diarys);
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default diaryRouter;

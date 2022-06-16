@@ -33,7 +33,7 @@ userRouter.get('/kakaocomplete', passport.authenticate('kakao'), (req, res) => {
 userRouter.get('/localcomplete', (req, res) => {
   passport.authenticate('local');
   if (req.isAuthenticated()) {
-    res.redirect('/http://localhost:3000/usermain');
+    res.redirect('http://localhost:3000/usermain');
   } else {
     res.redirect('/user/failed');
   }

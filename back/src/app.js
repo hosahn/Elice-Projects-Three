@@ -21,7 +21,7 @@ import { calendarRouter } from './routers/calendarRouter.js';
 import diaryRouter from './routers/diaryRouter.js';
 import uploadRouter from './routers/uploadRouter.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
-
+import emotionRouter from './routers/emotionRouter.js';
 process.setMaxListeners(15);
 export const app = express();
 
@@ -29,7 +29,6 @@ export const app = express();
 //   dsn: process.env.DSN,
 //   integrations: [
 //     new Sentry.Integrations.Http({ tracing: true }),
-//     new Tracing.BrowserTracing(),
 //     new Tracing.Integrations.Express({ app }),
 //   ],
 //   tracesSampleRate: 1.0,
@@ -94,8 +93,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
-app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
+// app.use(Sentry.Handlers.requestHandler());
+// app.use(Sentry.Handlers.tracingHandler());
 app.use(
   '/swagger',
   swaggerUi.serve,
@@ -106,6 +105,7 @@ app.use('/user', userRouter);
 app.use('/diary', diaryRouter);
 app.use('/calendar', calendarRouter);
 app.use('/upload', uploadRouter);
+app.use('/emotion', emotionRouter);
 app.use(function (req, res, next) {
   res.status(404).send('존재하지 않는 페이지 입니다!');
 });
