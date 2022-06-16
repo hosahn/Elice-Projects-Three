@@ -7,6 +7,10 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 const Nav = () => {
   const navigate = useNavigate();
 
+  const logoutHandler = () => {
+    window.open('http://localhost:5001/user/logout', '_self');
+  };
+
   return (
     <NavWrap>
       <Btn onClick={() => navigate('/challenge')}>
@@ -20,6 +24,9 @@ const Nav = () => {
       </Btn>
       <Btn onClick={() => navigate('/note')}>
         <HighLight>전체 일기</HighLight>
+      </Btn>
+      <Btn onClick={logoutHandler}>
+        <HighLight>로그아웃</HighLight>
       </Btn>
       <UserBtn onClick={() => navigate('/usermain')}>
         <FontAwesomeIcon icon={faCircleUser} className="user" />

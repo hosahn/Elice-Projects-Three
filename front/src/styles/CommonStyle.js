@@ -21,6 +21,7 @@ export const ExplainContext = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1.2rem;
   line-height: 1.5rem;
+  margin-bottom: ${(props) => `${props.bottom}rem`};
   margin-left: ${(props) => `${props.left}rem`};
 `;
 

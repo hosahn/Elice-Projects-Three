@@ -14,6 +14,7 @@ async function get(endpoint, params = "") {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
+    withCredentials: true,
   });
 }
 
@@ -45,6 +46,7 @@ async function put(endpoint, data) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
+    withCredentials: true,
   });
 }
 
@@ -54,6 +56,7 @@ async function del(endpoint, params = "") {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
+    withCredentials: true,
   });
 }
 
@@ -66,6 +69,7 @@ async function putImg(endpoint, data) {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
+    withCredentials: true,
   });
 }
 

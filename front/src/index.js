@@ -6,7 +6,6 @@ import Theme from './styles/Theme';
 import App from './App';
 import './index.css';
 import GlobalStyle from './styles/GlobalStyle';
-import { CookiesProvider } from 'react-cookie';
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./mocks/browser');
@@ -17,12 +16,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     <GlobalStyle />
-    <CookiesProvider>
-      <ThemeProvider theme={Theme}>
-        <RecoilRoot>
-          <App />
-        </RecoilRoot>
-      </ThemeProvider>
-    </CookiesProvider>
+    <ThemeProvider theme={Theme}>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </ThemeProvider>
   </>
 );

@@ -32,7 +32,7 @@ const AwardWrapper = styled.div`
 `;
 
 const CurrentChallenge = (user) => {
-  const { getDateDiff, round } = useGetChallenge();
+  const { getDateDiff } = useGetChallenge();
 
   useEffect(() => {
     getDateDiff(user.user.start_date);
@@ -40,13 +40,6 @@ const CurrentChallenge = (user) => {
 
   return (
     <>
-      <ProgressBarContainer>
-        <BarWrap>
-          <Filter completed={round - 1}>
-            <Label>{`${round - 1}회차`}</Label>
-          </Filter>
-        </BarWrap>
-      </ProgressBarContainer>
       <CardsContainer>
         <Cards>
           {COLOR.map((it) => {
@@ -57,6 +50,7 @@ const CurrentChallenge = (user) => {
                   width={15}
                   height={10}
                   color={'#ffffff'}
+                  shadow={false}
                 >
                   <AwardWrapper color={it.color} lock={it.lock}>
                     <FontAwesomeIcon icon={faTrophy} className="award" />

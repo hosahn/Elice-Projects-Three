@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import * as Api from '../../api';
 
 const EmotionCard = styled.button`
   background-color: ${({ theme }) => theme.color.lightGrayBg};
   height: 70px;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   border-radius: 10px;
   padding: 20px 20px;
+  margin-bottom: 20px;
   span {
     font-family: 'InfinitySans-RegularA1';
   }
@@ -18,43 +21,57 @@ const Title = styled.span`
   font-family: 'GothicA1-Light';
   font-weight: bold;
   font-size: 20px;
+  margin-left: 20px;
 `;
 
 const Date = styled.span`
   font-family: 'GothicA1-Light';
   font-weight: bold;
   font-size: 10px;
-  margin-right: 70px;
+  margin-right: 10px;
 `;
 
 const TitleContainer = styled.div`
-  display: flex;
-  margin: 0px 30px;
-  flex-direction: column;
+  margin: 0px 20px;
 `;
 
-const TitleWrap = styled.div`
-  margin-bottom: 3px;
+const DateWrapper = styled.div`
+  float: right;
 `;
 
 const EmotionList = () => {
   const navigate = useNavigate();
+  const [diaryList, setDiaryList] = useState([]);
 
-  const openCard = () => {
-    navigate(`/diary/1`);
+  useEffect(() => {
+    getDiaryList();
+  }, []);
+
+  const getDiaryList = async () => {
+    const res = await Api.get('diary/list');
+    console.log(res.data);
+    setDiaryList(res.data);
+  };
+
+  const openCard = (e) => {
+    const diaryId = e.currentTarget.name;
+    navigate(`/diary/${diaryId}`, { state: diaryId });
+    console.log(e.currentTarget.name);
   };
 
   return (
     <>
-      <EmotionCard onClick={openCard}>
-        <span>이미지</span>
-        <TitleContainer>
-          <TitleWrap>
-            <Title>드디어 끝났다!!</Title>
-          </TitleWrap>
-          <Date>2022-07-03</Date>
-        </TitleContainer>
-      </EmotionCard>
+      {diaryList.map((it, index) => (
+        <EmotionCard onClick={openCard} name={it.id} key={index}>
+          <TitleContainer>
+            <span>이미지</span>
+            <Title>{it.title}</Title>
+          </TitleContainer>
+          <DateWrapper>
+            <Date>{it.date.slice(0, 10)}</Date>
+          </DateWrapper>
+        </EmotionCard>
+      ))}
     </>
   );
 };

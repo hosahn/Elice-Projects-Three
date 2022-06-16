@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
-import { Viewer } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import Nav from '../../components/nav/Nav';
 import styled from 'styled-components';
+import * as Api from '../../api';
 
 const ViewContainer = styled.div`
   margin-top: 80px;
@@ -52,25 +52,33 @@ const IconWrapper = styled.div`
 `;
 
 const View = () => {
-  const content =
-    '✏️태그태그태그 \n안녕하세요\n일기작성\n**<span style="color: #a62cff">일기쓰기</span>**';
+  const { state } = useLocation();
+  const [diary, setDiary] = useState([]);
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    getDiary();
+  }, []);
+
+  const getDiary = async () => {
+    const res = await Api.get(`diary/${state}`);
+    setDiary(res.data);
+    setText(res.data.text);
+  };
 
   return (
     <>
       <Nav />
       <ViewContainer>
         <TiteWrap>
-          <Title>제목으로 20자를 쓰는 것 어렵다다다.</Title>
+          <Title>{diary.title}</Title>
           <IconWrapper>
             <FontAwesomeIcon icon={faFilePdf} className="user" />
           </IconWrapper>
         </TiteWrap>
         <TagWrap>
-          <Tag>#태그</Tag>
+          <Tag>#{diary.tag}</Tag>
         </TagWrap>
-        <ContentWrapper>
-          <Viewer initialValue={content || ''} />
-        </ContentWrapper>
       </ViewContainer>
     </>
   );

@@ -26,7 +26,6 @@ const DiaryEditor = () => {
     const res = await axios({
       method: 'get',
       url: `http://localhost:5001/upload/${name}`,
-      
     });
 
     setImageList((data) => [res.data.imageUrl, ...data]);
