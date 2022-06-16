@@ -9,7 +9,7 @@ const ProgressBarContainer = styled.div`
   justify-content: center;
 `;
 
-const CurrentChallenge = (user) => {
+const CurrentChallenge = user => {
   const { getDateDiff, round } = useGetChallenge();
 
   useEffect(() => {

@@ -17,14 +17,14 @@ const DiaryEditor = () => {
   const [loading, setLoading] = useState(false);
   const [imageList, setImageList] = useState([]);
 
-  const uploadImage = async (blob) => {
+  const uploadImage = async blob => {
     const name = blob.name;
     const res = await axios({
       method: 'get',
       url: `http://localhost:5001/upload/${name}`,
     });
 
-    setImageList((data) => [res.data.imageUrl, ...data]);
+    setImageList(data => [res.data.imageUrl, ...data]);
     console.log(imageList);
 
     await axios({
@@ -47,9 +47,9 @@ const DiaryEditor = () => {
         title,
         imageList,
       });
-      setSubmit((prev) => !prev);
-      setLoading((prev) => !prev);
-      setTimeout(() => setLoading((prev) => !prev), 1500);
+      setSubmit(prev => !prev);
+      setLoading(prev => !prev);
+      setTimeout(() => setLoading(prev => !prev), 1500);
     } else {
       alert('일기 작성 문구 ~~~~~');
     }
@@ -59,9 +59,9 @@ const DiaryEditor = () => {
     <>
       <Editor
         initialValue={'✏️'}
-        previewStyle="vertical"
-        height="500px"
-        initialEditType="wysiwyg"
+        previewStyle='vertical'
+        height='500px'
+        initialEditType='wysiwyg'
         toolbarItems={[['bold', 'italic', 'strike'], ['image']]}
         useCommandShortcut={true}
         ref={editorRef}
@@ -79,7 +79,7 @@ const DiaryEditor = () => {
       {submit &&
         (loading ? (
           <Background>
-            <HeartSpinner size={100} color="pink" />
+            <HeartSpinner size={100} color='pink' />
           </Background>
         ) : (
           <DiaryModal />

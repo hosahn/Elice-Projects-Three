@@ -8,8 +8,8 @@ export const CardWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: ${(props) => `${props.width}rem`};
-  height: ${(props) => `${props.height}rem`};
+  width: ${props => `${props.width}rem`};
+  height: ${props => `${props.height}rem`};
   text-align: center;
   background-color: ${({ theme }) => theme.color.subPink};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 25px 0px;

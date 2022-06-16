@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MainChallenge from './MainChallenge';
-import {
-  MainTitle,
-  SubContext,
-  HighLightPurple,
-  MainContainer,
-} from '../../styles/CommonStyle';
+import { MainTitle, SubContext, HighLightPurple, MainContainer } from '../../styles/CommonStyle';
 import { MiainChallengeContainer } from '../../styles/MainStyle';
 import MainCallengeInfo from './MainChallengeInfo';
 import useGetChallenge from '../../hooks/useGetChallenge';
@@ -33,7 +28,7 @@ const UserMain = () => {
           getDateDiff(res.inserted_at); // 적용되기 전에 불렀다.
         })
       )
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -42,8 +37,7 @@ const UserMain = () => {
     <>
       <SubContext>
         안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! <br />
-        저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고
-        계시네요.
+        저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
       </SubContext>
       <MainContainer>
         <MiainChallengeContainer>
