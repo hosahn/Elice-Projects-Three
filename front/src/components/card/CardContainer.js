@@ -1,9 +1,9 @@
 import { CardWrap } from '../../styles/CardStyle';
 
 const CardContainer = (props) => {
-  const { width, height, color } = props;
+  const { width, height, color, shadow } = props;
   return (
-    <CardWrap width={width} height={height} color={color}>
+    <CardWrap width={width} height={height} color={color} shadow={shadow}>
       {props.children}
     </CardWrap>
   );

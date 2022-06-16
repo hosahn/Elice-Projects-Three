@@ -12,7 +12,8 @@ export const CardWrap = styled.div`
   height: ${(props) => `${props.height}rem`};
   text-align: center;
   background-color: ${(props) => props.color};
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 7px 10px 0px;
+  box-shadow: ${(props) =>
+    props.shadow === 'true' ? 'rgba(0, 0, 0, 0.1) 0px 7px 10px 0px' : ''};
   border-radius: 1rem;
 `;
 

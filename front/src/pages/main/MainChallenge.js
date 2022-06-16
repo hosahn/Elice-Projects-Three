@@ -57,6 +57,7 @@ const CurrentChallenge = (user) => {
                   width={15}
                   height={10}
                   color={'#ffffff'}
+                  shadow={'true'}
                 >
                   <AwardWrapper color={it.color} lock={it.lock}>
                     <FontAwesomeIcon icon={faTrophy} className="award" />

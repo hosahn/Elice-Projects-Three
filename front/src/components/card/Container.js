@@ -1,11 +1,11 @@
-import { CardContainer } from '../../styles/CardStyle';
+import { CardsContainer } from '../../styles/CardStyle';
 
 const Container = (props) => {
   const { width, height } = props;
   return (
-    <CardContainer width={width} height={height}>
+    <CardsContainer width={width} height={height}>
       {props.children}
-    </CardContainer>
+    </CardsContainer>
   );
 };
 
