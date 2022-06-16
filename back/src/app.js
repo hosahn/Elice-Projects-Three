@@ -102,7 +102,7 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 app.use("/login", loginRouter);
-app.use("/user", userRouter);
+app.use("/", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);

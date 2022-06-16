@@ -78,6 +78,7 @@ diaryRouter.post(
     validate,
   ],
   async (req, res, next) => {
+    console.log(req.isAuthenticated());
     const userId = req.user.id;
     const data = { userId, ...req.body };
     if (await DiaryService.challengeCheck(userId)) {
