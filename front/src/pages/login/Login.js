@@ -4,15 +4,26 @@ import images from '../../assets/images';
 import styled from 'styled-components';
 
 const LoginMainContainer = styled.div`
-  position: realtive;
+  position: relative;
   display: grid;
   place-items: center;
   height: 100vh;
-  background-image: url(${images.Bg});
   background-repeat: no-repeat;
   background-size: cover;
-`;
+  z-index: 1;
 
+  ::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: url(${images.Bg});
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.7;
+  }
+`;
 const Login = () => {
   return (
     <LoginMainContainer props={images}>
