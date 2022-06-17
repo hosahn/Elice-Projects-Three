@@ -10,15 +10,20 @@ import styled from 'styled-components';
 import Btn from '../../components/Btn';
 import { validateEmail } from '../../utils/validation';
 import * as Api from '../../api';
+import LandingNav from '../../components/nav/LandingNav';
 
-const LoginMainContainer = styled.div`
-  position: relative;
-  display: grid;
-  place-items: center;
+const Container = styled.div`
   height: 100vh;
   background-image: url(${images.Bg});
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+const LoginMainContainer = styled.div`
+  display: grid;
+  place-items: center;
+  align-items: center;
+  margin-top: 150px;
 `;
 
 const Login = () => {
@@ -47,44 +52,47 @@ const Login = () => {
   };
 
   return (
-    <LoginMainContainer props={images}>
+    <Container>
+      <LandingNav />
       <div>
-        <div style={{ marginTop: '1rem' }}>
-          <LoginText>이메일 주소</LoginText>
-          <LoginInput
-            type="email"
-            id="email-input"
-            label="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <LoginText>비밀번호</LoginText>
-          <LoginInput
-            type="password"
-            id="password-input"
-            label="password"
-            autoComplete="current-password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
-        <div style={{ margin: '0 auto', width: '100px' }}>
-          <Btn
-            text={'로그인'}
-            type={'sub'}
-            onClick={clickLogin}
-            disabled={!isFormValid}
-          />
-        </div>
-        <SocialLoginContainer>
-          <SocialLogin />
-        </SocialLoginContainer>
+        <LoginMainContainer>
+          <div style={{ marginTop: '1rem' }}>
+            <LoginText>이메일 주소</LoginText>
+            <LoginInput
+              type="email"
+              id="email-input"
+              label="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div style={{ marginTop: '1rem' }}>
+            <LoginText>비밀번호</LoginText>
+            <LoginInput
+              type="password"
+              id="password-input"
+              label="password"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div style={{ margin: '0 auto', width: '100px' }}>
+            <Btn
+              text={'로그인'}
+              type={'sub'}
+              onClick={clickLogin}
+              disabled={!isFormValid}
+            />
+          </div>
+          <SocialLoginContainer>
+            <SocialLogin />
+          </SocialLoginContainer>
+        </LoginMainContainer>
       </div>
-    </LoginMainContainer>
+    </Container>
   );
 };
 

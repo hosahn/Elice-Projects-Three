@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import images from '../assets/images';
+import LandingNav from '../components/nav/LandingNav';
 
 const MainContainer = styled.div`
   position: relative;
@@ -11,11 +11,12 @@ const MainContainer = styled.div`
   background-size: cover;
 `;
 
-export default function Introduction() {
+const Landing = () => {
   return (
     <MainContainer>
-      <Link to="/login">로그인</Link>
-      <Link to="/register">회원가입</Link>
+      <LandingNav />
     </MainContainer>
   );
-}
+};
+
+export default Landing;
