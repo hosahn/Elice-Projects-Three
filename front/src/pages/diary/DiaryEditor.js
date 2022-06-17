@@ -9,7 +9,7 @@ import Btn from '../../components/Btn';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import { Background } from '../../styles/ModalStyle';
-import { HeartSpinner } from 'react-spinners-kit';
+import { ClassicSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
 import * as Api from '../../api';
 
@@ -83,7 +83,7 @@ const DiaryEditor = () => {
       {submit &&
         (loading ? (
           <Background>
-            <HeartSpinner size={100} color="pink" />
+            <ClassicSpinner size={100} color="pink" />
           </Background>
         ) : (
           <DiaryModal />

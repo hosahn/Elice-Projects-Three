@@ -44,9 +44,8 @@ const CurrentChallenge = (user) => {
         <Cards>
           {COLOR.map((it) => {
             return (
-              <ColorCardContainer>
+              <ColorCardContainer key={it.id}>
                 <CardContainer
-                  key={it.id}
                   width={15}
                   height={10}
                   color={'#ffffff'}
