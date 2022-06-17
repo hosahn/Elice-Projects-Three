@@ -11,15 +11,11 @@ const MainContainer = styled.div`
   background-size: cover;
 `;
 
-const Btn = styled.link`
-  color: white;
-`;
-
 export default function Introduction() {
   return (
     <MainContainer>
-      <Btn to="/login">로그인</Btn>
-      <Btn to="/register">회원가입</Btn>
+      <Link to="/login">로그인</Link>
+      <Link to="/register">회원가입</Link>
     </MainContainer>
   );
 }
