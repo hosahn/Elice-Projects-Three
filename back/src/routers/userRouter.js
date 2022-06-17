@@ -79,4 +79,16 @@ userRouter.post("/signup", async (req, res) => {
   }
 });
 
+
+userRouter.post("/signup/check", async (req, res) => {
+  const { email } = req.body.email;
+  const social = "local";
+  const result = await User.checkUser({ email, local });
+  if (result) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
 export { userRouter };
