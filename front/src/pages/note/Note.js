@@ -12,7 +12,7 @@ const BtnContainer = styled.div`
   margin-left: 200px;
   padding-bottom: 1px;
   weight: 800px;
-  border-bottom: solid 2px #ced4da;
+  border-bottom: solid 1px #ced4da;
 `;
 
 const NoteBtn = styled.button`
@@ -23,18 +23,25 @@ const NoteBtn = styled.button`
   padding-bottom: 10px;
   &:focus {
     color: #862e9c;
+    border-bottom: solid 3px #862e9c;
+    outline: 0;
   }
 `;
 
 const BoardContainer = styled.div`
   margin-right: 200px;
   margin-left: 200px;
-  padding-bottom: 1px;
 `;
 
 const Note = () => {
   const [open, setOpen] = useState(true);
   const emotionList = useRef();
+
+  useEffect(() => {
+    if (open === true) {
+      emotionList.current.focus();
+    }
+  }, []);
 
   const clickEmotion = () => {
     setOpen(true);

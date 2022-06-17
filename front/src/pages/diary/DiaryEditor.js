@@ -41,13 +41,12 @@ const DiaryEditor = () => {
   };
 
   const handleClick = async () => {
-    console.log(document.cookie);
     const editorInstance = editorRef.current.getInstance();
-    const text = editorInstance.getMarkdown();
-    if (title.length > 0 && text.length > 2) {
+    const temp = editorInstance.getMarkdown();
+    if (title.length > 0 && temp.length > 2) {
       await Api.post('diary', {
         tag,
-        text,
+        text: editorInstance.getMarkdown(),
         title,
         imageList,
       });

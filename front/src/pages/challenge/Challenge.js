@@ -27,7 +27,7 @@ const Challenge = () => {
             </ChallengeBtn>
           </TitleWrap>
           {CHALLENGE.map((it) => (
-            <ChallengeCard props={it} />
+            <ChallengeCard props={it} key={it.id} />
           ))}
         </MainContainer>
       </div>

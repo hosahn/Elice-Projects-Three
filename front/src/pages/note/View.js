@@ -5,6 +5,8 @@ import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../../components/nav/Nav';
 import styled from 'styled-components';
 import * as Api from '../../api';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import { Viewer } from '@toast-ui/react-editor';
 
 const ViewContainer = styled.div`
   margin-top: 80px;
@@ -19,6 +21,7 @@ const TiteWrap = styled.div`
   border-bottom: solid 2px #ced4da;
   display: flex;
   flex-direction: rows;
+  width: 100%;
 `;
 
 const TagWrap = styled.div`
@@ -35,7 +38,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 40px;
+  font-size: 35px;
   font-family: 'InfinitySans-RegularA1';
 `;
 
@@ -45,40 +48,49 @@ const Tag = styled.span`
 `;
 
 const IconWrapper = styled.div`
-  margin-left: 450px;
-  font-size: 40px;
+  font-size: 15px;
   color: #495057;
   cursor: pointer;
+  float: right;
 `;
 
 const View = () => {
   const { state } = useLocation();
-  const [diary, setDiary] = useState([]);
-  const [text, setText] = useState('');
+  const [diary, setDiary] = useState({});
 
   useEffect(() => {
     getDiary();
   }, []);
 
+  useEffect(() => {
+    console.log(diary);
+  }, [diary]);
+
   const getDiary = async () => {
     const res = await Api.get(`diary/${state}`);
     setDiary(res.data);
-    setText(res.data.text);
   };
+
+  // const text =
+  //   '✏️![text](https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/16554467683011655192700876강아지.jpeg) \n마크다운으로\n사진을 전송.\n';
 
   return (
     <>
       <Nav />
       <ViewContainer>
+        <IconWrapper onClick={() => console.log('실수')}>
+          <FontAwesomeIcon icon={faFilePdf} className="user" />
+          pdf로 다운로드하기
+        </IconWrapper>
         <TiteWrap>
           <Title>{diary.title}</Title>
-          <IconWrapper>
-            <FontAwesomeIcon icon={faFilePdf} className="user" />
-          </IconWrapper>
         </TiteWrap>
         <TagWrap>
           <Tag>#{diary.tag}</Tag>
         </TagWrap>
+        <ContentWrapper>
+          <Viewer initialValue={diary.text} />
+        </ContentWrapper>
       </ViewContainer>
     </>
   );

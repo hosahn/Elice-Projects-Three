@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Btn from '../components/Btn';
-import { getDate } from '../utils/getDay';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import images from '../assets/images';
+
+const MainContainer = styled.div`
+  position: relative;
+  height: 100vh;
+  background-image: url(${images.Bg});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+const Btn = styled.link`
+  color: white;
+`;
 
 export default function Introduction() {
-  const navigate = useNavigate();
-
   return (
-    <div>
-      <p>소개 페이지입니다. </p>
-      <Btn text={'로그인'} onClick={() => navigate('/login')} />
-      <Btn text={'회원가입'} onClick={() => navigate('/register')} />
-    </div>
+    <MainContainer>
+      <Btn to="/login">로그인</Btn>
+      <Btn to="/register">회원가입</Btn>
+    </MainContainer>
   );
 }
