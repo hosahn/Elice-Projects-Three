@@ -1,5 +1,5 @@
 import { Router } from "express";
-import EmotionService from "../services/EmotionService.js";
+import EmotionService from "../services/emotionService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
 import * as status from "../utils/status.js";
