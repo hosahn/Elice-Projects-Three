@@ -72,19 +72,11 @@ function RegisterForm() {
   const isEmailDuplicate = async e => {
     e.preventDefault();
 
-    try {
-      await Api.post(
-        'user/signup',
-        {
-          email,
-        }.then(response => setDuplicate(response))
-      );
-    } catch (err) {
-      console.log('중복검사실패');
-    }
-    return duplicate;
+    const post = await Api.post('user/signup/check', {
+      email,
+    });
+    console.log(post);
   };
-
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid && isEmailDuplicate;
   // const emailCheck = (e) => {
   //   e.preventDefault();
@@ -112,7 +104,7 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      await Api.post('user/signup', {
+      await Api.post('user/signup/', {
         email,
         pw: password,
         name,
@@ -131,7 +123,7 @@ function RegisterForm() {
           <LoginText>이메일 주소</LoginText>
           <LoginInput type='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
 
-          <Btn text={'중복체크'} type={'sub'} disabled={!isFormValid} onClick={isEmailDuplicate} />
+          <Btn text={'중복체크'} type={'sub'} onClick={isEmailDuplicate} />
 
           {!isEmailValid && <LoginText className='text-success'>이메일 형식이 올바르지 않습니다.</LoginText>}
         </div>
