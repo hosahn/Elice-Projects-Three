@@ -77,7 +77,7 @@ function RegisterForm() {
         email,
       });
 
-      if (post.data === true) {
+      if (post.data === false) {
         alert('사용 가능한 이메일 입니다. ');
       } else {
         alert('중복된 이메일입니다. '); // 회원가입 버튼 disabled
@@ -122,7 +122,7 @@ function RegisterForm() {
         // name,
       });
       console.log(response);
-      // navigate('/login');
+      navigate('/login');
     } catch (err) {
       console.log('회원가입 실패', err);
     }
