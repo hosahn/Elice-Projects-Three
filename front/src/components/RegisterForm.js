@@ -72,10 +72,22 @@ function RegisterForm() {
   const isEmailDuplicate = async e => {
     e.preventDefault();
 
-    const post = await Api.post('user/signup/check', {
-      email,
-    });
-    console.log(post);
+    try {
+      const post = await Api.post('user/signup/check', {
+        email,
+      });
+
+      if (post.data === true) {
+        alert('사용 가능한 이메일 입니다. ');
+      } else {
+        alert('중복된 이메일입니다. '); // 회원가입 버튼 disabled
+      }
+    } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        console.error('data : ', data);
+      }
+    }
   };
   const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid && isEmailDuplicate;
   // const emailCheck = (e) => {
@@ -104,13 +116,13 @@ function RegisterForm() {
     e.preventDefault();
 
     try {
-      await Api.post('user/signup/', {
+      const response = await Api.post('user/signup/', {
         email,
         pw: password,
-        name,
+        // name,
       });
-
-      navigate('/login');
+      console.log(response);
+      // navigate('/login');
     } catch (err) {
       console.log('회원가입 실패', err);
     }
@@ -147,7 +159,7 @@ function RegisterForm() {
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <Btn text={'회원가입'} type={'sub'} disabled={!isFormValid} onClick={() => navigate('/login')} />
+          <Btn text={'회원가입'} type={'sub'} disabled={!isFormValid} onClick={handleSubmit} />
         </div>
       </div>
     </RegisterContainer>
