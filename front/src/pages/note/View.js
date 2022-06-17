@@ -71,8 +71,8 @@ const View = () => {
     setDiary(res.data);
   };
 
-  // const text =
-  //   '✏️![text](https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/16554467683011655192700876강아지.jpeg) \n마크다운으로\n사진을 전송.\n';
+  const text =
+    '✏️![text](https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/16554467683011655192700876강아지.jpeg) \n마크다운으로\n사진을 전송.\n';
 
   return (
     <>
