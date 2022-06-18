@@ -64,7 +64,7 @@ userRouter.get("/logout", (req, res) => {
 //성공이면 true
 userRouter.get("/main", (req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect("http://localhost:3000/usermain");
+    res.send(true);
   } else {
     res.send(false);
   }
@@ -77,9 +77,9 @@ userRouter.get("/failed", (req, res) => {
 // 회원가입
 
 userRouter.post("/signup", async (req, res) => {
-  const { email, pw } = req.body;
+  const { email, pw, name } = req.body;
   const social = "local";
-  const result = await User.createUser({ email, pw, social });
+  const result = await User.createUser({ email, pw, social, name });
   if (result == null) {
     res.send(false);
   } else {

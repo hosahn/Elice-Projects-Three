@@ -13,6 +13,7 @@ const option = {
 
 const verify = async (accessToken, refreshToken, profile, done) => {
   const email = profile._json.kakao_account.email;
+  const name = profile._json.properties.nickname;
   const result = await User.findUser({ email, social: "kakao" });
   try {
     if (result) {
@@ -23,6 +24,7 @@ const verify = async (accessToken, refreshToken, profile, done) => {
           email: email,
           pw: process.env.LOCAL_PASSWORD,
           social: "kakao",
+          name: name,
         },
       });
       return done(null, profile);

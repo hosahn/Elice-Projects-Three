@@ -2,9 +2,10 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 class User {
-  static async createUser({ social, pw, email }) {
+  static async createUser({ social, pw, email, name }) {
     const isUser = await prisma.users.findFirst({
       where: {
+        name: name,
         email: email,
         social: social,
       },
@@ -17,6 +18,7 @@ class User {
         social: social,
         email: email,
         pw: pw,
+        name: name,
       },
     });
     return createdUser;
