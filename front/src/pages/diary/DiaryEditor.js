@@ -57,6 +57,13 @@ const DiaryEditor = () => {
     } else {
       alert('일기 작성 문구 ~~~~~');
     }
+
+    const removeImg = temp.replace(
+      /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
+      '대체텍스트'
+    );
+
+    console.log(removeImg);
   };
 
   return (
@@ -72,7 +79,7 @@ const DiaryEditor = () => {
         hooks={{
           addImageBlobHook: async (e, callback) => {
             const imgUrl = await uploadImage(e);
-            callback(imgUrl, 'text');
+            callback(imgUrl, 'inputImg');
             return false;
           },
         }}

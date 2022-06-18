@@ -23,6 +23,30 @@ const CHALLENGE = [
     descriptionTwo: '10일, 30일, 50일 회차별로 보상이 있어요.',
     lock: true,
   },
+  {
+    id: 4,
+    title: '50일 챌린지',
+    subTitle: '50일 매일쓰기 챌린지',
+    descriptionOne: '일기 매일 쓰는 습관을 가지기 위해 도전해보세요!',
+    descriptionTwo: '10일, 30일, 50일 회차별로 보상이 있어요.',
+    lock: true,
+  },
+  {
+    id: 5,
+    title: '50일 챌린지',
+    subTitle: '50일 매일쓰기 챌린지',
+    descriptionOne: '일기 매일 쓰는 습관을 가지기 위해 도전해보세요!',
+    descriptionTwo: '10일, 30일, 50일 회차별로 보상이 있어요.',
+    lock: true,
+  },
+  {
+    id: 6,
+    title: '50일 챌린지',
+    subTitle: '50일 매일쓰기 챌린지',
+    descriptionOne: '일기 매일 쓰는 습관을 가지기 위해 도전해보세요!',
+    descriptionTwo: '10일, 30일, 50일 회차별로 보상이 있어요.',
+    lock: true,
+  },
 ];
 
 export default CHALLENGE;
