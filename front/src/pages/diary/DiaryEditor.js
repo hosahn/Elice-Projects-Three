@@ -58,12 +58,15 @@ const DiaryEditor = () => {
       alert('일기 작성 문구 ~~~~~');
     }
 
-    const removeImg = temp.replace(
+    const diary = temp.replace(
       /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
-      '대체텍스트'
+      ''
     );
+    console.log(diary);
 
-    console.log(removeImg);
+    await Api.postDiary({
+      diary: diary,
+    }).then((res) => console.log(res));
   };
 
   return (

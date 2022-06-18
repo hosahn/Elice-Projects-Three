@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
@@ -19,10 +19,16 @@ import {
 const View = () => {
   const { state } = useLocation();
   const [diary, setDiary] = useState({});
+  const viewerRef = useRef();
 
   useEffect(() => {
     getDiary();
   }, []);
+
+  useEffect(() => {
+    console.log('diary.text');
+    viewerRef.current.getInstance().setMarkdown(diary.text);
+  }, [diary]);
 
   useEffect(() => {
     console.log(diary);
@@ -51,7 +57,7 @@ const View = () => {
           <DiaryTag>#{diary.tag}</DiaryTag>
         </TagWrapper>
         <ContentWrapper>
-          <Viewer initialValue={diary.text} />
+          <Viewer ref={viewerRef} />
         </ContentWrapper>
       </ViewContainer>
     </>
