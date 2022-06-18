@@ -140,7 +140,89 @@ diaryRouter.delete(
  * /diary/list:
  *   get:
  *     tags: [Diary]
- *     description: 유저가 작성한 일기 조회
+ *     description: |
+ *       * 유저가 작성한 일기 조회
+ *       * 쿼리를 주지 않고 ``/diary/list``로 요청이 오면 가장 최근에 들어온 일기부터 순서대로 5개의 값과 cursor 값을 준다.
+ *       ```js
+ *       [
+ *         {
+ *             "id": 474,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:18.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 473,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:17.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 472,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:17.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 471,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:16.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "cursor": 471
+ *         }
+ *       ]
+ *       ```
+ *       그 후 무한 스크롤을 통해 새로운 리스트가 필요할 때 위에 받았던 cursor 값을 쿼리로 전달해주면 됩니다!
+ *       * ``/diray/list/?cursor=471``
+ *       ```js
+ *       [
+ *         {
+ *             "id": 470,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:16.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 469,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 468,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 467,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "cursor": 467
+ *         }
+ *       ]
+ *       ```
  *     produces:
  *     - application/json
  *     responses:
@@ -174,7 +256,6 @@ diaryRouter.delete(
  *                   view:
  *                     type: number
  *                     example: 1
- *
  */
 diaryRouter.get("/list", async (req, res, next) => {
   if (!req.user) {
@@ -182,7 +263,6 @@ diaryRouter.get("/list", async (req, res, next) => {
   }
   const userId = req.user.id;
   const { cursor } = req.query;
-  console.log(cursor);
   if (cursor) {
     const body = await DiaryService.secondReadList(userId, cursor);
     return res.status(status.STATUS_200_OK).send(body);

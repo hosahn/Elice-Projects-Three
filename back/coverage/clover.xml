@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1655516788497" clover="3.2.0">
-  <project timestamp="1655516788497" name="All files">
-    <metrics statements="311" coveredstatements="222" conditionals="62" coveredconditionals="27" methods="64" coveredmethods="40" elements="437" coveredelements="289" complexity="0" loc="311" ncloc="311" packages="9" files="26" classes="26"/>
+<coverage generated="1655540123754" clover="3.2.0">
+  <project timestamp="1655540123754" name="All files">
+    <metrics statements="321" coveredstatements="225" conditionals="64" coveredconditionals="28" methods="66" coveredmethods="40" elements="451" coveredelements="293" complexity="0" loc="321" ncloc="321" packages="9" files="26" classes="26"/>
     <package name="src">
       <metrics statements="40" coveredstatements="32" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="1"/>
       <file name="app.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\app.js">
@@ -72,13 +72,13 @@
       </file>
     </package>
     <package name="src.db.models">
-      <metrics statements="35" coveredstatements="26" conditionals="4" coveredconditionals="1" methods="12" coveredmethods="10"/>
+      <metrics statements="37" coveredstatements="26" conditionals="4" coveredconditionals="1" methods="13" coveredmethods="10"/>
       <file name="Calendar.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Calendar.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="2" type="stmt"/>
       </file>
       <file name="Diary.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Diary.js">
-        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
+        <metrics statements="20" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
         <line num="2" count="2" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
@@ -88,15 +88,17 @@
         <line num="56" count="2" type="stmt"/>
         <line num="69" count="2" type="stmt"/>
         <line num="78" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="101" count="4" type="stmt"/>
-        <line num="106" count="4" type="stmt"/>
-        <line num="114" count="1" type="stmt"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="130" count="1" type="stmt"/>
-        <line num="135" count="1" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
-        <line num="145" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+        <line num="136" count="4" type="stmt"/>
+        <line num="141" count="4" type="stmt"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="165" count="1" type="stmt"/>
+        <line num="170" count="1" type="stmt"/>
+        <line num="179" count="1" type="stmt"/>
+        <line num="180" count="1" type="stmt"/>
       </file>
       <file name="Emotion.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\db\models\Emotion.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -218,7 +220,7 @@
       </file>
     </package>
     <package name="src.routers">
-      <metrics statements="126" coveredstatements="79" conditionals="34" coveredconditionals="13" methods="26" coveredmethods="9"/>
+      <metrics statements="129" coveredstatements="80" conditionals="36" coveredconditionals="14" methods="26" coveredmethods="9"/>
       <file name="calendarRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\calendarRouter.js">
         <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="4" count="2" type="stmt"/>
@@ -228,7 +230,7 @@
         <line num="10" count="0" type="stmt"/>
       </file>
       <file name="diaryRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\diaryRouter.js">
-        <metrics statements="42" coveredstatements="42" conditionals="12" coveredconditionals="11" methods="7" coveredmethods="7"/>
+        <metrics statements="45" coveredstatements="43" conditionals="14" coveredconditionals="12" methods="7" coveredmethods="7"/>
         <line num="6" count="2" type="stmt"/>
         <line num="70" count="2" type="stmt"/>
         <line num="78" count="2" type="stmt"/>
@@ -248,29 +250,32 @@
         <line num="132" count="1" type="stmt"/>
         <line num="133" count="1" type="stmt"/>
         <line num="134" count="1" type="stmt"/>
-        <line num="179" count="2" type="stmt"/>
-        <line num="180" count="2" type="stmt"/>
-        <line num="181" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="182" count="1" type="stmt"/>
-        <line num="184" count="1" type="stmt"/>
-        <line num="185" count="1" type="stmt"/>
-        <line num="186" count="1" type="stmt"/>
-        <line num="188" count="1" type="stmt"/>
-        <line num="242" count="2" type="stmt"/>
-        <line num="255" count="2" type="stmt"/>
-        <line num="256" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="257" count="1" type="stmt"/>
-        <line num="263" count="1" type="stmt"/>
+        <line num="260" count="2" type="stmt"/>
+        <line num="261" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="262" count="1" type="stmt"/>
         <line num="264" count="1" type="stmt"/>
         <line num="265" count="1" type="stmt"/>
-        <line num="319" count="2" type="stmt"/>
-        <line num="320" count="2" type="stmt"/>
-        <line num="321" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="322" count="1" type="stmt"/>
-        <line num="324" count="1" type="stmt"/>
-        <line num="325" count="1" type="stmt"/>
-        <line num="326" count="1" type="stmt"/>
-        <line num="328" count="1" type="stmt"/>
+        <line num="266" count="1" type="stmt"/>
+        <line num="267" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="268" count="0" type="stmt"/>
+        <line num="269" count="0" type="stmt"/>
+        <line num="271" count="1" type="stmt"/>
+        <line num="272" count="1" type="stmt"/>
+        <line num="325" count="2" type="stmt"/>
+        <line num="338" count="2" type="stmt"/>
+        <line num="339" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="340" count="1" type="stmt"/>
+        <line num="346" count="1" type="stmt"/>
+        <line num="347" count="1" type="stmt"/>
+        <line num="348" count="1" type="stmt"/>
+        <line num="402" count="2" type="stmt"/>
+        <line num="403" count="2" type="stmt"/>
+        <line num="404" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="405" count="1" type="stmt"/>
+        <line num="407" count="1" type="stmt"/>
+        <line num="408" count="1" type="stmt"/>
+        <line num="409" count="1" type="stmt"/>
+        <line num="411" count="1" type="stmt"/>
       </file>
       <file name="emotionRouter.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\routers\emotionRouter.js">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -365,9 +370,9 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
+      <metrics statements="25" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="9"/>
       <file name="diaryService.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\services\diaryService.js">
-        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
+        <metrics statements="22" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
         <line num="14" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
@@ -377,14 +382,19 @@
         <line num="38" count="2" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
-        <line num="56" count="4" type="stmt"/>
-        <line num="57" count="4" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="82" count="1" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="69" count="4" type="stmt"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
       </file>
       <file name="emotionService.js" path="C:\Users\SGC\Desktop\TeamProject\ai-project\back\src\services\emotionService.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
