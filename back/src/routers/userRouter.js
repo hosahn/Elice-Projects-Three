@@ -1,6 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { User } from "../db/models/User.js";
+import "../config/env.js";
 const userRouter = Router();
 userRouter.get(
   "/googlecomplete",
@@ -9,7 +10,7 @@ userRouter.get(
     if (req.isAuthenticated()) {
       res
         .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
-        .redirect("/user/main");
+        .redirect(process.env.REDIRECT_URL);
     } else {
       res.redirect("/user/failed");
     }
@@ -20,7 +21,7 @@ userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
   if (req.isAuthenticated()) {
     res
       .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
-      .redirect("/user/main");
+      .redirect(process.env.REDIRECT_URL);
   } else {
     res.redirect("/user/failed");
   }
@@ -30,7 +31,7 @@ userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
   if (req.isAuthenticated()) {
     res
       .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
-      .redirect("/user/main");
+      .redirect(process.env.REDIRECT_URL);
   } else {
     res.redirect("/user/failed");
   }
@@ -41,7 +42,7 @@ userRouter.get("/localcomplete", (req, res) => {
   if (req.isAuthenticated()) {
     res
       .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
-      .redirect("/user/main");
+      .redirect(process.env.REDIRECT_URL);
   } else {
     res.redirect("/user/failed");
   }
