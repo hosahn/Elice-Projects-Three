@@ -42,7 +42,7 @@ userRouter.get("/localcomplete", (req, res) => {
   if (req.isAuthenticated()) {
     res
       .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
-      .redirect(process.env.REDIRECT_URL);
+      .send(true);
   } else {
     res.redirect("/user/failed");
   }
