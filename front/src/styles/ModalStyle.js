@@ -30,6 +30,6 @@ export const Content = styled.div`
   margin-top: 70px;
   position: relative;
   border-radius: 10px;
-  background: #fff0f6;
+  background: white;
   animation: ${fadeIn} 0.1s ease-out;
 `;

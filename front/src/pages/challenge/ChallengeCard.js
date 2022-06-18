@@ -1,27 +1,50 @@
-<<<<<<< HEAD
-import { ChallengeCardContainer } from '../../styles/ChallengeStyle';
-import { ExplainContext } from '../../styles/CommonStyle';
+import images from '../../assets/images';
+import {
+  CardsContainer,
+  CardTitle,
+  CardWrapper,
+  ExplainContext,
+  TargetImg,
+  StartBtn,
+} from '../../styles/ChallengeStyle';
 
-// 챌린지 받아온 정보
-const ChallengeCard = () => {
-  return <ChallengeCardContainer>dkdsfd</ChallengeCardContainer>;
-=======
-import styled from 'styled-components';
-import { ChallengeCardWrapper } from '../../styles/ChallengeStyle';
-
-const ChallengeText = styled.span`
-  font-family: 'BMJUA';
-  font-size: 20px;
-`;
-
-// 챌린지 받아온 정보
-const ChallengeCard = () => {
+const ChallengeCard = ({ props }) => {
+  const { title, subTitle, descriptionOne, descriptionTwo, lock } = props;
   return (
-    <ChallengeCardWrapper>
-      <ChallengeText>🏆 50일쓰기 1회차를 성공하였습니다.</ChallengeText>
-    </ChallengeCardWrapper>
+    <CardsContainer>
+      {lock ? (
+        <>
+          <CardWrapper>
+            <div>
+              <CardTitle lock={true}>🚧 공개 예정 🚧</CardTitle>
+            </div>
+          </CardWrapper>
+          <ExplainContext lock={true}>
+            <h1>👷🏻‍♂️현재 준비 중인 챌린지 입니다.</h1>
+            <div style={{ marginTop: '35px' }}></div>
+          </ExplainContext>
+        </>
+      ) : (
+        <>
+          <CardWrapper>
+            <TargetImg src={images.Calendar} alt="Calendar" />
+            <div>
+              <CardTitle lock={false}>{title}</CardTitle>
+            </div>
+          </CardWrapper>
+          <ExplainContext lock={false}>
+            <h1>{subTitle}</h1>
+            {descriptionOne} <br />
+            {descriptionTwo}
+            <br />
+            <div style={{ marginTop: '35px' }}>
+              <StartBtn>도전하기🏁</StartBtn>
+            </div>
+          </ExplainContext>
+        </>
+      )}
+    </CardsContainer>
   );
->>>>>>> origin/BE/test/HS
 };
 
 export default ChallengeCard;

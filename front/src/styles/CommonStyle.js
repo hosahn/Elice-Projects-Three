@@ -21,6 +21,7 @@ export const ExplainContext = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1.2rem;
   line-height: 1.5rem;
+  margin-bottom: ${(props) => `${props.bottom}rem`};
   margin-left: ${(props) => `${props.left}rem`};
 `;
 
@@ -32,7 +33,7 @@ export const MainTitle = styled.h1`
 export const SubTitle = styled.h2`
   font-size: 1.4rem;
   font-family: 'EliceDigitalBaeum_Bold';
-  color: ${(props) => (props.color == 'purple' ? '#3d2c8d' : '#e64980')};
+  color: ${props => (props.color == 'purple' ? '#3d2c8d' : '#e64980')};
 `;
 
 // HighLight
@@ -51,19 +52,14 @@ export const HighLightExplain = styled.span`
 `;
 
 export const TextInput = styled.input`
-<<<<<<< HEAD
-  min-height: 2rem;
-  width: 30rem;
-=======
   min-height: 20px;
   width: 700px;
->>>>>>> origin/BE/test/HS
   margin: 0.5rem;
   padding: 0 1rem;
   border: none;
   border-bottom: 2px solid #ccc;
   cursor: text;
-  font-size: ${(props) => `${props.size}rem`};
+  font-size: ${props => `${props.size}rem`};
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.color.mainPurple};

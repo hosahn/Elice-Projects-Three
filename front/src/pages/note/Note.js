@@ -1,40 +1,19 @@
 import { useRef, useEffect } from 'react';
 import { useState } from 'react';
-import styled from 'styled-components';
 import Nav from '../../components/nav/Nav';
 import EmotionList from './EmotionList';
 import TagList from './TagList';
-
-const BtnContainer = styled.div`
-  margin-top: 100px;
-  margin-bottom: 50px;
-  margin-right: 200px;
-  margin-left: 200px;
-  padding-bottom: 1px;
-  weight: 800px;
-  border-bottom: solid 2px #ced4da;
-`;
-
-const NoteBtn = styled.button`
-  font-family: 'InfinitySans-RegularA1';
-  font-size: 20px;
-  color: #868e96;
-  margin-right: 50px;
-  padding-bottom: 10px;
-  &:focus {
-    color: #862e9c;
-  }
-`;
-
-const BoardContainer = styled.div`
-  margin-right: 200px;
-  margin-left: 200px;
-  padding-bottom: 1px;
-`;
+import { BoardContainer, NoteBtn, BtnContainer } from '../../styles/NoteStyle';
 
 const Note = () => {
   const [open, setOpen] = useState(true);
   const emotionList = useRef();
+
+  useEffect(() => {
+    if (open === true) {
+      emotionList.current.focus();
+    }
+  }, []);
 
   const clickEmotion = () => {
     setOpen(true);
