@@ -16,3 +16,4 @@ export default function errorMiddleware(error, req, res, next) {
   };
   res.status(error.status ?? STATUS_400_BADREQUEST).send(body);
 }
+

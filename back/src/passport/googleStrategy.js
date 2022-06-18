@@ -26,9 +26,11 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
           email: email,
           pw: process.env.LOCAL_PASSWORD,
           social: "google",
+
+          name: "밤하늘",
         },
       });
-      return done(null, result);
+      return done(null, createdUser);
     }
   } catch (error) {
     return done(false, result);

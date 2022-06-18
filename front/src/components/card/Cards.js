@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+<<<<<<< HEAD
 import TEXT from '../../pages/main/TEXT';
 import Container from './Container';
 import MainText from './MainText';
@@ -34,6 +35,18 @@ const BattlePass = (props) => {
   const [move, setMove] = useState(0);
 
   console.log(containerWdith);
+=======
+
+import { ArrowButton } from '../../styles/BtnStyle';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { BattlePassContainer, CardsContainer } from '../../styles/CardStyle';
+
+const BattlePass = (props) => {
+  const container = useRef();
+  const [move, setMove] = useState(0);
+
+>>>>>>> origin/BE/test/HS
   useEffect(() => {
     container.current.style.transform = `translateX(${move}vw)`;
   }, [move]);
@@ -49,13 +62,18 @@ const BattlePass = (props) => {
   };
 
   return (
+<<<<<<< HEAD
     <BattlePassContainer containerWdith={containerWdith} margin={margin}>
+=======
+    <BattlePassContainer>
+>>>>>>> origin/BE/test/HS
       <ArrowButton onClick={clickLeftButton} left={1}>
         <FontAwesomeIcon icon={faAnglesLeft} className="user" />
       </ArrowButton>
       <ArrowButton onClick={clickRightButton} right={1}>
         <FontAwesomeIcon icon={faAnglesRight} className="user" />
       </ArrowButton>
+<<<<<<< HEAD
       <CardsContainer ref={container}>
         {TEXT.map((it, index) => {
           return (
@@ -69,6 +87,9 @@ const BattlePass = (props) => {
           );
         })}
       </CardsContainer>
+=======
+      <CardsContainer ref={container}>{props.children}</CardsContainer>
+>>>>>>> origin/BE/test/HS
     </BattlePassContainer>
   );
 };
