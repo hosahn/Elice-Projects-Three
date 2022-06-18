@@ -21,7 +21,8 @@ export const ExplainContext = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1.2rem;
   line-height: 1.5rem;
-  margin-left: ${props => `${props.left}rem`};
+  margin-bottom: ${(props) => `${props.bottom}rem`};
+  margin-left: ${(props) => `${props.left}rem`};
 `;
 
 export const MainTitle = styled.h1`
@@ -51,8 +52,8 @@ export const HighLightExplain = styled.span`
 `;
 
 export const TextInput = styled.input`
-  min-height: 2rem;
-  width: 30rem;
+  min-height: 20px;
+  width: 700px;
   margin: 0.5rem;
   padding: 0 1rem;
   border: none;
@@ -74,19 +75,4 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-// Background
-export const Background = styled.div`
-  z-index: 90;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.3);
 `;

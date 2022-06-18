@@ -4,16 +4,13 @@ import {
   MainContext,
   HighLightPink,
   ExplainContext,
-  HighLightExplain,
 } from '../../styles/CommonStyle';
 
 const MainCallengeInfo = (user) => {
-  const { challengeDate, round, roundFinishDate, roundDate, getDateDiff } =
-    useGetChallenge();
+  const { challengeDate, round, getDateDiff } = useGetChallenge();
 
   useEffect(() => {
     getChallengeInfo();
-    console.log('실행');
   }, [user]);
 
   const getChallengeInfo = () => {
@@ -27,12 +24,8 @@ const MainCallengeInfo = (user) => {
         <HighLightPink>{challengeDate}</HighLightPink>
         일째 도전 중 입니다.🏁 <br />
       </MainContext>
-      <ExplainContext left={6}>
+      <ExplainContext left={6} bottom={1}>
         현재까지 달성률은 {(round - 1) * 10}%입니다. <br />
-        <HighLightExplain>{round}</HighLightExplain>회차 종료일{' '}
-        <HighLightExplain>{roundFinishDate}</HighLightExplain>까지{' '}
-        <HighLightExplain>{roundDate}</HighLightExplain>
-        일 남았어요.😊 <br />
       </ExplainContext>
     </>
   );

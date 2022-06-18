@@ -2,6 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5001",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
@@ -10,6 +11,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@toast-ui/editor": "^3.1.7",
+    "@toast-ui/editor-plugin-color-syntax": "^3.0.3",
     "@toast-ui/react-editor": "^3.1.7",
     "axios": "^0.27.2",
     "react": "^18.1.0",
@@ -17,6 +19,7 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-spinners-kit": "^1.9.1",
+    "react-use-cookie": "^1.4.0",
     "recoil": "^0.7.3-alpha.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.1",

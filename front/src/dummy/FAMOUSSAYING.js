@@ -1,23 +1,23 @@
 const FAMOUSSAYING = [
   {
     id: 1,
-    sentence: '내일도 할 수 있는 일을 굳이 오늘 할 필요 없다 .',
+    sentence: ' 문장 1 .',
   },
   {
     id: 2,
-    sentence: '가는 말이 고우면 얕본다.',
+    sentence: '문장 2.',
   },
   {
     id: 3,
-    sentence: '고생 끝에 골병 난다.',
+    sentence: '문장 3',
   },
   {
     id: 4,
-    sentence: '참을 인 세 번이면 호구 .',
+    sentence: '문장 4 .',
   },
   {
     id: 5,
-    sentence: '티끌 모아 티끌.',
+    sentence: '문장 5',
   },
 ];
 

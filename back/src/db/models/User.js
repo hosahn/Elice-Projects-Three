@@ -21,17 +21,6 @@ class User {
     });
     return createdUser;
   }
-
-    static async checkUser({ email, social }) {
-    const foundUser = await prisma.users.findFirst({
-      where: {
-        email: email,
-        social: social,
-      },
-    });
-    return foundUser;
-  }
-  
   static async findUser({ email, social, pw }) {
     if (pw) {
       const foundUser = await prisma.users.findFirst({

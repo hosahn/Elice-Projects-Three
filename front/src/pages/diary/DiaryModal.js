@@ -49,7 +49,6 @@ const DiaryModal = () => {
   const selectCookie = (e) => {
     const select = e.currentTarget.id;
     setClickCookie((prev) => !prev);
-    console.log(FAMOUSSAYING[numList[select]].sentence);
     setAnswer(FAMOUSSAYING[numList[select]].sentence);
   };
 

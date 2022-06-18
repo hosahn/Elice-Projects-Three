@@ -5,6 +5,7 @@ import * as Api from '../api';
 import styled from 'styled-components';
 import images from '../assets/images';
 import { LoginInput, LoginText } from '../styles/LoginStyle';
+import LandingNav from './nav/LandingNav';
 
 // const RegisterInput = styled.input`
 //   display: inline-flex;
@@ -69,7 +70,7 @@ function RegisterForm() {
 
   const isNameValid = name.length >= 2;
 
-  const isEmailDuplicate = async e => {
+  const isEmailDuplicate = async (e) => {
     e.preventDefault();
 
     try {
@@ -89,30 +90,14 @@ function RegisterForm() {
       }
     }
   };
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame && isNameValid && isEmailDuplicate;
-  // const emailCheck = (e) => {
-  //   e.preventDefault();
-  //   const { usableId } = this.state; // usableID state를 비구조화 할당!
-  //   // ⬇︎은 백엔드로 fetch해서 입력된 값을 POST!
-  //   fetch("http://10.58.6.197:8000/sign-up/check", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type" : "application/json"
-  //     },
-  //     body: JSON.stringify({user_id: this.state.user_id})
-  //   })
-  //   .then(response => {if(response.status === 200){
-  //     alert("사용 가능한 아이디 입니다.");// 백엔드로 보낸 데이터 결과 200 일 경우
-  //     this.setState({usable_id: true})//사용 가능한 아이디 일 경우 state상태에 true값으로 변경, 나중에 회원가입 버튼 클릭 이벤트핸들러에 필요!
-  //   }else if(response.status === 409){
-  //     alert("이미 사용중인 아이디 입니다.") // 이미 데이터베이스에 있는 아이디일 경우 409
-  //   }else{ // 그 외에는 사용 불가한 아이디
-  //     alert("사용 불가한 아이디입니다.")
-  //   }
-  //  })
-  // }
+  const isFormValid =
+    isEmailValid &&
+    isPasswordValid &&
+    isPasswordSame &&
+    isNameValid &&
+    isEmailDuplicate;
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -129,37 +114,78 @@ function RegisterForm() {
   };
 
   return (
-    <RegisterContainer id='RC'>
+    <RegisterContainer id="RC">
       <div onSubmit={handleSubmit}>
         <div style={{ marginBottom: '30px' }}>
           <LoginText>이메일 주소</LoginText>
-          <LoginInput type='email' autoComplete='off' value={email} onChange={e => setEmail(e.target.value)} />
+          <LoginInput
+            type="email"
+            autoComplete="off"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <Btn text={'중복체크'} type={'sub'} onClick={isEmailDuplicate} />
 
-          {!isEmailValid && <LoginText className='text-success'>이메일 형식이 올바르지 않습니다.</LoginText>}
+          {!isEmailValid && (
+            <LoginText className="text-success">
+              이메일 형식이 올바르지 않습니다.
+            </LoginText>
+          )}
         </div>
 
         <div style={{ marginBottom: '30px' }}>
           <LoginText>비밀번호</LoginText>
-          <LoginInput type='password' autoComplete='off' value={password} onChange={e => setPassword(e.target.value)} />
-          {!isPasswordValid && <LoginText className='text-success'>비밀번호는 4글자 이상으로 설정해 주세요.</LoginText>}
+          <LoginInput
+            type="password"
+            autoComplete="off"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {!isPasswordValid && (
+            <LoginText className="text-success">
+              비밀번호는 4글자 이상으로 설정해 주세요.
+            </LoginText>
+          )}
         </div>
 
         <div style={{ marginBottom: '30px' }}>
           <LoginText>비밀번호 재확인</LoginText>
-          <LoginInput type='password' autoComplete='off' value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-          {!isPasswordSame && <LoginText className='text-success'>비밀번호가 일치하지 않습니다.</LoginText>}
+          <LoginInput
+            type="password"
+            autoComplete="off"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          {!isPasswordSame && (
+            <LoginText className="text-success">
+              비밀번호가 일치하지 않습니다.
+            </LoginText>
+          )}
         </div>
 
         <div style={{ marginBottom: '30px' }}>
           <LoginText>닉네임</LoginText>
-          <LoginInput type='text' autoComplete='off' value={name} onChange={e => setName(e.target.value)} />
-          {!isNameValid && <LoginText className='text-success'>닉네임은 2글자 이상으로 설정해 주세요.</LoginText>}
+          <LoginInput
+            type="text"
+            autoComplete="off"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          {!isNameValid && (
+            <LoginText className="text-success">
+              닉네임은 2글자 이상으로 설정해 주세요.
+            </LoginText>
+          )}
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <Btn text={'회원가입'} type={'sub'} disabled={!isFormValid} onClick={handleSubmit} />
+          <Btn
+            text={'회원가입'}
+            type={'sub'}
+            disabled={!isFormValid}
+            onClick={handleSubmit}
+          />
         </div>
       </div>
     </RegisterContainer>

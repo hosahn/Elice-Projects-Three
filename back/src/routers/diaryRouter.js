@@ -2,6 +2,8 @@ import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
+import passport from "passport";
+
 import * as status from "../utils/status.js";
 const diaryRouter = Router();
 
@@ -76,6 +78,7 @@ diaryRouter.post(
   ],
   async (req, res, next) => {
     try {
+      console.log(req.user);
       if (!req.user) {
         throw new Error("로그인 후 사용해야 합니다.");
       }

@@ -28,7 +28,7 @@ const verify = async (accessToken, refreshToken, profile, done) => {
       return done(null, result);
     }
   } catch (error) {
-    return done(false, result);
+    return done(false, email);
   }
 };
 

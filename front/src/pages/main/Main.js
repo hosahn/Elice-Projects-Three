@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MainChallenge from './MainChallenge';
-import { MainTitle, SubContext, HighLightPurple, MainContainer } from '../../styles/CommonStyle';
 import { MiainChallengeContainer } from '../../styles/MainStyle';
 import MainCallengeInfo from './MainChallengeInfo';
 import useGetChallenge from '../../hooks/useGetChallenge';
+import Nav from '../../components/nav/Nav';
+import {
+  MainTitle,
+  SubContext,
+  HighLightPurple,
+  MainContainer,
+} from '../../styles/CommonStyle';
 
 const UserMain = () => {
   const [user, setUser] = useState({}); // 백에서 받아오는 user정보
@@ -35,6 +41,7 @@ const UserMain = () => {
 
   return (
     <>
+      <Nav />
       <SubContext>
         안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! <br />
         저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
