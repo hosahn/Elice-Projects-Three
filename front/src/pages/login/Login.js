@@ -40,7 +40,7 @@ const Login = () => {
     try {
       const res = await Api.post('login/local', {
         email,
-        password,
+        pw: password,
       });
       console.log(res);
     } catch (error) {
