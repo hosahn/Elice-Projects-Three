@@ -15,21 +15,21 @@ const BattlePass = (props) => {
 
   const clickLeftButton = () => {
     if (move < 0) {
-      setMove((prop) => prop + 10);
+      setMove(prop => prop + 10);
     }
   };
 
   const clickRightButton = () => {
-    setMove((prop) => prop - 10);
+    setMove(prop => prop - 10);
   };
 
   return (
     <BattlePassContainer>
       <ArrowButton onClick={clickLeftButton} left={1}>
-        <FontAwesomeIcon icon={faAnglesLeft} className="user" />
+        <FontAwesomeIcon icon={faAnglesLeft} className='user' />
       </ArrowButton>
       <ArrowButton onClick={clickRightButton} right={1}>
-        <FontAwesomeIcon icon={faAnglesRight} className="user" />
+        <FontAwesomeIcon icon={faAnglesRight} className='user' />
       </ArrowButton>
       <CardsContainer ref={container}>{props.children}</CardsContainer>
     </BattlePassContainer>

@@ -22,14 +22,14 @@ const DiaryEditor = () => {
   const [loading, setLoading] = useState(false);
   const [imageList, setImageList] = useState([]);
 
-  const uploadImage = async (blob) => {
+  const uploadImage = async blob => {
     const name = blob.name;
     const res = await axios({
       method: 'get',
       url: `http://localhost:5001/upload/${name}`,
     });
 
-    setImageList((data) => [res.data.imageUrl, ...data]);
+    setImageList(data => [res.data.imageUrl, ...data]);
     console.log(imageList);
     await axios({
       method: 'put',

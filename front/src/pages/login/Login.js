@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import SocialLogin from './SocialLogin';
-import {
-  LoginText,
-  LoginInput,
-  SocialLoginContainer,
-} from '../../styles/LoginStyle';
+import { LoginText, LoginInput, SocialLoginContainer } from '../../styles/LoginStyle';
 import images from '../../assets/images';
 import styled from 'styled-components';
 import Btn from '../../components/Btn';
