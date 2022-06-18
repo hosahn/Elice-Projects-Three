@@ -75,7 +75,15 @@ userRouter.get("/failed", (req, res) => {
   res.send(false);
 });
 // 회원가입
-
+userRouter.post("/signup/check", async (req, res) => {
+  const email = req.body.email;
+  const result = User.checkUser({ email });
+  if (result) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
 userRouter.post("/signup", async (req, res) => {
   const { email, pw, name } = req.body;
   const social = "local";
