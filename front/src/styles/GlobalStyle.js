@@ -23,14 +23,12 @@ body{
   position: relative;
 }
 
-<<<<<<< HEAD
 button{
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
-=======
->>>>>>> 58c2a4824bc8a0eed052fabc56445770385a19d7
 button:hover{
   cursor: pointer;
 }
