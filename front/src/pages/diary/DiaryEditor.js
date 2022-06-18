@@ -4,9 +4,9 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
-import { titleState, tagState, writeState } from '../../atoms';
+import { titleState, tagState } from '../../atoms';
 import Btn from '../../components/Btn';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
@@ -15,9 +15,8 @@ import * as Api from '../../api';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
-  const title = useRecoilValue(titleState);
-  const tag = useRecoilValue(tagState);
-  const setWrite = useSetRecoilState(writeState);
+  const [title, setTitle] = useRecoilState(titleState);
+  const [tag, setTag] = useRecoilState(tagState);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageList, setImageList] = useState([]);
@@ -53,7 +52,8 @@ const DiaryEditor = () => {
       });
       setSubmit((prev) => !prev);
       setLoading((prev) => !prev);
-      setWrite(true);
+      setTitle('');
+      setTag('');
       setTimeout(() => setLoading((prev) => !prev), 1500);
     } else {
       alert('일기 작성 문구 ~~~~~');

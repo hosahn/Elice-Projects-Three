@@ -46,6 +46,8 @@ const Login = () => {
       });
       console.log(res);
       if (res.data === true) {
+        setEmail('');
+        setPassword('');
         navigate('/usermain');
       } else {
         alert('로그인을 실패하였습니다.');
