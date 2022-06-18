@@ -16,19 +16,19 @@ const verify = async (accessToken, refreshToken, profile, done) => {
   const result = await User.findUser({ email, social: "kakao" });
   try {
     if (result) {
-      return done(null, profile);
+      return done(null, result);
     } else {
       const createdUser = await prisma.users.create({
         data: {
           email: email,
-          pw: "1234",
+          pw: process.env.LOCAL_PASSWORD,
           social: "kakao",
         },
       });
-      return done(null, profile);
+      return done(null, result);
     }
   } catch (error) {
-    return done(false, profile);
+    return done(false, email);
   }
 };
 
