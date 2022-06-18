@@ -177,16 +177,18 @@ diaryRouter.delete(
  *
  */
 diaryRouter.get("/list", async (req, res, next) => {
-  try {
-    if (!req.user) {
-      throw new Error("로그인 후 사용해야 합니다.");
-    }
-    const userId = req.user.id;
-    const body = await DiaryService.readList(userId);
-    return res.status(status.STATUS_200_OK).send(body);
-  } catch (error) {
-    next(error);
+  if (!req.user) {
+    throw new Error("로그인 후 사용해야 합니다.");
   }
+  const userId = req.user.id;
+  const { cursor } = req.query;
+  console.log(cursor);
+  if (cursor) {
+    const body = await DiaryService.secondReadList(userId, cursor);
+    return res.status(status.STATUS_200_OK).send(body);
+  }
+  const body = await DiaryService.readList(userId);
+  return res.status(status.STATUS_200_OK).send(body);
 });
 
 /**

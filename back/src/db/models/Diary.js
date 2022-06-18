@@ -76,6 +76,7 @@ export default class Diary {
    */
   static async readList(userId) {
     const diaryList = await prisma.diary.findMany({
+      take: 4,
       where: {
         user_id: +userId,
         deleted: false,
@@ -87,6 +88,35 @@ export default class Diary {
         tag: true,
         date: true,
         view: true,
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return diaryList;
+  }
+
+  static async secondReadList(userId, cursor) {
+    const diaryList = await prisma.diary.findMany({
+      take: 4,
+      skip: 1,
+      cursor: {
+        id: +cursor,
+      },
+      where: {
+        user_id: +userId,
+        deleted: false,
+      },
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        tag: true,
+        date: true,
+        view: true,
+      },
+      orderBy: {
+        date: "desc",
       },
     });
     return diaryList;
