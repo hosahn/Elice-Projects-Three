@@ -4,7 +4,7 @@ import * as Api from '../../api';
 import {
   EmotionCard,
   Title,
-  Date,
+  DiaryDate,
   TitleContainer,
   DateWrapper,
 } from '../../styles/NoteStyle';
@@ -38,7 +38,7 @@ const EmotionList = () => {
             <Title>{it.title}</Title>
           </TitleContainer>
           <DateWrapper>
-            <Date>{it.date.slice(0, 10)}</Date>
+            {/* <DiaryDate>{it.date.slice(0, 10)}</DiaryDate> */}
           </DateWrapper>
         </EmotionCard>
       ))}

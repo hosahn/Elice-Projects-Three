@@ -6,21 +6,21 @@ import TagList from './TagList';
 import { BoardContainer, NoteBtn, BtnContainer } from '../../styles/NoteStyle';
 
 const Note = () => {
-  const [open, setOpen] = useState(true);
+  const [tagOpen, setTagOpen] = useState(false);
   const emotionList = useRef();
 
   useEffect(() => {
-    if (open === true) {
+    if (tagOpen === false) {
       emotionList.current.focus();
     }
   }, []);
 
   const clickEmotion = () => {
-    setOpen(true);
+    setTagOpen(false);
   };
 
   const clickTag = () => {
-    setOpen(false);
+    setTagOpen(true);
   };
 
   return (
@@ -32,7 +32,7 @@ const Note = () => {
         </NoteBtn>
         <NoteBtn onClick={clickTag}>태그</NoteBtn>
       </BtnContainer>
-      <BoardContainer>{open ? <EmotionList /> : <TagList />}</BoardContainer>
+      <BoardContainer>{tagOpen ? <TagList /> : <EmotionList />}</BoardContainer>
     </>
   );
 };

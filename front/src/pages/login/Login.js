@@ -54,6 +54,7 @@ const Login = () => {
       if (error.response) {
         const { data } = error.response;
         console.error('data : ', data);
+        alert('로그인을 실패하였습니다.');
       }
     }
   };
