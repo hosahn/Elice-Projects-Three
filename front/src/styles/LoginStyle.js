@@ -25,14 +25,14 @@ export const LoginText = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1rem;
   line-height: 1.5rem;
-  color: white;
+  color: black;
 `;
 
 export const LoginInput = styled.input`
   display: inline-flex;
   width: 30rem;
   height: 3rem;
-  color: white;
+  color: black;
   background: transparent;
   padding: 1rem;
   border: solid 1px #dbc7ff;

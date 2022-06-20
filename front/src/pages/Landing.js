@@ -6,15 +6,15 @@ import LandingNav from '../components/nav/LandingNav';
 const MainContainer = styled.div`
   position: relative;
   height: 100vh;
-  background-image: url(${images.Bg});
-  background-repeat: no-repeat;
-  background-size: cover;
 `;
 
 const Landing = () => {
   return (
     <MainContainer>
       <LandingNav />
+      <div style={{ marginLeft: '1000px', marginTop: '100px' }}>
+        <img src={images.StackOfBooks} />
+      </div>
     </MainContainer>
   );
 };

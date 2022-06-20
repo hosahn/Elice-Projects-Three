@@ -34,7 +34,7 @@ const UserMain = () => {
           getDateDiff(res.inserted_at); // 적용되기 전에 불렀다.
         })
       )
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -44,7 +44,8 @@ const UserMain = () => {
       <Nav />
       <SubContext>
         안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! <br />
-        저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
+        저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고
+        계시네요.
       </SubContext>
       <MainContainer>
         <MiainChallengeContainer>
