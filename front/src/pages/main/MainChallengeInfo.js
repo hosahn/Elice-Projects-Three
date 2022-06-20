@@ -9,24 +9,13 @@ import {
 const MainCallengeInfo = (user) => {
   const { challengeDate, round, getDateDiff } = useGetChallenge();
 
-  useEffect(() => {
-    getChallengeInfo();
-  }, [user]);
-
-  const getChallengeInfo = () => {
-    getDateDiff(user.user.start_date);
-  };
-
   return (
     <>
       <MainContext>
-        현재 <HighLightPink>{user.user.challengeName} 챌린지</HighLightPink>에{' '}
-        <HighLightPink>{challengeDate}</HighLightPink>
+        현재 <HighLightPink>매일쓰기 챌린지</HighLightPink>에{' '}
+        <HighLightPink>12</HighLightPink>
         일째 도전 중 입니다.🏁 <br />
       </MainContext>
-      <ExplainContext left={6} bottom={1}>
-        현재까지 달성률은 {(round - 1) * 10}%입니다. <br />
-      </ExplainContext>
     </>
   );
 };

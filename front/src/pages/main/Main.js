@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MainChallenge from './MainChallenge';
-import { MiainChallengeContainer } from '../../styles/MainStyle';
+import MainCurrentChallenge from './MainCurrentChallenge';
 import MainCallengeInfo from './MainChallengeInfo';
 import useGetChallenge from '../../hooks/useGetChallenge';
 import Nav from '../../components/nav/Nav';
+import styled from 'styled-components';
+
 import {
   MainTitle,
   SubContext,
   HighLightPurple,
   MainContainer,
 } from '../../styles/CommonStyle';
+import Calendar from './Calendar';
+import MainDiaryList from './MainDiaryList';
 
 const UserMain = () => {
   const [user, setUser] = useState({}); // 백에서 받아오는 user정보
@@ -35,7 +38,7 @@ const UserMain = () => {
         })
       )
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -43,24 +46,33 @@ const UserMain = () => {
     <>
       <Nav />
       <SubContext>
-        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! <br />
-        저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고
-        계시네요.
+        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! 저희와{' '}
+        <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
       </SubContext>
-      <MainContainer>
-        <MiainChallengeContainer>
-          {user.is_broken ? (
-            <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
-          ) : (
-            <>
-              <MainCallengeInfo user={user} />
-              <MainChallenge user={user} />
-            </>
-          )}
-        </MiainChallengeContainer>
-      </MainContainer>
+      {/* <MainChallenge /> */}
+      <UserMainContainer>
+        <ContentsContainer>
+          <MainCurrentChallenge />
+          <MainDiaryList />
+        </ContentsContainer>
+        <Calendar />
+      </UserMainContainer>
     </>
   );
 };
 
 export default UserMain;
+
+const UserMainContainer = styled.div`
+  position: relative;
+  display: grid;
+  grid-template-columns: 400px 2fr;
+  place-items: center;
+`;
+
+const ContentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 300px;
+  margin-top: 50px;
+`;
