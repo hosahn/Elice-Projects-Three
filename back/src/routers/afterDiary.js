@@ -3,15 +3,24 @@ import { Fortune } from "../db/index.js";
 
 const afterDiaryRouter = Router();
 
-afterDiaryRouter.get("/music", (req, res) => {
-  res.send(true);
+afterDiaryRouter.get("/music", async (req, res) => {
+  if (req.isAuthenticated()) {
+  } else {
+    res.send("Login First");
+  }
 });
 
 afterDiaryRouter.get("/activity", (req, res) => {
-  res.send(false);
+  if (req.isAuthenticated()) {
+  } else {
+    res.send("Login First");
+  }
 });
 afterDiaryRouter.get("fortune", (req, res) => {
-  res.send(false);
+  if (req.isAuthenticated()) {
+  } else {
+    res.send("Login First");
+  }
 });
 
 export { afterDiaryRouter };

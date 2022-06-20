@@ -3,7 +3,8 @@ const prisma = new PrismaClient();
 
 class Fortune {
   static async getFortune() {
-    const result = prisma.$queryRaw`select text from fortune order by rand() limit 1 `;
+    const result =
+      await prisma.$queryRaw`select text from fortune order by rand() limit 1 `;
     return result;
   }
 }
