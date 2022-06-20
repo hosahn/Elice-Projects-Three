@@ -1,4 +1,6 @@
 import Btn from '../components/Btn';
+import styled from 'styled-components';
+import images from '../assets/images';
 
 const UserInfo = () => {
   return (

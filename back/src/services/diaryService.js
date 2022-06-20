@@ -39,15 +39,28 @@ export default class DiaryService {
   }
 
   /**
-   *  - 일기 목록 조회 Service 함수
-   * @param {number} userId - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
-   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   *  - 일기 목록 첫 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number,}>}
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
+    console.log(body);
+    body.push({ cursor: body[body.length - 1].id });
     return body;
   }
 
+  /**
+   * - 일기 목록 커서 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {number} cursor - 커서 위치
+   * @returns
+   */
+  static async secondReadList(userId, cursor) {
+    const body = await Diary.secondReadList(userId, cursor);
+    body.push({ cursor: body[body.length - 1].id });
+    return body;
+  }
   /**
    *  - 일기가 존재하는지 확인하는 함수
    * @param {number} id - 다이어리 고유 ID
@@ -75,20 +88,11 @@ export default class DiaryService {
   }
 
   /**
-   * - 유저가 가진 일기를 조회하기 위해 존재하는 유저인지 확인
-   * @param {number} userId - user의 고유 ID
-   */
-  static async userCheck(userId) {
-    const user = await Diary.userCheck(userId);
-    return user;
-  }
-
-  /**
    * - 유저가 가진 일기 중 랜덤으로 3개를 보여주는 함수
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
-  static async randomDiarys() {
-    const diarys = await Diary.randomDiarys();
+  static async randomDiarys(userId) {
+    const diarys = await Diary.randomDiarys(userId);
     return diarys;
   }
 }

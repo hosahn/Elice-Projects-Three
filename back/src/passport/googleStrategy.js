@@ -19,19 +19,21 @@ const verify = async (request, accessToken, refreshToken, profile, done) => {
   const result = await User.findUser({ email, social: "google" });
   try {
     if (result) {
-      return done(null, profile);
+      return done(null, result);
     } else {
       const createdUser = await prisma.users.create({
         data: {
           email: email,
           pw: process.env.LOCAL_PASSWORD,
           social: "google",
+
+          name: "밤하늘",
         },
       });
-      return done(null, profile);
+      return done(null, createdUser);
     }
   } catch (error) {
-    return done(false, profile);
+    return done(false, result);
   }
 };
 export const GoogleStrategy = () => {

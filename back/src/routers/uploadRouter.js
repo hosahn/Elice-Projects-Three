@@ -1,6 +1,7 @@
 import { Router } from "express";
 import s3 from "../config/s3.js";
 import createUrl from "../utils/preSign.js";
+import * as status from "../utils/status.js";
 const uploadRouter = Router();
 
 /**
@@ -44,18 +45,14 @@ const uploadRouter = Router();
 uploadRouter.get("/:file", (req, res, next) => {
   const { file } = req.params;
   const fileName = Date.now() + file;
-  try {
-    const url = createUrl(`diary/${fileName}`);
-  } catch (error) {
-    next(error);
-  }
+  const url = createUrl(`diary/${fileName}`);
   const imageUrl = `https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}`;
   const body = {
     success: true,
     url,
     imageUrl,
   };
-  res.status(201).json(body);
+  res.status(200).json(body);
 });
 
 uploadRouter.delete("/:file", async (req, res, next) => {
