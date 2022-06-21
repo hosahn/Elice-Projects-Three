@@ -14,6 +14,7 @@ import {
 } from '../../styles/CommonStyle';
 import Calendar from './Calendar';
 import MainDiaryList from './MainDiaryList';
+import * as Api from '../../api';
 
 const UserMain = () => {
   const [user, setUser] = useState({}); // 백에서 받아오는 user정보
@@ -24,6 +25,8 @@ const UserMain = () => {
   }, []);
 
   const mockOpen = async () => {
+    const res = await Api.get('info');
+    console.log(res);
     const mainUrl = 'https://12team.com/user/1234';
     const challengeUrl = 'https://12team.com/userChallenge/1234';
     await axios
