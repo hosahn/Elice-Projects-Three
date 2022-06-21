@@ -137,6 +137,7 @@ export default class Diary {
     const diary = await prisma.diary.findFirst({
       where: {
         id: +id,
+        deleted: false,
       },
     });
     return diary;
@@ -181,13 +182,51 @@ export default class Diary {
     return diarys;
   }
 
-  static async searchTitle(userId, word) {
+  /**
+   * - 일기 제목으로 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} title  - 검색할 일기 제목
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number, deleted: boolean}>}
+   */
+  static async searchTitle(userId, title) {
     const diarys = await prisma.diary.findMany({
       where: {
         user_id: +userId,
         title: {
-          contains: word,
+          contains: title,
         },
+        deleted: false,
+      },
+    });
+    return diarys;
+  }
+  /**
+   * - 일기 내용으로 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} text - 검색할 일기 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number, deleted: boolean}>}
+   */
+  static async searchText(userId, text) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: +userId,
+        text: {
+          contains: text,
+        },
+        deleted: false,
+      },
+    });
+    return diarys;
+  }
+
+  static async searchTag(userId, tag) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: userId,
+        tag: {
+          contains: tag,
+        },
+        deleted: false,
       },
     });
     return diarys;

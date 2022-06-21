@@ -4,6 +4,7 @@ import { validate } from "../middlewares/validator.js";
 import { check, param, body, query } from "express-validator";
 import * as status from "../utils/status.js";
 import loginRequired from "../middlewares/loginRequired.js";
+import { Diary } from "../db/index.js";
 const diaryRouter = Router();
 
 /**
@@ -330,26 +331,21 @@ diaryRouter.get("/random/list", loginRequired, async (req, res, next) => {
   }
 });
 
-diaryRouter.get(
-  "/search",
-  loginRequired,
-  [
-    query("word")
-      .exists()
-      .withMessage("word query 값을 주지 않았습니다.")
-      .bail()
-      .isLength({ min: 1 })
-      .withMessage("검색어를 한 글자 이상 입력해주세요!")
-      .bail(),
-    validate,
-  ],
-  async (req, res, next) => {
-    const userId = req.user.id;
-    const { word } = req.query;
-    const diarys = await DiaryService.searchTitle(userId, word);
-    res.status(status.STATUS_200_OK).send(diarys);
+diaryRouter.get("/search", loginRequired, async (req, res, next) => {
+  const userId = req.user.id;
+  const search = Object.keys(req.query)[0];
+  const word = req.query[search];
+  if (word.length === 0) {
+    throw new Error("검색어를 한 글자 이상 입력해주세요!");
   }
-);
+  try {
+    const result = await DiaryService.searchList(userId, search, word);
+    res.status(status.STATUS_200_OK).send(result);
+  } catch (error) {
+    error.message = "검색 함수 에러";
+    next(error);
+  }
+});
 
 /**
  * @swagger
