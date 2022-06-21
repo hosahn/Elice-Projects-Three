@@ -1,10 +1,8 @@
-import { Router } from "express";
-import DiaryService from "../services/diaryService.js";
-import { validate } from "../middlewares/validator.js";
-import { check, param, body } from "express-validator";
-import passport from "passport";
-
-import * as status from "../utils/status.js";
+import { Router } from 'express';
+import DiaryService from '../services/diaryService.js';
+import { validate } from '../middlewares/validator.js';
+import { check, param, body } from 'express-validator';
+import * as status from '../utils/status.js';
 const diaryRouter = Router();
 
 /**
@@ -70,17 +68,17 @@ const diaryRouter = Router();
  *                   example: 1
  */
 diaryRouter.post(
-  "/",
+  '/',
   [
-    body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
-    body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
+    body('title', '제목은 필수로 입력해야 합니다.').exists().bail(),
+    body('text', '일기 내용은 필수로 적어주셔야 합니다.').exists().bail(),
     validate,
   ],
   async (req, res, next) => {
     try {
       console.log(req.user);
       if (!req.user) {
-        throw new Error("로그인 후 사용해야 합니다.");
+        throw new Error('로그인 후 사용해야 합니다.');
       }
       const userId = req.user.id;
       const data = { userId, ...req.body };
@@ -112,21 +110,21 @@ diaryRouter.post(
  *         description: "삭제 성공"
  */
 diaryRouter.delete(
-  "/:id",
+  '/:id',
   [
-    param("id")
+    param('id')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.", 400);
+          throw new Error('Diary가 존재하지 않습니다.', 400);
         }
       }),
     validate,
@@ -143,7 +141,89 @@ diaryRouter.delete(
  * /diary/list:
  *   get:
  *     tags: [Diary]
- *     description: 유저가 작성한 일기 조회
+ *     description: |
+ *       * 유저가 작성한 일기 조회
+ *       * 쿼리를 주지 않고 ``/diary/list``로 요청이 오면 가장 최근에 들어온 일기부터 순서대로 5개의 값과 cursor 값을 준다.
+ *       ```js
+ *       [
+ *         {
+ *             "id": 474,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:18.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 473,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:17.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 472,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:17.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 471,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:16.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "cursor": 471
+ *         }
+ *       ]
+ *       ```
+ *       그 후 무한 스크롤을 통해 새로운 리스트가 필요할 때 위에 받았던 cursor 값을 쿼리로 전달해주면 됩니다!
+ *       * ``/diray/list/?cursor=471``
+ *       ```js
+ *       [
+ *         {
+ *             "id": 470,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:16.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 469,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 468,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 467,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "cursor": 467
+ *         }
+ *       ]
+ *       ```
  *     produces:
  *     - application/json
  *     responses:
@@ -177,19 +257,19 @@ diaryRouter.delete(
  *                   view:
  *                     type: number
  *                     example: 1
- *
  */
-diaryRouter.get("/list", async (req, res, next) => {
-  try {
-    if (!req.user) {
-      throw new Error("로그인 후 사용해야 합니다.");
-    }
-    const userId = req.user.id;
-    const body = await DiaryService.readList(userId);
-    return res.status(status.STATUS_200_OK).send(body);
-  } catch (error) {
-    next(error);
+diaryRouter.get('/list', async (req, res, next) => {
+  if (!req.user) {
+    throw new Error('로그인 후 사용해야 합니다.');
   }
+  const userId = req.user.id;
+  const { cursor } = req.query;
+  if (cursor) {
+    const body = await DiaryService.secondReadList(userId, cursor);
+    return res.status(status.STATUS_200_OK).send(body);
+  }
+  const body = await DiaryService.readList(userId);
+  return res.status(status.STATUS_200_OK).send(body);
 });
 
 /**
@@ -243,21 +323,21 @@ diaryRouter.get("/list", async (req, res, next) => {
  *                         example:  "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654656839850docker.png"
  */
 diaryRouter.get(
-  "/:id",
+  '/:id',
   [
-    param("id")
+    param('id')
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
+      .withMessage('Diary ID 값을 path로 넣어주세요.')
       .bail()
       .toInt()
       .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
+      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.");
+          throw new Error('Diary가 존재하지 않습니다.');
         }
       }),
     validate,
@@ -319,10 +399,10 @@ diaryRouter.get(
  *                     type: number
  *                     example: 1
  */
-diaryRouter.get("/random/list", async (req, res, next) => {
+diaryRouter.get('/random/list', async (req, res, next) => {
   try {
     if (!req.user) {
-      throw new Error("로그인 후 사용해야 합니다.");
+      throw new Error('로그인 후 사용해야 합니다.');
     }
     const userId = req.user.id;
     const diarys = await DiaryService.randomDiarys(userId);

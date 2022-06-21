@@ -1,4 +1,4 @@
-import { Diary } from "../db/index.js";
+import { Diary } from '../db/index.js';
 //@ts-check
 export default class DiaryService {
   /**
@@ -39,15 +39,27 @@ export default class DiaryService {
   }
 
   /**
-   *  - 일기 목록 조회 Service 함수
-   * @param {number} userId - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
-   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   *  - 일기 목록 첫 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number,}>}
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
+    body.push({ cursor: body[body.length - 1].id });
     return body;
   }
 
+  /**
+   * - 일기 목록 커서 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {number} cursor - 커서 위치
+   * @returns
+   */
+  static async secondReadList(userId, cursor) {
+    const body = await Diary.secondReadList(userId, cursor);
+    body.push({ cursor: body[body.length - 1].id });
+    return body;
+  }
   /**
    *  - 일기가 존재하는지 확인하는 함수
    * @param {number} id - 다이어리 고유 ID

@@ -13,22 +13,25 @@ const option = {
 
 const verify = async (accessToken, refreshToken, profile, done) => {
   const email = profile._json.email;
+
+  console.log(profile);
   const result = await User.findUser({ email, social: 'naver' });
   try {
     if (result) {
-      return done(null, profile);
+      return done(null, result);
     } else {
       const createdUser = await prisma.users.create({
         data: {
           email: email,
           pw: process.env.LOCAL_PASSWORD,
           social: 'naver',
+          name: '밤하늘',
         },
       });
-      return done(null, profile);
+      return done(null, createdUser);
     }
   } catch (error) {
-    return done(false, profile);
+    return done(false, result);
   }
 };
 
