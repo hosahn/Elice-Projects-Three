@@ -65,6 +65,32 @@ class User {
       return foundUser;
     }
   }
+
+  static async dailyUpdate(userId) {
+    const daily = await prisma.users.update({
+      where: {
+        id: +userId,
+      },
+      data: {
+        daily_check: true,
+      },
+      select: {
+        daily_check: true,
+      },
+    });
+    return daily;
+  }
+  static async dailyCheck(userId) {
+    const daily = await prisma.users.findFirst({
+      where: {
+        id: +userId,
+      },
+      select: {
+        daily_check: true,
+      },
+    });
+    return daily;
+  }
 }
 
 export { User };
