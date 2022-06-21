@@ -7,7 +7,7 @@ import Btn from '../../components/Btn';
 import { validateEmail } from '../../utils/validation';
 import * as Api from '../../api';
 import LandingNav from '../../components/nav/LandingNav';
-
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   height: 100vh;
   background-image: url(${images.Bg});
@@ -23,6 +23,7 @@ const LoginMainContainer = styled.div`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,7 +31,7 @@ const Login = () => {
   const isPasswordValid = password.length >= 4;
   const isFormValid = isEmailValid && isPasswordValid;
 
-  const clickLogin = async (e) => {
+  const clickLogin = async e => {
     e.preventDefault();
 
     try {
@@ -39,6 +40,7 @@ const Login = () => {
         pw: password,
       });
       console.log(res);
+      navigate('/usermain');
     } catch (error) {
       if (error.response) {
         const { data } = error.response;
@@ -55,10 +57,10 @@ const Login = () => {
           <div style={{ marginTop: '1rem' }}>
             <LoginText>이메일 주소</LoginText>
             <LoginInput
-              type="email"
-              id="email-input"
-              label="email"
-              onChange={(e) => {
+              type='email'
+              id='email-input'
+              label='email'
+              onChange={e => {
                 setEmail(e.target.value);
               }}
             />
@@ -66,22 +68,17 @@ const Login = () => {
           <div style={{ marginTop: '1rem' }}>
             <LoginText>비밀번호</LoginText>
             <LoginInput
-              type="password"
-              id="password-input"
-              label="password"
-              autoComplete="current-password"
-              onChange={(e) => {
+              type='password'
+              id='password-input'
+              label='password'
+              autoComplete='current-password'
+              onChange={e => {
                 setPassword(e.target.value);
               }}
             />
           </div>
           <div style={{ margin: '0 auto', width: '100px' }}>
-            <Btn
-              text={'로그인'}
-              type={'sub'}
-              onClick={clickLogin}
-              disabled={!isFormValid}
-            />
+            <Btn text={'로그인'} type={'sub'} onClick={clickLogin} disabled={!isFormValid} />
           </div>
           <SocialLoginContainer>
             <SocialLogin />
