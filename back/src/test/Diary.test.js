@@ -197,7 +197,11 @@ describe("Get PreSignURL Test", () => {
     expect(typeof createUrl).toBe("function");
   });
   test("should return 200 response code", async () => {
-    const res = await request(app).get("/upload/test");
+    const res = await request(app).get("/upload/test").set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
+  });
+  test("Get PreSignURL non-logged-in users Test", async () => {
+    const res = await request(app).get(`/diary/${diaryResultMock.id}`);
+    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
 });
