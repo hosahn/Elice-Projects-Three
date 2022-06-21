@@ -117,7 +117,20 @@ class User {
     });
   }
 
-
+  /**
+   * - 테스트를 위해 일기 작성을 안한것으로 변환 시켜주는 함수
+   * @param {number} userId - 유저 고유 ID
+   */
+  static async dailyDelete(userId) {
+    const daily = await prisma.users.update({
+      where: {
+        id: +userId,
+      },
+      data: {
+        daily_check: false,
+      },
+    });
+  }
 }
 
 export { User };
