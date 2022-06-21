@@ -18,7 +18,6 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const [duplicate, setDuplicate] = useState('');
 
   const validateEmail = (email) => {
     return email
@@ -53,6 +52,7 @@ function RegisterForm() {
       if (error.response) {
         const { data } = error.response;
         console.error('data : ', data);
+        alert('중복체크 중 에러가 발생했습니다..');
       }
     }
   };
@@ -70,12 +70,13 @@ function RegisterForm() {
       const response = await Api.post('user/signup/', {
         email,
         pw: password,
-        // name,
+        name,
       });
       console.log(response);
       navigate('/login');
     } catch (err) {
       console.log('회원가입 실패', err);
+      alert('회원가입 중 에러가 발생했습니다.');
     }
   };
 
@@ -157,8 +158,5 @@ function RegisterForm() {
     </RegisterContainer>
   );
 }
-
-// css 수정 예정
-// 이메일, 닉네임 중복 검사 추가 예정
 
 export default RegisterForm;

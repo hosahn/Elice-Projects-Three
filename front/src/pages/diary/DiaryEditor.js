@@ -25,10 +25,7 @@ const DiaryEditor = () => {
   const uploadImage = async (blob) => {
     const name = blob.name;
     const imgName = name.replace(/(\s*)/g, '');
-    const res = await axios({
-      method: 'get',
-      url: `http://localhost:5001/upload/${imgName}`,
-    });
+    const res = await Api.get(`upload/${imgName}`);
 
     setImageList((data) => [res.data.imageUrl, ...data]);
     console.log(imageList);

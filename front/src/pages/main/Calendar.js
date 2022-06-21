@@ -25,29 +25,25 @@ const Calendar = () => {
           {Array(7)
             .fill(0)
             .map((n, i) => {
-              // 오늘 => 주어진 주의 시작 => n + i일 만큼 더해서 각 주의 '일'을 표기한다.
               let current = today
                 .clone()
                 .week(week)
                 .startOf('week')
                 .add(n + i, 'day');
 
-              // 오늘이 current와 같다면 우선 '선택'으로 두자
               let isSelected =
                 moment().format('YYYYMMDD') === current.format('YYYYMMDD')
                   ? 'true'
                   : '';
 
-              // 만약, 이번 달이 아닌 다른 달의 날짜라면 회색으로 표시하자
+              // 만약, 이번 달이 아닌 다른 달의 날짜라면 회색으로 표시
               let isGrayed =
                 current.format('MM') !== today.format('MM') ? 'true' : '';
 
               return (
                 <Day key={i} isSelected={isSelected} isGrayed={isGrayed}>
-                  <span className="text">
-                    {current.format('D')}
-                    <div>여기에 이미지!!</div>
-                  </span>
+                  <span className="text">{current.format('D')}</span>
+                  <div>input image</div>
                 </Day>
               );
             })}
