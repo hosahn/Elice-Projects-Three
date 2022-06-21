@@ -64,6 +64,7 @@ function RegisterForm() {
       if (error.response) {
         const { data } = error.response;
         console.error('data : ', data);
+        alert('중복체크 중 에러가 발생했습니다..');
       }
     }
   };
@@ -82,6 +83,7 @@ function RegisterForm() {
       navigate('/login');
     } catch (err) {
       console.log('회원가입 실패', err);
+      alert('회원가입 중 에러가 발생했습니다.');
     }
   };
 
