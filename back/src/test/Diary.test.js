@@ -186,6 +186,10 @@ describe("Diary Delete Test", () => {
     const res = await request(app).delete(`/diary/-1`).set("Cookie", cookie);
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
+  test("Delete non-logged-in users Test", async () => {
+    const res = await request(app).get(`/diary/${diaryResultMock.id}`);
+    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
+  });
 });
 
 describe("Get PreSignURL Test", () => {
