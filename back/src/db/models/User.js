@@ -91,6 +91,17 @@ class User {
     });
     return daily;
   }
+  static async dailyInit() {
+    const daily = await prisma.users.updateMany({
+      where: {
+        daily_check: true,
+      },
+      data: {
+        daily_check: false,
+      },
+    });
+  }
+  
 }
 
 export { User };
