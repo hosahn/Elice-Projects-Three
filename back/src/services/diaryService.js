@@ -45,7 +45,6 @@ export default class DiaryService {
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
-    console.log(body);
     body.push({ cursor: body[body.length - 1].id });
     return body;
   }
