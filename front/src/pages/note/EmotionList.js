@@ -4,7 +4,7 @@ import * as Api from '../../api';
 import {
   EmotionCard,
   Title,
-  DiaryDate,
+  Date,
   TitleContainer,
   DateWrapper,
 } from '../../styles/NoteStyle';
@@ -14,52 +14,43 @@ const EmotionList = () => {
   const navigate = useNavigate();
   const [diaryList, setDiaryList] = useState([]);
   const [cursor, setCursor] = useState('');
+  const [isLoaded, setIsLoaded] = useState(true); // Load 중인지 판별
+  const [stop, setStop] = useState(false);
 
   useEffect(() => {
-    getDiaryList();
-  }, []);
-
-  // useEffect(() => {
-  //   window.addEventListener(
-  //     'scroll',
-  //     function (event) {
-  //       const res = handleScroll(event);
-  //       if (res === true) {
-  //         getDiaryList();
-  //       } else {
-  //         console.log('false');
-  //       }
-  //     },
-  //     false
-  //   );
-  // }, []);  함수 return
+    if (isLoaded && !stop) {
+      getList();
+    }
+  }, [isLoaded]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll); //clean up
-    };
+    window.addEventListener(
+      'scroll',
+      function (event) {
+        const res = handleScroll(event);
+        if (res === true) {
+          setIsLoaded(true);
+        }
+      },
+      false
+    );
   }, []);
-
-  const getDiaryList = async () => {
-    const res = await Api.get('diary/list');
-    const sliceData = res.data.slice(0, 4);
-    const getCursor = res.data.slice(-1);
-    setCursor(getCursor[0].cursor);
-    console.log(cursor);
-    setDiaryList(sliceData);
-  };
-
-  const onClick = () => {
-    getList();
-  };
 
   const getList = async () => {
-    try {
-      const res = await Api.get(`diary/list/?cursor=${cursor}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+    if (isLoaded === true) {
+      try {
+        const res = await Api.get(`diary/list/?cursor=${cursor}`);
+        const length = res.data.length;
+        const sliceData = res.data.slice(0, length - 1);
+        setCursor(res.data.slice(-1)[0].cursor);
+        setDiaryList((data) => [...data, ...sliceData]);
+        setIsLoaded(false);
+        if (length < 10) {
+          setStop(true);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -77,12 +68,8 @@ const EmotionList = () => {
             <span>이미지</span>
             <Title>{it.title}</Title>
           </TitleContainer>
-          <DateWrapper>
-            {/* <DiaryDate>{it.date.slice(0, 10)}</DiaryDate> */}
-          </DateWrapper>
         </EmotionCard>
       ))}
-      <button onClick={onClick}>버튼</button>
     </>
   );
 };
