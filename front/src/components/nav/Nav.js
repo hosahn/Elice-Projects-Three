@@ -35,6 +35,24 @@ const Nav = () => {
     }
   };
 
+  const logoutHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await Api.get('user/logout');
+      if (res.data === true) {
+        navigate('/');
+      } else {
+        alert('로그아웃에 실패하였습니다.');
+      }
+    } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        console.error('data : ', data);
+        alert('로그아웃에 실패하였습니다.');
+      }
+    }
+  };
+
   return (
     <NavWrap>
       <Btn onClick={() => navigate('/challenge')}>

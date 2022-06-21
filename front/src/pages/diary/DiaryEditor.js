@@ -24,10 +24,8 @@ const DiaryEditor = () => {
 
   const uploadImage = async blob => {
     const name = blob.name;
-    const res = await axios({
-      method: 'get',
-      url: `http://localhost:5001/upload/${name}`,
-    });
+    const imgName = name.replace(/(\s*)/g, '');
+    const res = await Api.get(`upload/${imgName}`);
 
     setImageList(data => [res.data.imageUrl, ...data]);
     console.log(imageList);
@@ -50,32 +48,29 @@ const DiaryEditor = () => {
         title,
         imageList,
       });
-      setSubmit((prev) => !prev);
-      setLoading((prev) => !prev);
+      setSubmit(prev => !prev);
+      setLoading(prev => !prev);
       setWrite(true);
-      setTimeout(() => setLoading((prev) => !prev), 1500);
+      setTimeout(() => setLoading(prev => !prev), 1500);
     } else {
       alert('일기 작성 문구 ~~~~~');
     }
 
-    const diary = temp.replace(
-      /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
-      ''
-    );
+    const diary = temp.replace(/\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g, '');
     console.log(diary);
 
     await Api.postDiary({
       diary: diary,
-    }).then((res) => console.log(res));
+    }).then(res => console.log(res));
   };
 
   return (
     <>
       <Editor
         initialValue={'✏️'}
-        previewStyle="vertical"
-        height="500px"
-        initialEditType="wysiwyg"
+        previewStyle='vertical'
+        height='500px'
+        initialEditType='wysiwyg'
         plugins={[colorSyntax]}
         useCommandShortcut={true}
         ref={editorRef}
@@ -93,7 +88,7 @@ const DiaryEditor = () => {
       {submit &&
         (loading ? (
           <Background>
-            <ClassicSpinner size={100} color="pink" />
+            <ClassicSpinner size={100} color='pink' />
           </Background>
         ) : (
           <DiaryModal />

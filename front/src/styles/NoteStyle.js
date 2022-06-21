@@ -21,7 +21,7 @@ export const Title = styled.span`
   margin-left: 20px;
 `;
 
-export const Date = styled.span`
+export const DiaryDate = styled.span`
   font-family: 'GothicA1-Light';
   font-weight: bold;
   font-size: 10px;

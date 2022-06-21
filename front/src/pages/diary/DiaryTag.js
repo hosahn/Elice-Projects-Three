@@ -7,29 +7,29 @@ import { WaringText } from '../../styles/DiaryStyle';
 const Tag = () => {
   const [tagItem, setTagItem] = useState('');
   const [inputTag, setInputTag] = useRecoilState(tagState);
-  const [open, setOpen] = useState(false);
+  const [warningOpen, setWarningOpen] = useState(false);
 
-  const checkTagLength = (event) => {
+  const checkTagLength = event => {
     if (event.target.value.length > 21) {
-      setOpen(true);
+      setWarningOpen(true);
     } else {
-      setOpen(false);
+      setWarningOpen(false);
       setTagItem(event.target.value);
     }
   };
 
-  const onKeyPress = (e) => {
+  const onKeyPress = e => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
       addTagItem();
     }
   };
 
-  const addTagItem = (e) => {
+  const addTagItem = e => {
     setInputTag(tagItem);
     setTagItem('');
   };
 
-  const deleteTagItem = (e) => {
+  const deleteTagItem = e => {
     setInputTag('');
   };
 
@@ -42,19 +42,15 @@ const Tag = () => {
           </TagItem>
         )}
         <TagInput
-          type="text"
-          placeholder={
-            inputTag
-              ? '태그는 한개만 작성 가능합니다. ㅠㅡㅠ'
-              : '태그를 작성해주세요😊'
-          }
+          type='text'
+          placeholder={inputTag ? '태그는 한개만 작성 가능합니다. ㅠㅡㅠ' : '태그를 작성해주세요😊'}
           tabIndex={2}
           onChange={checkTagLength}
           value={tagItem}
           onKeyPress={onKeyPress}
         />
       </TagBox>
-      {open && <WaringText>태그는 20자 제한이에요 ㅠ-ㅠ </WaringText>}
+      {warningOpen && <WaringText>태그는 20자 제한이에요 ㅠ-ㅠ </WaringText>}
     </>
   );
 };

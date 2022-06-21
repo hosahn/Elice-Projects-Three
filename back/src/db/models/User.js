@@ -1,5 +1,5 @@
 // import { BasicModel } from "../index.js";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 class User {
   static async createUser({ social, pw, email, name }) {
@@ -28,7 +28,7 @@ class User {
     const foundUser = await prisma.users.findFirst({
       where: {
         AND: {
-          social: "local",
+          social: 'local',
           email: email,
         },
       },
