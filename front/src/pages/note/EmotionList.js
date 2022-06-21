@@ -13,47 +13,48 @@ import { handleScroll } from '../../utils/handleScroll';
 const EmotionList = () => {
   const navigate = useNavigate();
   const [diaryList, setDiaryList] = useState([]);
-  const [submitCursor, setSubmitCursor] = useState('');
+  const [cursor, setCursor] = useState('');
 
   useEffect(() => {
     getDiaryList();
   }, []);
 
   useEffect(() => {
-    console.log('cursor', submitCursor);
-  }, [submitCursor]);
+    console.log('cursor', cursor);
+  }, [cursor]);
 
   useEffect(() => {
-    window.addEventListener(
-      'scroll',
-      function (event) {
-        const res = handleScroll(event);
-        if (res === true) {
-          getList();
-        } else {
-          // console.log('false');
-        }
-      },
-      false
-    );
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll); //clean up
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      getList();
+    }
+  };
 
   const getDiaryList = async () => {
     console.log('1');
     const res = await Api.get('diary/list');
     const sliceData = res.data.slice(0, 9);
-    setSubmitCursor(res.data.slice(-1)[0].cursor);
+    console.log('1', res.data.slice(-1)[0].cursor);
+    setCursor(res.data.slice(-1)[0].cursor);
     setDiaryList([...sliceData]);
   };
 
   const getList = async () => {
     try {
-      const res = await Api.get(`diary/list/?cursor=${submitCursor}`);
+      console.log('2', cursor);
+      const res = await Api.get(`diary/list/?cursor=${cursor}`);
       const sliceData = res.data.slice(0, 9);
-      setSubmitCursor(res.data.slice(-1)[0].cursor);
+      console.log('2', res.data.slice(-1)[0].cursor);
+      setCursor(res.data.slice(-1)[0].cursor);
       setDiaryList((data) => [...data, ...sliceData]);
     } catch (err) {
       console.log(err);
