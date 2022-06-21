@@ -76,7 +76,7 @@ export default class Diary {
    */
   static async readList(userId) {
     const diaryList = await prisma.diary.findMany({
-      take: 4,
+      take: 10,
       where: {
         user_id: +userId,
         deleted: false,
@@ -103,7 +103,7 @@ export default class Diary {
    */
   static async secondReadList(userId, cursor) {
     const diaryList = await prisma.diary.findMany({
-      take: 4,
+      take: 10,
       skip: 1,
       cursor: {
         id: +cursor,
