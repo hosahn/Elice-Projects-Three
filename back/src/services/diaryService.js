@@ -1,4 +1,4 @@
-import { Diary } from "../db/index.js";
+import { Diary, User } from "../db/index.js";
 //@ts-check
 export default class DiaryService {
   /**
@@ -11,12 +11,17 @@ export default class DiaryService {
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async create({ userId, text, title, tag }) {
+    const { daily_check: check } = await User.dailyCheck(userId);
+    if (check) {
+      throw Error("일기는 하루에 한번만 작성 가능합니다.");
+    }
     const newDiary = {
       user_id: +userId,
       text,
       title,
       tag,
     };
+    const daily = await User.dailyUpdate(userId);
     const body = await Diary.create(newDiary);
     return body;
   }
