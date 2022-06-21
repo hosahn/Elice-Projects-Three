@@ -122,6 +122,13 @@ export default class DiaryService {
     return diarys;
   }
 
+  /**
+   * - 일기를 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} search  -검색할 위치
+   * @param {string} word  - 검색할 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
   static async searchList(userId, search, word) {
     switch (search) {
       case "title":
@@ -130,6 +137,8 @@ export default class DiaryService {
         return await Diary.searchText(userId, word);
       case "tag":
         return await Diary.searchTag(userId, word);
+      case "all":
+        return await Diary.searchAll(userId, word);
       default:
         throw new Error("올바른 쿼리 값을 입력해주세요.");
     }

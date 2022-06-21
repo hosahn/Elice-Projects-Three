@@ -219,12 +219,37 @@ export default class Diary {
     return diarys;
   }
 
+  /**
+   * - 일기 태그를 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} tag - 검색할 태그 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
   static async searchTag(userId, tag) {
     const diarys = await prisma.diary.findMany({
       where: {
         user_id: userId,
         tag: {
           contains: tag,
+        },
+        deleted: false,
+      },
+    });
+    return diarys;
+  }
+
+  static async searchAll(userId, word) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: userId,
+        title: {
+          contains: word,
+        },
+        text: {
+          contains: word,
+        },
+        tag: {
+          contains: word,
         },
         deleted: false,
       },
