@@ -3,6 +3,7 @@ import "../config/env.js";
 import DiaryService from "../services/diaryService.js";
 import app from "../app.js";
 import createUrl from "../utils/preSign.js";
+import { User } from "../db/index.js";
 const diaryMock = {
   title: "일기 제목",
   text: "이건 일기 내용",
@@ -47,6 +48,7 @@ describe("Diary Crate Success Test", () => {
   //   expect(result).toEqual(diaryResultMock);
   // });
   test("should return 201 response code", async () => {
+    await User.dailyDelete(2);
     const res = await request(app)
       .post("/diary")
       .send(diaryMock)
@@ -99,7 +101,9 @@ describe("Diary Read Test", () => {
     );
   });
   test("should return 200 response code", async () => {
-    const res = await request(app).get(`/diary/${diaryResultMock.id}`);
+    const res = await request(app)
+      .get(`/diary/${diaryResultMock.id}`)
+      .set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
   test("should have a DiaryService.readList function", async () => {
@@ -152,7 +156,7 @@ describe("Diary Read Test", () => {
   });
 
   test("Read non-existent Diary ID Test", async () => {
-    const res = await request(app).get(`/diary/-1`);
+    const res = await request(app).get(`/diary/-1`).set("Cookie", cookie);
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
 
@@ -172,12 +176,14 @@ describe("Diary Delete Test", () => {
     expect(typeof DiaryService.delete).toBe("function");
   });
   test("should return 204 response code", async () => {
-    const res = await request(app).delete(`/diary/${diaryResultMock.id}`);
+    const res = await request(app)
+      .delete(`/diary/${diaryResultMock.id}`)
+      .set("Cookie", cookie);
     expect(res.statusCode).toBe(204);
   });
 
   test("Delete non-existent diary ID Test", async () => {
-    const res = await request(app).delete(`/diary/-1`);
+    const res = await request(app).delete(`/diary/-1`).set("Cookie", cookie);
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
 });
