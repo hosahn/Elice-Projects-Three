@@ -25,7 +25,7 @@ const UserMain = () => {
   }, []);
 
   const mockOpen = async () => {
-    const res = await Api.get('info');
+    const res = await Api.get('user/info');
     console.log(res);
     const mainUrl = 'https://12team.com/user/1234';
     const challengeUrl = 'https://12team.com/userChallenge/1234';

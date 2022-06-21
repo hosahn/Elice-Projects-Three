@@ -59,15 +59,15 @@ const DiaryEditor = () => {
       alert('일기 작성 문구 ~~~~~');
     }
 
-    const diary = temp.replace(
-      /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
-      ''
-    );
-    console.log(diary);
+    // const diary = temp.replace(
+    //   /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
+    //   ''
+    // );
+    // console.log(diary);
 
-    await Api.postDiary({
-      diary: diary,
-    }).then((res) => console.log(res));
+    // await Api.postDiary({
+    //   diary: diary,
+    // }).then((res) => console.log(res));
   };
 
   return (

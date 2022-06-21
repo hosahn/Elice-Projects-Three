@@ -13,51 +13,48 @@ import { handleScroll } from '../../utils/handleScroll';
 const EmotionList = () => {
   const navigate = useNavigate();
   const [diaryList, setDiaryList] = useState([]);
-  const [cursor, setCursor] = useState('');
+  const [submitCursor, setSubmitCursor] = useState('');
 
   useEffect(() => {
     getDiaryList();
   }, []);
 
-  // useEffect(() => {
-  //   window.addEventListener(
-  //     'scroll',
-  //     function (event) {
-  //       const res = handleScroll(event);
-  //       if (res === true) {
-  //         getDiaryList();
-  //       } else {
-  //         console.log('false');
-  //       }
-  //     },
-  //     false
-  //   );
-  // }, []);  함수 return
+  useEffect(() => {
+    console.log('cursor', submitCursor);
+  }, [submitCursor]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener(
+      'scroll',
+      function (event) {
+        const res = handleScroll(event);
+        if (res === true) {
+          getList();
+        } else {
+          // console.log('false');
+        }
+      },
+      false
+    );
     return () => {
       window.removeEventListener('scroll', handleScroll); //clean up
     };
   }, []);
 
   const getDiaryList = async () => {
+    console.log('1');
     const res = await Api.get('diary/list');
-    const sliceData = res.data.slice(0, 4);
-    const getCursor = res.data.slice(-1);
-    setCursor(getCursor[0].cursor);
-    console.log(cursor);
-    setDiaryList(sliceData);
-  };
-
-  const onClick = () => {
-    getList();
+    const sliceData = res.data.slice(0, 9);
+    setSubmitCursor(res.data.slice(-1)[0].cursor);
+    setDiaryList([...sliceData]);
   };
 
   const getList = async () => {
     try {
-      const res = await Api.get(`diary/list/?cursor=${cursor}`);
-      console.log(res);
+      const res = await Api.get(`diary/list/?cursor=${submitCursor}`);
+      const sliceData = res.data.slice(0, 9);
+      setSubmitCursor(res.data.slice(-1)[0].cursor);
+      setDiaryList((data) => [...data, ...sliceData]);
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +76,6 @@ const EmotionList = () => {
           </TitleContainer>
         </EmotionCard>
       ))}
-      <button onClick={onClick}>버튼</button>
     </>
   );
 };

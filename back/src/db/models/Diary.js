@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import moment from "moment";
+import { PrismaClient } from '@prisma/client';
+import moment from 'moment';
 const prisma = new PrismaClient();
 //@ts-check
 export default class Diary {
@@ -91,7 +91,7 @@ export default class Diary {
         view: true,
       },
       orderBy: {
-        id: "desc",
+        id: 'desc',
       },
     });
     return diaryList;
@@ -122,7 +122,7 @@ export default class Diary {
         view: true,
       },
       orderBy: {
-        date: "desc",
+        date: 'desc',
       },
     });
     return diaryList;
