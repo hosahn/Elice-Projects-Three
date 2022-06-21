@@ -70,6 +70,7 @@ const diaryRouter = Router();
  */
 diaryRouter.post(
   "/",
+  loginRequired,
   [
     body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
     body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
@@ -77,9 +78,6 @@ diaryRouter.post(
   ],
   async (req, res, next) => {
     try {
-      if (!req.user) {
-        throw new Error("로그인 후 사용해야 합니다.");
-      }
       const userId = req.user.id;
       const data = { userId, ...req.body };
       if (await DiaryService.challengeCheck(userId)) {
@@ -111,6 +109,7 @@ diaryRouter.post(
  */
 diaryRouter.delete(
   "/:id",
+  loginRequired,
   [
     param("id")
       .trim()
@@ -129,7 +128,6 @@ diaryRouter.delete(
       }),
     validate,
   ],
-  loginRequired,
   async (req, res, next) => {
     const { id } = req.params;
     const userId = req.user.id;
@@ -260,10 +258,7 @@ diaryRouter.delete(
  *                     type: number
  *                     example: 1
  */
-diaryRouter.get("/list", async (req, res, next) => {
-  if (!req.user) {
-    throw new Error("로그인 후 사용해야 합니다.");
-  }
+diaryRouter.get("/list", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const { cursor } = req.query;
   if (cursor) {
@@ -325,11 +320,8 @@ diaryRouter.get("/list", async (req, res, next) => {
  *                     type: number
  *                     example: 1
  */
-diaryRouter.get("/random/list", async (req, res, next) => {
+diaryRouter.get("/random/list", loginRequired, async (req, res, next) => {
   try {
-    if (!req.user) {
-      throw new Error("로그인 후 사용해야 합니다.");
-    }
     const userId = req.user.id;
     const diarys = await DiaryService.randomDiarys(userId);
     return res.status(status.STATUS_200_OK).send(diarys);
@@ -338,10 +330,7 @@ diaryRouter.get("/random/list", async (req, res, next) => {
   }
 });
 
-diaryRouter.get("/search", async (req, res, next) => {
-  if (!req.user) {
-    throw new Error("로그인 후 사용해야 합니다.");
-  }
+diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const { word } = req.query;
   const diarys = await DiaryService.searchTitle(userId, word);
@@ -400,6 +389,7 @@ diaryRouter.get("/search", async (req, res, next) => {
  */
 diaryRouter.get(
   "/:id",
+  loginRequired,
   [
     param("id")
       .trim()
