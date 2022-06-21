@@ -29,8 +29,9 @@ export default class DiaryService {
    * - 일기 삭제 Service 함수
    * @param {number} id - 삭제할 ID 값
    */
-  static async delete(id) {
+  static async delete(id, userId) {
     const body = await Diary.delete(id);
+    const del = await User.dailyDelete(userId);
     return body;
   }
   /**

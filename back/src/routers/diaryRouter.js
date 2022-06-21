@@ -3,7 +3,7 @@ import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
 import * as status from "../utils/status.js";
-import { Diary } from "../db/index.js";
+import loginRequired from "../middlewares/loginRequired.js";
 const diaryRouter = Router();
 
 /**
@@ -129,9 +129,11 @@ diaryRouter.delete(
       }),
     validate,
   ],
+  loginRequired,
   async (req, res, next) => {
     const { id } = req.params;
-    const body = await DiaryService.delete(id);
+    const userId = req.user.id;
+    const body = await DiaryService.delete(id, userId);
     return res.status(status.STATUS_204_NO_RESOURCE).end();
   }
 );
