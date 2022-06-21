@@ -18,24 +18,7 @@ const Nav = () => {
     }
   }, [write]);
 
-  const logoutHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await Api.get('user/logout');
-      if (res.data === true) {
-        navigate('/');
-      } else {
-        alert('로그아웃에 실패하였습니다.');
-      }
-    } catch (error) {
-      if (error.response) {
-        const { data } = error.response;
-        console.error('data : ', data);
-      }
-    }
-  };
-
-  const logoutHandler = async (e) => {
+  const logoutHandler = async e => {
     e.preventDefault();
     try {
       const res = await Api.get('user/logout');
@@ -71,7 +54,7 @@ const Nav = () => {
         <HighLight>로그아웃</HighLight>
       </Btn>
       <UserBtn onClick={() => navigate('/usermain')}>
-        <FontAwesomeIcon icon={faCircleUser} className="user" />
+        <FontAwesomeIcon icon={faCircleUser} className='user' />
       </UserBtn>
     </NavWrap>
   );

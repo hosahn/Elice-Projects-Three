@@ -10,11 +10,7 @@ const Note = () => {
   const emotionList = useRef();
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (open === true) {
-=======
     if (tagOpen === false) {
->>>>>>> 21a16b6b3d37a47a259d6de2d077f6aa3e7ec823
       emotionList.current.focus();
     }
   }, []);
