@@ -1,7 +1,7 @@
 import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
-import { check, param, body } from "express-validator";
+import { check, param, body, query } from "express-validator";
 import * as status from "../utils/status.js";
 import loginRequired from "../middlewares/loginRequired.js";
 const diaryRouter = Router();
@@ -330,12 +330,26 @@ diaryRouter.get("/random/list", loginRequired, async (req, res, next) => {
   }
 });
 
-diaryRouter.get("/search", loginRequired, async (req, res, next) => {
-  const userId = req.user.id;
-  const { word } = req.query;
-  const diarys = await DiaryService.searchTitle(userId, word);
-  res.status(status.STATUS_200_OK).send(diarys);
-});
+diaryRouter.get(
+  "/search",
+  loginRequired,
+  [
+    query("word")
+      .exists()
+      .withMessage("word query 값을 주지 않았습니다.")
+      .bail()
+      .isLength({ min: 1 })
+      .withMessage("검색어를 한 글자 이상 입력해주세요!")
+      .bail(),
+    validate,
+  ],
+  async (req, res, next) => {
+    const userId = req.user.id;
+    const { word } = req.query;
+    const diarys = await DiaryService.searchTitle(userId, word);
+    res.status(status.STATUS_200_OK).send(diarys);
+  }
+);
 
 /**
  * @swagger
