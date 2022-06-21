@@ -117,20 +117,7 @@ class User {
     });
   }
 
-  /**
-   * - 일기를 삭제했을 때 dailyCheck를 false로 바꿔주어 금일 일기 작성 안한걸로 바꿔주기
-   * @param {number} userId - 유저 고유 ID
-   */
-  static async dailyDelete(userId) {
-    const daily = await prisma.users.update({
-      where: {
-        id: +userId,
-      },
-      data: {
-        daily_check: false,
-      },
-    });
-  }
+
 }
 
 export { User };

@@ -31,7 +31,6 @@ export default class DiaryService {
    */
   static async delete(id, userId) {
     const body = await Diary.delete(id);
-    const del = await User.dailyDelete(userId);
     return body;
   }
   /**
