@@ -99,4 +99,9 @@ export default class DiaryService {
     const diarys = await Diary.randomDiarys(userId);
     return diarys;
   }
+
+  static async searchTitle(userId, word) {
+    const diarys = await Diary.searchTitle(userId, word);
+    return diarys;
+  }
 }

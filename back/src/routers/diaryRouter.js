@@ -3,6 +3,7 @@ import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
 import * as status from "../utils/status.js";
+import { Diary } from "../db/index.js";
 const diaryRouter = Router();
 
 /**
@@ -273,6 +274,80 @@ diaryRouter.get("/list", async (req, res, next) => {
 
 /**
  * @swagger
+ * /diary/random/list:
+ *   get:
+ *     tags: [Diary]
+ *     description: 유저가 작성한 일기 조회
+ *     produces:
+ *     - application/json
+ *     responses:
+ *       '200':
+ *         summary: "랜덤한 일기 3개를 반환 합니다."
+ *         description: |
+ *           반환 형식
+ *           ```js
+ *           [
+ *            {
+ *            "id": 1,
+ *            "text": "일기 내용",
+ *            "title": "일기 제목",
+ *            "tag": "공부",
+ *            "date": "2022-06-09T10:45:55+00:00",
+ *            "view": 4,
+ *            }
+ *           ]
+ *           ```
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: number
+ *                     example: 37
+ *                   text:
+ *                     type: string
+ *                     example: "일기 내용 입니다."
+ *                   title:
+ *                     type: string
+ *                     example: "제목"
+ *                   tag:
+ *                     type: string
+ *                     example: "공부"
+ *                   date:
+ *                     type: Date
+ *                     example: "2022-06-07T07:21:56.000Z"
+ *                   view:
+ *                     type: number
+ *                     example: 1
+ */
+diaryRouter.get("/random/list", async (req, res, next) => {
+  try {
+    if (!req.user) {
+      throw new Error("로그인 후 사용해야 합니다.");
+    }
+    const userId = req.user.id;
+    const diarys = await DiaryService.randomDiarys(userId);
+    return res.status(status.STATUS_200_OK).send(diarys);
+  } catch (error) {
+    next(error);
+  }
+});
+
+diaryRouter.get("/search", async (req, res, next) => {
+  if (!req.user) {
+    throw new Error("로그인 후 사용해야 합니다.");
+  }
+  const userId = req.user.id;
+  const { word } = req.query;
+  const diarys = await DiaryService.searchTitle(userId, word);
+  res.status(status.STATUS_200_OK).send(diarys);
+});
+
+/**
+ * @swagger
  * /diary/{id}:
  *   get:
  *     tags: [Diary]
@@ -347,68 +422,4 @@ diaryRouter.get(
     return res.status(status.STATUS_200_OK).send(body);
   }
 );
-/**
- * @swagger
- * /diary/random/list:
- *   get:
- *     tags: [Diary]
- *     description: 유저가 작성한 일기 조회
- *     produces:
- *     - application/json
- *     responses:
- *       '200':
- *         summary: "랜덤한 일기 3개를 반환 합니다."
- *         description: |
- *           반환 형식
- *           ```js
- *           [
- *            {
- *            "id": 1,
- *            "text": "일기 내용",
- *            "title": "일기 제목",
- *            "tag": "공부",
- *            "date": "2022-06-09T10:45:55+00:00",
- *            "view": 4,
- *            }
- *           ]
- *           ```
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: number
- *                     example: 37
- *                   text:
- *                     type: string
- *                     example: "일기 내용 입니다."
- *                   title:
- *                     type: string
- *                     example: "제목"
- *                   tag:
- *                     type: string
- *                     example: "공부"
- *                   date:
- *                     type: Date
- *                     example: "2022-06-07T07:21:56.000Z"
- *                   view:
- *                     type: number
- *                     example: 1
- */
-diaryRouter.get("/random/list", async (req, res, next) => {
-  try {
-    if (!req.user) {
-      throw new Error("로그인 후 사용해야 합니다.");
-    }
-    const userId = req.user.id;
-    const diarys = await DiaryService.randomDiarys(userId);
-    return res.status(status.STATUS_200_OK).send(diarys);
-  } catch (error) {
-    next(error);
-  }
-});
-
 export default diaryRouter;

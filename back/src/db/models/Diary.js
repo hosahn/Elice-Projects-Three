@@ -180,4 +180,16 @@ export default class Diary {
       await prisma.$queryRaw`SELECT * FROM diary WHERE deleted=0 AND user_id=${userId} ORDER BY RAND() limit 3;`;
     return diarys;
   }
+
+  static async searchTitle(userId, word) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: +userId,
+        title: {
+          contains: word,
+        },
+      },
+    });
+    return diarys;
+  }
 }
