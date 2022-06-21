@@ -322,13 +322,9 @@ diaryRouter.get("/list", loginRequired, async (req, res, next) => {
  *                     example: 1
  */
 diaryRouter.get("/random/list", loginRequired, async (req, res, next) => {
-  try {
-    const userId = req.user.id;
-    const diarys = await DiaryService.randomDiarys(userId);
-    return res.status(status.STATUS_200_OK).send(diarys);
-  } catch (error) {
-    next(error);
-  }
+  const userId = req.user.id;
+  const diarys = await DiaryService.randomDiarys(userId);
+  return res.status(status.STATUS_200_OK).send(diarys);
 });
 
 diaryRouter.get("/search", loginRequired, async (req, res, next) => {

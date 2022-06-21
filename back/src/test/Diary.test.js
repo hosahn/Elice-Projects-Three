@@ -77,6 +77,15 @@ describe("Diary Crate Success Test", () => {
     expect(res.statusCode).toBe(400);
   });
 
+  test("Diary Create only once per day", async () => {
+    const res = await request(app)
+      .post("/diary")
+      .send(diaryMock)
+      .set("Cookie", cookie);
+    expect(res.body.error.message).toBe(
+      "일기는 하루에 한번만 작성 가능합니다."
+    );
+  });
   test("Diary Create non-logged-in users Test", async () => {
     const res = await request(app).post("/diary").send(diaryMock);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
@@ -151,6 +160,18 @@ describe("Diary Read Test", () => {
   test("should return 200 response code", async () => {
     const res = await request(app)
       .get(`/diary/random/list`)
+      .set("Cookie", cookie);
+    expect(res.statusCode).toBe(200);
+  });
+
+  test("should have a DiaryService.secondReadList function", async () => {
+    expect(typeof DiaryService.secondReadList).toBe("function");
+  });
+
+  test("should return 200 response code", async () => {
+    const res = await request(app)
+      .get(`/diary/list`)
+      .query({ cursor: 461 })
       .set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
@@ -245,7 +266,7 @@ describe("Diary Search Test", () => {
     const res = await request(app)
       .get(`/diary/search`)
       .query({
-        text: "일기",
+        all: "일기",
       })
       .set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
