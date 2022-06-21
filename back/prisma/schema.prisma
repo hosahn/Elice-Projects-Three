@@ -83,6 +83,7 @@ model users {
   inserted_at    DateTime?        @default(now()) @db.Timestamp(0)
   updated_at     DateTime?        @updatedAt @db.Timestamp(0)
   name           String?          @db.VarChar(10)
+  daily_check    Boolean?         @default(false)
   diary          diary[]
   emotion        emotion[]
   user_challenge user_challenge[]
@@ -114,4 +115,20 @@ model user_rewards {
   @@index([user_id], map: "user_id")
   @@index([challenge_id], map: "challenge_id")
   @@index([reward_id], map: "reward_id")
+}
+
+model activity {
+  id      Int     @id @default(autoincrement())
+  title   String? @db.VarChar(25)
+  emotion String? @db.VarChar(25)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model music {
+  id     Int?
+  title  String? @db.VarChar(60)
+  artist String? @db.VarChar(34)
+  genre  String? @db.VarChar(6)
+
+  @@ignore
 }

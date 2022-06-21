@@ -23,6 +23,7 @@ import uploadRouter from "./routers/uploadRouter.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import emotionRouter from "./routers/emotionRouter.js";
 import { afterDiaryRouter } from "./routers/afterDiary.js";
+import { rewardRouter } from "./routers/rewardRouter.js";
 process.setMaxListeners(15);
 export const app = express();
 
@@ -105,6 +106,7 @@ app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);
 app.use("/emotion", emotionRouter);
 app.use("/confirmed", afterDiaryRouter);
+app.use("/reward", rewardRouter);
 app.use(function (req, res, next) {
   res.status(404).send("존재하지 않는 페이지 입니다!");
 });
