@@ -335,16 +335,14 @@ diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const search = Object.keys(req.query)[0];
   const word = req.query[search];
+  if (typeof word == "undefined" || word == null) {
+    throw new Error("올바른 쿼리 값을 입력해주세요.");
+  }
   if (word.length === 0) {
     throw new Error("검색어를 한 글자 이상 입력해주세요!");
   }
-  try {
-    const result = await DiaryService.searchList(userId, search, word);
-    res.status(status.STATUS_200_OK).send(result);
-  } catch (error) {
-    error.message = "검색 함수 에러";
-    next(error);
-  }
+  const result = await DiaryService.searchList(userId, search, word);
+  res.status(status.STATUS_200_OK).send(result);
 });
 
 /**

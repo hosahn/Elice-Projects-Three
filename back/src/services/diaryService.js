@@ -101,28 +101,6 @@ export default class DiaryService {
   }
 
   /**
-   * - 일기 제목 검색 함수
-   * @param {number} userId - 유저 고유 ID
-   * @param {string} title - 검색할 일기 제목
-   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
-   */
-  static async searchTitle(userId, title) {
-    const diarys = await Diary.searchTitle(userId, title);
-    return diarys;
-  }
-
-  /**
-   * - 일기 내용 검색 함수
-   * @param {number} userId
-   * @param {string} text
-   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
-   */
-  static async searchText(userId, text) {
-    const diarys = await Diary.searchText(userId, text);
-    return diarys;
-  }
-
-  /**
    * - 일기를 검색하는 함수
    * @param {number} userId - 유저 고유 ID
    * @param {string} search  -검색할 위치

@@ -207,10 +207,11 @@ describe("Get PreSignURL Test", () => {
 });
 
 describe("Diary Search Test", () => {
-  test("should have a searchTitle function", async () => {
-    expect(typeof DiaryService.searchTitle).toBe("function");
+  test("should have a searchList function", async () => {
+    expect(typeof DiaryService.searchList).toBe("function");
   });
-  test("should return 200 response code", async () => {
+
+  test("Title Search should return 200 response code", async () => {
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -219,26 +220,8 @@ describe("Diary Search Test", () => {
       .set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
-  test("Diary searchTitle non-logged-in users Test", async () => {
-    const res = await request(app).get(`/diary/search`).query({
-      title: "일기",
-    });
-    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
-  });
-  test("Diary searchTitle query length must be greater than 1", async () => {
-    const res = await request(app)
-      .get(`/diary/search`)
-      .query({
-        title: "",
-      })
-      .set("Cookie", cookie);
-    expect(res.body.error.message).toBe("검색어를 한 글자 이상 입력해주세요!");
-  });
 
-  test("should have a searchText function", async () => {
-    expect(typeof DiaryService.searchText).toBe("function");
-  });
-  test("should return 200 response code", async () => {
+  test("Text Search should return 200 response code", async () => {
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -248,8 +231,52 @@ describe("Diary Search Test", () => {
     expect(res.statusCode).toBe(200);
   });
 
+  test("Tag Search should return 200 response code", async () => {
+    const res = await request(app)
+      .get(`/diary/search`)
+      .query({
+        tag: "일기",
+      })
+      .set("Cookie", cookie);
+    expect(res.statusCode).toBe(200);
+  });
+
+  test("All Search should return 200 response code", async () => {
+    const res = await request(app)
+      .get(`/diary/search`)
+      .query({
+        text: "일기",
+      })
+      .set("Cookie", cookie);
+    expect(res.statusCode).toBe(200);
+  });
+
+  test("Diary searchList query length must be greater than 1", async () => {
+    const res = await request(app)
+      .get(`/diary/search`)
+      .query({
+        title: "",
+      })
+      .set("Cookie", cookie);
+    expect(res.body.error.message).toBe("검색어를 한 글자 이상 입력해주세요!");
+  });
   test("Diary search don't have a Query", async () => {
     const res = await request(app).get("/diary/search").set("Cookie", cookie);
+    expect(res.body.error.message).toBe("올바른 쿼리 값을 입력해주세요.");
+  });
+  test("Diary searchList non-logged-in users Test", async () => {
+    const res = await request(app).get(`/diary/search`).query({
+      title: "일기",
+    });
+    expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
+  });
+  test("Diary searchList It's not the right kind of query.", async () => {
+    const res = await request(app)
+      .get("/diary/search")
+      .query({
+        test: "테스트 쿼리",
+      })
+      .set("Cookie", cookie);
     expect(res.body.error.message).toBe("올바른 쿼리 값을 입력해주세요.");
   });
 });
