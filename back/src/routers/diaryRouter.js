@@ -68,6 +68,9 @@ const diaryRouter = Router();
  *                 view:
  *                   type: number
  *                   example: 1
+ *                   deleted:
+ *                     type: boolean
+ *                     example: false
  */
 diaryRouter.post(
   "/",
@@ -258,6 +261,9 @@ diaryRouter.delete(
  *                   view:
  *                     type: number
  *                     example: 1
+ *                   deleted:
+ *                     type: boolean
+ *                     example: false
  */
 diaryRouter.get("/list", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
@@ -320,13 +326,46 @@ diaryRouter.get("/list", loginRequired, async (req, res, next) => {
  *                   view:
  *                     type: number
  *                     example: 1
+ *                   deleted:
+ *                     type: boolean
+ *                     example: false
  */
 diaryRouter.get("/random/list", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const diarys = await DiaryService.randomDiarys(userId);
   return res.status(status.STATUS_200_OK).send(diarys);
 });
-
+/**
+ * @swagger
+ * /diary/list:
+ *   get:
+ *     tags: [Diary]
+ *     description: |
+ *       * 일기를 검색하는 API 입니다!
+ *       * query 값에 따라 반환하는 값이 달라집니다.
+ *       * ex) ``/diary/search?title=일기`` 는 일기의 제목을 검색
+ *       * ex) ``/diary/search?text=일기`` 는 일기의 내용을 검색
+ *       * ex) ``/diary/search?tag=일기`` 는 일기의 태그를 검색
+ *       * ex) ``/diary/search?all=일기`` 는 일기 통합 검색
+ *     produces:
+ *     - application/json
+ *     parameters:
+ *     - in: query
+ *       name: title
+ *       example: 제목
+ *     - in: query
+ *       name: text
+ *       example: 내용
+ *     - in: query
+ *       name: tag
+ *       example: 태그
+ *     - in: query
+ *       name: all
+ *       example: 모두
+ *     responses:
+ *       '200':
+ *         description: "검색 성공"
+ */
 diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const search = Object.keys(req.query)[0];
