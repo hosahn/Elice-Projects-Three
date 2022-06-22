@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import moment from "moment";
 const prisma = new PrismaClient();
 //@ts-check
 export default class Diary {
@@ -70,12 +71,13 @@ export default class Diary {
   }
 
   /**
-   * - 일기 목록 조회 Model 함수
+   * - 일기 목록 첫 조회 Model 함수
    * @param {number} userId - 다이어리 목록을 조회할 유저 ID
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async readList(userId) {
     const diaryList = await prisma.diary.findMany({
+      take: 10,
       where: {
         user_id: +userId,
         deleted: false,
@@ -87,6 +89,40 @@ export default class Diary {
         tag: true,
         date: true,
         view: true,
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return diaryList;
+  }
+  /**
+   * - 일기 목록 cursor 조회 Model 함수
+   * @param {number} userId - 다이어리 목록을 조회할 유저 ID
+   * @param {number} cursor - 현재 가르키는 다이어리 cursor
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
+  static async secondReadList(userId, cursor) {
+    const diaryList = await prisma.diary.findMany({
+      take: 10,
+      skip: 1,
+      cursor: {
+        id: +cursor,
+      },
+      where: {
+        user_id: +userId,
+        deleted: false,
+      },
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        tag: true,
+        date: true,
+        view: true,
+      },
+      orderBy: {
+        date: "desc",
       },
     });
     return diaryList;

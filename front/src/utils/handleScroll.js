@@ -1,4 +1,4 @@
-export const handleScroll = () => {
+const handleScroll = () => {
   const scrollHeight = document.documentElement.scrollHeight;
   const scrollTop = document.documentElement.scrollTop;
   const clientHeight = document.documentElement.clientHeight;
@@ -8,3 +8,5 @@ export const handleScroll = () => {
     return false;
   }
 };
+
+export default handleScroll;
