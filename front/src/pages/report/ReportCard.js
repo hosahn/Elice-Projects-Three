@@ -1,7 +1,8 @@
 import DATALIST from '../../dummy/DATALIST';
 import { ReportContainer, DescTitle } from '../../styles/ReportStyle';
 import { CardsContainer, CardTitle, CardWrapper, ExplainContext, TargetImg, StartBtn } from '../../styles/ChallengeStyle';
-
+import EmotionChart from '../../charts/EmotionChart';
+import Example from '../../charts/TimeChart';
 const ReportCard = () => {
   // = ({ props }) => {
   // const { name, month, number, e1, n1, e2, n2, n3, e3, mostT, time, yy, mm, dd, t1, t2, t3, a1, a2, a3, keep, finish, state } = props;
@@ -12,6 +13,9 @@ const ReportCard = () => {
           {DATALIST[0].name}님은 한 달 동안 총 {DATALIST[0].number}개의 일기를 작성하셨습니다.
         </DescTitle>
         <h2 style={{ display: 'inline' }}>원형그래프</h2>
+        <div style={{ marginTop: '0px' }}>
+          <EmotionChart></EmotionChart>
+        </div>
         <h2>
           {DATALIST[0].e1} 감정 일기 작성은 {DATALIST[0].n1}개, {DATALIST[0].e2} 감정 일기 작성은 {DATALIST[0].n2}개, {DATALIST[0].e3} 감정 일기 작성은 {DATALIST[0].n3}개로
           {DATALIST[0].month}월 한 달 동안 작성해주신 일기에서 가장 많이 나타난 감정은 '{DATALIST[0].e1}'입니다.
@@ -37,6 +41,7 @@ const ReportCard = () => {
           {DATALIST[0].name}님은 {DATALIST[0].time}에 일기를 가장 많이 작성하셨네요.
         </DescTitle>
         <h2>시간 별 막대그래프</h2>
+        <Example></Example>
       </ReportContainer>
 
       <ReportContainer>

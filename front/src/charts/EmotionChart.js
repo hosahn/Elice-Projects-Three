@@ -1,4 +1,4 @@
-import ChartWrap from '../styles/EChartStyle';
+import { ChartWrap } from '../styles/EChartStyle';
 import React, { useCallback, useState } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 
@@ -22,7 +22,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     </text>
   );
 };
-export default function App() {
+export default function EmotionChart() {
   return (
     <ChartWrap>
       <PieChart width={400} height={400}>
