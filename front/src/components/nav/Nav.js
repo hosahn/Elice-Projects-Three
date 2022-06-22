@@ -16,12 +16,17 @@ const Nav = () => {
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');
+        navigate('/');
       }
     } catch (error) {
       if (error.response) {
         const { data } = error.response;
         console.error('data : ', data);
+<<<<<<< Updated upstream
         alert('로그아웃에 실패하였습니다.');
+=======
+        navigate('/');
+>>>>>>> Stashed changes
       }
     }
   };

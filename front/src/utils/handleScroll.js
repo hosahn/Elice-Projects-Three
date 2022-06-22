@@ -4,7 +4,5 @@ export const handleScroll = () => {
   const clientHeight = document.documentElement.clientHeight;
   if (scrollTop + clientHeight >= scrollHeight) {
     return true;
-  } else {
-    return false;
   }
 };

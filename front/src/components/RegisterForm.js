@@ -4,6 +4,7 @@ import Btn from './Btn';
 import * as Api from '../api';
 import styled from 'styled-components';
 import { LoginInput, LoginText } from '../styles/LoginStyle';
+import { validateEmail } from '../utils/validation';
 
 const RegisterContainer = styled.div`
   position: relative;
@@ -19,20 +20,9 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
 
-  const validateEmail = (email) => {
-    return email
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-
   const isEmailValid = validateEmail(email);
-
   const isPasswordValid = password.length >= 4;
-
   const isPasswordSame = password === confirmPassword;
-
   const isNameValid = name.length >= 2;
 
   const isEmailDuplicate = async (e) => {
@@ -56,6 +46,7 @@ function RegisterForm() {
       }
     }
   };
+
   const isFormValid =
     isEmailValid &&
     isPasswordValid &&

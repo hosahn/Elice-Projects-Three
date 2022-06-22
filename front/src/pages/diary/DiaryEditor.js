@@ -52,6 +52,7 @@ const DiaryEditor = () => {
       setLoading((prev) => !prev);
       setWrite(true);
       setTimeout(() => setLoading((prev) => !prev), 1500);
+      console.log(imageList);
     } else {
       alert('일기 작성 문구 ~~~~~');
     }
