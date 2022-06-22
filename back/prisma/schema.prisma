@@ -15,6 +15,9 @@ model challenge {
   reward                   String?          @db.TinyText
   inserted_at              DateTime?        @db.Timestamp(0)
   type                     Int?
+  descriptionOne           String?          @db.VarChar(100)
+  descriptionTwo           String?          @db.VarChar(100)
+  subtitle                 String?          @db.VarChar(100)
   reward_challengeToreward reward[]
   user_challenge           user_challenge[]
   user_rewards             user_rewards[]

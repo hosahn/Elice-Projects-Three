@@ -1,4 +1,5 @@
 import { Diary, User } from "../db/index.js";
+
 //@ts-check
 export default class DiaryService {
   /**
