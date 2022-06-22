@@ -1,7 +1,8 @@
-const REPORT = [
+const DATALIST = [
   {
+    year: '2022',
     name: '호산',
-    number: 13 + '개',
+    number: 13,
     e1: '기쁜',
     e2: '슬픈',
     e3: '화난',
@@ -26,4 +27,4 @@ const REPORT = [
   },
 ];
 
-export default REPORT;
+export default DATALIST;

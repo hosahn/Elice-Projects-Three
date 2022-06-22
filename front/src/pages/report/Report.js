@@ -1,24 +1,25 @@
-import REPORT from '../../dummy/REPORT';
+import DATALIST from '../../dummy/DATALIST';
 import Nav from '../../components/nav/Nav';
 import { MainContainer } from '../../styles/CommonStyle';
 import { useState } from 'react';
 import ReportCard from './ReportCard';
 import { TitleWrap, ChallengeBtn, ChallengeTitle } from '../../styles/ChallengeStyle';
+import { ReportTitle, RTitleWrap } from '../../styles/ReportStyle';
 
 const Report = () => {
   // ({ props }) => {
   //   const { year, month } = props;
-  console.log(REPORT);
+  console.log(DATALIST);
   return (
     <div>
       <Nav />
 
       <MainContainer>
-        <TitleWrap>
-          <ChallengeTitle>
-            {REPORT.year}년 {REPORT.month}월
-          </ChallengeTitle>
-        </TitleWrap>
+        <RTitleWrap>
+          <ReportTitle>
+            🏁{DATALIST[0].year}년 {DATALIST[0].month}월🏁
+          </ReportTitle>
+        </RTitleWrap>
         <ReportCard></ReportCard>
       </MainContainer>
     </div>

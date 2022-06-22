@@ -23,9 +23,24 @@ export const ReportContainer = styled.div`
   }
 `;
 
-export const Title = styled.h1`
-  font-size: 35px;
+export const RTitleWrap = styled.div`
+  margin-top: 20px;
+  display: flex;
+  font-size: 40px;
+  font-family: 'EliceDigitalBaeum_Bold';
+`;
+
+export const ReportTitle = styled.h1`
+  font-size: 25px;
   font-family: 'EliceDigitalBaeum_Bold';
   color: black;
-  left: -440px;
+  text-align: center;
+`;
+
+export const DescTitle = styled.h1`
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: 'EliceDigitalBaeum_Bold';
+  color: black;
+  text-align: center;
 `;
