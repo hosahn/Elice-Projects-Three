@@ -48,9 +48,7 @@ const TIMECHART = [
   },
 ];
 
-export default class Example extends PureComponent {
-  static demoUrl = 'https://codesandbox.io/s/bar-chart-has-no-padding-jphoc';
-
+export default class TimeChart extends PureComponent {
   render() {
     return (
       <ChartWrap>

@@ -25,8 +25,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 export default function EmotionChart() {
   return (
     <ChartWrap>
-      <PieChart width={400} height={400}>
-        <Pie data={data} cx={200} cy={200} labelLine={false} label={renderCustomizedLabel} outerRadius={80} fill='#8884d8' dataKey='value'>
+      <PieChart width={200} height={200}>
+        <Pie data={data} cx={100} cy={100} labelLine={false} label={renderCustomizedLabel} outerRadius={80} fill='#8884d8' dataKey='value'>
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
