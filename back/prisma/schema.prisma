@@ -42,7 +42,7 @@ model emotion {
   id          Int     @id @default(autoincrement())
   user_id     Int?
   diary_id    Int?
-  inserted_at DateTime? @default(now())  @db.Timestamp(0)
+  inserted_at DateTime? @default(now()) @db.Timestamp(0)
   emotion     String? @db.VarChar(10)
   diary       diary?  @relation(fields: [diary_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_2")
   users       users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_1")

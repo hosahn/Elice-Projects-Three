@@ -9,6 +9,7 @@ export default class DiaryService {
    * @param {string} body.text - 일기 내용
    * @param {string} body.title - 일기 제목
    * @param {string} body.tag - 일기 태그 [ 주제 ]
+   * @param {string} body.emotion - 일기 감정
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async create({ userId, text, title, tag, emotion }) {
@@ -22,15 +23,19 @@ export default class DiaryService {
       title,
       tag,
     };
-    const daily = await User.dailyUpdate(userId);
-    const body = await Diary.create(newDiary);
-    const emotionData = {
-      user_id: +userId,
-      diaryId: body.id,
-      emotion: emotion,
-    };
-    const emotions = await Emotion.create({ emotionData });
-    return body;
+    try {
+      const daily = await User.dailyUpdate(userId);
+      const body = await Diary.create(newDiary);
+      const emotionData = {
+        user_id: +userId,
+        diary_id: +body.id,
+        emotion,
+      };
+      const emotions = await Emotion.create(emotionData);
+      return body;
+    } catch (error) {
+      throw Error("일기 작성 에러");
+    }
   }
   /**
    * - 일기 삭제 Service 함수
