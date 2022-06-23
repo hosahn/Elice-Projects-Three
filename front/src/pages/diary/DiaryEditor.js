@@ -22,7 +22,7 @@ const DiaryEditor = () => {
   const [loading, setLoading] = useState(false);
   const [imageList, setImageList] = useState([]);
 
-  const uploadImage = async blob => {
+  const uploadImage = async (blob) => {
     const name = blob.name;
     const imgName = name.replace(/(\s*)/g, '');
     const res = await Api.get(`upload/${imgName}`);

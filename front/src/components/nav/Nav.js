@@ -3,7 +3,7 @@ import * as Api from '../../api';
 import { NavWrap, Btn, UserBtn, HighLight } from '../../styles/NavStyle';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser, faZap } from '@fortawesome/free-solid-svg-icons';
 import { useRecoilValue } from 'recoil';
 import { writeState } from '../../atoms';
 
@@ -26,29 +26,13 @@ const Nav = () => {
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');
-      }
-    } catch (error) {
-      if (error.response) {
-        const { data } = error.response;
-        console.error('data : ', data);
-      }
-    }
-  };
-
-  const logoutHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await Api.get('user/logout');
-      if (res.data === true) {
         navigate('/');
-      } else {
-        alert('로그아웃에 실패하였습니다.');
       }
     } catch (error) {
       if (error.response) {
         const { data } = error.response;
         console.error('data : ', data);
-        alert('로그아웃에 실패하였습니다.');
+        navigate('/');
       }
     }
   };

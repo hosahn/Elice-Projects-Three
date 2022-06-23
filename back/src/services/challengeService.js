@@ -1,4 +1,4 @@
-import { Challenge, Diary, User, UserChallenge } from "../db/index.js";
+import { Challenge, Diary, User, UserChallenge } from '../db/index.js';
 
 class ChallengeService {
   static async setChallenge({ user_id, challenge_id }) {
@@ -7,7 +7,7 @@ class ChallengeService {
       return false;
     }
     if (await UserChallenge.findChallenge({ user_id, challenge_id })) {
-      return "Challenge already exists";
+      return 'Challenge already exists';
     }
     const add = await UserChallenge.addChallenge({
       user_id,
@@ -38,7 +38,7 @@ class ChallengeService {
     });
     const result = await Challenge.findChallengesById({ challenge_array });
     const name = result.map((result) => {
-      return result.name;
+      return result;
     });
     return { completed: completed, challenge: name, isRunning: isRunning };
   }

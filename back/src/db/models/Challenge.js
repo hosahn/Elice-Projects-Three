@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class Challenge {
@@ -20,9 +20,6 @@ class Challenge {
         id: {
           in: challenge_array,
         },
-      },
-      select: {
-        name: true,
       },
     });
     return result;
