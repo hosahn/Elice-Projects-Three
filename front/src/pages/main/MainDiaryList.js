@@ -1,14 +1,37 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import * as Api from '../../api';
 
 const MainDiaryList = () => {
+  const navigate = useNavigate();
+  const [getDiary, setGetDiary] = useState([]);
+  useEffect(() => {
+    getRandomList();
+  }, []);
+
+  const getRandomList = async () => {
+    const res = await Api.get('diary/random/list');
+    setGetDiary(res.data);
+    console.log(res.data);
+  };
+
+  const clickDiary = (e) => {
+    const diaryId = e.target.id;
+    navigate(`/diary/${diaryId}`, { state: diaryId });
+    console.log(e.currentTarget.name);
+  };
+
   return (
     <DiaryListContainer>
       <div>
         <span>🎲 오늘의 일기</span>
       </div>
-      <DiaryCard>랜덤일기1</DiaryCard>
-      <DiaryCard>랜덤일기2</DiaryCard>
-      <DiaryCard>랜덤일기3</DiaryCard>
+      {getDiary.map((it) => (
+        <DiaryCard onClick={clickDiary} id={it.id} key={it.id}>
+          {it.title}
+        </DiaryCard>
+      ))}
     </DiaryListContainer>
   );
 };
@@ -16,7 +39,6 @@ const MainDiaryList = () => {
 export default MainDiaryList;
 
 const DiaryListContainer = styled.div`
-  background-color: #eff0f2;
   width: 400px;
   height: 300px;
   border-radius: 10px;

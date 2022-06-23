@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import images from '../../assets/images';
 import {
   CardsContainer,
@@ -7,9 +8,36 @@ import {
   TargetImg,
   StartBtn,
 } from '../../styles/ChallengeStyle';
+import * as Api from '../../api';
+import changeUtc from '../../utils/changeUtc';
 
-const ChallengeCard = ({ props }) => {
-  const { title, subTitle, descriptionOne, descriptionTwo, lock } = props;
+const ChallengeCard = ({
+  it,
+  disabled,
+  currentChallenge,
+  setIsLoaded,
+  setCurrentChallenge,
+}) => {
+  const { name, description, id } = it;
+  const lock = false;
+
+  useEffect(() => {
+    console.log(disabled);
+  }, []);
+
+  const clickStart = async (e) => {
+    const res = await Api.get(`challenge/start/${e.target.id}`);
+    console.log(res.data);
+    setIsLoaded((prev) => !prev);
+  };
+
+  const clickStop = async (e) => {
+    const res = await Api.get(`challenge/stop/${e.target.id}`);
+    console.log(res.data);
+    setIsLoaded((prev) => !prev);
+    setCurrentChallenge('');
+  };
+
   return (
     <CardsContainer>
       {lock ? (
@@ -29,16 +57,24 @@ const ChallengeCard = ({ props }) => {
           <CardWrapper>
             <TargetImg src={images.Calendar} alt="Calendar" />
             <div>
-              <CardTitle lock={false}>{title}</CardTitle>
+              <CardTitle lock={false}>{name}</CardTitle>
             </div>
           </CardWrapper>
           <ExplainContext lock={false}>
-            <h1>{subTitle}</h1>
-            {descriptionOne} <br />
+            <h1>{description}</h1>
+            {/* {descriptionOne} <br />
             {descriptionTwo}
-            <br />
+            <br /> */}
             <div style={{ marginTop: '35px' }}>
-              <StartBtn>도전하기🏁</StartBtn>
+              {name === currentChallenge.name ? (
+                <StartBtn onClick={clickStop} id={id}>
+                  포기할래요🥲
+                </StartBtn>
+              ) : (
+                <StartBtn onClick={clickStart} id={id} disabled={disabled}>
+                  {disabled ? '도전 중인 챌린지가 있어요.' : '도전하기🏁'}
+                </StartBtn>
+              )}
             </div>
           </ExplainContext>
         </>
