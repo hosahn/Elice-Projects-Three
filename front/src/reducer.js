@@ -16,5 +16,3 @@ export function userReducer(userState, action) {
       return userState;
   }
 }
-
-

@@ -7,13 +7,13 @@ import { WaringText } from '../../styles/DiaryStyle';
 const Tag = () => {
   const [tagItem, setTagItem] = useState('');
   const [inputTag, setInputTag] = useRecoilState(tagState);
-  const [open, setOpen] = useState(false);
+  const [warningOpen, setWarningOpen] = useState(false);
 
   const checkTagLength = (event) => {
     if (event.target.value.length > 21) {
-      setOpen(true);
+      setWarningOpen(true);
     } else {
-      setOpen(false);
+      setWarningOpen(false);
       setTagItem(event.target.value);
     }
   };
@@ -54,7 +54,7 @@ const Tag = () => {
           onKeyPress={onKeyPress}
         />
       </TagBox>
-      {open && <WaringText>태그는 20자 제한이에요 ㅠ-ㅠ </WaringText>}
+      {warningOpen && <WaringText>태그는 20자 제한이에요 ㅠ-ㅠ </WaringText>}
     </>
   );
 };
