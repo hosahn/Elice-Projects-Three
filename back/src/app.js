@@ -22,8 +22,6 @@ import diaryRouter from "./routers/diaryRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import emotionRouter from "./routers/emotionRouter.js";
-import AdminJS from "adminjs";
-import AdminJSExpress from "@adminjs/express";
 
 process.setMaxListeners(15);
 
@@ -36,13 +34,6 @@ Sentry.init({
 });
 
 const csrfProtection = csurf({ cookie: true });
-
-const adminJs = new AdminJS({
-  databases: [],
-  rootPath: "/admin",
-});
-
-const router = AdminJSExpress.buildRouter(adminJs);
 
 if (process.env.NODE_ENV !== "test") {
   const mysqlStore = mysqlSession(session);
@@ -84,6 +75,7 @@ app.use(
     expires: new Date(Date.now() + 60 * 30),
   })
 );
+
 passportStrategies();
 app.use(passport.initialize());
 app.use(passport.session());
@@ -114,7 +106,6 @@ app.use("/diary", diaryRouter);
 app.use("/calendar", calendarRouter);
 app.use("/upload", uploadRouter);
 app.use("/emotion", emotionRouter);
-app.use(adminJs.options.rootPath, router);
 app.use(function (req, res, next) {
   res.status(404).send("존재하지 않는 페이지 입니다!");
 });
