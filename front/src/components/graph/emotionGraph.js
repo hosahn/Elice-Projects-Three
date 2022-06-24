@@ -4,7 +4,7 @@ const EmotionGraph = (props) => {
   const data = props.data;
   //도넛 차트 데이터 및 옵션
   const donutData = {
-    series: [10, 30, 60], // data.happy, data.sad, data.angry
+    series: [data.happy, data.sad, data.angry], // data.happy, data.sad, data.angry
     options: {
       plotOptions: {
         pie: {

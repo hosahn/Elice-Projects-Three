@@ -43,17 +43,19 @@ const Report = () => {
   }
 
   let DiaryText = `
-   기쁜 감정 일기 작성은 ${diaryEmotion.happy}개, 
+   행복 감정 일기 작성은 ${diaryEmotion.happy}개, 
    슬픈 감정 일기 작성은 ${diaryEmotion.sad}개, 
    화난 감정 일기 작성은 ${diaryEmotion.angry}개로 
    6월 한달동안 작성해 주신 일기에서 
-   가장 많이 나타난 감정은 기쁨입니다.
+   가장 많이 나타난 감정은 행복입니다.
   `;
   let TimeText = `
-  이번 달에는 총 30개의 일기 중
-  5개를 아침에, 5개를 점심에
-  10개를 저녁에, 10개를 새벽에,
-  훌륭합니다!
+  이번 달에는 총 ${
+    diaryTime.morning + diaryTime.dawn + diaryTime.night + diaryTime.afternoon
+  }개의 일기 중
+  ${diaryTime.morning}개를 아침에, ${diaryTime.afternoon}개를 점심에
+  ${diaryTime.night}개를 저녁에, ${diaryTime.dawn}개를 새벽에
+  작성하셨네요, 훌륭합니다!
   `;
 
   return (
