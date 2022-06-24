@@ -3,14 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import Btn from './Btn';
 import * as Api from '../api';
 import styled from 'styled-components';
+import images from '../assets/images';
 import { LoginInput, LoginText } from '../styles/LoginStyle';
-import { validateEmail } from '../utils/validation';
 
 const RegisterContainer = styled.div`
   position: relative;
   display: grid;
   place-items: center;
   height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+
+  ::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: url(${images.Bg});
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.7;
+  }
 `;
 
 function RegisterForm() {
@@ -19,6 +34,14 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
+
+  const validateEmail = (email) => {
+    return email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
   const isEmailValid = validateEmail(email);
   const isPasswordValid = password.length >= 4;
@@ -46,7 +69,6 @@ function RegisterForm() {
       }
     }
   };
-
   const isFormValid =
     isEmailValid &&
     isPasswordValid &&

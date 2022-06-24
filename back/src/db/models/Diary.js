@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import moment from "moment";
 const prisma = new PrismaClient();
 //@ts-check
 export default class Diary {
@@ -70,12 +71,13 @@ export default class Diary {
   }
 
   /**
-   * - 일기 목록 조회 Model 함수
+   * - 일기 목록 첫 조회 Model 함수
    * @param {number} userId - 다이어리 목록을 조회할 유저 ID
    * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
   static async readList(userId) {
     const diaryList = await prisma.diary.findMany({
+      take: 10,
       where: {
         user_id: +userId,
         deleted: false,
@@ -87,6 +89,40 @@ export default class Diary {
         tag: true,
         date: true,
         view: true,
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return diaryList;
+  }
+  /**
+   * - 일기 목록 cursor 조회 Model 함수
+   * @param {number} userId - 다이어리 목록을 조회할 유저 ID
+   * @param {number} cursor - 현재 가르키는 다이어리 cursor
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
+  static async secondReadList(userId, cursor) {
+    const diaryList = await prisma.diary.findMany({
+      take: 10,
+      skip: 1,
+      cursor: {
+        id: +cursor,
+      },
+      where: {
+        user_id: +userId,
+        deleted: false,
+      },
+      select: {
+        id: true,
+        title: true,
+        text: true,
+        tag: true,
+        date: true,
+        view: true,
+      },
+      orderBy: {
+        date: "desc",
       },
     });
     return diaryList;
@@ -101,6 +137,7 @@ export default class Diary {
     const diary = await prisma.diary.findFirst({
       where: {
         id: +id,
+        deleted: false,
       },
     });
     return diary;
@@ -142,6 +179,95 @@ export default class Diary {
   static async randomDiarys(userId) {
     const diarys =
       await prisma.$queryRaw`SELECT * FROM diary WHERE deleted=0 AND user_id=${userId} ORDER BY RAND() limit 3;`;
+    return diarys;
+  }
+
+  /**
+   * - 일기 제목으로 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} title  - 검색할 일기 제목
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number, deleted: boolean}>}
+   */
+  static async searchTitle(userId, title) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: +userId,
+        title: {
+          contains: title,
+        },
+        deleted: false,
+      },
+    });
+    return diarys;
+  }
+  /**
+   * - 일기 내용으로 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} text - 검색할 일기 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number, deleted: boolean}>}
+   */
+  static async searchText(userId, text) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: +userId,
+        text: {
+          contains: text,
+        },
+        deleted: false,
+      },
+    });
+    return diarys;
+  }
+
+  /**
+   * - 일기 태그를 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} tag - 검색할 태그 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
+  static async searchTag(userId, tag) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: userId,
+        tag: {
+          contains: tag,
+        },
+        deleted: false,
+      },
+    });
+    return diarys;
+  }
+
+  /**
+   * - 일기 통합 검색 기능
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} word - 검색할 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
+  static async searchAll(userId, word) {
+    const diarys = await prisma.diary.findMany({
+      where: {
+        user_id: userId,
+        OR: [
+          {
+            title: {
+              contains: word,
+            },
+          },
+          {
+            text: {
+              contains: word,
+            },
+          },
+          {
+            tag: {
+              contains: word,
+            },
+          },
+        ],
+        deleted: false,
+      },
+    });
     return diarys;
   }
 }
