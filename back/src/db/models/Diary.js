@@ -16,6 +16,7 @@ export default class Diary {
         title: true,
         text: true,
         tag: true,
+        emotion: true,
       },
     });
     return createDiary;

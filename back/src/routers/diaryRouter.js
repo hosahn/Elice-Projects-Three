@@ -4,7 +4,6 @@ import { validate } from "../middlewares/validator.js";
 import { check, param, body, query } from "express-validator";
 import * as status from "../utils/status.js";
 import loginRequired from "../middlewares/loginRequired.js";
-import EmotionService from "../services/emotionService.js";
 const diaryRouter = Router();
 
 /**

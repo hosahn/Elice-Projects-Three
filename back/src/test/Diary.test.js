@@ -5,16 +5,18 @@ import app from "../app.js";
 import createUrl from "../utils/preSign.js";
 import { User } from "../db/index.js";
 const diaryMock = {
-  title: "일기 제목",
-  text: "이건 일기 내용",
-  tag: "공부",
+  title: "테스트 제목",
+  text: "테스트 일기 내용",
+  tag: "테스트",
+  emotion: "기원",
 };
 
 const diaryResultMock = {
   id: 0,
-  title: "일기 제목",
-  text: "이건 일기 내용",
-  tag: "공부",
+  title: "테스트 제목",
+  text: "테스트 일기 내용",
+  tag: "테스트",
+  emotion: "기원",
 };
 
 function deleteMock(del) {
@@ -34,7 +36,11 @@ beforeAll(async () => {
     .post("/login/local")
     .send({ email: process.env.TEST_EMAIL, pw: process.env.TEST_PW });
   cookie = result.headers["set-cookie"][0];
+  await User.dailyDelete(2);
   return cookie;
+});
+afterAll(async () => {
+  await User.dailyDelete(2);
 });
 
 describe("Diary Crate Success Test", () => {
@@ -48,7 +54,6 @@ describe("Diary Crate Success Test", () => {
   //   expect(result).toEqual(diaryResultMock);
   // });
   test("should return 201 response code", async () => {
-    await User.dailyDelete(2);
     const res = await request(app)
       .post("/diary")
       .send(diaryMock)

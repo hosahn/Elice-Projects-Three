@@ -22,16 +22,11 @@ export default class DiaryService {
       text,
       title,
       tag,
+      emotion,
     };
     try {
       const daily = await User.dailyUpdate(userId);
       const body = await Diary.create(newDiary);
-      const emotionData = {
-        user_id: +userId,
-        diary_id: +body.id,
-        emotion,
-      };
-      const emotions = await Emotion.create(emotionData);
       return body;
     } catch (error) {
       throw Error("일기 작성 에러");
