@@ -25,7 +25,6 @@ export default class DiaryService {
     };
     try {
       const daily = await User.dailyUpdate(userId);
-      console.log(newDiary);
       const body = await Diary.create(newDiary);
 
       return body;
@@ -70,7 +69,9 @@ export default class DiaryService {
    */
   static async secondReadList(userId, cursor) {
     const body = await Diary.secondReadList(userId, cursor);
-    body.push({ cursor: body[body.length - 1].id });
+    if (body.length >= 1) {
+      body.push({ cursor: body[body.length - 1].id });
+    }
     return body;
   }
   /**
@@ -125,8 +126,6 @@ export default class DiaryService {
         return await Diary.searchTag(userId, word);
       case "all":
         return await Diary.searchAll(userId, word);
-      default:
-        throw new Error("올바른 쿼리 값을 입력해주세요.");
     }
   }
 }

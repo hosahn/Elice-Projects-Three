@@ -30,7 +30,7 @@ function deleteMock(del) {
 }
 
 let cookie;
-
+let cursor;
 beforeAll(async () => {
   const result = await request(app)
     .post("/login/local")
@@ -140,6 +140,7 @@ describe("Diary Read Test", () => {
   // });
   test("should return 200 response code", async () => {
     const res = await request(app).get(`/diary/list`).set("Cookie", cookie);
+    cursor = res.body[res.body.length - 1];
     expect(res.statusCode).toBe(200);
   });
 
@@ -176,7 +177,7 @@ describe("Diary Read Test", () => {
   test("should return 200 response code", async () => {
     const res = await request(app)
       .get(`/diary/list`)
-      .query({ cursor: 461 })
+      .query(cursor)
       .set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
