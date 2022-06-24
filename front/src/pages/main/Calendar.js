@@ -28,10 +28,8 @@ const Calendar = () => {
   const [month, setMonth] = useState(today.format('MM').replace(/(^0+)/, ''));
 
   useEffect(() => {
-    // setMonth(today.format('MM').replace(/(^0+)/, ''));
-    // setYear(today.format('YYYY'));
     getCalendarList();
-  }, [getMoment]);
+  }, []);
 
   const clickDiary = (e) => {
     const diaryId = e.currentTarget.id;
@@ -41,7 +39,7 @@ const Calendar = () => {
   const getCalendarList = async () => {
     const res = await Api.get(`calendar/${year}/${month}`);
     setCalendarList(res.data);
-    setCounter(res.data);
+    setCounter(res.data.length);
   };
 
   const addMonth = async () => {
@@ -51,10 +49,6 @@ const Calendar = () => {
   const subtractMonth = async () => {
     setMoment(getMoment.clone().subtract(1, 'month'));
   };
-
-  if (calendarList.length === 0) {
-    return <h1>못 받아옴...</h1>;
-  }
 
   const calendarArr = () => {
     for (let week = firstWeek; week <= endWeek; week++) {
@@ -79,16 +73,19 @@ const Calendar = () => {
 
               let diary = '';
               let diaryId = '';
-              for (let i = 0; i < counter; i++) {
-                diary =
-                  changeUtc(calendarList[i].date).slice(0, 8) ===
-                  current.format('YYYYMMDD')
-                    ? 'ok'
-                    : 'no';
+              if (calendar.list !== 0) {
+                for (let i = 0; i < counter; i++) {
+                  diary =
+                    changeUtc(calendarList[i].date).slice(0, 8) ===
+                    current.format('YYYYMMDD')
+                      ? 'ok'
+                      : 'no';
 
-                if (diary == 'ok') {
-                  diaryId = calendarList[i].id;
-                  break;
+                  if (diary === 'ok') {
+                    diaryId = calendarList[i].id;
+
+                    break;
+                  }
                 }
               }
 

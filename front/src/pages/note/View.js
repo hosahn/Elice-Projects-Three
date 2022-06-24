@@ -36,11 +36,26 @@ const View = () => {
     setDiary(res.data);
   };
 
+  const clickPdf = async (e) => {
+    e.preventDefault();
+    const res = await Api.getPdf(`pdf/${diary.id}`);
+    const blob = new Blob([res.data]);
+    const fileObjectUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = fileObjectUrl;
+    link.style.display = 'none';
+    link.download = 'asdf.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(fileObjectUrl);
+  };
+
   return (
     <>
       <Nav />
       <ViewContainer>
-        <IconWrapper onClick={() => console.log('실수')}>
+        <IconWrapper onClick={clickPdf}>
           <FontAwesomeIcon icon={faFilePdf} className="user" />
           pdf로 다운로드하기
         </IconWrapper>
