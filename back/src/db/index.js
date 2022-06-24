@@ -8,6 +8,7 @@ import { Challenge } from "./models/Challenge.js";
 import { Reward } from "./models/Reward.js";
 import { Fortune } from "./models/Fortune.js";
 import { Activity } from "./models/activity.js";
+import { Report } from "./models/report.js";
 export {
   User,
   Emotion,
@@ -18,4 +19,5 @@ export {
   Reward,
   Fortune,
   Activity,
+  Report,
 };

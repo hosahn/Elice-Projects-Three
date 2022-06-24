@@ -22,7 +22,7 @@ const ChallengeSchedule = () => {
       await transporter.sendMail({
         from: `"밤하늘" <${process.env.NODEMAILER_USER}>`,
         to: result[i].email,
-        subject: "Auth Number",
+        subject: "밤하늘 챌린지 미완료",
         text: text,
         html: `<b>${text}</b>`,
       });
@@ -49,7 +49,7 @@ const ChallengeSchedule = () => {
       await transporter.sendMail({
         from: `"밤하늘" <${process.env.NODEMAILER_USER}>`,
         to: result[i].email,
-        subject: "Auth Number",
+        subject: "밤하늘 챌린지 실패",
         text: text,
         html: `<b>${text}</b>`,
       });
@@ -59,6 +59,7 @@ const ChallengeSchedule = () => {
   //남아있는 사람들은 일단 필터링을 거친, 아직까지는 성공하고 있는 사람들
   const sendRule = "0 34 2 * * *";
   schedule.scheduleJob(sendRule, async () => {
+    for (let i = 10; i <= 50; i = i + 20) {}
     const temporarySuccess11 = await UserChallenge.getTemporarySuccess({
       tempo: 10,
       type: 1,

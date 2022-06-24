@@ -15,6 +15,9 @@ model challenge {
   reward                   String?          @db.TinyText
   inserted_at              DateTime?        @db.Timestamp(0)
   type                     Int?
+  descriptionOne           String?          @db.VarChar(100)
+  descriptionTwo           String?          @db.VarChar(100)
+  subtitle                 String?          @db.VarChar(100)
   reward_challengeToreward reward[]
   user_challenge           user_challenge[]
   user_rewards             user_rewards[]
@@ -29,22 +32,9 @@ model diary {
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
   deleted Boolean?  @default(false)
+  emotion String?   @db.VarChar(10)
   users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
-  emotion emotion[]
 
-  @@index([user_id], map: "user_id")
-}
-
-model emotion {
-  id       Int       @id @default(autoincrement())
-  user_id  Int?
-  diary_id Int?
-  date     DateTime? @default(now()) @db.Timestamp(0)
-  emotion  String?   @db.VarChar(10)
-  diary    diary?    @relation(fields: [diary_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_2")
-  users    users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "emotion_ibfk_1")
-
-  @@index([diary_id], map: "diary_id")
   @@index([user_id], map: "user_id")
 }
 
@@ -85,7 +75,6 @@ model users {
   name           String?          @db.VarChar(10)
   daily_check    Boolean?         @default(false)
   diary          diary[]
-  emotion        emotion[]
   user_challenge user_challenge[]
   user_rewards   user_rewards[]
 }
