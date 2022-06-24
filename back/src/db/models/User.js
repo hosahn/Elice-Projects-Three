@@ -1,5 +1,5 @@
 // import { BasicModel } from "../index.js";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 class User {
   static async createUser({ social, pw, email, name }) {
@@ -28,7 +28,7 @@ class User {
     const foundUser = await prisma.users.findFirst({
       where: {
         AND: {
-          social: 'local',
+          social: "local",
           email: email,
         },
       },
@@ -130,6 +130,22 @@ class User {
         daily_check: false,
       },
     });
+  }
+
+  static async userInfo(userId) {
+    const user = await prisma.users.findFirst({
+      where: {
+        id: +userId,
+      },
+      select: {
+        name: true,
+        email: true,
+        inserted_at: true,
+        daily_check: true,
+        user_challenge: true,
+      },
+    });
+    return user;
   }
 }
 
