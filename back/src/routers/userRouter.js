@@ -2,6 +2,9 @@ import { Router } from "express";
 import passport from "passport";
 import { User } from "../db/models/User.js";
 import "../config/env.js";
+import loginRequired from "../middlewares/loginRequired.js";
+import UserService from "../services/userService.js";
+
 const userRouter = Router();
 userRouter.get(
   "/googlecomplete",
@@ -105,6 +108,12 @@ userRouter.post("/signup/check", async (req, res) => {
   } else {
     res.send(false);
   }
+});
+
+userRouter.get("/info", loginRequired, async (req, res) => {
+  const userId = req.user.id;
+  const user = await UserService.userInfo(userId);
+  res.status(200).send(user);
 });
 
 export { userRouter };
