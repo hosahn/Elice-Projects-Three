@@ -41,31 +41,34 @@ const DiaryEditor = () => {
   const handleClick = async () => {
     const editorInstance = editorRef.current.getInstance();
     const temp = editorInstance.getMarkdown();
-    if (title.length > 0 && temp.length > 2) {
-      await Api.post('diary', {
-        tag,
-        text: editorInstance.getMarkdown(),
-        title,
-        imageList,
-      });
-      setSubmit((prev) => !prev);
-      setLoading((prev) => !prev);
-      setWrite(true);
-      setTimeout(() => setLoading((prev) => !prev), 1500);
-      console.log(imageList);
-    } else {
-      alert('일기 작성 문구 ~~~~~');
-    }
-
-    const diary = temp.replace(
+    const deleteImg = temp.replace(
       /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
       ''
     );
+    const diary = deleteImg.replace(/<([^>]+)>/g, '');
     console.log(diary);
+    if (title.length > 0 && temp.length > 2) {
+      const res = await Api.postDiary({
+        diary: diary,
+      });
 
-    await Api.postDiary({
-      diary: diary,
-    }).then((res) => console.log(res));
+      if (res.data.length !== 0) {
+        console.log(res.data);
+        await Api.post('diary', {
+          tag,
+          text: temp,
+          title,
+          emotion: res.data,
+        });
+        setSubmit((prev) => !prev);
+        setLoading((prev) => !prev);
+        setWrite(true);
+        setTimeout(() => setLoading((prev) => !prev), 1500);
+        console.log(imageList);
+      } else {
+        alert('일기 작성 문구 ~~~~~');
+      }
+    }
   };
 
   return (

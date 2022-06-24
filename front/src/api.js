@@ -80,7 +80,6 @@ async function getPdf(endpoint, params = '') {
 
 async function postDiary(data) {
   const bodyData = JSON.stringify(data);
-  console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
   const Url = 'http://kdt-ai4-team12-gpu.elicecoding.com:5000/predict';
   return axios.post(Url, bodyData, {
     headers: {

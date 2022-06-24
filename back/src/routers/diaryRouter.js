@@ -4,7 +4,6 @@ import { validate } from '../middlewares/validator.js';
 import { check, param, body, query } from 'express-validator';
 import * as status from '../utils/status.js';
 import loginRequired from '../middlewares/loginRequired.js';
-import EmotionService from '../services/emotionService.js';
 const diaryRouter = Router();
 
 /**
@@ -78,6 +77,7 @@ diaryRouter.post(
   [
     body('title', '제목은 필수로 입력해야 합니다.').exists().bail(),
     body('text', '일기 내용은 필수로 적어주셔야 합니다.').exists().bail(),
+    body('emotion', '감정은 필수로 입력되어야 합니다.').exists().bail(),
     validate,
   ],
   async (req, res, next) => {
