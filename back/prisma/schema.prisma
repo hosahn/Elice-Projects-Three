@@ -32,7 +32,7 @@ model diary {
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
   deleted Boolean?  @default(false)
-  emotion String?    @db.VarChar(10)
+  emotion String   @db.VarChar(10)
   users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
 
   @@index([user_id], map: "user_id")

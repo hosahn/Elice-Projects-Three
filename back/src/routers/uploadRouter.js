@@ -1,8 +1,8 @@
-import { Router } from "express";
-import s3 from "../config/s3.js";
-import createUrl from "../utils/preSign.js";
-import * as status from "../utils/status.js";
-import loginRequired from "../middlewares/loginRequired.js";
+import { Router } from 'express';
+import s3 from '../config/s3.js';
+import createUrl from '../utils/preSign.js';
+import * as status from '../utils/status.js';
+import loginRequired from '../middlewares/loginRequired.js';
 const uploadRouter = Router();
 
 /**
@@ -43,7 +43,7 @@ const uploadRouter = Router();
  *                   description: 이미지가 저장된 S3 주소
  *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/${fileName}"
  */
-uploadRouter.get("/:file", loginRequired, (req, res, next) => {
+uploadRouter.get('/:file', loginRequired, (req, res, next) => {
   const { file } = req.params;
   const fileName = Date.now() + file;
   const url = createUrl(`diary/${fileName}`);
@@ -56,12 +56,12 @@ uploadRouter.get("/:file", loginRequired, (req, res, next) => {
   res.status(200).json(body);
 });
 
-uploadRouter.delete("/:file", async (req, res, next) => {
+uploadRouter.delete('/:file', async (req, res, next) => {
   try {
     const { file } = req.params;
     s3.deleteObject(
       {
-        Bucket: "ai-project-last", // 삭제하고 싶은 이미지가 있는 버킷 이름
+        Bucket: 'ai-project-last', // 삭제하고 싶은 이미지가 있는 버킷 이름
         Key: `diary/${file}`, // 삭제하고 싶은 이미지의 key
       },
       (err, data) => {
@@ -72,7 +72,7 @@ uploadRouter.delete("/:file", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  res.send("완료");
+  res.send('완료');
 });
 
 export default uploadRouter;

@@ -10,7 +10,7 @@ const Tag = () => {
   const [warningOpen, setWarningOpen] = useState(false);
 
   const checkTagLength = (event) => {
-    if (event.target.value.length > 21) {
+    if (event.target.value.length > 5) {
       setWarningOpen(true);
     } else {
       setWarningOpen(false);
@@ -54,7 +54,7 @@ const Tag = () => {
           onKeyPress={onKeyPress}
         />
       </TagBox>
-      {warningOpen && <WaringText>태그는 20자 제한이에요 ㅠ-ㅠ </WaringText>}
+      {warningOpen && <WaringText>태그는 5자 제한이에요 ㅠ-ㅠ </WaringText>}
     </>
   );
 };

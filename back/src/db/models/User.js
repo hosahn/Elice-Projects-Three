@@ -131,6 +131,22 @@ class User {
       },
     });
   }
+
+  static async userInfo(userId) {
+    const user = await prisma.users.findFirst({
+      where: {
+        id: +userId,
+      },
+      select: {
+        name: true,
+        email: true,
+        inserted_at: true,
+        daily_check: true,
+        user_challenge: true,
+      },
+    });
+    return user;
+  }
 }
 
 export { User };

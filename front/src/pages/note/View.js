@@ -26,27 +26,36 @@ const View = () => {
   }, []);
 
   useEffect(() => {
-    console.log('diary.text');
     viewerRef.current.getInstance().setMarkdown(diary.text);
   }, [diary]);
 
-  useEffect(() => {
-    console.log(diary);
-  }, [diary]);
+  useEffect(() => {}, [diary]);
 
   const getDiary = async () => {
     const res = await Api.get(`diary/${state}`);
     setDiary(res.data);
   };
 
-  const text =
-    '✏️![text](https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/16554467683011655192700876강아지.jpeg) \n마크다운으로\n사진을 전송.\n';
+  const clickPdf = async (e) => {
+    e.preventDefault();
+    const res = await Api.getPdf(`pdf/${diary.id}`);
+    const blob = new Blob([res.data]);
+    const fileObjectUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = fileObjectUrl;
+    link.style.display = 'none';
+    link.download = 'asdf.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(fileObjectUrl);
+  };
 
   return (
     <>
       <Nav />
       <ViewContainer>
-        <IconWrapper onClick={() => console.log('실수')}>
+        <IconWrapper onClick={clickPdf}>
           <FontAwesomeIcon icon={faFilePdf} className="user" />
           pdf로 다운로드하기
         </IconWrapper>

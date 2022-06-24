@@ -1,5 +1,4 @@
 import { Diary, User } from "../db/index.js";
-
 //@ts-check
 export default class DiaryService {
   /**
@@ -26,7 +25,9 @@ export default class DiaryService {
     };
     try {
       const daily = await User.dailyUpdate(userId);
+      console.log(newDiary);
       const body = await Diary.create(newDiary);
+
       return body;
     } catch (error) {
       throw Error(`일기 작성 에러:${error.message}`);

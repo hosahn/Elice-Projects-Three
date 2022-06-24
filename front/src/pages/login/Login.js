@@ -5,7 +5,6 @@ import {
   LoginInput,
   SocialLoginContainer,
 } from '../../styles/LoginStyle';
-import images from '../../assets/images';
 import styled from 'styled-components';
 import Btn from '../../components/Btn';
 import { validateEmail } from '../../utils/validation';
@@ -15,9 +14,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100vh;
-  background-image: url(${images.Bg});
-  background-repeat: no-repeat;
-  background-size: cover;
 `;
 
 const LoginMainContainer = styled.div`
@@ -55,6 +51,7 @@ const Login = () => {
         const { data } = error.response;
         console.error('data : ', data);
         alert('로그인을 실패하였습니다.');
+        navigate('/');
       }
     }
   };
