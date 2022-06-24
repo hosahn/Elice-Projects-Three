@@ -40,6 +40,7 @@ const Calendar = () => {
     const res = await Api.get(`calendar/${year}/${month}`);
     setCalendarList(res.data);
     setCounter(res.data.length);
+    console.log(res.data);
   };
 
   const addMonth = async () => {

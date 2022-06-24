@@ -51,14 +51,13 @@ const DiaryEditor = () => {
       const res = await Api.postDiary({
         diary: diary,
       });
-
       if (res.data.length !== 0) {
-        console.log(res.data);
+        console.log(typeof res.data);
         await Api.post('diary', {
           tag,
           text: temp,
           title,
-          emotion: res.data,
+          // emotion: res.data,
         });
         setSubmit((prev) => !prev);
         setLoading((prev) => !prev);
