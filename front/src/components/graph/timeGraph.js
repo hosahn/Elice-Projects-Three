@@ -7,7 +7,7 @@ const TimeGraph = (props) => {
     series: [
       {
         name: "작성 일기 수 ",
-        data: [10, 20, 50, 40], //data.morning, data.afternoon, data.night, data.dawn
+        data: [data.morning, data.afternoon, data.night, data.dawn], //data.morning, data.afternoon, data.night, data.dawn
       },
     ],
     labels: ["아침", "점심", "저녁", "새벽"],
