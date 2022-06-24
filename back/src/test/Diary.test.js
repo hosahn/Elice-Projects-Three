@@ -5,18 +5,18 @@ import app from '../app.js';
 import createUrl from '../utils/preSign.js';
 import { User } from '../db/index.js';
 const diaryMock = {
-  title: '테스트 제목',
-  text: '테스트 일기 내용',
-  tag: '테스트',
-  emotion: '기원',
+  tag: '',
+  text: "✏️여러분... 오늘은 경건한 마음으로 마지막 11일차 #블챌 #오늘일기 시작해봅니다. 마지막인 만큼 참 두서없는 주저리가 많은점 유의해주세요. 하 식당가의 롤 파는 집에서유부초밥(?)도 팔길래 '참치 크래미'였나... 먹어봤어요. 이것도 맛은 있는데 롤보다 간에 기별이 안 차네요.",
+  title: '일기',
+  emotion: '슬픔',
 };
 
 const diaryResultMock = {
   id: 0,
-  title: '테스트 제목',
-  text: '테스트 일기 내용',
-  tag: '테스트',
-  emotion: '기원',
+  tag: '',
+  text: "✏️여러분... 오늘은 경건한 마음으로 마지막 11일차 #블챌 #오늘일기 시작해봅니다. 마지막인 만큼 참 두서없는 주저리가 많은점 유의해주세요. 하 식당가의 롤 파는 집에서유부초밥(?)도 팔길래 '참치 크래미'였나... 먹어봤어요. 이것도 맛은 있는데 롤보다 간에 기별이 안 차네요.",
+  title: '일기',
+  emotion: '슬픔',
 };
 
 function deleteMock(del) {
