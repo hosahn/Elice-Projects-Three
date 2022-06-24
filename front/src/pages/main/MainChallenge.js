@@ -13,11 +13,6 @@ const ColorCardContainer = styled.div`
   float: left;
 `;
 
-const ProgressBarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
 const CardsContainer = styled.div`
   display: flex;
   justify-content: center;

@@ -22,15 +22,7 @@ const changeUtc = (date) => {
   }
 
   let resultDate =
-    localDate.getFullYear() +
-    '-' +
-    getMonth +
-    '-' +
-    getDate +
-    ' ' +
-    getHours +
-    ':' +
-    getMinutes;
+    localDate.getFullYear() + getMonth + getDate + getHours + getMinutes;
 
   return resultDate;
 };

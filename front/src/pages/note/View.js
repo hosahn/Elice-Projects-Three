@@ -6,6 +6,7 @@ import Nav from '../../components/nav/Nav';
 import * as Api from '../../api';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
+
 import {
   ViewContainer,
   TiteWrapper,
@@ -19,34 +20,43 @@ import {
 const View = () => {
   const { state } = useLocation();
   const [diary, setDiary] = useState({});
+  const [file, setFile] = useState('./sample.pdf');
   const viewerRef = useRef();
-
   useEffect(() => {
     getDiary();
   }, []);
 
   useEffect(() => {
-    console.log('diary.text');
     viewerRef.current.getInstance().setMarkdown(diary.text);
   }, [diary]);
 
-  useEffect(() => {
-    console.log(diary);
-  }, [diary]);
+  useEffect(() => {}, [diary]);
 
   const getDiary = async () => {
     const res = await Api.get(`diary/${state}`);
     setDiary(res.data);
   };
 
-  const text =
-    '✏️![text](https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/16554467683011655192700876강아지.jpeg) \n마크다운으로\n사진을 전송.\n';
+  const clickPdf = async (e) => {
+    e.preventDefault();
+
+    const res = await Api.get(`pdf/${diary.id}`);
+    console.log(res.data);
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${diary.title}.pdf`); //or any other extension
+    document.body.appendChild(link);
+    link.click();
+
+    setFile(e.target.files[0]);
+  };
 
   return (
     <>
       <Nav />
       <ViewContainer>
-        <IconWrapper onClick={() => console.log('실수')}>
+        <IconWrapper onClick={clickPdf}>
           <FontAwesomeIcon icon={faFilePdf} className="user" />
           pdf로 다운로드하기
         </IconWrapper>
