@@ -29,7 +29,7 @@ export default class DiaryService {
       const body = await Diary.create(newDiary);
       return body;
     } catch (error) {
-      throw Error("일기 작성 에러");
+      throw Error(`일기 작성 에러:${error.message}`);
     }
   }
   /**
