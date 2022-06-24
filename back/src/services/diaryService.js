@@ -1,4 +1,4 @@
-import { Diary, User, Emotion } from "../db/index.js";
+import { Diary, User } from "../db/index.js";
 
 //@ts-check
 export default class DiaryService {

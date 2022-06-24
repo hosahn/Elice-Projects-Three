@@ -26,14 +26,14 @@ model challenge {
 model diary {
   id      Int       @id @default(autoincrement())
   user_id Int?
-  text    String   @db.Text
+  text    String    @db.Text
   title   String    @db.VarChar(50)
   tag     String?   @db.VarChar(50)
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
   deleted Boolean?  @default(false)
+  emotion String?    @db.VarChar(10)
   users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
-  emotion String   @db.VarChar(10)
 
   @@index([user_id], map: "user_id")
 }
