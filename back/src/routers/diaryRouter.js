@@ -77,6 +77,7 @@ diaryRouter.post(
   [
     body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
     body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
+    body("emotion", "감정은 필수로 들어가야 합니다.").exists().bail(),
     validate,
   ],
   async (req, res, next) => {
