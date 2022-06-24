@@ -373,15 +373,15 @@ diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   const words = ["title", "text", "tag", "all"];
   if (!words.includes(search)) {
     const error = new Error("올바른 쿼리 값을 입력해주세요.");
-    next(error);
+    return next(error);
   }
   if (typeof word == "undefined" || word == null) {
     const error = new Error("올바른 쿼리 값을 입력해주세요.");
-    next(error);
+    return next(error);
   }
   if (word.length === 0) {
     const error = new Error("검색어를 한 글자 이상 입력해주세요!");
-    next(error);
+    return next(error);
   }
   const result = await DiaryService.searchList(userId, search, word);
   res.status(status.STATUS_200_OK).send(result);
