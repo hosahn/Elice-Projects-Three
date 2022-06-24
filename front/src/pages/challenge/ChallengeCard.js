@@ -66,7 +66,7 @@ const ChallengeCard = ({
             {descriptionTwo}
             <br /> */}
             <div style={{ marginTop: '35px' }}>
-              {name === currentChallenge.name ? (
+              {name === currentChallenge ? (
                 <StartBtn onClick={clickStop} id={id}>
                   포기할래요🥲
                 </StartBtn>

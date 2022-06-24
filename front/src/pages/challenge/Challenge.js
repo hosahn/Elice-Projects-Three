@@ -22,17 +22,16 @@ const Challenge = () => {
 
   const getChallenge = async () => {
     const res = await Api.get('challenge');
-    console.log(res.data.log.completed);
+    console.log(res.data);
     setChallengeList(res.data.challenge);
     setDisabled(res.data.log.isRunning === true ? true : false);
 
     if (res.data.log.isRunning === true) {
       const indexFalse = res.data.log.completed.indexOf(false);
       setCurrentChallenge(res.data.log.challenge[indexFalse]);
-
       const indices = [];
       let array = res.data.log.completed;
-      while (array != -1) {
+      while (array !== -1) {
         indices.push(array);
         array = res.data.log.completed.indexOf(true, array + 1);
       }

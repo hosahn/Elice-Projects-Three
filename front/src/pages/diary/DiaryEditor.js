@@ -1,17 +1,17 @@
-import React, { useRef, useState } from "react";
-import { Editor } from "@toast-ui/react-editor";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-import "tui-color-picker/dist/tui-color-picker.css";
-import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
-import { titleState, tagState, writeState } from "../../atoms";
-import Btn from "../../components/Btn";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
-import { Background } from "../../styles/ModalStyle";
-import { ClassicSpinner } from "react-spinners-kit";
-import DiaryModal from "./DiaryModal";
-import * as Api from "../../api";
+import React, { useRef, useState } from 'react';
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import { titleState, tagState, writeState } from '../../atoms';
+import Btn from '../../components/Btn';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import axios from 'axios';
+import { Background } from '../../styles/ModalStyle';
+import { ClassicSpinner } from 'react-spinners-kit';
+import DiaryModal from './DiaryModal';
+import * as Api from '../../api';
 
 const DiaryEditor = () => {
   const editorRef = useRef();
@@ -24,13 +24,13 @@ const DiaryEditor = () => {
 
   const uploadImage = async (blob) => {
     const name = blob.name;
-    const imgName = name.replace(/(\s*)/g, "");
+    const imgName = name.replace(/(\s*)/g, '');
     const res = await Api.get(`upload/${imgName}`);
 
     setImageList((data) => [res.data.imageUrl, ...data]);
     console.log(imageList);
     await axios({
-      method: "put",
+      method: 'put',
       url: res.data.url,
       data: blob,
     });
@@ -43,37 +43,48 @@ const DiaryEditor = () => {
     const temp = editorInstance.getMarkdown();
     const deleteImg = temp.replace(
       /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
-      ""
+      ''
     );
-    const diary = deleteImg.replace(/<([^>]+)>/g, "");
+    const diary = deleteImg.replace(/<([^>]+)>/g, '');
     console.log(diary);
-    if (title.length > 0 && temp.length > 2) {
-      const res = await Api.postDiary({
-        diary: diary,
-      });
-      if (res.data.length !== 0) {
-        console.log(typeof res.data);
-        await Api.post("diary", {
-          tag,
-          text: temp,
-          title,
-          emotion: res.data,
-        });
-        setSubmit((prev) => !prev);
-        setLoading((prev) => !prev);
-        setWrite(true);
-        setTimeout(() => setLoading((prev) => !prev), 1500);
-        console.log(imageList);
-      } else {
-        alert("일기 작성 문구 ~~~~~");
-      }
-    }
+    await Api.post('diary', {
+      tag,
+      text: temp,
+      title,
+      emotion: '행복',
+    });
+    setSubmit((prev) => !prev);
+    setLoading((prev) => !prev);
+    setWrite(true);
+    setTimeout(() => setLoading((prev) => !prev), 1500);
+    console.log(imageList);
+    // if (title.length > 0 && temp.length > 2) {
+    //   const res = await Api.postDiary({
+    //     diary: diary,
+    //   });
+    //   if (res.data.length !== 0) {
+    //     console.log(typeof res.data);
+    //     await Api.post("diary", {
+    //       tag,
+    //       text: temp,
+    //       title,
+    //       emotion: res.data,
+    //     });
+    //     setSubmit((prev) => !prev);
+    //     setLoading((prev) => !prev);
+    //     setWrite(true);
+    //     setTimeout(() => setLoading((prev) => !prev), 1500);
+    //     console.log(imageList);
+    //   } else {
+    //     alert("일기 작성 문구 ~~~~~");
+    //   }
+    // }
   };
 
   return (
     <>
       <Editor
-        initialValue={"✏️"}
+        initialValue={'✏️'}
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
@@ -83,13 +94,13 @@ const DiaryEditor = () => {
         hooks={{
           addImageBlobHook: async (e, callback) => {
             const imgUrl = await uploadImage(e);
-            callback(imgUrl, "inputImg");
+            callback(imgUrl, 'inputImg');
             return false;
           },
         }}
       />
-      <div style={{ float: "right" }}>
-        <Btn text={"저장하기"} type={"main"} onClick={handleClick} />
+      <div style={{ float: 'right' }}>
+        <Btn text={'저장하기'} type={'main'} onClick={handleClick} />
       </div>
       {submit &&
         (loading ? (

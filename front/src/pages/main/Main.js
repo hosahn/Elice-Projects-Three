@@ -7,10 +7,20 @@ import styled from 'styled-components';
 import { SubContext, HighLightPurple } from '../../styles/CommonStyle';
 import Calendar from './Calendar';
 import MainDiaryList from './MainDiaryList';
+import * as Api from '../../api';
 
 const UserMain = () => {
   const [user, setUser] = useState(''); // 백에서 받아오는 user정보
   const { getDateDiff, date } = useGetChallenge();
+
+  useEffect(() => {
+    getUser();
+  });
+
+  const getUser = async () => {
+    const res = await Api.get('user/info');
+    console.log(res.data); //
+  };
 
   return (
     <>

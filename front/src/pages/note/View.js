@@ -63,7 +63,7 @@ const View = () => {
           <DiaryTitle>{diary.title}</DiaryTitle>
         </TiteWrapper>
         <TagWrapper>
-          <DiaryTag>#{diary.tag}</DiaryTag>
+          <DiaryTag>{diary.tag ? `#${diary.tag}` : ''}</DiaryTag>
         </TagWrapper>
         <ContentWrapper>
           <Viewer ref={viewerRef} />

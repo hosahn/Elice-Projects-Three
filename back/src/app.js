@@ -18,6 +18,8 @@ import mysql from 'mysql';
 import { loginRouter } from './routers/loginRouter.js';
 import { userRouter } from './routers/userRouter.js';
 import { calendarRouter } from './routers/calendarRouter.js';
+import { challengeRouter } from './routers/challengeRouter.js';
+import { pdfRouter } from './routers/pdfRouter.js';
 import diaryRouter from './routers/diaryRouter.js';
 import uploadRouter from './routers/uploadRouter.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
@@ -107,6 +109,9 @@ app.use('/user', userRouter);
 app.use('/diary', diaryRouter);
 app.use('/calendar', calendarRouter);
 app.use('/upload', uploadRouter);
+app.use('/pdf', pdfRouter);
+app.use('/challenge', challengeRouter);
+
 app.use(function (req, res, next) {
   res.status(404).send('존재하지 않는 페이지 입니다!');
 });

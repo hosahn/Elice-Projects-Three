@@ -29,7 +29,12 @@ const Calendar = () => {
 
   useEffect(() => {
     getCalendarList();
-  }, []);
+  }, [month]);
+
+  useEffect(() => {
+    setMonth(today.format('MM').replace(/(^0+)/, ''));
+    setYear(today.format('YYYY'));
+  }, [today]);
 
   const clickDiary = (e) => {
     const diaryId = e.currentTarget.id;
@@ -40,7 +45,6 @@ const Calendar = () => {
     const res = await Api.get(`calendar/${year}/${month}`);
     setCalendarList(res.data);
     setCounter(res.data.length);
-    console.log(res.data);
   };
 
   const addMonth = async () => {
@@ -74,6 +78,7 @@ const Calendar = () => {
 
               let diary = '';
               let diaryId = '';
+              let emotion = '';
               if (calendar.list !== 0) {
                 for (let i = 0; i < counter; i++) {
                   diary =
@@ -84,7 +89,7 @@ const Calendar = () => {
 
                   if (diary === 'ok') {
                     diaryId = calendarList[i].id;
-
+                    emotion = calendarList[i].emotion;
                     break;
                   }
                 }
@@ -100,6 +105,7 @@ const Calendar = () => {
                   diary={diary}
                   disabled={disabled}
                   onClick={clickDiary}
+                  emotion={emotion}
                   id={diaryId}
                 >
                   <div>{current.format('D')}</div>
@@ -156,7 +162,6 @@ const Week = styled.div`
 
 const Day = styled.button`
   color: ${(props) => (props.isGrayed === 'true' ? 'gray' : 'black')};
-  background-color: ${(props) => (props.diary === 'ok' ? 'pink' : '#EFF0F2')};
   width: 90px;
   height: 70px;
   border-radius: 50px;
@@ -165,6 +170,26 @@ const Day = styled.button`
     margin-bottom: 40px;
     margin-right: 20px;
   }
+  background-color: ${(props) => {
+    switch (props.emotion) {
+      case '행복':
+        return '#fcc419';
+      case '슬픔':
+        return '#339af0';
+      case '불안':
+        return '#f06595';
+      case '혐오':
+        return '#adb5bd';
+      case '분노':
+        return '#ff6b6b';
+      case '놀람':
+        return '#ff922b';
+      case '평범':
+        return '#94d82d';
+      default:
+        return '#EFF0F2';
+    }
+  }};
 `;
 
 const CalendarHead = styled.div`

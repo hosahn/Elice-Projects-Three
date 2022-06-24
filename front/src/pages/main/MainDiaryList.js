@@ -42,7 +42,7 @@ const DiaryListContainer = styled.div`
   width: 400px;
   height: 300px;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 20px;
   span {
     font-size: 20px;

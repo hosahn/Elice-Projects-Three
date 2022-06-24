@@ -38,7 +38,7 @@ export const DateWrapper = styled.div`
 
 export const BtnContainer = styled.div`
   margin-top: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   margin-right: 200px;
   margin-left: 200px;
   padding-bottom: 1px;
