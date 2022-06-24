@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import DiaryService from '../services/diaryService.js';
-import { validate } from '../middlewares/validator.js';
-import { check, param, body, query } from 'express-validator';
-import * as status from '../utils/status.js';
-import loginRequired from '../middlewares/loginRequired.js';
+import { Router } from "express";
+import DiaryService from "../services/diaryService.js";
+import { validate } from "../middlewares/validator.js";
+import { check, param, body, query } from "express-validator";
+import * as status from "../utils/status.js";
+import loginRequired from "../middlewares/loginRequired.js";
 const diaryRouter = Router();
 
 /**
@@ -72,12 +72,11 @@ const diaryRouter = Router();
  *                     example: false
  */
 diaryRouter.post(
-  '/',
+  "/",
   loginRequired,
   [
-    body('title', '제목은 필수로 입력해야 합니다.').exists().bail(),
-    body('text', '일기 내용은 필수로 적어주셔야 합니다.').exists().bail(),
-    body('emotion', '감정은 필수로 입력되어야 합니다.').exists().bail(),
+    body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
+    body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
     validate,
   ],
   async (req, res, next) => {
@@ -112,22 +111,22 @@ diaryRouter.post(
  *         description: "삭제 성공"
  */
 diaryRouter.delete(
-  '/:id',
+  "/:id",
   loginRequired,
   [
-    param('id')
+    param("id")
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage('Diary ID 값을 path로 넣어주세요.')
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
       .bail()
       .toInt()
       .isInt()
-      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error('Diary가 존재하지 않습니다.', 400);
+          throw new Error("Diary가 존재하지 않습니다.", 400);
         }
       }),
     validate,
@@ -265,7 +264,7 @@ diaryRouter.delete(
  *                     type: boolean
  *                     example: false
  */
-diaryRouter.get('/list', loginRequired, async (req, res, next) => {
+diaryRouter.get("/list", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const { cursor } = req.query;
   if (cursor) {
@@ -330,7 +329,7 @@ diaryRouter.get('/list', loginRequired, async (req, res, next) => {
  *                     type: boolean
  *                     example: false
  */
-diaryRouter.get('/random/list', loginRequired, async (req, res, next) => {
+diaryRouter.get("/random/list", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const diarys = await DiaryService.randomDiarys(userId);
   return res.status(status.STATUS_200_OK).send(diarys);
@@ -366,15 +365,15 @@ diaryRouter.get('/random/list', loginRequired, async (req, res, next) => {
  *       '200':
  *         description: "검색 성공"
  */
-diaryRouter.get('/search', loginRequired, async (req, res, next) => {
+diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const search = Object.keys(req.query)[0];
   const word = req.query[search];
-  if (typeof word == 'undefined' || word == null) {
-    throw new Error('올바른 쿼리 값을 입력해주세요.');
+  if (typeof word == "undefined" || word == null) {
+    throw new Error("올바른 쿼리 값을 입력해주세요.");
   }
   if (word.length === 0) {
-    throw new Error('검색어를 한 글자 이상 입력해주세요!');
+    throw new Error("검색어를 한 글자 이상 입력해주세요!");
   }
   const result = await DiaryService.searchList(userId, search, word);
   res.status(status.STATUS_200_OK).send(result);
@@ -431,22 +430,22 @@ diaryRouter.get('/search', loginRequired, async (req, res, next) => {
  *                         example:  "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1654656839850docker.png"
  */
 diaryRouter.get(
-  '/:id',
+  "/:id",
   loginRequired,
   [
-    param('id')
+    param("id")
       .trim()
       .exists({ checkFalsy: true })
-      .withMessage('Diary ID 값을 path로 넣어주세요.')
+      .withMessage("Diary ID 값을 path로 넣어주세요.")
       .bail()
       .toInt()
       .isInt()
-      .withMessage('Diary ID 값은 Type이 Number 이여야 합니다.')
+      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
       .bail()
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error('Diary가 존재하지 않습니다.');
+          throw new Error("Diary가 존재하지 않습니다.");
         }
       }),
     validate,
