@@ -1,27 +1,27 @@
-import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import swaggerUi from 'swagger-ui-express';
-import { specs } from './config/swaggerDoc.js';
-import './config/env.js';
-import * as Sentry from '@sentry/node';
-import * as Tracing from '@sentry/tracing';
-import compression from 'compression';
-import csurf from 'csurf';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
-import passport from 'passport';
-import { passportStrategies } from './passport/finalStrategy.js';
-import session from 'express-session';
-import { default as mysqlSession } from 'express-mysql-session';
-import mysql from 'mysql';
-import { loginRouter } from './routers/loginRouter.js';
-import { userRouter } from './routers/userRouter.js';
-import { calendarRouter } from './routers/calendarRouter.js';
-import diaryRouter from './routers/diaryRouter.js';
-import uploadRouter from './routers/uploadRouter.js';
-import errorMiddleware from './middlewares/errorMiddleware.js';
-
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
+import { specs } from "./config/swaggerDoc.js";
+import "./config/env.js";
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
+import compression from "compression";
+import csurf from "csurf";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import passport from "passport";
+import { passportStrategies } from "./passport/finalStrategy.js";
+import session from "express-session";
+import { default as mysqlSession } from "express-mysql-session";
+import mysql from "mysql";
+import { loginRouter } from "./routers/loginRouter.js";
+import { userRouter } from "./routers/userRouter.js";
+import { calendarRouter } from "./routers/calendarRouter.js";
+import diaryRouter from "./routers/diaryRouter.js";
+import uploadRouter from "./routers/uploadRouter.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
+import bookRouter from "./routers/bookRouter.js";
 process.setMaxListeners(15);
 
 export const app = express();
@@ -34,14 +34,14 @@ Sentry.init({
 
 const csrfProtection = csurf({ cookie: true });
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
   const mysqlStore = mysqlSession(session);
   var options = {
     host: process.env.MYSQL_HOST,
     port: 3306,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: 'sessionstore',
+    database: "sessionstore",
   };
   var connection = mysql.createConnection(options);
   var sessionStore = new mysqlStore(options, connection);
@@ -55,7 +55,7 @@ const limiter = rateLimit({
 app.use(helmet());
 app.use(
   cors({
-    origin: 'http://localhost:3000', // server의 url이 아닌, 요청하는 client의 url
+    origin: "http://localhost:3000", // server의 url이 아닌, 요청하는 client의 url
     credentials: true,
   })
 );
@@ -83,32 +83,33 @@ app.use(passport.session());
 passportStrategies();
 
 //Sentry
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   app.use(
-    morgan('dev', {
+    morgan("dev", {
       skip: function (req, res) {
         return res.statusCode < 400;
       },
     })
   );
 } else {
-  app.use(morgan('dev'));
+  app.use(morgan("dev"));
 }
 
 // app.use(Sentry.Handlers.requestHandler());
 // app.use(Sentry.Handlers.tracingHandler());
 app.use(
-  '/swagger',
+  "/swagger",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
-app.use('/login', loginRouter);
-app.use('/user', userRouter);
-app.use('/diary', diaryRouter);
-app.use('/calendar', calendarRouter);
-app.use('/upload', uploadRouter);
+app.use("/login", loginRouter);
+app.use("/user", userRouter);
+app.use("/diary", diaryRouter);
+app.use("/calendar", calendarRouter);
+app.use("/upload", uploadRouter);
+app.use("/book", bookRouter);
 app.use(function (req, res, next) {
-  res.status(404).send('존재하지 않는 페이지 입니다!');
+  res.status(404).send("존재하지 않는 페이지 입니다!");
 });
 // app.use(
 //   Sentry.Handlers.errorHandler({
