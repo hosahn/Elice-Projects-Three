@@ -149,8 +149,4 @@ export default class DiaryService {
     }
   }
 
-  static async tagList(userId, tag) {
-    const tags = Diary.tagList(userId, tag);
-    return tags;
-  }
 }

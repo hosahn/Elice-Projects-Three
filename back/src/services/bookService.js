@@ -13,6 +13,7 @@ export default class BookService {
 
   static async bookDiarys(userId, tag) {
     const list = await Book.bookDiarys(userId, tag);
-    return list;
+    const { diary: diarys } = list[0];
+    return diarys;
   }
 }

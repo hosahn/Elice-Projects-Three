@@ -45,6 +45,11 @@ export default class Book {
       where: {
         user_id: userId,
       },
+      orderBy: {
+        diary: {
+          _count: "desc",
+        },
+      },
     });
     return list;
   }
@@ -55,10 +60,13 @@ export default class Book {
         user_id: userId,
         name: tag,
       },
-      include: {
+      select: {
         diary: {
           where: {
             deleted: false,
+          },
+          orderBy: {
+            id: "desc",
           },
         },
       },
