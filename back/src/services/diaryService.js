@@ -1,5 +1,4 @@
-import { Diary, User } from '../db/index.js';
-
+import { Diary, User } from "../db/index.js";
 //@ts-check
 export default class DiaryService {
   /**
@@ -15,7 +14,7 @@ export default class DiaryService {
   static async create({ userId, text, title, tag, emotion }) {
     const { daily_check: check } = await User.dailyCheck(userId);
     if (check) {
-      throw Error('일기는 하루에 한번만 작성 가능합니다.');
+      throw Error("일기는 하루에 한번만 작성 가능합니다.");
     }
     const newDiary = {
       user_id: +userId,
@@ -26,7 +25,6 @@ export default class DiaryService {
     };
     try {
       const daily = await User.dailyUpdate(userId);
-      console.log(newDiary);
       const body = await Diary.create(newDiary);
 
       return body;
@@ -71,7 +69,9 @@ export default class DiaryService {
    */
   static async secondReadList(userId, cursor) {
     const body = await Diary.secondReadList(userId, cursor);
-    body.push({ cursor: body[body.length - 1].id });
+    if (body.length >= 1) {
+      body.push({ cursor: body[body.length - 1].id });
+    }
     return body;
   }
   /**
@@ -118,16 +118,19 @@ export default class DiaryService {
    */
   static async searchList(userId, search, word) {
     switch (search) {
-      case 'title':
+      case "title":
         return await Diary.searchTitle(userId, word);
-      case 'text':
+      case "text":
         return await Diary.searchText(userId, word);
-      case 'tag':
+      case "tag":
         return await Diary.searchTag(userId, word);
-      case 'all':
+      case "all":
         return await Diary.searchAll(userId, word);
-      default:
-        throw new Error('올바른 쿼리 값을 입력해주세요.');
     }
+  }
+
+  static async tagList(userId, tag) {
+    const tags = Diary.tagList(userId, tag);
+    return tags;
   }
 }

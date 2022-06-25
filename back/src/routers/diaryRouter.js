@@ -370,14 +370,28 @@ diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   const userId = req.user.id;
   const search = Object.keys(req.query)[0];
   const word = req.query[search];
+  const words = ["title", "text", "tag", "all"];
+  if (!words.includes(search)) {
+    const error = new Error("올바른 쿼리 값을 입력해주세요.");
+    return next(error);
+  }
   if (typeof word == "undefined" || word == null) {
-    throw new Error("올바른 쿼리 값을 입력해주세요.");
+    const error = new Error("올바른 쿼리 값을 입력해주세요.");
+    return next(error);
   }
   if (word.length === 0) {
-    throw new Error("검색어를 한 글자 이상 입력해주세요!");
+    const error = new Error("검색어를 한 글자 이상 입력해주세요!");
+    return next(error);
   }
   const result = await DiaryService.searchList(userId, search, word);
   res.status(status.STATUS_200_OK).send(result);
+});
+
+diaryRouter.get("/tag", loginRequired, async (req, res, next) => {
+  const userId = req.user.id;
+  const { search } = req.query;
+  const tags = DiaryService.tagList(userId, search);
+  res.status(status.STATUS_200_OK).send(tags);
 });
 
 /**
