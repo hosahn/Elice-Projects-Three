@@ -3,7 +3,7 @@ import MainCurrentChallenge from './MainCurrentChallenge';
 import useGetChallenge from '../../hooks/useGetChallenge';
 import Nav from '../../components/nav/Nav';
 import styled from 'styled-components';
-
+import { useNavigate } from 'react-router-dom';
 import { SubContext, HighLightPurple } from '../../styles/CommonStyle';
 import Calendar from './Calendar';
 import MainDiaryList from './MainDiaryList';
@@ -12,14 +12,23 @@ import * as Api from '../../api';
 const UserMain = () => {
   const [user, setUser] = useState(''); // 백에서 받아오는 user정보
   const { getDateDiff, date } = useGetChallenge();
-
+  const navigate = useNavigate();
   useEffect(() => {
     getUser();
   });
 
   const getUser = async () => {
-    const res = await Api.get('user/info');
-    console.log(res.data); //
+    try {
+      const res = await Api.get('user/info');
+      console.log(res);
+    } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        console.error('data : ', data);
+        alert('로그인한 사용자가 아닙니다.');
+        navigate('/login');
+      }
+    }
   };
 
   return (
