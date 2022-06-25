@@ -128,4 +128,9 @@ export default class DiaryService {
         return await Diary.searchAll(userId, word);
     }
   }
+
+  static async tagList(userId, tag) {
+    const tags = Diary.tagList(userId, tag);
+    return tags;
+  }
 }

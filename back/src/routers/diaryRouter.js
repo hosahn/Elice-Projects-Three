@@ -387,6 +387,13 @@ diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   res.status(status.STATUS_200_OK).send(result);
 });
 
+diaryRouter.get("/tag", loginRequired, async (req, res, next) => {
+  const userId = req.user.id;
+  const { search } = req.query;
+  const tags = DiaryService.tagList(userId, search);
+  res.status(status.STATUS_200_OK).send(tags);
+});
+
 /**
  * @swagger
  * /diary/{id}:

@@ -32,8 +32,9 @@ model diary {
   date    DateTime? @default(now()) @db.Timestamp(0)
   view    Int?      @default(1)
   deleted Boolean?  @default(false)
-  emotion String   @db.VarChar(10)
+  emotion String    @db.VarChar(10)
   users   users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "diary_ibfk_1")
+  book    book[]
 
   @@index([user_id], map: "user_id")
 }
@@ -74,6 +75,7 @@ model users {
   updated_at     DateTime?        @updatedAt @db.Timestamp(0)
   name           String?          @db.VarChar(10)
   daily_check    Boolean?         @default(false)
+  book           book[]
   diary          diary[]
   user_challenge user_challenge[]
   user_rewards   user_rewards[]
@@ -120,4 +122,17 @@ model music {
   genre  String? @db.VarChar(6)
 
   @@ignore
+}
+
+model book {
+  id       Int     @id @default(autoincrement())
+  user_id  Int?
+  diary_id Int?
+  image    String? @db.Text
+  color    String? @db.VarChar(50)
+  diary    diary?  @relation(fields: [diary_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_ibfk_2")
+  users    users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_ibfk_1")
+
+  @@index([diary_id], map: "diary_id")
+  @@index([user_id], map: "user_id")
 }
