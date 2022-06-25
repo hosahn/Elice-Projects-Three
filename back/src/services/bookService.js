@@ -21,4 +21,9 @@ export default class BookService {
     const book = await Book.bookImage(bookId, image);
     return book;
   }
+
+  static async bookColor(bookId, color) {
+    const book = await Book.bookColor(bookId, color);
+    return book;
+  }
 }

@@ -191,4 +191,16 @@ bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
   }
 });
 
+bookRouter.post("/colors/:id", loginRequired, async (req, res, next) => {
+  const { id: diaryId } = req.params;
+  const { color } = req.body;
+  try {
+    const book = await BookService.bookColor(diaryId, color);
+    res.status(status.STATUS_200_OK).send(book);
+  } catch (error) {
+    const err = new Error(`색 변경 에러 : ${error}`);
+    next(err);
+  }
+});
+
 export default bookRouter;

@@ -85,4 +85,16 @@ export default class Book {
     });
     return book;
   }
+
+  static async bookColor(bookId, color) {
+    const book = await prisma.book.update({
+      where: {
+        id: +bookId,
+      },
+      data: {
+        color: color,
+      },
+    });
+    return book;
+  }
 }
