@@ -16,4 +16,9 @@ export default class BookService {
     const { diary: diarys } = list[0];
     return diarys;
   }
+
+  static async bookImage(bookId, image) {
+    const book = await Book.bookImage(bookId, image);
+    return book;
+  }
 }

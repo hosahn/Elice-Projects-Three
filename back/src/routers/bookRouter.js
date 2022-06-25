@@ -179,4 +179,16 @@ bookRouter.get("/diarys", loginRequired, async (req, res, next) => {
   res.status(status.STATUS_200_OK).send(list);
 });
 
+bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
+  const { id: diaryId } = req.params;
+  const { image } = req.body;
+  try {
+    const book = await BookService.bookImage(diaryId, image);
+    res.status(status.STATUS_200_OK).send(book);
+  } catch (error) {
+    const err = new Error(`이미지 업로드 에러 : ${error}`);
+    next(err);
+  }
+});
+
 export default bookRouter;

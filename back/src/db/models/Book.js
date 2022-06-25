@@ -73,4 +73,16 @@ export default class Book {
     });
     return diarys;
   }
+
+  static async bookImage(bookId, image) {
+    const book = await prisma.book.update({
+      where: {
+        id: +bookId,
+      },
+      data: {
+        image: image,
+      },
+    });
+    return book;
+  }
 }
