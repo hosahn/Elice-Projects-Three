@@ -74,10 +74,10 @@ export default class Book {
     return diarys;
   }
 
-  static async bookImage(bookId, image) {
+  static async bookImage(userId, bookId, image) {
     const book = await prisma.book.update({
       where: {
-        id: +bookId,
+        idUserId: { id: +bookId, user_id: +userId },
       },
       data: {
         image: image,
@@ -86,10 +86,10 @@ export default class Book {
     return book;
   }
 
-  static async bookColor(bookId, color) {
+  static async bookColor(userId, bookId, color) {
     const book = await prisma.book.update({
       where: {
-        id: +bookId,
+        idUserId: { id: +bookId, user_id: +userId },
       },
       data: {
         color: color,

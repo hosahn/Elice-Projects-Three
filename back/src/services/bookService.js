@@ -17,13 +17,13 @@ export default class BookService {
     return diarys;
   }
 
-  static async bookImage(bookId, image) {
-    const book = await Book.bookImage(bookId, image);
+  static async bookImage(userId, bookId, image) {
+    const book = await Book.bookImage(userId, bookId, image);
     return book;
   }
 
-  static async bookColor(bookId, color) {
-    const book = await Book.bookColor(bookId, color);
+  static async bookColor(userId, bookId, color) {
+    const book = await Book.bookColor(userId, bookId, color);
     return book;
   }
 }
