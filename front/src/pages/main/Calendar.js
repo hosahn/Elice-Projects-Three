@@ -43,6 +43,7 @@ const Calendar = () => {
 
   const getCalendarList = async () => {
     const res = await Api.get(`calendar/${year}/${month}`);
+    console.log(res.data);
     setCalendarList(res.data);
     setCounter(res.data.length);
   };
@@ -81,11 +82,9 @@ const Calendar = () => {
               let emotion = '';
               if (calendar.list !== 0) {
                 for (let i = 0; i < counter; i++) {
+                  const { checkDate } = changeUtc(calendarList[i].date);
                   diary =
-                    changeUtc(calendarList[i].date).slice(0, 8) ===
-                    current.format('YYYYMMDD')
-                      ? 'ok'
-                      : 'no';
+                    checkDate === current.format('YYYYMMDD') ? 'ok' : 'no';
 
                   if (diary === 'ok') {
                     diaryId = calendarList[i].id;

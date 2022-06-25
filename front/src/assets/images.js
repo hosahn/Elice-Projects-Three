@@ -5,6 +5,10 @@ import Naver from './image/Naver.png';
 import FortuneCookie from './image/FortuneCookie.png';
 import Calendar from './image/Calendar.png';
 import Travel from './image/Travel.jpg';
+import Broze from './image/Broze.png';
+import Gold from './image/Gold.png';
+import Silver from './image/Silver.png';
+
 const images = {
   Bg,
   Google,
@@ -13,6 +17,9 @@ const images = {
   FortuneCookie,
   Calendar,
   Travel,
+  Broze,
+  Gold,
+  Silver,
 };
 
 export default images;

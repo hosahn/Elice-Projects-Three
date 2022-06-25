@@ -17,6 +17,16 @@ const UserMain = () => {
     getUser();
   });
 
+  useEffect(() => {
+    getConfirm();
+  });
+
+  const getConfirm = async () => {
+    console.log('Get');
+    const res = await Api.get('confirmed/fortune');
+    console.log(res.data);
+  };
+
   const getUser = async () => {
     try {
       const res = await Api.get('user/info');

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from '../../components/modal/Modal';
 import * as Api from '../../api';
-import { faItalic, faRotateForward } from '@fortawesome/free-solid-svg-icons';
 
+// 아직 미완성된 코드입니다.
 const EditCover = (props) => {
   const { setBookColor, setOpenEditCover } = props;
   const [openPalette, setOpenPalette] = useState(false);
@@ -24,11 +24,8 @@ const EditCover = (props) => {
     <Modal>
       {/* reward.map((it) => <ColorWrapper color={it.color} />) */}
       <ColorContainer>
-        <ColorWrapper onClick={() => selectColor('#faa2c1')} value="#faa2c1" />
-        <ColorWrapper />
-        <ColorWrapper />
-        <ColorWrapper />
-        <ColorWrapper />
+        {/* map */}
+        {/* <ColorWrapper onClick={() => selectColor('#faa2c1')} value="#faa2c1" /> */}
         <ColorWrapper />
         <button onClick={() => setOpenEditCover(false)}>확인</button>
       </ColorContainer>

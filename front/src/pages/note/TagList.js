@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import images from '../../assets/images';
 import EditCover from './EditCover';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

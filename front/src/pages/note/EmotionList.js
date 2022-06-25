@@ -53,7 +53,9 @@ const EmotionList = () => {
     if (isLoaded === true) {
       try {
         const res = await Api.get(`diary/list/?cursor=${cursor}`);
-        console.log(res.data);
+        if (diaryList.length !== 0 && diaryList[9].id === res.data[0].id) {
+          return console.log('반복된 일기 list');
+        }
         const length = res.data.length;
         const sliceData = res.data.slice(0, length - 1);
         setCursor(res.data.slice(-1)[0].cursor);
@@ -63,7 +65,7 @@ const EmotionList = () => {
           setStop(true);
         }
       } catch (err) {
-        console.log(err);
+        alert('error');
       }
     }
   };
@@ -83,7 +85,7 @@ const EmotionList = () => {
       const res = await Api.get(`diary/search/?${select}=${search}`);
       setDiaryList(res.data);
       if (res.data.length === 0) {
-        return <h1>검색에 해당하는 일기가 없다아</h1>;
+        return <h1>검색에 해당하는 일기가 없다아를 잘 보여주고 싶</h1>;
       }
     } else {
       console.log('Asdf');
@@ -126,7 +128,7 @@ const EmotionList = () => {
               <Title>{it.title}</Title>
             </TitleContainer>
             <DateWrapper>
-              {/* <DiaryDate>{it.date.slice(0, 10)}</DiaryDate> */}
+              <DiaryDate>{it.date.slice(0, 10)}</DiaryDate>
             </DateWrapper>
           </EmotionCard>
         ))}

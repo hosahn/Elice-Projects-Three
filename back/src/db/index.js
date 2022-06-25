@@ -5,4 +5,15 @@ import { Calendar } from './models/Calendar.js';
 import { UserChallenge } from './models/UserCh.js';
 import { Challenge } from './models/Challenge.js';
 import { Reward } from './models/Reward.js';
-export { User, Diary, Calendar, UserChallenge, Challenge, Reward };
+import { Activity } from './models/Activity.js';
+import { Fortune } from './models/Fortune.js';
+export {
+  User,
+  Diary,
+  Calendar,
+  UserChallenge,
+  Challenge,
+  Reward,
+  Activity,
+  Fortune,
+};
