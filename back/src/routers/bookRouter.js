@@ -181,7 +181,7 @@ bookRouter.get("/diarys", loginRequired, async (req, res, next) => {
 /**
  * @swagger
  * /book/images/{id}:
- *   get:
+ *   post:
  *     tags: [Book]
  *     description: |
  *       * 북태그 이미지를 업데이트 하는 API 입니다.
@@ -268,7 +268,7 @@ bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
 /**
  * @swagger
  * /book/colors/{id}:
- *   get:
+ *   post:
  *     tags: [Book]
  *     description: |
  *       * 북태그 색상을 업데이트 하는 API 입니다.
