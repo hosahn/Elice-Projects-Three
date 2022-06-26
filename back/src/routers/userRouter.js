@@ -91,6 +91,7 @@ userRouter.post("/signup/check", async (req, res) => {
 userRouter.post("/signup", async (req, res) => {
   const { email, pw, name } = req.body;
   const social = "local";
+
   const result = await User.createUser({ email, pw, social, name });
   if (result == null) {
     res.send(false);
@@ -114,12 +115,6 @@ userRouter.post("/signup/check", async (req, res) => {
   } else {
     res.send(false);
   }
-});
-
-userRouter.get("/info", loginRequired, async (req, res) => {
-  const userId = req.user.id;
-  const user = await UserService.userInfo(userId);
-  res.status(200).send(user);
 });
 
 export { userRouter };

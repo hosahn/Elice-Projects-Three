@@ -1,14 +1,8 @@
-import { Router } from 'express';
-import passport from 'passport';
+import { Router } from "express";
+import passport from "passport";
 const loginRouter = Router();
 
 loginRouter.post(
-<<<<<<< HEAD
-  '/local',
-  passport.authenticate('local', {
-    failureRedirect: '/user/failed',
-    successRedirect: '/user/localcomplete',
-=======
   "/local",
   (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -20,7 +14,6 @@ loginRouter.post(
   passport.authenticate("local", {
     failureRedirect: "/user/failed",
     successRedirect: "/user/localcomplete",
->>>>>>> Be/afterDiary/HS
   }),
   (err) => {
     console.log(err);
@@ -28,10 +21,6 @@ loginRouter.post(
 );
 
 loginRouter.get(
-<<<<<<< HEAD
-  '/google',
-  passport.authenticate('google', { scope: ['email'] }, (err) => {
-=======
   "/google",
   (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -41,20 +30,10 @@ loginRouter.get(
     }
   },
   passport.authenticate("google", { scope: ["email"] }, (err) => {
->>>>>>> Be/afterDiary/HS
     console.log(err);
   })
 );
 
-<<<<<<< HEAD
-loginRouter.get('/kakao', passport.authenticate('kakao'), (err) => {
-  console.log(err);
-});
-
-loginRouter.get('/naver', passport.authenticate('naver'), (err) => {
-  console.log(err);
-});
-=======
 loginRouter.get(
   "/kakao",
   (req, res, next) => {
@@ -84,6 +63,5 @@ loginRouter.get(
     console.log(err);
   }
 );
->>>>>>> Be/afterDiary/HS
 
 export { loginRouter };

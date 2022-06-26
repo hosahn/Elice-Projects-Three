@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import { Strategy } from 'passport-kakao';
-import passport from 'passport';
-import '../config/env.js';
-import { PrismaClient } from '@prisma/client';
-import { User } from '../db/models/User.js';
-=======
 import { Strategy } from "passport-kakao";
 import passport from "passport";
 import "../config/env.js";
@@ -12,25 +5,20 @@ import { PrismaClient } from "@prisma/client";
 import { User } from "../db/models/User.js";
 import bcrypt from "bcrypt";
 
->>>>>>> Be/afterDiary/HS
 const prisma = new PrismaClient();
 
 const option = {
   clientID: process.env.KAKAO_CLIENT_ID,
-  clientSecret: 'Qte99kpuJKNq1DWF3M3v7cEbc9LUuNPt',
-  callbackURL: 'http://localhost:5001/user/kakaocomplete',
+  clientSecret: "Qte99kpuJKNq1DWF3M3v7cEbc9LUuNPt",
+  callbackURL: "http://localhost:5001/user/kakaocomplete",
 };
 
 const verify = async (accessToken, refreshToken, profile, done) => {
   const email = profile._json.kakao_account.email;
 
   const name = profile._json.properties.nickname;
-<<<<<<< HEAD
-  const result = await User.findUser({ email, social: 'kakao' });
-=======
   const result = await User.findUser({ email, social: "kakao" });
 
->>>>>>> Be/afterDiary/HS
   try {
     if (result) {
       return done(null, result);
@@ -42,14 +30,8 @@ const verify = async (accessToken, refreshToken, profile, done) => {
       const createdUser = await prisma.users.create({
         data: {
           email: email,
-<<<<<<< HEAD
-          pw: process.env.LOCAL_PASSWORD,
-          social: 'kakao',
-
-=======
           pw: hashedPW,
           social: "kakao",
->>>>>>> Be/afterDiary/HS
           name: name,
         },
       });
@@ -61,5 +43,5 @@ const verify = async (accessToken, refreshToken, profile, done) => {
 };
 
 export const KakaoStrategy = () => {
-  passport.use('kakao', new Strategy(option, verify));
+  passport.use("kakao", new Strategy(option, verify));
 };
