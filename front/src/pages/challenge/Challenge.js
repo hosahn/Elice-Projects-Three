@@ -15,7 +15,8 @@ const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
   const [currentChallenge, setCurrentChallenge] = useState([]);
   const [completedChallenge, setCompletedChallenge] = useState([]);
-  const [openCompleted, setOpenCompleted] = useState(false);
+  const [openCompletedChallenge, setOpenCompletedChallenge] = useState(false);
+  const [openList, setOpenList] = useState(challengeList);
   const [disabled, setDisabled] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -30,7 +31,6 @@ const Challenge = () => {
     setDisabled(res.data.log.isRunning === true ? true : false);
 
     if (res.data.log.isRunning === true) {
-      // false => currentChallenge
       const indexFalse = res.data.log.completed.indexOf(false);
       setCurrentChallenge(res.data.log.challenge[indexFalse]);
     }
@@ -51,8 +51,12 @@ const Challenge = () => {
     }
   };
 
+  if (openCompletedChallenge === true) {
+    console.log('openCompletedChallenge');
+  }
+
   const clickCompleteCard = () => {
-    setOpenCompleted((prev) => !prev);
+    setOpenCompletedChallenge((prev) => !prev);
   };
 
   return (
@@ -67,36 +71,17 @@ const Challenge = () => {
               진행한 챌린지
             </ChallengeBtn>
           </TitleWrap>
-          {openCompleted ? (
-            completedChallenge.length === 0 ? (
-              <>완료한 챌린지가 없어요.ㅠ-ㅠ</>
-            ) : (
-              <>
-                {completedChallenge.map((it) => (
-                  <ChallengeCard
-                    it={it}
-                    key={it.id}
-                    disabled={disabled}
-                    currentChallenge={currentChallenge}
-                    setIsLoaded={setIsLoaded}
-                    setCurrentChallenge={setCurrentChallenge}
-                  />
-                ))}
-              </>
+          {(openCompletedChallenge ? completedChallenge : challengeList).map(
+            (it) => (
+              <ChallengeCard
+                it={it}
+                key={it.id}
+                disabled={disabled}
+                currentChallenge={currentChallenge}
+                setIsLoaded={setIsLoaded}
+                setCurrentChallenge={setCurrentChallenge}
+              />
             )
-          ) : (
-            <>
-              {challengeList.map((it) => (
-                <ChallengeCard
-                  it={it}
-                  key={it.id}
-                  disabled={disabled}
-                  currentChallenge={currentChallenge}
-                  setIsLoaded={setIsLoaded}
-                  setCurrentChallenge={setCurrentChallenge}
-                />
-              ))}
-            </>
           )}
         </MainContainer>
       </div>

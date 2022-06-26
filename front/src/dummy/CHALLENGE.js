@@ -1,9 +1,9 @@
 const res = {
   data: {
     log: {
-      completed: [true, true, false, false],
+      completed: [true, false],
       challenge: ['5일 챌린지', '50일 챌린지', '20일챌린지', '30일챌린지'],
-      isRunning: false,
+      isRunning: true,
     },
     challenge: [
       {
