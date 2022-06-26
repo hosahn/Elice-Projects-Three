@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tag from './DiaryTag';
 import Title from './DiaryTitle';
 import DiaryEditor from './DiaryEditor';
@@ -7,6 +7,9 @@ import Nav from '../../components/nav/Nav';
 import { DiaryContext } from '../../styles/DiaryStyle';
 
 const Diary = () => {
+  const [title, setTitle] = useState('');
+  const [inputTag, setInputTag] = useState('');
+
   return (
     <div>
       <Nav />
@@ -14,9 +17,9 @@ const Diary = () => {
         <DiaryContext>
           <Text />
         </DiaryContext>
-        <Title />
-        <Tag />
-        <DiaryEditor />
+        <Title tite={title} setTitle={setTitle} />
+        <Tag inputTag={inputTag} setInputTag={setInputTag} />
+        <DiaryEditor title={title} tag={inputTag} />
       </div>
     </div>
   );

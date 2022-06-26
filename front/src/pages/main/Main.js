@@ -8,18 +8,21 @@ import { SubContext, HighLightPurple } from '../../styles/CommonStyle';
 import Calendar from './Calendar';
 import MainDiaryList from './MainDiaryList';
 import * as Api from '../../api';
+import { useRecoilValue } from 'recoil';
+import { getUserSelector } from '../../atoms';
 
 const UserMain = () => {
-  const [user, setUser] = useState(''); // 백에서 받아오는 user정보
+  const user = useRecoilValue(getUserSelector);
   const { getDateDiff, date } = useGetChallenge();
   const navigate = useNavigate();
-  useEffect(() => {
-    getUser();
-  });
 
   useEffect(() => {
     getConfirm();
-  });
+  }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const getConfirm = async () => {
     console.log('Get');
@@ -27,25 +30,11 @@ const UserMain = () => {
     console.log(res.data);
   };
 
-  const getUser = async () => {
-    try {
-      const res = await Api.get('user/info');
-      console.log(res);
-    } catch (error) {
-      if (error.response) {
-        const { data } = error.response;
-        console.error('data : ', data);
-        alert('로그인한 사용자가 아닙니다.');
-        navigate('/login');
-      }
-    }
-  };
-
   return (
     <>
       <Nav />
       <SubContext>
-        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! 저희와{' '}
+        안녕하세요. <HighLightPurple>{}</HighLightPurple>님! 저희와{' '}
         <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
       </SubContext>
       <UserMainContainer>
@@ -53,7 +42,7 @@ const UserMain = () => {
           <MainCurrentChallenge />
           <MainDiaryList />
         </ContentsContainer>
-        <Calendar setUser={setUser} />
+        <Calendar />
       </UserMainContainer>
     </>
   );

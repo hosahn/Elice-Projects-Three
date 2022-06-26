@@ -39,6 +39,12 @@ const TagBook = (props) => {
     hiddenInput.current.click();
   };
 
+  const clickBook = async (e) => {
+    console.log(it.name);
+    const res = await Api.get(`book/diarys?tag=${it.name}`);
+    console.log(res.data);
+  };
+
   const onChangeImage = async (event) => {
     const image = event.target.files[0];
     const imgName = image.name.replace(/(\s*)/g, '');
@@ -52,7 +58,7 @@ const TagBook = (props) => {
   };
 
   return (
-    <TagContainer color={bookColor}>
+    <TagContainer color={bookColor} onClick={clickBook}>
       <ContenstContainer>
         <TitleWrapper>
           <span>#{it.name}</span>

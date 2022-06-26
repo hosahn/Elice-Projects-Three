@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import useEdit from '../../hooks/useEdit';
-import axios from 'axios';
 import * as Api from '../../api';
 import TagBook from './TagBook';
 
@@ -30,15 +29,11 @@ const TagList = () => {
 
   const clickSubmit = async (color, image, id) => {
     checkType('submit');
+
     const res1 = await Api.post(`book/images/${id}`, {
       image,
     });
-    const res2 = await Api.post(`book/colors/${id}`, {
-      color,
-    });
-
     console.log(res1);
-    console.log(res2);
   };
 
   return (
@@ -69,6 +64,7 @@ const TagListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  cursor: pointer;
 `;
 
 export default TagList;

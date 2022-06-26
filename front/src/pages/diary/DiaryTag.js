@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { tagState } from '../../atoms';
 import { TagBox, TagItem, TagInput } from '../../styles/TagStyle';
 import { WaringText } from '../../styles/DiaryStyle';
 
-const Tag = () => {
+const Tag = (props) => {
   const [tagItem, setTagItem] = useState('');
-  const [inputTag, setInputTag] = useRecoilState(tagState);
+  const { inputTag, setInputTag } = props;
   const [warningOpen, setWarningOpen] = useState(false);
 
   const checkTagLength = (event) => {

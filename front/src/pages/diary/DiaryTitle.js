@@ -1,12 +1,10 @@
 import React from 'react';
 import { TextInput } from '../../styles/CommonStyle';
-import { useRecoilState } from 'recoil';
-import { titleState } from '../../atoms';
 import { useState } from 'react';
 import { WaringText } from '../../styles/DiaryStyle';
 
-const Title = () => {
-  const [title, setTitle] = useRecoilState(titleState);
+const Title = (props) => {
+  const { title, setTitle } = props;
   const [open, setOpen] = useState(false);
 
   const checkInputTitle = (event) => {
