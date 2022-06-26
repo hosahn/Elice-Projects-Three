@@ -53,7 +53,6 @@ const bookRouter = Router();
  *     - application/json
  *     responses:
  *       '200':
- *         description: "유저가 작성한 일기 조회 성공"
  *         content:
  *           application/json:
  *             schema:
@@ -179,6 +178,80 @@ bookRouter.get("/diarys", loginRequired, async (req, res, next) => {
   res.status(status.STATUS_200_OK).send(list);
 });
 
+/**
+ * @swagger
+ * /book/images/{id}:
+ *   get:
+ *     tags: [Book]
+ *     description: |
+ *       * 북태그 이미지를 업데이트 하는 API 입니다.
+ *       * 요청 url 은 ``/book/images/:id`` 로서 뒤에 ``업데이트할 북 태그의 ID`` 를 작성해주면 됩니다.
+ *       > Body 에는 바꿀 이미지에 대한 url 을 image에 넣어주시면 됩니다.
+ *       ---
+ *       * ``요청 Body``
+ *       ```js
+ *       {
+ *           "image": "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1656170840145%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%A1%E1%84%8C%E1%85%B5.jpeg"
+ *       }
+ *       ```
+ *       ---
+ *       * ``응답 값``
+ *       ```js
+ *       {
+ *        "id": 5,
+ *        "user_id": 2,
+ *        "inserted_at": "2022-06-25T14:35:46.000Z",
+ *        "updated_at": "2022-06-26T05:21:05.000Z",
+ *        "image": "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1656170840145%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%A1%E1%84%8C%E1%85%B5.jpeg",
+ *        "color": "2f323a",
+ *        "name": "테스트"
+ *       }
+ *       ```
+ *     produces:
+ *     - application/json
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       example: 5
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1656170840145%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%A1%E1%84%8C%E1%85%B5.jpeg"
+ *                 description: "변경할 이미지 url"
+ *     responses:
+ *       '200':
+ *         content:
+ *           application/json:
+ *             schema:
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   example: 5
+ *                 user_id:
+ *                   type: number
+ *                   example: 2
+ *                 inserted_at:
+ *                   type: Date
+ *                   example: 2022-06-25T14:35:46.000Z
+ *                 updated_at:
+ *                   type: Date
+ *                   example: 2022-06-26T05:21:05.000Z
+ *                 image:
+ *                   type: string
+ *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1656170840145%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%A1%E1%84%8C%E1%85%B5.jpeg"
+ *                 color:
+ *                   type: string
+ *                   example: "2f323a"
+ *                 name:
+ *                   type: number
+ *                   example: 테스트
+ */
 bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
   const { id: userId } = req.user;
   const { id: bookId } = req.params;
@@ -192,6 +265,80 @@ bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /book/colors/{id}:
+ *   get:
+ *     tags: [Book]
+ *     description: |
+ *       * 북태그 색상을 업데이트 하는 API 입니다.
+ *       * 요청 url 은 ``/book/colors/:id`` 로서 뒤에 ``업데이트할 북 태그의 ID`` 를 작성해주면 됩니다.
+ *       > Body 에는 바꿀 색상에 대한 값을 color 에 넣어주시면 됩니다.
+ *       ---
+ *       * ``요청 Body``
+ *       ```js
+ *       {
+ *           "color": "2f323a"
+ *       }
+ *       ```
+ *       ---
+ *       * ``응답 값``
+ *       ```js
+ *       {
+ *        "id": 5,
+ *        "user_id": 2,
+ *        "inserted_at": "2022-06-25T14:35:46.000Z",
+ *        "updated_at": "2022-06-26T05:21:05.000Z",
+ *        "image": "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1656170840145%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%A1%E1%84%8C%E1%85%B5.jpeg",
+ *        "color": "2f323a",
+ *        "name": "테스트"
+ *       }
+ *       ```
+ *     produces:
+ *     - application/json
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       example: 5
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               color:
+ *                 type: string
+ *                 example: "2f323a"
+ *                 description: "변경할 색상 코드"
+ *     responses:
+ *       '200':
+ *         content:
+ *           application/json:
+ *             schema:
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   example: 5
+ *                 user_id:
+ *                   type: number
+ *                   example: 2
+ *                 inserted_at:
+ *                   type: Date
+ *                   example: 2022-06-25T14:35:46.000Z
+ *                 updated_at:
+ *                   type: Date
+ *                   example: 2022-06-26T05:21:05.000Z
+ *                 image:
+ *                   type: string
+ *                   example: "https://ai-project-last.s3.ap-northeast-2.amazonaws.com/diary/1656170840145%E1%84%80%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%A1%E1%84%8C%E1%85%B5.jpeg"
+ *                 color:
+ *                   type: string
+ *                   example: "2f323a"
+ *                 name:
+ *                   type: number
+ *                   example: 테스트
+ */
 bookRouter.post("/colors/:id", loginRequired, async (req, res, next) => {
   const { id: userId } = req.user;
   const { id: bookId } = req.params;
