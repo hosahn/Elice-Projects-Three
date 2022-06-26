@@ -127,7 +127,6 @@ model music {
 }
 
 model book {
-<<<<<<< HEAD
   id      Int     @id @default(autoincrement())
   user_id Int
   inserted_at    DateTime?        @default(now()) @db.Timestamp(0)
@@ -139,18 +138,5 @@ model book {
   diary   diary[]
   @@unique([id, user_id], name: "idUserId")
   @@index([user_id], map: "user_id")
-=======
-  id          Int       @id @default(autoincrement())
-  user_id     Int
-  image       String?   @default("https://ai-project-last.s3.ap-northeast-2.amazonaws.com/defaultImage/nightSky.jpg") @db.VarChar(255)
-  color       String?   @default("#d0ebff") @db.VarChar(50)
-  name        String?   @db.VarChar(50)
-  inserted_at DateTime? @default(now()) @db.Timestamp(0)
-  updated_at  DateTime? @default(now()) @db.Timestamp(0)
-  users       users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "book_ibfk_1")
-  diary       diary[]
 
-  @@unique([id, user_id])
-  @@index([user_id], map: "book_ibfk_1")
->>>>>>> Be/afterDiary/HS
 }
