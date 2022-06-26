@@ -20,15 +20,12 @@ const DiaryEditor = () => {
   const setWrite = useSetRecoilState(writeState);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [imageList, setImageList] = useState([]);
 
   const uploadImage = async (blob) => {
     const name = blob.name;
     const imgName = name.replace(/(\s*)/g, '');
     const res = await Api.get(`upload/${imgName}`);
 
-    setImageList((data) => [res.data.imageUrl, ...data]);
-    console.log(imageList);
     await axios({
       method: 'put',
       url: res.data.url,
@@ -41,30 +38,35 @@ const DiaryEditor = () => {
   const handleClick = async () => {
     const editorInstance = editorRef.current.getInstance();
     const temp = editorInstance.getMarkdown();
-    if (title.length > 0 && temp.length > 2) {
-      await Api.post('diary', {
-        tag,
-        text: editorInstance.getMarkdown(),
-        title,
-        imageList,
-      });
-      setSubmit((prev) => !prev);
-      setLoading((prev) => !prev);
-      setWrite(true);
-      setTimeout(() => setLoading((prev) => !prev), 1500);
-    } else {
-      alert('일기 작성 문구 ~~~~~');
-    }
-
-    const diary = temp.replace(
+    const deleteImg = temp.replace(
       /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
       ''
     );
-    console.log(diary);
-
-    await Api.postDiary({
-      diary: diary,
-    }).then((res) => console.log(res));
+    const diary = deleteImg.replace(/<([^>]+)>/g, '');
+    if (title.length > 0 && temp.length > 2) {
+      try {
+        const res = await Api.postDiary({
+          diary: diary,
+        });
+        if (res.data.length !== 0) {
+          console.log(typeof res.data);
+          await Api.post('diary', {
+            tag,
+            text: temp,
+            title,
+            emotion: res.data,
+          });
+          setSubmit((prev) => !prev);
+          setLoading((prev) => !prev);
+          setWrite(true);
+          setTimeout(() => setLoading((prev) => !prev), 1500);
+        } else {
+          alert('일기 작성 문구 ~~~~~');
+        }
+      } catch (err) {
+        alert('일기 저장에 실패');
+      }
+    }
   };
 
   return (

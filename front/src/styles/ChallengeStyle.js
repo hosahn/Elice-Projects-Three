@@ -102,6 +102,11 @@ export const StartBtn = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.color.subPurple};
   }
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    background: var(--button-bg-color, #025ce2);
+  }
 `;
 
 export const CardsContainer = styled.div`

@@ -16,12 +16,13 @@ const Nav = () => {
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');
+        navigate('/');
       }
     } catch (error) {
       if (error.response) {
         const { data } = error.response;
         console.error('data : ', data);
-        alert('로그아웃에 실패하였습니다.');
+        navigate('/');
       }
     }
   };
@@ -31,7 +32,7 @@ const Nav = () => {
       <Btn onClick={() => navigate('/challenge')}>
         <HighLight>챌린지</HighLight>
       </Btn>
-      <Btn>
+      <Btn onClick={() => navigate('/report')}>
         <HighLight>리포트</HighLight>
       </Btn>
       <Btn onClick={() => navigate('/diaryEditor')}>

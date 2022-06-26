@@ -1,4 +1,4 @@
-import { Diary } from "../db/index.js";
+import { Diary, User } from "../db/index.js";
 //@ts-check
 export default class DiaryService {
   /**
@@ -8,17 +8,29 @@ export default class DiaryService {
    * @param {string} body.text - 일기 내용
    * @param {string} body.title - 일기 제목
    * @param {string} body.tag - 일기 태그 [ 주제 ]
+   * @param {string} body.emotion - 일기 감정
    * @returns {Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
    */
-  static async create({ userId, text, title, tag }) {
+  static async create({ userId, text, title, tag, emotion }) {
+    const { daily_check: check } = await User.dailyCheck(userId);
+    if (check) {
+      throw Error("일기는 하루에 한번만 작성 가능합니다.");
+    }
     const newDiary = {
       user_id: +userId,
       text,
       title,
       tag,
+      emotion,
     };
-    const body = await Diary.create(newDiary);
-    return body;
+    try {
+      const daily = await User.dailyUpdate(userId);
+      const body = await Diary.create(newDiary);
+
+      return body;
+    } catch (error) {
+      throw Error(`일기 작성 에러:${error.message}`);
+    }
   }
   /**
    * - 일기 삭제 Service 함수
@@ -39,15 +51,29 @@ export default class DiaryService {
   }
 
   /**
-   *  - 일기 목록 조회 Service 함수
-   * @param {number} userId - 지금까지 작성한 일기 리스트를 조회하기 위한 user_id 값
-   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   *  - 일기 목록 첫 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @returns {Array.Promise<{id:number, user_id:number, text: string, title: string, tag: string, date: Date, view: number,}>}
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
+    body.push({ cursor: body[body.length - 1].id });
     return body;
   }
 
+  /**
+   * - 일기 목록 커서 조회 Service 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {number} cursor - 커서 위치
+   * @returns
+   */
+  static async secondReadList(userId, cursor) {
+    const body = await Diary.secondReadList(userId, cursor);
+    if (body.length >= 1) {
+      body.push({ cursor: body[body.length - 1].id });
+    }
+    return body;
+  }
   /**
    *  - 일기가 존재하는지 확인하는 함수
    * @param {number} id - 다이어리 고유 ID
@@ -81,5 +107,30 @@ export default class DiaryService {
   static async randomDiarys(userId) {
     const diarys = await Diary.randomDiarys(userId);
     return diarys;
+  }
+
+  /**
+   * - 일기를 검색하는 함수
+   * @param {number} userId - 유저 고유 ID
+   * @param {string} search  -검색할 위치
+   * @param {string} word  - 검색할 내용
+   * @returns {Array.Promise<{id:number, text: string, title: string, tag: string, date: Date, view: number}>}
+   */
+  static async searchList(userId, search, word) {
+    switch (search) {
+      case "title":
+        return await Diary.searchTitle(userId, word);
+      case "text":
+        return await Diary.searchText(userId, word);
+      case "tag":
+        return await Diary.searchTag(userId, word);
+      case "all":
+        return await Diary.searchAll(userId, word);
+    }
+  }
+
+  static async tagList(userId, tag) {
+    const tags = Diary.tagList(userId, tag);
+    return tags;
   }
 }

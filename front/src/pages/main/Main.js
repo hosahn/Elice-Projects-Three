@@ -1,65 +1,76 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import MainChallenge from './MainChallenge';
-import { MiainChallengeContainer } from '../../styles/MainStyle';
-import MainCallengeInfo from './MainChallengeInfo';
+import MainCurrentChallenge from './MainCurrentChallenge';
 import useGetChallenge from '../../hooks/useGetChallenge';
 import Nav from '../../components/nav/Nav';
-import {
-  MainTitle,
-  SubContext,
-  HighLightPurple,
-  MainContainer,
-} from '../../styles/CommonStyle';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { SubContext, HighLightPurple } from '../../styles/CommonStyle';
+import Calendar from './Calendar';
+import MainDiaryList from './MainDiaryList';
+import * as Api from '../../api';
 
 const UserMain = () => {
-  const [user, setUser] = useState({}); // 백에서 받아오는 user정보
+  const [user, setUser] = useState(''); // 백에서 받아오는 user정보
   const { getDateDiff, date } = useGetChallenge();
+  const navigate = useNavigate();
+  useEffect(() => {
+    getUser();
+  });
 
   useEffect(() => {
-    mockOpen();
-  }, []);
+    getConfirm();
+  });
 
-  const mockOpen = async () => {
-    const mainUrl = 'https://12team.com/user/1234';
-    const challengeUrl = 'https://12team.com/userChallenge/1234';
-    await axios
-      .all([axios.get(mainUrl), axios.get(challengeUrl)])
-      .then(
-        axios.spread((r1, r2) => {
-          const res1 = r1.data;
-          const res2 = r2.data;
-          const res = { ...res1, ...res2 };
-          setUser(res);
-          getDateDiff(res.inserted_at); // 적용되기 전에 불렀다.
-        })
-      )
-      .catch(error => {
-        console.log(error);
-      });
+  const getConfirm = async () => {
+    console.log('Get');
+    const res = await Api.get('confirmed/fortune');
+    console.log(res.data);
+  };
+
+  const getUser = async () => {
+    try {
+      const res = await Api.get('user/info');
+      console.log(res);
+    } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        console.error('data : ', data);
+        alert('로그인한 사용자가 아닙니다.');
+        navigate('/login');
+      }
+    }
   };
 
   return (
     <>
       <Nav />
       <SubContext>
-        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! <br />
-        저희와 <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
+        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! 저희와{' '}
+        <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
       </SubContext>
-      <MainContainer>
-        <MiainChallengeContainer>
-          {user.is_broken ? (
-            <MainTitle>현재 진행 중인 챌린지가 없습니다. ㅠ.ㅠ</MainTitle>
-          ) : (
-            <>
-              <MainCallengeInfo user={user} />
-              <MainChallenge user={user} />
-            </>
-          )}
-        </MiainChallengeContainer>
-      </MainContainer>
+      <UserMainContainer>
+        <ContentsContainer>
+          <MainCurrentChallenge />
+          <MainDiaryList />
+        </ContentsContainer>
+        <Calendar setUser={setUser} />
+      </UserMainContainer>
     </>
   );
 };
 
 export default UserMain;
+
+const UserMainContainer = styled.div`
+  position: relative;
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: 400px 2fr;
+  place-items: center;
+`;
+
+const ContentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 300px;
+`;

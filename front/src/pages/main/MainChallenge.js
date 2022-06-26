@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { BarWrap, Filter, Label } from '../../styles/ProgressStyle';
 import Cards from '../../components/card/Cards';
 import useGetChallenge from '../../hooks/useGetChallenge';
 import CardContainer from '../../components/card/CardContainer';
@@ -11,11 +10,6 @@ import COLOR from '../../dummy/COLOR';
 const ColorCardContainer = styled.div`
   width: 7%;
   float: left;
-`;
-
-const ProgressBarContainer = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 const CardsContainer = styled.div`

@@ -10,7 +10,7 @@ const NavWrapper = styled.div`
 
 const NavBtn = styled.button`
   font-family: 'MICEMyungjo';
-  color: white;
+  color: black;
   font-size: 20px;
   margin-right: 40px;
   :hover {
