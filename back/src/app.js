@@ -12,10 +12,9 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import passport from "passport";
 import { passportStrategies } from "./passport/finalStrategy.js";
+import connectRedis from "connect-redis";
 import session from "express-session";
-import { default as mysqlSession } from "express-mysql-session";
 import { reportRouter } from "./routers/reportRouter.js";
-import mysql from "mysql";
 import { loginRouter } from "./routers/loginRouter.js";
 import { userRouter } from "./routers/userRouter.js";
 import { calendarRouter } from "./routers/calendarRouter.js";
@@ -28,8 +27,15 @@ import { afterDiaryRouter } from "./routers/afterDiary.js";
 import { rewardRouter } from "./routers/rewardRouter.js";
 import { ChallengeSchedule } from "./schedule/check.js";
 import { pdfRouter } from "./routers/pdfRouter.js";
+import { createClient } from "redis";
+import ioredis from "ioredis";
+
 process.setMaxListeners(15);
 export const app = express();
+const redisStore = connectRedis(session);
+const redisCloud = createClient();
+redisCloud.connect().catch(console.error);
+const client = new ioredis(process.env.REDIS_URL);
 
 Sentry.init({
   dsn: process.env.DSN,
@@ -38,19 +44,6 @@ Sentry.init({
 });
 
 const csrfProtection = csurf({ cookie: true });
-
-if (process.env.NODE_ENV !== "test") {
-  const mysqlStore = mysqlSession(session);
-  var options = {
-    host: process.env.MYSQL_HOST,
-    port: 3306,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: "sessionstore",
-  };
-  var connection = mysql.createConnection(options);
-  var sessionStore = new mysqlStore(options, connection);
-}
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
@@ -72,8 +65,13 @@ app.use(compression());
 //passport
 app.use(
   session({
+    name: "session",
     secret: process.env.SESSION_SECRET,
-    store: sessionStore,
+    store: new redisStore({
+      client: client,
+      host: "127.0.0.1",
+      port: 6379,
+    }),
     resave: false,
     saveUninitialized: false,
     expires: new Date(Date.now() + 60 * 30),
