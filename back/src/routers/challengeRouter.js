@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const challengeRouter = Router();
 
-challengeRouter.get("/", async (req, res) => {
+challengeRouter.get("/all", async (req, res) => {
   // 챌린지 타입 1 => 일기 수, 2=> 감정 수, 3=> 기타 단발성;
   if (req.isAuthenticated()) {
     const user_id = req.user.id;

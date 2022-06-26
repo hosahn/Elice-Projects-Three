@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 import { Strategy } from 'passport-naver';
 import passport from 'passport';
 import '../config/env.js';
 import { PrismaClient } from '@prisma/client';
 import { User } from '../db/index.js';
+=======
+import { Strategy } from "passport-naver";
+import passport from "passport";
+import "../config/env.js";
+import { PrismaClient } from "@prisma/client";
+import { User } from "../db/index.js";
+import bcrypt from "bcrypt";
+
+>>>>>>> Be/afterDiary/HS
 const prisma = new PrismaClient();
 
 const option = {
@@ -20,12 +30,22 @@ const verify = async (accessToken, refreshToken, profile, done) => {
     if (result) {
       return done(null, result);
     } else {
+      const hashedPW = bcrypt.hashSync(
+        process.env.LOCAL_PASSWORD,
+        process.env.SALT_ROUND
+      );
       const createdUser = await prisma.users.create({
         data: {
           email: email,
+<<<<<<< HEAD
           pw: process.env.LOCAL_PASSWORD,
           social: 'naver',
           name: '밤하늘',
+=======
+          pw: hashedPW,
+          social: "naver",
+          name: "밤하늘",
+>>>>>>> Be/afterDiary/HS
         },
       });
       return done(null, createdUser);

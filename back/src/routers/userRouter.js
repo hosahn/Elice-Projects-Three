@@ -99,6 +99,12 @@ userRouter.post("/signup", async (req, res) => {
   }
 });
 
+userRouter.get("/info", async (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send(req.user);
+  }
+});
+
 userRouter.post("/signup/check", async (req, res) => {
   const { email } = req.body.email;
   const social = "local";

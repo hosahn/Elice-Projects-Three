@@ -6,4 +6,19 @@ import { UserChallenge } from "./models/UserCh.js";
 import { Challenge } from "./models/Challenge.js";
 import { Reward } from "./models/Reward.js";
 import Book from "./models/book.js";
-export { User, Diary, Calendar, UserChallenge, Challenge, Reward, Book };
+import { Fortune } from "./models/Fortune.js";
+import { Activity } from "./models/activity.js";
+import { Report } from "./models/report.js";
+
+export {
+  User,
+  Diary,
+  Calendar,
+  UserChallenge,
+  Challenge,
+  Reward,
+  Book,
+  Fortune,
+  Activity,
+  Report,
+};

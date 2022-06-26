@@ -31,6 +31,7 @@ class ChallengeService {
       if (challenge.is_completed == false) {
         isRunning = true;
       }
+      console.log(challenge.challenge_id);
       return challenge.challenge_id;
     });
     let completed = challenge.map((challenge) => {
@@ -38,7 +39,7 @@ class ChallengeService {
     });
     const result = await Challenge.findChallengesById({ challenge_array });
     const name = result.map((result) => {
-      return result.name;
+      return result;
     });
     return { completed: completed, challenge: name, isRunning: isRunning };
   }
