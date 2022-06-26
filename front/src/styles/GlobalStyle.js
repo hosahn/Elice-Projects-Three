@@ -11,6 +11,15 @@ ${reset}
   box-sizing: border-box;
 }
 
+// book
+*, *:before, *:after { 
+
+}
+*:before, *:after { 
+  content: ""; 
+  position: absolute; 
+} 
+
 html{
 margin: 0;
   padding: 0;

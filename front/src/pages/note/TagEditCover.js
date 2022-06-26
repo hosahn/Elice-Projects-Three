@@ -4,11 +4,15 @@ import Modal from '../../components/modal/Modal';
 import * as Api from '../../api';
 
 // 아직 미완성된 코드입니다.
-const EditCover = (props) => {
+const TagEditCover = (props) => {
   const { setBookColor, setOpenEditCover } = props;
   const [openPalette, setOpenPalette] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   //   const [reward, setReward] = useState(1);
+
+  useEffect(() => {
+    clickPalette();
+  }, []);
 
   const clickPalette = async () => {
     try {
@@ -29,7 +33,7 @@ const EditCover = (props) => {
       {/* reward.map((it) => <ColorWrapper color={it.color}  key={it.id}/>) */}
       <ColorContainer>
         {/* map */}
-        {/* <ColorWrapper onClick={() => selectColor('#faa2c1')} value="#faa2c1" /> */}
+        <ColorWrapper onClick={() => selectColor('#faa2c1')} value="#faa2c1" />
         <ColorWrapper />
         <button onClick={() => setOpenEditCover(false)}>확인</button>
       </ColorContainer>
@@ -41,7 +45,7 @@ const ColorWrapper = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50px;
-  //  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.color};
   background-color: pink;
   cursor: pointer;
 `;
@@ -54,4 +58,4 @@ const ColorContainer = styled.div`
   margin-top: 50px;
 `;
 
-export default EditCover;
+export default TagEditCover;

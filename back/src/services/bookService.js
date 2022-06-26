@@ -1,4 +1,4 @@
-import { Book } from "../db/index.js";
+import { Book } from '../db/index.js';
 
 export default class BookService {
   /**
@@ -15,5 +15,15 @@ export default class BookService {
     const list = await Book.bookDiarys(userId, tag);
     const { diary: diarys } = list[0];
     return diarys;
+  }
+
+  static async bookImage(userId, bookId, image) {
+    const book = await Book.bookImage(userId, bookId, image);
+    return book;
+  }
+
+  static async bookColor(userId, bookId, color) {
+    const book = await Book.bookColor(userId, bookId, color);
+    return book;
   }
 }
