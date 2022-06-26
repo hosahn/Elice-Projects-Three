@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
 import Landing from './pages/Landing';
 import UserMain from './pages/main/Main';
 import UserInfo from './pages/UserInfo';
@@ -11,6 +10,7 @@ import Register from './pages/register/Register';
 import Note from './pages/note/Note';
 import View from './pages/note/View';
 import Report from './pages/Report';
+import './App.css';
 
 function App() {
   return (

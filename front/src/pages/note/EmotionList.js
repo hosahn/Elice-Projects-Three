@@ -15,10 +15,10 @@ import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 
 const SEARCH = [
-  { value: 'title', name: '제목⭐️' },
-  { value: 'tag', name: '태그🔖 ' },
-  { value: 'text', name: '내용🗒' },
-  { value: 'all', name: '통합📓' },
+  { value: 'title', name: '제목⭐️', id: 1 },
+  { value: 'tag', name: '태그🔖 ', id: 2 },
+  { value: 'text', name: '내용🗒', id: 3 },
+  { value: 'all', name: '통합📓', id: 4 },
 ];
 
 const EmotionList = () => {
@@ -104,9 +104,9 @@ const EmotionList = () => {
           <option disabled selected>
             검색🔎
           </option>
-          {SEARCH.map((it, index) => {
+          {SEARCH.map((it) => {
             return (
-              <option name={it.name} key={index} value={it.value}>
+              <option name={it.name} key={it.id} value={it.value}>
                 {it.name}
               </option>
             );
@@ -126,8 +126,8 @@ const EmotionList = () => {
         </SearchWrapper>
       </SearchContainer>
       <div>
-        {diaryList.map((it, index) => (
-          <EmotionCard onClick={openCard} name={it.id} key={index}>
+        {diaryList.map((it) => (
+          <EmotionCard onClick={openCard} key={it.id}>
             <TitleContainer>
               <span>이미지</span>
               <Title>{it.title}</Title>

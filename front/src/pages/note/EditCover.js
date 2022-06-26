@@ -26,7 +26,7 @@ const EditCover = (props) => {
 
   return (
     <Modal>
-      {/* reward.map((it) => <ColorWrapper color={it.color} />) */}
+      {/* reward.map((it) => <ColorWrapper color={it.color}  key={it.id}/>) */}
       <ColorContainer>
         {/* map */}
         {/* <ColorWrapper onClick={() => selectColor('#faa2c1')} value="#faa2c1" /> */}
