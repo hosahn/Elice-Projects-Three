@@ -34,6 +34,7 @@ export default class Diary {
       },
       data: {
         deleted: true,
+        book_id: null,
       },
     });
     return deleteDiary;

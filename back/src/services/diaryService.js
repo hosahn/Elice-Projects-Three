@@ -1,4 +1,4 @@
-import { Diary, User } from "../db/index.js";
+import { Diary, User, Book } from "../db/index.js";
 //@ts-check
 export default class DiaryService {
   /**
@@ -16,17 +16,37 @@ export default class DiaryService {
     if (check) {
       throw Error("일기는 하루에 한번만 작성 가능합니다.");
     }
-    const newDiary = {
-      user_id: +userId,
-      text,
-      title,
-      tag,
-      emotion,
-    };
     try {
-      const daily = await User.dailyUpdate(userId);
+      const TagCheck = await Book.findTag(userId, tag);
+      if (TagCheck == null) {
+        const newBook = {
+          user_id: +userId,
+          name: tag,
+        };
+        const book = await Book.createBook(newBook);
+        const newDiary = {
+          user_id: +userId,
+          text,
+          title,
+          tag,
+          emotion,
+          book_id: book.id,
+        };
+        const body = await Diary.create(newDiary);
+        const daily = await User.dailyUpdate(userId);
+        return body;
+      }
+      const { id: bookId } = TagCheck;
+      const newDiary = {
+        user_id: +userId,
+        text,
+        title,
+        tag,
+        emotion,
+        book_id: bookId,
+      };
       const body = await Diary.create(newDiary);
-
+      const daily = await User.dailyUpdate(userId);
       return body;
     } catch (error) {
       throw Error(`일기 작성 에러:${error.message}`);
@@ -129,8 +149,4 @@ export default class DiaryService {
     }
   }
 
-  static async tagList(userId, tag) {
-    const tags = Diary.tagList(userId, tag);
-    return tags;
-  }
 }

@@ -25,6 +25,7 @@ import { afterDiaryRouter } from './routers/afterDiaryRouter.js';
 import diaryRouter from './routers/diaryRouter.js';
 import uploadRouter from './routers/uploadRouter.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
+import bookRouter from './routers/bookRouter.js';
 
 process.setMaxListeners(15);
 
@@ -115,6 +116,7 @@ app.use('/pdf', pdfRouter);
 app.use('/reward', rewardRouter);
 app.use('/challenge', challengeRouter);
 app.use('/confirmed', afterDiaryRouter);
+app.use('/book', bookRouter);
 
 app.use(function (req, res, next) {
   res.status(404).send('존재하지 않는 페이지 입니다!');

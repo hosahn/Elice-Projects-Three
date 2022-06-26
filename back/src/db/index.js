@@ -7,6 +7,7 @@ import { Challenge } from './models/Challenge.js';
 import { Reward } from './models/Reward.js';
 import { Activity } from './models/Activity.js';
 import { Fortune } from './models/Fortune.js';
+import Book from './models/book.js';
 export {
   User,
   Diary,
@@ -16,4 +17,5 @@ export {
   Reward,
   Activity,
   Fortune,
+  Book,
 };
