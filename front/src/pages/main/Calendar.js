@@ -42,10 +42,13 @@ const Calendar = () => {
   };
 
   const getCalendarList = async () => {
-    const res = await Api.get(`calendar/${year}/${month}`);
-    console.log(res.data);
-    setCalendarList(res.data);
-    setCounter(res.data.length);
+    try {
+      const res = await Api.get(`calendar/${year}/${month}`);
+      setCalendarList(res.data);
+      setCounter(res.data.length);
+    } catch (err) {
+      alert('달력 에러 발생');
+    }
   };
 
   const addMonth = async () => {

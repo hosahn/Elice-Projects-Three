@@ -32,23 +32,31 @@ const View = () => {
   useEffect(() => {}, [diary]);
 
   const getDiary = async () => {
-    const res = await Api.get(`diary/${state}`);
-    setDiary(res.data);
+    try {
+      const res = await Api.get(`diary/${state}`);
+      setDiary(res.data);
+    } catch (err) {
+      alert('일기 로딩에 실패...');
+    }
   };
 
   const clickPdf = async (e) => {
     e.preventDefault();
-    const res = await Api.getPdf(`pdf/${diary.id}`);
-    const blob = new Blob([res.data]);
-    const fileObjectUrl = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = fileObjectUrl;
-    link.style.display = 'none';
-    link.download = 'asdf.pdf';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(fileObjectUrl);
+    try {
+      const res = await Api.getPdf(`pdf/${diary.id}`);
+      const blob = new Blob([res.data]);
+      const fileObjectUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = fileObjectUrl;
+      link.style.display = 'none';
+      link.download = 'asdf.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(fileObjectUrl);
+    } catch (err) {
+      alert('pdf 다운로드에 실패하였습니다. ');
+    }
   };
 
   return (

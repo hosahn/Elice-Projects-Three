@@ -13,27 +13,20 @@ const Report = () => {
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
 
-  const allFunction = () => {
-    const isMounted = async () => {
+  const allFunction = async () => {
+    try {
       const data = await Api.get('report');
       setDiaryEmotion(() => data.data.emotion);
       setdiaryTime(() => data.data.time);
-    };
-    isMounted();
-  };
-
-  const allFunction2 = () => {
-    const isMounted = async () => {
-      const data = await Api.get('report');
       setTags(() => data.data.userTag);
       setAllTags(() => data.data.allTag);
-    };
-    isMounted();
+    } catch (err) {
+      alert('err 발생~ 문구 ');
+    }
   };
 
   useEffect(() => {
     allFunction();
-    allFunction2();
   }, []);
 
   if (tags.length === 0) {

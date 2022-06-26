@@ -11,9 +11,13 @@ const MainDiaryList = () => {
   }, []);
 
   const getRandomList = async () => {
-    const res = await Api.get('diary/random/list');
-    setGetDiary(res.data);
-    console.log(res.data);
+    try {
+      const res = await Api.get('diary/random/list');
+      setGetDiary(res.data);
+      console.log(res.data);
+    } catch (err) {
+      alert('에러 발생');
+    }
   };
 
   const clickDiary = (e) => {

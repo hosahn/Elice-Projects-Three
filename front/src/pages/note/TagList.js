@@ -33,14 +33,19 @@ const TagList = () => {
   const onChangeImage = async (event) => {
     const image = event.target.files[0];
     const imgName = image.name.replace(/(\s*)/g, '');
-    const res = await Api.get(`upload/${imgName}`);
-    await axios({
-      method: 'put',
-      url: res.data.url,
-      data: image,
-    });
-
-    setInputImage(res.data.imageUrl);
+    try {
+      const res = await Api.get(`upload/${imgName}`);
+      if (res.length !== 0) {
+        await axios({
+          method: 'put',
+          url: res.data.url,
+          data: image,
+        });
+      }
+      setInputImage(res.data.imageUrl);
+    } catch (err) {
+      alert('이미지 업로드에 실패하였습니다.');
+    }
   };
 
   return (

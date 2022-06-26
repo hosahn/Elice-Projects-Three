@@ -81,11 +81,16 @@ const EmotionList = () => {
   };
 
   const clickSearch = async () => {
-    if (select) {
-      const res = await Api.get(`diary/search/?${select}=${search}`);
-      setDiaryList(res.data);
-      if (res.data.length === 0) {
-        return <h1>검색에 해당하는 일기가 없다아를 잘 보여주고 싶</h1>;
+    if (select.length !== 0) {
+      try {
+        const res = await Api.get(`diary/search/?${select}=${search}`);
+        if (res.data.length === 0) {
+          return <h1>검색에 해당하는 일기가 없다아를 잘 보여주고 싶다</h1>;
+        } else {
+          setDiaryList(res.data);
+        }
+      } catch (err) {
+        alert('검색 중 오류 발생');
       }
     } else {
       console.log('Asdf');

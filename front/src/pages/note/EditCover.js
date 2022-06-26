@@ -11,9 +11,13 @@ const EditCover = (props) => {
   //   const [reward, setReward] = useState(1);
 
   const clickPalette = async () => {
-    const res = await Api.get('reward/user');
-    console.log(res);
-    setOpenPalette(true);
+    try {
+      const res = await Api.get('reward/user');
+      console.log(res);
+      setOpenPalette(true);
+    } catch (err) {
+      alert('err');
+    }
   };
 
   const selectColor = (color) => {
