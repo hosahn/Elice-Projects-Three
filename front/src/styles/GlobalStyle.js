@@ -11,24 +11,27 @@ ${reset}
   box-sizing: border-box;
 }
 
-// book
-*, *:before, *:after { 
-
-}
-*:before, *:after { 
-  content: ""; 
-  position: absolute; 
-} 
-
 html{
 margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
 }
+
+
 
 body{
   font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Nanum Gothic', 'Malgun Gothic', sans-serif;
   box-sizing: border-box;
   position: relative;
+ background-color: #fafafa;
+ height: 100%;
+ width: 100%;
+}
+
+#root{
+  height: 100%;
+  width: 100%;
 }
 
 button{

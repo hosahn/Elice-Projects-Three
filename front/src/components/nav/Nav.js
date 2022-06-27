@@ -4,15 +4,18 @@ import { NavWrap, Btn, UserBtn, HighLight } from '../../styles/NavStyle';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { useResetRecoilState } from 'recoil';
+import { getUserSelector } from '../../atoms';
 
 const Nav = () => {
   const navigate = useNavigate();
+  const resetUser = useResetRecoilState(getUserSelector);
 
-  const logoutHandler = async (e) => {
-    e.preventDefault();
+  const logoutHandler = async () => {
     try {
       const res = await Api.get('user/logout');
       if (res.data === true) {
+        resetUser();
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');

@@ -6,7 +6,7 @@ export const NavWrap = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.subPurple};
+
   button {
     border: none;
     margin-right: 30px;
@@ -18,8 +18,9 @@ export const NavWrap = styled.div`
 
 export const Btn = styled.button`
   margin-right: 10px;
-  color: white;
+  color: black;
   font-weight: bold;
+  font-family: 'KyoboHand';
 `;
 
 export const UserBtn = styled.button`

@@ -38,7 +38,6 @@ export const BattlePassContainer = styled.div`
   width: ${(props) => `${props.containerWdith}rem`};
 `;
 
-//
 export const TitleWrap = styled.div`
   display: flex;
   font-size: 40px;

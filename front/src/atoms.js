@@ -13,7 +13,7 @@ export const getUserSelector = selector({
       const data = await Api.get('user/info');
       return data.data;
     } catch (err) {
-      throw err;
+      throw new '테스트 오류'();
     }
   },
   set: ({ set }, newValue) => {

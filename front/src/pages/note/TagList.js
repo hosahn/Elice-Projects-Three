@@ -38,12 +38,12 @@ const TagList = () => {
 
   return (
     <>
-      <div>
-        <button onClick={openEditBtn ? clickSubmit : clickEdit}>
-          {openEditBtn ? '편집완료' : '편집'}
-        </button>
-        <button onClick={clickCancelEdit}>{openEditBtn && '편집취소'}</button>
-      </div>
+      <BtnContainer>
+        <EditBtn onClick={openEditBtn ? clickSubmit : clickEdit}>
+          {openEditBtn ? '편집완료' : ' 편집'}
+        </EditBtn>
+        {openEditBtn && <EditBtn onClick={clickCancelEdit}>편집취소</EditBtn>}
+      </BtnContainer>
       <TagListContainer>
         {tagList.map((it) => (
           <TagBook
@@ -65,6 +65,22 @@ const TagListContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   cursor: pointer;
+`;
+
+const EditBtn = styled.button`
+  font-family: 'EliceDigitalBaeum';
+  font-size: 1.2rem;
+  width: 100px;
+  height: 40px;
+  background-color: ${({ theme }) => theme.color.subGray};
+  border-radius: 10px;
+  margin-left: 10px;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
 `;
 
 export default TagList;
