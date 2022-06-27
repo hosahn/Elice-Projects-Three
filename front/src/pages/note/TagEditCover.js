@@ -3,6 +3,14 @@ import styled from 'styled-components';
 import Modal from '../../components/modal/Modal';
 import * as Api from '../../api';
 
+const color = [
+  { value: '#FFEC99', id: 1 },
+  { value: '#A5D8FF', id: 2 },
+  { value: '#FFD6A5', id: 3 },
+  { value: '#BDB2FF', id: 4 },
+  { value: '#FFADAD', id: 5 },
+];
+
 // 아직 미완성된 코드입니다.
 const TagEditCover = (props) => {
   const { setBookColor, setOpenEditCover } = props;
@@ -26,16 +34,18 @@ const TagEditCover = (props) => {
 
   const selectColor = (color) => {
     setBookColor(color);
+    setOpenEditCover(false);
   };
 
   return (
-    <Modal>
-      {/* reward.map((it) => <ColorWrapper color={it.color}  key={it.id}/>) */}
+    <Modal setOpen={setOpenEditCover}>
       <ColorContainer>
-        {/* map */}
-        <ColorWrapper onClick={() => selectColor('#faa2c1')} value="#faa2c1" />
-        <ColorWrapper />
-        <button onClick={() => setOpenEditCover(false)}>확인</button>
+        {color.map((it) => (
+          <ColorWrapper
+            onClick={() => selectColor(it.value)}
+            color={it.value}
+          />
+        ))}
       </ColorContainer>
     </Modal>
   );
@@ -44,9 +54,8 @@ const TagEditCover = (props) => {
 const ColorWrapper = styled.div`
   width: 100px;
   height: 100px;
-  border-radius: 50px;
+  border-radius: 10px;
   background-color: ${(props) => props.color};
-  background-color: pink;
   cursor: pointer;
 `;
 

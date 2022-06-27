@@ -164,15 +164,14 @@ const SearchContainer = styled.div`
 
 const SearchWrapper = styled.div`
   position: relative;
-  width: 400px;
   height: 30px;
   margin-bottom: 20px;
   input {
     display: inline-flex;
     width: 300px;
-    height: 3rem;
+    height: 50px;
     color: black;
-    background: #f8f9fa;
+    background: ;
     padding: 0px 30px;
     border: none;
     border-radius: 1rem;

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Modal from '../../components/modal/Modal';
 import styled from 'styled-components';
-
 import Star from '../../components/star';
 
 const emotion = [

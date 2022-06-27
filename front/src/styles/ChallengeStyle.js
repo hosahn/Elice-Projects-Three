@@ -56,8 +56,8 @@ export const ChallengeBtn = styled.label`
 
 export const ChallengeTitle = styled.h1`
   font-size: 35px;
-  font-family: 'EliceDigitalBaeum_Bold';
-  color: black;
+  font-family: 'IM_Hyemin-Bold';
+  color: #495057;
   left: -440px;
 `;
 

@@ -3,13 +3,10 @@ import useCheckUser from '../../utils/checkUser';
 import getDateDiff from '../../utils/getDateDiff';
 import styled from 'styled-components';
 
-const MainInfo = () => {
-  const user = useCheckUser();
-  //   const challengeState = user.user_challenge[0].challenge_id;
-
-  //   console.log(getDateDiff(user.inserted_at));
-
-  useEffect(() => {}, []);
+const MainInfo = (user) => {
+  useEffect(() => {
+    console.log(user.user_challenge);
+  }, [user]);
 
   return (
     <InfoContainer>

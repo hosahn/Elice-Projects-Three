@@ -8,15 +8,12 @@ import {
   ChallengeTitle,
 } from '../../styles/ChallengeStyle';
 import res from '../../dummy/CHALLENGE';
-import * as Api from '../../api';
-import { Filter } from '../../styles/ProgressStyle';
 
 const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
   const [currentChallenge, setCurrentChallenge] = useState([]);
   const [completedChallenge, setCompletedChallenge] = useState([]);
   const [openCompletedChallenge, setOpenCompletedChallenge] = useState(false);
-  const [openList, setOpenList] = useState(challengeList);
   const [disabled, setDisabled] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -67,7 +64,7 @@ const Challenge = () => {
           <TitleWrap>
             <ChallengeTitle>🎯챌린지</ChallengeTitle>
             <ChallengeBtn onClick={clickCompleteCard}>
-              <input type={'checkbox'} />
+              {/* <input type={'checkbox'} /> */}
               진행한 챌린지
             </ChallengeBtn>
           </TitleWrap>

@@ -18,7 +18,14 @@ margin: 0;
   width: 100%;
 }
 
+// book
+*, *:before, *:after { 
 
+}
+*:before, *:after { 
+  content: ""; 
+  position: absolute; 
+} 
 
 body{
   font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Nanum Gothic', 'Malgun Gothic', sans-serif;
@@ -42,6 +49,10 @@ button{
 
 button:hover{
   cursor: pointer;
+}
+
+input {
+  background-color: transparent;
 }
 `;
 

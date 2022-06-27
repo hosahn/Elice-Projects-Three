@@ -27,22 +27,17 @@ const TagList = () => {
     checkType('cancle');
   };
 
-  const clickSubmit = async (color, image, id) => {
+  const clickSubmit = () => {
     checkType('submit');
-
-    const res1 = await Api.post(`book/images/${id}`, {
-      image,
-    });
-    console.log(res1);
   };
 
   return (
     <>
       <BtnContainer>
         <EditBtn onClick={openEditBtn ? clickSubmit : clickEdit}>
-          {openEditBtn ? '편집완료' : ' 편집'}
+          {openEditBtn ? '수정 완료' : ' 수정하기'}
         </EditBtn>
-        {openEditBtn && <EditBtn onClick={clickCancelEdit}>편집취소</EditBtn>}
+        {openEditBtn && <EditBtn onClick={clickCancelEdit}>취소</EditBtn>}
       </BtnContainer>
       <TagListContainer>
         {tagList.map((it) => (
@@ -69,12 +64,12 @@ const TagListContainer = styled.div`
 
 const EditBtn = styled.button`
   font-family: 'EliceDigitalBaeum';
-  font-size: 1.2rem;
+  font-size: 15px;
   width: 100px;
   height: 40px;
-  background-color: ${({ theme }) => theme.color.subGray};
+  background-color: transparent;
   border-radius: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
 `;
 
 const BtnContainer = styled.div`

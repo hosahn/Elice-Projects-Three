@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react';
 import { useState } from 'react';
 import Nav from '../../components/nav/Nav';
 import EmotionList from './EmotionList';

@@ -62,7 +62,7 @@ export const BtnContainer = styled.div`
 `;
 
 export const EmotionBtn = styled.button`
-  font-family: 'InfinitySans-RegularA1';
+  font-family: 'KyoboHand';
   font-size: 20px;
   color: ${(props) => (props.state === false ? '#862e9c' : '#868e96')};
   margin-right: 50px;
@@ -72,7 +72,7 @@ export const EmotionBtn = styled.button`
 `;
 
 export const TagBtn = styled.button`
-  font-family: 'InfinitySans-RegularA1';
+  font-family: 'KyoboHand';
   font-size: 20px;
   color: ${(props) => (props.state === true ? '#862e9c' : '#868e96')};
   margin-right: 50px;
