@@ -31,15 +31,15 @@ def prediction(predict_sentence):
   output = model.config.id2label[predicted_class_id]
     
   if output == "LABEL_0":
-    return "공포"
-  elif output == "LABEL_1":
     return "놀람"
-  elif output == "LABEL_2":
+  elif output == "LABEL_1":
     return "분노"
+  elif output == "LABEL_2":
+    return "불안"
   elif output == "LABEL_3":
     return "슬픔"
   elif output == "LABEL_4":
-    return "중립"
+    return "평범"
   elif output == "LABEL_5":
     return "행복"
   elif output == "LABEL_6":
