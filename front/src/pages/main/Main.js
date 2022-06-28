@@ -6,12 +6,13 @@ import MainDiaryList from './MainDiaryList';
 import { useNavigate } from 'react-router-dom';
 import MainInfo from './MainInfo';
 import * as Api from '../../api';
-import { userState, loginState } from '../../atoms';
+import { userState, loginState, challengeState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
 
 const UserMain = () => {
   const navigate = useNavigate();
   const setUserState = useSetRecoilState(userState);
+  const setChallengeState = useSetRecoilState(challengeState);
   const setLoginState = useSetRecoilState(loginState);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const UserMain = () => {
     try {
       const res = await Api.get('user/info');
       setUserState(res.data);
+      setChallengeState(res.data.user_challenge);
       setLoginState(true);
     } catch (err) {
       navigate('/login');

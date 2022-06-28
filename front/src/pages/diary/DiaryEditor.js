@@ -43,7 +43,7 @@ const DiaryEditor = (props) => {
       tag,
       text: temp,
       title,
-      emotion: 'happy',
+      emotion: '불안',
     });
     // if (title.length > 0 && temp.length > 2) {
     //   try {

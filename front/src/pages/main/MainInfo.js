@@ -1,27 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { userState } from '../../atoms';
+import { challengeState } from '../../atoms';
+import changeUtc from '../../utils/changeUtc';
 
 const MainInfo = () => {
-  const user = useRecoilValue(userState);
-  const [challengeState, setChallengeState] = useState(false);
+  const challenge = useRecoilValue(challengeState);
+  const [open, setOpen] = useState(false);
+  const [currentChallenge, setCurrentChallenge] = useState({
+    id: '',
+    start_date: '',
+    end_date: '',
+  });
 
   useEffect(() => {
-    console.log(user.user_challenge);
-    if (user.user_challenge === 0) {
-      console.log('챌린지 없다.');
+    if (challenge.length === 0) {
+      setOpen(false);
     } else {
-      console.log('챌린지 있다.');
+      const challengeName =
+        challenge[0].challenge_id === 4 ? '5일 매일쓰기' : '50일 매일쓰기';
+      setCurrentChallenge({
+        id: challengeName,
+        start_date: changeUtc(challenge[0].start_date).viewDate,
+        end_date: changeUtc(challenge[0].end_date).viewDate,
+      });
+      setOpen(true);
     }
-  }, [user]);
+  }, [challenge]);
 
   return (
     <InfoContainer>
       <SubContext>
-        {challengeState
-          ? '현재 챌린지를 진행 중 입니다.'
-          : '현재 진행 중인 챌린지는 없습니다.'}
+        {open ? (
+          <div>
+            현재 <span>{currentChallenge.id} 챌린지</span> 를 진행 중입니다.{' '}
+            <br />
+            <DayWrapper>
+              시작일 {currentChallenge.start_date} - 종료일{' '}
+              {currentChallenge.end_date}
+            </DayWrapper>
+          </div>
+        ) : (
+          '현재 진행 중인 챌린지는 없습니다.'
+        )}
       </SubContext>
     </InfoContainer>
   );
@@ -30,11 +51,15 @@ const MainInfo = () => {
 export default MainInfo;
 
 const SubContext = styled.div`
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: 'EliceDigitalBaeum';
   font-size: 20px;
   line-height: 25px;
   font-family: 'KyoboHand';
   margin-top: 10px;
+  padding: 20px 20px;
+  span {
+    background-image: linear-gradient(transparent 60%, pink 40%);
+  }
 `;
 
 const HighLightPurple = styled.span`
@@ -43,7 +68,13 @@ const HighLightPurple = styled.span`
 
 const InfoContainer = styled.div`
   background-color: white;
-  height: 200px;
+  height: 100px;
   border-radius: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 35px;
+`;
+
+const DayWrapper = styled.div`
+  font-family: 'EliceDigitalBaeum';
+  font-size: 15px;
+  color: #868e96;
 `;

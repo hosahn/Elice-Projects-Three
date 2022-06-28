@@ -6,6 +6,11 @@ export const userState = atom({
   default: [],
 });
 
+export const challengeState = atom({
+  key: 'challengeState',
+  default: [],
+});
+
 export const loginState = atom({
   key: 'loginState',
   default: false,
