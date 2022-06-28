@@ -4,7 +4,15 @@ const EmotionGraph = (props) => {
   const data = props.data;
   //도넛 차트 데이터 및 옵션
   const donutData = {
-    series: [data.happy, data.sad, data.angry], // data.happy, data.sad, data.angry
+    series: [
+      data.happy,
+      data.sad,
+      data.angry,
+      data.surprised,
+      data.unrest,
+      data.scunner,
+      data.normal,
+    ], // data.happy, data.sad, data.angry
     options: {
       plotOptions: {
         pie: {
@@ -41,7 +49,7 @@ const EmotionGraph = (props) => {
         text: "",
         align: "left",
       },
-      labels: ["행복", "슬픔", "화남"],
+      labels: ["행복", "슬픔", "화남", "놀람", "불안", "혐오", "보통"],
     },
   };
   return (

@@ -5,12 +5,33 @@ const reportRouter = Router();
 
 reportRouter.get("/", async (req, res) => {
   const user_id = req.user.id;
-  let emotionData = {};
+  let emotionData = {
+    happy: 0,
+    sad: 0,
+    angry: 0,
+    unrest: 0,
+    surprised: 0,
+    scunner: 0,
+  };
   const diaryEmotion = await Report.findMonthlyEmotion({ user_id });
   console.log(diaryEmotion);
   for (let i = 0; i < diaryEmotion.length; i++) {
     let emotion = diaryEmotion[i].emotion;
-    emotionData[emotion] = diaryEmotion[i].count;
+    if (emotion == "행복") {
+      emotionData["happy"] = diaryEmotion[i].count;
+    } else if (emotion == "슬픔") {
+      emotionData["sad"] = diaryEmotion[i].count;
+    } else if (emotion == "분노") {
+      emotionData["angry"] = diaryEmotion[i].count;
+    } else if (emotion == "불안") {
+      emotionData["unrest"] = diaryEmotion[i].count;
+    } else if (emotion == "놀람") {
+      emotionData["surprised"] = diaryEmotion[i].count;
+    } else if (emotion == "평범") {
+      emotionData["normal"] = diaryEmotion[i].count;
+    } else if (emotion == "혐오") {
+      emotionData["scunner"] = diaryEmotion[i].count;
+    }
   }
   const timeLine = await Report.findWhen({ user_id });
   let timeData = {
