@@ -5,11 +5,7 @@ const reportRouter = Router();
 
 reportRouter.get("/", async (req, res) => {
   const user_id = req.user.id;
-  let emotionData = {
-    happy: 0,
-    sad: 0,
-    angry: 0,
-  };
+  let emotionData = {};
   const diaryEmotion = await Report.findMonthlyEmotion({ user_id });
   console.log(diaryEmotion);
   for (let i = 0; i < diaryEmotion.length; i++) {

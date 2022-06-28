@@ -31,7 +31,6 @@ import { createClient } from "redis";
 import ioredis from "ioredis";
 
 process.setMaxListeners(15);
-
 export const app = express();
 const redisStore = connectRedis(session);
 const redisCloud = createClient();
@@ -58,7 +57,6 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -71,20 +69,15 @@ app.use(
     secret: process.env.SESSION_SECRET,
     store: new redisStore({
       client: client,
-      host: "127.0.0.1",
-      port: 6379,
     }),
     resave: false,
     saveUninitialized: false,
     expires: new Date(Date.now() + 60 * 30),
-    secure: false,
   })
 );
-
 passportStrategies();
 app.use(passport.initialize());
 app.use(passport.session());
-passportStrategies();
 
 //Sentry
 if (process.env.NODE_ENV === "production") {
