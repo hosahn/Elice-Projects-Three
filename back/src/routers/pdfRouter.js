@@ -11,7 +11,6 @@ pdfRouter.get("/:id", async (req, res) => {
         id: diary_id,
       });
       res.contentType("application/pdf");
-      console.log(__dirname);
       res.sendFile(path.join(__dirname, "/", data));
     } catch (e) {
       console.log(e);

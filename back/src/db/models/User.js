@@ -15,7 +15,6 @@ class User {
     if (isUser) {
       return null;
     } else {
-      console.log(process.env.SALT_ROUND);
       const hashedPW = await bcrypt.hash(pw, 10);
       const createdUser = await prisma.users.create({
         data: {
@@ -58,10 +57,8 @@ class User {
           social: social,
         },
       });
-      console.log(foundUser);
       const hashed = foundUser.pw;
       const comparedResult = await bcrypt.compare(pw, hashed);
-      console.log(comparedResult);
       if (comparedResult) {
         return foundUser;
       } else {

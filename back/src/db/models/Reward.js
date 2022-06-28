@@ -12,7 +12,6 @@ class Reward {
     });
     if (alreadyGiven) return false;
     else {
-      console.log("created");
       return await prisma.user_rewards.create({
         data: {
           challenge_id: challenge_id,
