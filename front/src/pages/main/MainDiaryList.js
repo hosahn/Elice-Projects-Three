@@ -47,7 +47,7 @@ export default MainDiaryList;
 
 const DiaryListContainer = styled.div`
   span {
-    font-family: 'KyoboHand';
+    font-family: 'EliceDigitalBaeum';
     font-size: 20px;
   }
 `;

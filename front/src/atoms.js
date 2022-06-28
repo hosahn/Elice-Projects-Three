@@ -6,6 +6,11 @@ export const userState = atom({
   default: [],
 });
 
+export const loginState = atom({
+  key: 'loginState',
+  default: false,
+});
+
 export const getUserSelector = selector({
   key: 'user/get',
   get: async () => {

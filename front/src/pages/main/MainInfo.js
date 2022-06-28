@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import useCheckUser from '../../utils/checkUser';
-import getDateDiff from '../../utils/getDateDiff';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { userState } from '../../atoms';
 
-const MainInfo = (user) => {
+const MainInfo = () => {
+  const user = useRecoilValue(userState);
+  const [challengeState, setChallengeState] = useState(false);
+
   useEffect(() => {
     console.log(user.user_challenge);
+    if (user.user_challenge === 0) {
+      console.log('챌린지 없다.');
+    } else {
+      console.log('챌린지 있다.');
+    }
   }, [user]);
 
   return (
     <InfoContainer>
-      <SubContext>현재 {}를 진행 중입니다.</SubContext>
+      <SubContext>
+        {challengeState
+          ? '현재 챌린지를 진행 중 입니다.'
+          : '현재 진행 중인 챌린지는 없습니다.'}
+      </SubContext>
     </InfoContainer>
   );
 };
@@ -33,4 +45,5 @@ const InfoContainer = styled.div`
   background-color: white;
   height: 200px;
   border-radius: 10px;
+  margin-bottom: 15px;
 `;

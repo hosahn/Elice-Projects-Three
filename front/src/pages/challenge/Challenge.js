@@ -7,7 +7,7 @@ import {
   ChallengeBtn,
   ChallengeTitle,
 } from '../../styles/ChallengeStyle';
-import res from '../../dummy/CHALLENGE';
+import * as Api from '../../api';
 
 const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
@@ -22,7 +22,7 @@ const Challenge = () => {
   }, [isLoaded]);
 
   const getChallenge = async () => {
-    // const res = await Api.get('challenge'); 더미데이터로 작동 확인
+    const res = await Api.get('challenge');
     console.log(res.data);
     setChallengeList(res.data.challenge);
     setDisabled(res.data.log.isRunning === true ? true : false);
@@ -64,7 +64,6 @@ const Challenge = () => {
           <TitleWrap>
             <ChallengeTitle>🎯챌린지</ChallengeTitle>
             <ChallengeBtn onClick={clickCompleteCard}>
-              {/* <input type={'checkbox'} /> */}
               진행한 챌린지
             </ChallengeBtn>
           </TitleWrap>

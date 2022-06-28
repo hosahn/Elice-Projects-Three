@@ -22,6 +22,7 @@ import { challengeRouter } from './routers/challengeRouter.js';
 import { pdfRouter } from './routers/pdfRouter.js';
 import { rewardRouter } from './routers/rewardRouter.js';
 import { afterDiaryRouter } from './routers/afterDiaryRouter.js';
+import { reportRouter } from './routers/reportRouter.js';
 import diaryRouter from './routers/diaryRouter.js';
 import uploadRouter from './routers/uploadRouter.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
@@ -116,6 +117,7 @@ app.use('/pdf', pdfRouter);
 app.use('/reward', rewardRouter);
 app.use('/challenge', challengeRouter);
 app.use('/confirmed', afterDiaryRouter);
+app.use('/report', reportRouter);
 app.use('/book', bookRouter);
 
 app.use(function (req, res, next) {
