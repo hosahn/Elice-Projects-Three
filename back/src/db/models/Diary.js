@@ -93,7 +93,7 @@ export default class Diary {
         view: true,
       },
       orderBy: {
-        id: "desc",
+        date: "desc",
       },
     });
     return diaryList;
