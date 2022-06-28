@@ -3,6 +3,7 @@ import * as Api from '../../api';
 import axios from 'axios';
 import {
   ImgIconWrapper,
+  EditIconWrapper,
   ColorIconWrapper,
   TagContainer,
   ContenstContainer,
@@ -10,61 +11,59 @@ import {
   TitleWrapper,
 } from '../../styles/BookStyle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faFileImage } from '@fortawesome/free-solid-svg-icons';
+import {
+  faGear,
+  faFileImage,
+  faPalette,
+  faCircleCheck,
+} from '@fortawesome/free-solid-svg-icons';
 import TagEditCover from './TagEditCover';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const TagBook = (props) => {
   const [openEditCover, setOpenEditCover] = useState(false);
   const [bookColor, setBookColor] = useState();
   const [inputImage, setInputImage] = useState();
+  const [openEditBtn, setOpenEditBtn] = useState(false);
+  const [openTagList, setOpenTagList] = useState(false);
+  const [tagList, setTagList] = useState([]);
   const hiddenInput = useRef();
-  const { openEditBtn, it, cancleBtn, openSubmit } = props;
+  const { it } = props;
 
   useEffect(() => {
     setBookColor(it.color);
     setInputImage(it.image);
   }, []);
 
-  useEffect(() => {
-    if (cancleBtn) {
-      setInputImage(it.image);
-      setBookColor(it.color);
-    }
-  }, [cancleBtn]);
-
-  useEffect(() => {
-    if (openSubmit) {
-      clickSubmit();
-    }
-  }, [openSubmit]);
-
   const clickSubmit = async () => {
-    const res1 = await Api.post(`book/images/${it.id}`, {
-      inputImage,
-    });
-    console.log(res1);
-
+    console.log(it.id);
     await axios.all([
       Api.post(`book/images/${it.id}`, {
-        inputImage,
+        image: inputImage,
       }),
       Api.post(`book/colors/${it.id}`, {
-        bookColor,
+        color: bookColor,
       }),
     ]);
+    setOpenEditBtn(false);
   };
 
   const openEdit = () => {
-    setOpenEditCover((prev) => !prev);
+    setOpenEditBtn(true);
   };
 
   const clickEditImage = () => {
     hiddenInput.current.click();
   };
 
+  const openEditColor = () => {
+    setOpenEditCover(true);
+  };
+
   const clickBook = async (e) => {
     const res = await Api.get(`book/diarys?tag=${it.name}`);
-    console.log(res.data);
+    setTagList(res.data);
+    setOpenTagList(true);
   };
 
   const onChangeImage = async (event) => {
@@ -80,41 +79,52 @@ const TagBook = (props) => {
   };
 
   return (
-    <TagContainer color={bookColor} onClick={clickBook}>
-      <ContenstContainer>
-        <TitleWrapper>
-          <span>#{it.name}</span>
-        </TitleWrapper>
-        <ImageWrapper image={inputImage}>
-          {openEditBtn && (
-            <>
-              <ImgIconWrapper onClick={clickEditImage} image={inputImage}>
-                <FontAwesomeIcon icon={faFileImage} className="fileImage" />
-              </ImgIconWrapper>
-              <input
-                type="file"
-                accept="image/jpg,impge/png,image/jpeg,image/gif"
-                name="profile_img"
-                style={{ display: 'none' }}
-                ref={hiddenInput}
-                onChange={onChangeImage}
-              />
-            </>
-          )}
-        </ImageWrapper>
-      </ContenstContainer>
-      {openEditBtn && (
-        <ColorIconWrapper onClick={openEdit}>
-          <FontAwesomeIcon icon={faGear} className="user" />
-        </ColorIconWrapper>
-      )}
-      {openEditCover && (
-        <TagEditCover
-          setBookColor={setBookColor}
-          setOpenEditCover={setOpenEditCover}
-        />
-      )}
-    </TagContainer>
+    <>
+      <TagContainer color={bookColor}>
+        <ContenstContainer>
+          <TitleWrapper onClick={clickBook}>
+            <span>#{it.name}</span>
+          </TitleWrapper>
+          <ImageWrapper image={inputImage}>
+            {openEditBtn && (
+              <>
+                <ImgIconWrapper onClick={clickEditImage} image={inputImage}>
+                  <FontAwesomeIcon icon={faFileImage} className="fileImage" />
+                </ImgIconWrapper>
+                <input
+                  type="file"
+                  accept="image/jpg,impge/png,image/jpeg,image/gif"
+                  name="profile_img"
+                  style={{ display: 'none' }}
+                  ref={hiddenInput}
+                  onChange={onChangeImage}
+                />
+              </>
+            )}
+          </ImageWrapper>
+        </ContenstContainer>
+        {openEditBtn && (
+          <ColorIconWrapper onClick={openEditColor}>
+            <FontAwesomeIcon icon={faPalette} className="color" />
+          </ColorIconWrapper>
+        )}
+        {openEditBtn ? (
+          <EditIconWrapper onClick={clickSubmit}>
+            <FontAwesomeIcon icon={faCircleCheck} className="user" />
+          </EditIconWrapper>
+        ) : (
+          <EditIconWrapper onClick={openEdit}>
+            <FontAwesomeIcon icon={faGear} className="user" />
+          </EditIconWrapper>
+        )}
+        {openEditCover && (
+          <TagEditCover
+            setBookColor={setBookColor}
+            setOpenEditCover={setOpenEditCover}
+          />
+        )}
+      </TagContainer>
+    </>
   );
 };
 

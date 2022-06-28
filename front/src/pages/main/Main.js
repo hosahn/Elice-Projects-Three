@@ -22,6 +22,7 @@ const UserMain = () => {
   const getUser = async () => {
     try {
       const res = await Api.get('user/info');
+      console.log(res.data);
       setUserState(res.data);
       setChallengeState(res.data.user_challenge);
       setLoginState(true);

@@ -44,7 +44,7 @@ export const DiaryDate = styled.span`
 `;
 
 export const TitleContainer = styled.div`
-  margin: 10px 0px;
+  margin: 20px 10px;
 `;
 
 export const DateWrapper = styled.div`
@@ -109,13 +109,12 @@ export const TagWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   min-height: 500px;
-  background-color: #f8f9fa;
+  background-color: white;
   margin-bottom: 20px;
   padding: 20px 30px;
   border-radius: 20px;
 `;
 
-//
 export const DiaryTitle = styled.span`
   font-size: 35px;
   font-family: 'InfinitySans-RegularA1';

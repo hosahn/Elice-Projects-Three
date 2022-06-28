@@ -31,13 +31,16 @@ const Challenge = () => {
       const indexFalse = res.data.log.completed.indexOf(false);
       setCurrentChallenge(res.data.log.challenge[indexFalse]);
     }
+
     if (res.data.log.completed.indexOf(true) !== -1) {
+      // true 인 값이 존재한다면.
       let idx = res.data.log.completed.indexOf(true);
       let indices = [];
-      while (idx != -1) {
+      while (idx !== -1) {
         indices.push(res.data.log.challenge[idx]);
         idx = res.data.log.completed.indexOf(true, idx + 1);
       }
+
       let filterCompletedChallenge = res.data.challenge.filter((acc, cur) => {
         console.log(acc.name);
         return acc.name === indices[cur];

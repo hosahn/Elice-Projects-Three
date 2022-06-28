@@ -72,7 +72,6 @@ async function putImg(endpoint, data) {
 async function getPdf(endpoint, params = '') {
   console.log(`%cGET 요청 ${serverUrl + endpoint + params}`, 'color: #a25cd1;');
   return axios.get(serverUrl + endpoint + params, {
-    // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     responseType: 'blob',
     withCredentials: true,
   });
@@ -89,6 +88,4 @@ async function postDiary(data) {
   });
 }
 
-// 아래처럼 export한 후, import * as A 방식으로 가져오면,
-// A.get, A.post 로 쓸 수 있음.
 export { get, post, put, del as delete, putImg, postDiary, getPdf };

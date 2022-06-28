@@ -13,6 +13,21 @@ export const ImgIconWrapper = styled.div`
   }
 `;
 
+export const EditIconWrapper = styled.div`
+  position: absolute;
+  color: gray;
+  font-size: 20px;
+  top: 250px;
+  left: 40px;
+  width: 10px;
+  cursor: pointer;
+  margin-left: 150px;
+  z-index: 99;
+  :hover {
+    color: #495057;
+  }
+`;
+
 export const ColorIconWrapper = styled.div`
   position: absolute;
   color: white;
@@ -22,6 +37,7 @@ export const ColorIconWrapper = styled.div`
   width: 10px;
   cursor: pointer;
   margin-left: 150px;
+  z-index: 99;
   :hover {
     color: #495057;
   }
@@ -55,6 +71,7 @@ background-image: linear-gradient(to right,#FCF8E8 48px,  50px, transparent 50px
     background:#FCF8E8;
     border-radius: 20px;
 }
+
 `;
 
 export const ContenstContainer = styled.div`

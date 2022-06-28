@@ -92,7 +92,6 @@ const EmotionList = () => {
         alert('검색 중 오류 발생');
       }
     } else {
-      console.log('Asdf');
     }
   };
 
@@ -138,7 +137,7 @@ const EmotionList = () => {
           <EmotionCard
             onClick={openCard}
             key={it.id}
-            emotion={'행복'}
+            emotion={it.emotion}
             value={it.id}
           >
             <TitleContainer>
