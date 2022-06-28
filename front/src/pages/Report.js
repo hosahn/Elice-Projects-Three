@@ -13,6 +13,10 @@ const Report = () => {
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
 
+  useEffect(() => {
+    allFunction();
+  }, []);
+
   const allFunction = async () => {
     try {
       const data = await Api.get('report');
@@ -24,10 +28,6 @@ const Report = () => {
       alert('err 발생~ 문구 ');
     }
   };
-
-  useEffect(() => {
-    allFunction();
-  }, []);
 
   if (tags.length === 0) {
     return (

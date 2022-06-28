@@ -1,149 +1,81 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import EditCover from './EditCover';
-import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faFileImage } from '@fortawesome/free-solid-svg-icons';
+import useEdit from '../../hooks/useEdit';
 import * as Api from '../../api';
+import TagBook from './TagBook';
 
 const TagList = () => {
   const [tagList, setTagList] = useState([]);
-  const hiddenInput = useRef();
-  const [bookColor, setBookColor] = useState('#ffec99');
-  const [openEditBtn, setOpenEditBtn] = useState(false);
-  const [openEditCover, setOpenEditCover] = useState(false);
-  const [inputImage, setInputImage] = useState();
+  const { openSubmit, openEditBtn, cancleBtn, checkType } = useEdit();
 
-  const openEdit = () => {
-    setOpenEditCover((prev) => !prev);
+  useEffect(() => {
+    getTagList();
+  }, []);
+
+  const getTagList = async () => {
+    try {
+      const res = await Api.get('book/list');
+      setTagList(res.data);
+    } catch (err) {}
   };
 
   const clickEdit = () => {
-    setOpenEditBtn((prev) => !prev);
+    checkType('open');
   };
 
-  useEffect(() => {
-    console.log(inputImage);
-  }, [inputImage]);
-
-  const clickEditImage = () => {
-    hiddenInput.current.click();
+  const clickCancelEdit = () => {
+    checkType('cancle');
   };
 
-  const onChangeImage = async (event) => {
-    const image = event.target.files[0];
-    const imgName = image.name.replace(/(\s*)/g, '');
-    try {
-      const res = await Api.get(`upload/${imgName}`);
-      if (res.length !== 0) {
-        await axios({
-          method: 'put',
-          url: res.data.url,
-          data: image,
-        });
-      }
-      setInputImage(res.data.imageUrl);
-    } catch (err) {
-      alert('이미지 업로드에 실패하였습니다.');
-    }
+  const clickSubmit = () => {
+    checkType('submit');
   };
 
   return (
     <>
-      <button onClick={clickEdit}>Reward</button>
-      <TagContainer color={bookColor}>
-        <TitleWrapper>
-          <span>#여행</span>
-        </TitleWrapper>
-        <ImageWrapper image={inputImage}>
-          {openEditBtn && (
-            <>
-              <ImgIconWrapper onClick={clickEditImage}>
-                <FontAwesomeIcon icon={faFileImage} className="fileImage" />
-              </ImgIconWrapper>
-              <input
-                type="file"
-                accept="image/jpg,impge/png,image/jpeg,image/gif"
-                name="profile_img"
-                style={{ display: 'none' }}
-                ref={hiddenInput}
-                onChange={onChangeImage}
-              />
-            </>
-          )}
-        </ImageWrapper>
-        {openEditBtn && (
-          <ColorIconWrapper onClick={openEdit}>
-            <FontAwesomeIcon icon={faGear} className="user" />
-          </ColorIconWrapper>
-        )}
-        {openEditCover && (
-          <EditCover
-            setBookColor={setBookColor}
-            setOpenEditCover={setOpenEditCover}
+      <BtnContainer>
+        <EditBtn onClick={openEditBtn ? clickSubmit : clickEdit}>
+          {openEditBtn ? '수정 완료' : ' 수정하기'}
+        </EditBtn>
+        {openEditBtn && <EditBtn onClick={clickCancelEdit}>취소</EditBtn>}
+      </BtnContainer>
+      <TagListContainer>
+        {tagList.map((it) => (
+          <TagBook
+            it={it}
+            key={it.id}
+            openEditBtn={openEditBtn}
+            cancleBtn={cancleBtn}
+            clickSubmit={clickSubmit}
+            openSubmit={openSubmit}
           />
-        )}
-      </TagContainer>
+        ))}
+      </TagListContainer>
     </>
   );
 };
 
-const ImgIconWrapper = styled.div`
-  position: absolute;
-  color: white;
-  font-size: 20px;
-  top: 70px;
-  width: 10px;
-  cursor: pointer;
-  margin-left: 120px;
-`;
-
-const ColorIconWrapper = styled.div`
-  position: absolute;
-  color: #808080;
-  font-size: 20px;
-  top: 220px;
-  width: 10px;
-  cursor: pointer;
-  margin-left: 150px;
-  :hover {
-    color: black;
-  }
-`;
-
-const TagContainer = styled.div`
-  position: relative;
-  width: 200px;
-  height: 250px;
-  background-color: ${(props) => props.color};
-  border-radius: 5px;
+const TagListContainer = styled.div`
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  cursor: pointer;
 `;
 
-const ImageWrapper = styled.div`
-  positon: relative;
-  width: 150px;
-  height: 100px;
-  border-radius: 10px;
-  background-image: url(${(props) => props.image});
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-bottom: 25px;
-`;
-
-const TitleWrapper = styled.div`
-  width: 140px;
+const EditBtn = styled.button`
+  font-family: 'EliceDigitalBaeum';
+  font-size: 15px;
+  width: 100px;
   height: 40px;
-  background-color: white;
-  margin-top: 20px;
+  background-color: transparent;
   border-radius: 10px;
-  text-align: center;
-  padding-top: 6px;
-  span {
-    font-size: 20px;
-    font-family: 'EliceDigitalBaeum';
-  }
+  margin-left: 5px;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
 `;
 
 export default TagList;

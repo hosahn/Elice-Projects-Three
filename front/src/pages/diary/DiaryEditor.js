@@ -4,22 +4,18 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
-import { titleState, tagState, writeState } from '../../atoms';
 import Btn from '../../components/Btn';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
 import * as Api from '../../api';
 
-const DiaryEditor = () => {
+const DiaryEditor = (props) => {
   const editorRef = useRef();
-  const title = useRecoilValue(titleState);
-  const tag = useRecoilValue(tagState);
-  const setWrite = useSetRecoilState(writeState);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { title, tag } = props;
 
   const uploadImage = async (blob) => {
     const name = blob.name;
@@ -43,30 +39,35 @@ const DiaryEditor = () => {
       ''
     );
     const diary = deleteImg.replace(/<([^>]+)>/g, '');
-    if (title.length > 0 && temp.length > 2) {
-      try {
-        const res = await Api.postDiary({
-          diary: diary,
-        });
-        if (res.data.length !== 0) {
-          console.log(typeof res.data);
-          await Api.post('diary', {
-            tag,
-            text: temp,
-            title,
-            emotion: res.data,
-          });
-          setSubmit((prev) => !prev);
-          setLoading((prev) => !prev);
-          setWrite(true);
-          setTimeout(() => setLoading((prev) => !prev), 1500);
-        } else {
-          alert('일기 작성 문구 ~~~~~');
-        }
-      } catch (err) {
-        alert('일기 저장에 실패');
-      }
-    }
+    await Api.post('diary', {
+      tag,
+      text: temp,
+      title,
+      emotion: '불안',
+    });
+    // if (title.length > 0 && temp.length > 2) {
+    //   try {
+    //     const res = await Api.postDiary({
+    //       diary: diary,
+    //     });
+    //     if (res.data.length !== 0) {
+    //       console.log(typeof res.data);
+    //       await Api.post('diary', {
+    //         tag,
+    //         text: temp,
+    //         title,
+    //         emotion: res.data,
+    //       });
+    //       setSubmit((prev) => !prev);
+    //       setLoading((prev) => !prev);
+    //       setTimeout(() => setLoading((prev) => !prev), 1500);
+    //     } else {
+    //       alert('일기 작성 문구 ~~~~~');
+    //     }
+    //   } catch (err) {
+    //     alert('일기 저장에 실패');
+    //   }
+    // }
   };
 
   return (

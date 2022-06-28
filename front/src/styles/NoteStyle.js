@@ -1,20 +1,35 @@
 import styled from 'styled-components';
 
 export const EmotionCard = styled.button`
-  background-color: ${({ theme }) => theme.color.lightGrayBg};
-  height: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  height: 200px;
+  width: 250px;
+  display: grid;
   border-radius: 10px;
   padding: 20px 20px;
   margin-bottom: 20px;
-  span {
-    font-family: 'InfinitySans-RegularA1';
-  }
+  background-color: ${(props) => {
+    switch (props.emotion) {
+      case '행복':
+        return '#FFEC99';
+      case '슬픔':
+        return '#A5D8FF';
+      case '불안':
+        return '#FFD6A5';
+      case '혐오':
+        return '#FFD6A5';
+      case '분노':
+        return '#FFADAD';
+      case '놀람':
+        return '#BDB2FF';
+      case '평범':
+        return '#D8F5A2';
+      default:
+        return 'white';
+    }
+  }};
 `;
 
-export const Title = styled.span`
+export const Title = styled.div`
   font-family: 'GothicA1-Light';
   font-weight: bold;
   font-size: 20px;
@@ -29,7 +44,7 @@ export const DiaryDate = styled.span`
 `;
 
 export const TitleContainer = styled.div`
-  margin: 0px 20px;
+  margin: 10px 0px;
 `;
 
 export const DateWrapper = styled.div`
@@ -46,17 +61,24 @@ export const BtnContainer = styled.div`
   border-bottom: solid 1px #ced4da;
 `;
 
-export const NoteBtn = styled.button`
-  font-family: 'InfinitySans-RegularA1';
+export const EmotionBtn = styled.button`
+  font-family: 'KyoboHand';
   font-size: 20px;
-  color: #868e96;
+  color: ${(props) => (props.state === false ? '#862e9c' : '#868e96')};
   margin-right: 50px;
   padding-bottom: 10px;
-  &:focus {
-    color: #862e9c;
-    border-bottom: solid 3px #862e9c;
-    outline: 0;
-  }
+  border-bottom: ${(props) => (props.state === false ? ' #862e9c' : '')};
+  border-bottom: ${(props) => (props.state === false ? ' solid 3px' : '')};
+`;
+
+export const TagBtn = styled.button`
+  font-family: 'KyoboHand';
+  font-size: 20px;
+  color: ${(props) => (props.state === true ? '#862e9c' : '#868e96')};
+  margin-right: 50px;
+  padding-bottom: 10px;
+  border-bottom: ${(props) => (props.state === true ? ' #862e9c' : '')};
+  border-bottom: ${(props) => (props.state === true ? ' solid 3px' : '')};
 `;
 
 export const BoardContainer = styled.div`

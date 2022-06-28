@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { InputLabel, FormControl, NativeSelect } from '@mui/material';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as Api from '../../api';
 import {
@@ -15,10 +16,10 @@ import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 
 const SEARCH = [
-  { value: 'title', name: '제목⭐️', id: 1 },
-  { value: 'tag', name: '태그🔖 ', id: 2 },
-  { value: 'text', name: '내용🗒', id: 3 },
-  { value: 'all', name: '통합📓', id: 4 },
+  { value: 'title', name: '⭐️ 제목', id: 1 },
+  { value: 'tag', name: '🔖 태그 ', id: 2 },
+  { value: 'text', name: '🗒 내용', id: 3 },
+  { value: 'all', name: '📓 통합', id: 4 },
 ];
 
 const EmotionList = () => {
@@ -53,6 +54,7 @@ const EmotionList = () => {
     if (isLoaded === true) {
       try {
         const res = await Api.get(`diary/list/?cursor=${cursor}`);
+        console.log(res.data);
         if (diaryList.length !== 0 && diaryList[9].id === res.data[0].id) {
           return console.log('반복된 일기 list');
         }
@@ -64,16 +66,13 @@ const EmotionList = () => {
         if (length < 10) {
           setStop(true);
         }
-      } catch (err) {
-        alert('error');
-      }
+      } catch (err) {}
     }
   };
 
   const openCard = (e) => {
-    const diaryId = e.currentTarget.name;
+    const diaryId = e.currentTarget.value;
     navigate(`/diary/${diaryId}`, { state: diaryId });
-    console.log(e.currentTarget.name);
   };
 
   const handleChange = (e) => {
@@ -100,18 +99,27 @@ const EmotionList = () => {
   return (
     <>
       <SearchContainer>
-        <SelectWrapper onChange={handleChange}>
-          <option disabled selected>
-            검색🔎
-          </option>
-          {SEARCH.map((it) => {
-            return (
-              <option name={it.name} key={it.id} value={it.value}>
-                {it.name}
-              </option>
-            );
-          })}
-        </SelectWrapper>
+        <FormControl onChange={handleChange}>
+          <InputLabel variant="standard" htmlFor="uncontrolled-native">
+            선택
+          </InputLabel>
+          <NativeSelect
+            defaultValue={30}
+            inputProps={{
+              name: 'age',
+              id: 'uncontrolled-native',
+            }}
+          >
+            <option value=""></option>
+            {SEARCH.map((it, index) => {
+              return (
+                <option name={it.name} key={it.index} value={it.id}>
+                  {it.name}
+                </option>
+              );
+            })}
+          </NativeSelect>
+        </FormControl>
         <SearchWrapper>
           <input
             type="text"
@@ -125,11 +133,15 @@ const EmotionList = () => {
           </IconWrapper>
         </SearchWrapper>
       </SearchContainer>
-      <div>
+      <EmotionContainer>
         {diaryList.map((it) => (
-          <EmotionCard onClick={openCard} key={it.id}>
+          <EmotionCard
+            onClick={openCard}
+            key={it.id}
+            emotion={'행복'}
+            value={it.id}
+          >
             <TitleContainer>
-              <span>이미지</span>
               <Title>{it.title}</Title>
             </TitleContainer>
             <DateWrapper>
@@ -137,7 +149,7 @@ const EmotionList = () => {
             </DateWrapper>
           </EmotionCard>
         ))}
-      </div>
+      </EmotionContainer>
     </>
   );
 };
@@ -146,19 +158,20 @@ export default EmotionList;
 
 const SearchContainer = styled.div`
   display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
 `;
 
 const SearchWrapper = styled.div`
   position: relative;
-  width: 400px;
   height: 30px;
   margin-bottom: 20px;
   input {
     display: inline-flex;
     width: 300px;
-    height: 3rem;
+    height: 50px;
     color: black;
-    background: #f8f9fa;
+    background: ;
     padding: 0px 30px;
     border: none;
     border-radius: 1rem;
@@ -182,13 +195,7 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-const SelectWrapper = styled.select`
-  width: 100px;
-  padding: 16px;
-  border: none;
-  font-size: 15px;
-  background: url('arrow.jpg') no-repeat 95% 50%;
-  :focus {
-    outline: none;
-  }
+const EmotionContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 `;

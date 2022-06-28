@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 //@ts-check
 export default class Book {
@@ -47,7 +47,7 @@ export default class Book {
       },
       orderBy: {
         diary: {
-          _count: "desc",
+          _count: 'desc',
         },
       },
     });
@@ -66,11 +66,35 @@ export default class Book {
             deleted: false,
           },
           orderBy: {
-            id: "desc",
+            id: 'desc',
           },
         },
       },
     });
     return diarys;
+  }
+
+  static async bookImage(userId, bookId, image) {
+    const book = await prisma.book.update({
+      where: {
+        idUserId: { id: +bookId, user_id: +userId },
+      },
+      data: {
+        image: image,
+      },
+    });
+    return book;
+  }
+
+  static async bookColor(userId, bookId, color) {
+    const book = await prisma.book.update({
+      where: {
+        idUserId: { id: +bookId, user_id: +userId },
+      },
+      data: {
+        color: color,
+      },
+    });
+    return book;
   }
 }
