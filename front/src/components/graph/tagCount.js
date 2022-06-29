@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import images from "../../assets/images";
 import { useState, useEffect } from "react";
 
 const FirstPlacePic = styled.img`
@@ -56,13 +57,13 @@ const SecondPlacePic = styled.img`
   width: 240px;
   height: 240px;
   top: 0px;
-  left: 330px;
+  left: 340px;
 `;
 const SecondPlaceTag = styled.h1`
   white-space: nowrap;
   position: absolute;
   top: 230px;
-  left: 445px;
+  left: 440px;
   right: 20px;
   font-size: 24px;
   font-family: "EliceDigitalBaeum_Bold";
@@ -125,22 +126,19 @@ const ThirdPlaceCount = styled.h2`
   text-align: center;
 `;
 
-const gold = require("../../images/gold.png");
-const silver = require("../../images/silver.png");
-const bronze = require("../../images/broze.png");
-const MyTagRanking = (props) => {
+const TagRanking = (props) => {
   const data = props.data;
   return (
     <>
       <FirstPlace>
-        <FirstPlacePic src={gold} />
+        <FirstPlacePic src={images.Gold} />
         <FirstPlaceTag>{data[0] != null ? data[0].tag : "없음"}</FirstPlaceTag>
         <FirstPlaceCount>
           {data[0] != null ? data[0].count : "없음"}
         </FirstPlaceCount>
       </FirstPlace>
       <SecondPlace>
-        <SecondPlacePic src={silver} />
+        <SecondPlacePic src={images.Silver} />
         <SecondPlaceTag>
           {data[1] != null ? data[1].tag : "없음"}
         </SecondPlaceTag>
@@ -149,7 +147,7 @@ const MyTagRanking = (props) => {
         </SecondPlaceCount>
       </SecondPlace>
       <ThirdPlace>
-        <ThirdPlacePic src={bronze} />
+        <ThirdPlacePic src={images.Broze} />
         <ThirdPlaceTag>{data[2] != null ? data[2].tag : "없음"}</ThirdPlaceTag>
         <ThirdPlaceCount>
           {data[2] != null ? data[2].count : "없음"}
@@ -159,4 +157,4 @@ const MyTagRanking = (props) => {
   );
 };
 
-export default MyTagRanking;
+export default TagRanking;

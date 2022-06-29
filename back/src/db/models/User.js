@@ -1,10 +1,10 @@
 // import { BasicModel } from "../index.js";
 import { PrismaClient } from "@prisma/client";
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 class User {
-  static async createUser({ social, pw, email, name }) {
+  static async createLocal({ social, pw, email, name }) {
     const isUser = await prisma.users.findFirst({
       where: {
         name: name,
@@ -26,6 +26,28 @@ class User {
       });
       return createdUser;
     }
+  }
+
+  static async createUser({ social, pw, email, name }) {
+    const isUser = await prisma.users.findFirst({
+      where: {
+        name: name,
+        email: email,
+        social: social,
+      },
+    });
+    if (isUser) {
+      return null;
+    }
+    const createdUser = await prisma.users.create({
+      data: {
+        social: social,
+        email: email,
+        pw: pw,
+        name: name,
+      },
+    });
+    return createdUser;
   }
 
   static async checkUser({ email }) {
@@ -55,17 +77,18 @@ class User {
         where: {
           email: email,
           social: social,
+          pw: pw,
         },
       });
-      const hashed = foundUser.pw;
-      const comparedResult = await bcrypt.compare(pw, hashed);
-      if (comparedResult) {
-        return foundUser;
-      } else {
-        return false;
-      }
+      return foundUser;
     } else {
-      return false;
+      const foundUser = await prisma.users.findFirst({
+        where: {
+          email: email,
+          social: social,
+        },
+      });
+      return foundUser;
     }
   }
 
@@ -149,6 +172,31 @@ class User {
       },
     });
     return user;
+  }
+
+  static async findUserLocal({ email, social, pw }) {
+    console.log(email, social, pw);
+    if (pw) {
+      const foundUser = await prisma.users.findFirst({
+        where: {
+          email: email,
+          social: social,
+        },
+      });
+      if (foundUser) {
+        const hashed = foundUser.pw;
+        const comparedResult = await bcrypt.compare(pw, hashed);
+        if (comparedResult) {
+          return foundUser;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }
 

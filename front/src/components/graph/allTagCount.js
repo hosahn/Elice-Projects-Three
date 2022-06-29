@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import images from '../../assets/images';
-import { useState, useEffect } from 'react';
+import styled from "styled-components";
+import images from "../../assets/images";
+import { useState, useEffect } from "react";
 
 const FirstPlacePic = styled.img`
   position: absolute;
@@ -25,7 +25,7 @@ const FirstPlaceTag = styled.h1`
   left: 100px;
   right: 20px;
   font-size: 24px;
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: "EliceDigitalBaeum_Bold";
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -38,7 +38,7 @@ const FirstPlaceCount = styled.h2`
   left: 100px;
   right: 20px;
   font-size: 24px;
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: "EliceDigitalBaeum_Bold";
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -66,7 +66,7 @@ const SecondPlaceTag = styled.h1`
   left: 440px;
   right: 20px;
   font-size: 24px;
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: "EliceDigitalBaeum_Bold";
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -79,7 +79,7 @@ const SecondPlaceCount = styled.h2`
   left: 440px;
   right: 20px;
   font-size: 24px;
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: "EliceDigitalBaeum_Bold";
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -107,7 +107,7 @@ const ThirdPlaceTag = styled.h1`
   left: 790px;
   right: 20px;
   font-size: 24px;
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: "EliceDigitalBaeum_Bold";
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -120,7 +120,7 @@ const ThirdPlaceCount = styled.h2`
   left: 790px;
   right: 20px;
   font-size: 24px;
-  font-family: 'EliceDigitalBaeum_Bold';
+  font-family: "EliceDigitalBaeum_Bold";
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -132,25 +132,25 @@ const TagRanking = (props) => {
     <>
       <FirstPlace>
         <FirstPlacePic src={images.Gold} />
-        <FirstPlaceTag>{data[0] != null ? data[0].tag : '없음'}</FirstPlaceTag>
+        <FirstPlaceTag>{data[0] != null ? data[0].tag : "없음"}</FirstPlaceTag>
         <FirstPlaceCount>
-          {data[0] != null ? data[0].count : '없음'}
+          {data[0] != null ? data[0].count : "없음"}
         </FirstPlaceCount>
       </FirstPlace>
       <SecondPlace>
         <SecondPlacePic src={images.Silver} />
         <SecondPlaceTag>
-          {data[1] != null ? data[1].tag : '없음'}
+          {data[1] != null ? data[1].tag : "없음"}
         </SecondPlaceTag>
         <SecondPlaceCount>
-          {data[1] != null ? data[1].count : '없음'}
+          {data[1] != null ? data[1].count : "없음"}
         </SecondPlaceCount>
       </SecondPlace>
       <ThirdPlace>
         <ThirdPlacePic src={images.Broze} />
-        <ThirdPlaceTag>{data[2] != null ? data[2].tag : '없음'}</ThirdPlaceTag>
+        <ThirdPlaceTag>{data[2] != null ? data[2].tag : "없음"}</ThirdPlaceTag>
         <ThirdPlaceCount>
-          {data[2] != null ? data[2].count : '없음'}
+          {data[2] != null ? data[2].count : "없음"}
         </ThirdPlaceCount>
       </ThirdPlace>
     </>

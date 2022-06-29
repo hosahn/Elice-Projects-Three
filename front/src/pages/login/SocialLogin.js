@@ -2,9 +2,9 @@ import images from "../../assets/images";
 import { SocialBtn, Img } from "../../styles/LoginStyle";
 
 const SocialLogin = () => {
-  const googleUrl = "http://localhost:5001/login/google";
-  const kakaoUrl = "http://localhost:5001/login/google";
-  const naverUrl = "http://localhost:5001/login/google";
+  const googleUrl = process.env.REACT_APP_GOOGLE_URL;
+  const kakaoUrl = process.env.REACT_APP_KAKAO_URL;
+  const naverUrl = process.env.REACT_APP_NAVER_URL;
 
   const clickGoogle = () => {
     window.open(`${googleUrl}`, "_self");

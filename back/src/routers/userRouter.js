@@ -79,19 +79,10 @@ userRouter.get("/failed", (req, res) => {
   res.send(false);
 });
 // 회원가입
-userRouter.post("/signup/check", async (req, res) => {
-  const email = req.body.email;
-  const result = User.checkUser({ email });
-  if (result) {
-    res.send(true);
-  } else {
-    res.send(false);
-  }
-});
 userRouter.post("/signup", async (req, res) => {
   const { email, pw, name } = req.body;
   const social = "local";
-  const result = await User.createUser({ email, pw, social, name });
+  const result = await User.createLocal({ email, pw, social, name });
   if (result == null) {
     res.send(false);
   } else {
@@ -100,9 +91,10 @@ userRouter.post("/signup", async (req, res) => {
 });
 
 userRouter.post("/signup/check", async (req, res) => {
-  const { email } = req.body.email;
+  const email = req.body.email;
   const social = "local";
-  const result = await User.checkUser({ email, local });
+  const result = await User.checkUser({ email, social });
+  console.log(result);
   if (result) {
     res.send(true);
   } else {

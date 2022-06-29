@@ -24,7 +24,12 @@ const Challenge = () => {
   const user = useRecoilValue(userState);
 
   useEffect(() => {
-    getChallenge();
+    if (user.length === 0) {
+      snackBar("error", "로그인 후 서비스를 이용해주세요!");
+      navigate("/");
+    } else {
+      getChallenge();
+    }
   }, [isLoaded]);
 
   const getChallenge = async () => {

@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import images from '../../assets/images';
+import { useEffect } from "react";
+import images from "../../assets/images";
 import {
   CardsContainer,
   CardTitle,
@@ -7,9 +7,9 @@ import {
   ExplainContext,
   TargetImg,
   StartBtn,
-} from '../../styles/ChallengeStyle';
-import * as Api from '../../api';
-import changeUtc from '../../utils/changeUtc';
+} from "../../styles/ChallengeStyle";
+import * as Api from "../../api";
+import changeUtc from "../../utils/changeUtc";
 
 const ChallengeCard = ({
   it,
@@ -31,7 +31,7 @@ const ChallengeCard = ({
       console.log(res.data);
       setIsLoaded((prev) => !prev);
     } catch (err) {
-      alert('챌린지 신청 실패');
+      alert("챌린지 신청 실패");
     }
   };
 
@@ -40,9 +40,9 @@ const ChallengeCard = ({
       const res = await Api.get(`challenge/stop/${e.target.id}`);
       console.log(res.data);
       setIsLoaded((prev) => !prev);
-      setCurrentChallenge('');
+      setCurrentChallenge("");
     } catch (err) {
-      alert('챌린지 취소 실패');
+      alert("챌린지 취소 실패");
     }
   };
 
@@ -57,7 +57,7 @@ const ChallengeCard = ({
           </CardWrapper>
           <ExplainContext lock={true}>
             <h1>👷🏻‍♂️현재 준비 중인 챌린지 입니다.</h1>
-            <div style={{ marginTop: '35px' }}></div>
+            <div style={{ marginTop: "35px" }}></div>
           </ExplainContext>
         </>
       ) : (
@@ -73,14 +73,14 @@ const ChallengeCard = ({
             {/* {descriptionOne} <br />
             {descriptionTwo}
             <br /> */}
-            <div style={{ marginTop: '35px' }}>
+            <div style={{ marginTop: "35px" }}>
               {name === currentChallenge ? (
                 <StartBtn onClick={clickStop} id={id}>
                   포기할래요🥲
                 </StartBtn>
               ) : (
                 <StartBtn onClick={clickStart} id={id} disabled={disabled}>
-                  {disabled ? '도전 중인 챌린지가 있어요.' : '도전하기🏁'}
+                  {disabled ? "도전 중인 챌린지가 있어요." : "도전하기🏁"}
                 </StartBtn>
               )}
             </div>

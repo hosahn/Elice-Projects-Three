@@ -7,6 +7,7 @@ import UserMain from "./pages/main/Main";
 import Diary from "./pages/diary/Diary";
 import Challenge from "./pages/challenge/Challenge";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import Note from "./pages/note/Note";
 import View from "./pages/note/View";
 import TagPage from "./pages/reward/bookCover";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" exact element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/reward" element={<TagPage />} />
         <Route path="/userMain" element={<UserMain />} />
         <Route path="/diaryEditor" element={<Diary />} />

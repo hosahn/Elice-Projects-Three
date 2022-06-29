@@ -387,7 +387,6 @@ diaryRouter.get("/search", loginRequired, async (req, res, next) => {
   res.status(status.STATUS_200_OK).send(result);
 });
 
-
 /**
  * @swagger
  * /diary/{id}:

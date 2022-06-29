@@ -2,6 +2,7 @@ import ReactApexChart from "react-apexcharts";
 
 const EmotionGraph = (props) => {
   const data = props.data;
+  console.log(data.happy);
   //도넛 차트 데이터 및 옵션
   const donutData = {
     series: [

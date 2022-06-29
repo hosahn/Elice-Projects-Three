@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const challengeRouter = Router();
 
-challengeRouter.get("/all", async (req, res) => {
+challengeRouter.get("/", async (req, res) => {
   // 챌린지 타입 1 => 일기 수, 2=> 감정 수, 3=> 기타 단발성;
   if (req.isAuthenticated()) {
     const user_id = req.user.id;
@@ -11,13 +11,16 @@ challengeRouter.get("/all", async (req, res) => {
     const challenges = await ChallengeService.findAllChallenges();
     res.send({ log: result, challenge: challenges });
   } else {
-    res.sendStatus(404);
+    res.send(false);
   }
 });
 
 challengeRouter.get("/start/:id", async (req, res) => {
   if (req.isAuthenticated()) {
     const user_id = req.user.id;
+    if (!user_id) {
+      res.send(false);
+    }
     const challenge_id = req.params.id;
     const result = await ChallengeService.setChallenge({
       user_id,
@@ -25,7 +28,7 @@ challengeRouter.get("/start/:id", async (req, res) => {
     });
     res.send(result);
   } else {
-    res.sendStatus(404);
+    res.send(false);
   }
 });
 
@@ -39,7 +42,7 @@ challengeRouter.get("/stop/:id", async (req, res) => {
     });
     res.send(result);
   } else {
-    res.sendStatus(404);
+    res.send(false);
   }
 });
 

@@ -13,6 +13,7 @@ reportRouter.get("/", async (req, res) => {
       unrest: 0,
       surprised: 0,
       scunner: 0,
+      normal: 0,
     };
     const diaryEmotion = await Report.findMonthlyEmotion({ user_id });
     console.log(diaryEmotion);

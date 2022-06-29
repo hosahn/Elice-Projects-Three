@@ -34,7 +34,7 @@ const Report = () => {
     allFunction2();
   }, []);
 
-  if (tags.length === 0) {
+  if (allTags.length === 0) {
     return (
       <>
         <h1>Loading...</h1>
