@@ -83,8 +83,6 @@ const EmotionList = () => {
       try {
         const res = await Api.get(`diary/search/?${select}=${search}`);
         if (res.data.length === 0) {
-          console.log('이때 스낵바!!!');
-          setDiaryList(diaryList);
         } else {
           setDiaryList(res.data);
         }
