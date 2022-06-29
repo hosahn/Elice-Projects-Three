@@ -1,34 +1,136 @@
-import React, { useState, useEffect, useReducer, createContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
-import Introduction from './pages/Introduction';
-import UserMain from './pages/main/Main';
-import UserInfo from './pages/UserInfo';
-import Nav from './components/nav/Nav';
-import Diary from './pages/diary/Diary';
-import Challenge from './pages/challenge/Challenge';
-import Login from './pages/login/Login';
-import RegisterForm from './components/RegisterForm';
-import './App.css';
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
+import { specs } from "./config/swaggerDoc.js";
+import "./config/env.js";
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
+import compression from "compression";
+import csurf from "csurf";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import passport from "passport";
+import { passportStrategies } from "./passport/finalStrategy.js";
+import connectRedis from "connect-redis";
+import session from "express-session";
+import { reportRouter } from "./routers/reportRouter.js";
+import { loginRouter } from "./routers/loginRouter.js";
+import { userRouter } from "./routers/userRouter.js";
+import { calendarRouter } from "./routers/calendarRouter.js";
+import diaryRouter from "./routers/diaryRouter.js";
+import uploadRouter from "./routers/uploadRouter.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
+import bookRouter from "./routers/bookRouter.js";
+import { challengeRouter } from "./routers/challengeRouter.js";
+import { afterDiaryRouter } from "./routers/afterDiary.js";
+import { rewardRouter } from "./routers/rewardRouter.js";
+import { ChallengeSchedule } from "./schedule/check.js";
+import { pdfRouter } from "./routers/pdfRouter.js";
+import { createClient } from "redis";
+import ioredis from "ioredis";
 
-export const UserStateContext = createContext(null);
-export const DispatchContext = createContext(null);
+process.setMaxListeners(15);
 
-function App() {
-  return (
-    <Router>
-      <Nav />
-      <Routes>
-        <Route path="/" exact element={<Introduction />} />
-        <Route path="/userMain" element={<UserMain />} />
-        <Route path="/userInfo" element={<UserInfo />} />
-        <Route path="/diaryEditor" element={<Diary />} />
-        <Route path="/challenge" element={<Challenge />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RegisterForm />} />
-      </Routes>
-    </Router>
+export const app = express();
+const redisStore = connectRedis(session);
+const redisCloud = createClient();
+redisCloud.connect().catch(console.error);
+const client = new ioredis(process.env.REDIS_URL);
+
+Sentry.init({
+  dsn: process.env.DSN,
+  integrations: [new Tracing.Integrations.Express({ app })],
+  tracesSampleRate: 1.0,
+});
+
+const csrfProtection = csurf({ cookie: true });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  delayMs: 0, // disable delaying — full speed until the max limit is reached
+});
+
+app.use(helmet());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // server의 url이 아닌, 요청하는 client의 url
+    credentials: true,
+  })
+);
+
+app.use(limiter);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(compression());
+
+//passport
+app.use(
+  session({
+    name: "session",
+    secret: process.env.SESSION_SECRET,
+    store: new redisStore({
+      client: client,
+      host: "127.0.0.1",
+      port: 6379,
+    }),
+    resave: false,
+    saveUninitialized: false,
+    expires: new Date(Date.now() + 60 * 30),
+    secure: false,
+  })
+);
+
+passportStrategies();
+app.use(passport.initialize());
+app.use(passport.session());
+passportStrategies();
+
+//Sentry
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    morgan("dev", {
+      skip: function (req, res) {
+        return res.statusCode < 400;
+      },
+    })
   );
+} else {
+  app.use(morgan("dev"));
 }
 
-export default App;
+// app.use(Sentry.Handlers.requestHandler());
+// app.use(Sentry.Handlers.tracingHandler());
+app.use(
+  "/swagger",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
+app.use("/login", loginRouter);
+app.use("/user", userRouter);
+app.use("/diary", diaryRouter);
+app.use("/calendar", calendarRouter);
+app.use("/upload", uploadRouter);
+app.use("/book", bookRouter);
+app.use("/confirmed", afterDiaryRouter);
+app.use("/challenge", challengeRouter);
+app.use("/reward", rewardRouter);
+app.use("/report", reportRouter);
+app.use("/pdf", pdfRouter);
+
+app.use(function (req, res, next) {
+  res.status(404).send("존재하지 않는 페이지 입니다!");
+});
+ChallengeSchedule();
+app.use(
+  Sentry.Handlers.errorHandler({
+    shouldHandleError(error) {
+      if (error.status >= 400) {
+        return true;
+      }
+      return false;
+    },
+  })
+);
+app.use(errorMiddleware);
+export default app;

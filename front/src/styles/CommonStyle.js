@@ -8,19 +8,11 @@ export const MainContext = styled.div`
   margin-left: 95px;
 `;
 
-export const SubContext = styled.div`
-  font-family: 'EliceDigitalBaeum_Bold';
-  font-size: 1.4rem;
-  line-height: 30px;
-  margin-top: 32px;
-  margin-left: 300px;
-  margin-bottom: 1rem;
-`;
-
 export const ExplainContext = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1.2rem;
   line-height: 1.5rem;
+  margin-bottom: ${(props) => `${props.bottom}rem`};
   margin-left: ${(props) => `${props.left}rem`};
 `;
 
@@ -51,8 +43,8 @@ export const HighLightExplain = styled.span`
 `;
 
 export const TextInput = styled.input`
-  min-height: 2rem;
-  width: 30rem;
+  min-height: 20px;
+  width: 700px;
   margin: 0.5rem;
   padding: 0 1rem;
   border: none;

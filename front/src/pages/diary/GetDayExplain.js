@@ -1,5 +1,4 @@
 const GetDayExplain = (props) => {
-  console.log(props);
   let answer = '';
   switch (props) {
     case '월':

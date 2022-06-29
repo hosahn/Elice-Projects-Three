@@ -18,6 +18,7 @@ const verify = async (username, password, done) => {
     social: "local",
   });
   if (result) {
+    console.log(result);
     done(null, result);
   } else {
     done(null, false);
