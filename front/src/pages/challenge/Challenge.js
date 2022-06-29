@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
-import Nav from '../../components/nav/Nav';
-import { MainContainer } from '../../styles/CommonStyle';
-import ChallengeCard from './ChallengeCard';
+import { useEffect, useState } from "react";
+import Nav from "../../components/nav/Nav";
+import { MainContainer } from "../../styles/CommonStyle";
+import ChallengeCard from "./ChallengeCard";
 import {
   TitleWrap,
   ChallengeBtn,
   ChallengeTitle,
-} from '../../styles/ChallengeStyle';
-import * as Api from '../../api';
-import { useNavigate } from 'react-router-dom';
-import snackBar from '../../components/snackBar';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../atoms';
+} from "../../styles/ChallengeStyle";
+import * as Api from "../../api";
+import { useNavigate } from "react-router-dom";
+import snackBar from "../../components/snackBar";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms";
 
 const Challenge = () => {
   const navigate = useNavigate();
@@ -24,16 +24,11 @@ const Challenge = () => {
   const user = useRecoilValue(userState);
 
   useEffect(() => {
-    if (user.length === 0) {
-      snackBar('error', '로그인 후 서비스를 이용해주세요!');
-      navigate('/');
-    } else {
-      getChallenge();
-    }
+    getChallenge();
   }, [isLoaded]);
 
   const getChallenge = async () => {
-    const res = await Api.get('challenge');
+    const res = await Api.get("challenge");
     console.log(res.data);
     setChallengeList(res.data.challenge);
     setDisabled(res.data.log.isRunning === true ? true : false);
@@ -63,7 +58,7 @@ const Challenge = () => {
   };
 
   if (openCompletedChallenge === true) {
-    console.log('openCompletedChallenge');
+    console.log("openCompletedChallenge");
   }
 
   const clickCompleteCard = () => {
@@ -73,7 +68,7 @@ const Challenge = () => {
   return (
     <>
       <Nav />
-      <div style={{ marginTop: '5rem' }}>
+      <div style={{ marginTop: "5rem" }}>
         <MainContainer>
           <TitleWrap>
             <ChallengeTitle>🎯챌린지</ChallengeTitle>

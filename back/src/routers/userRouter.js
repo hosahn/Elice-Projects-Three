@@ -1,72 +1,72 @@
-import { Router } from 'express';
-import passport from 'passport';
-import { User } from '../db/models/User.js';
-import '../config/env.js';
-import loginRequired from '../middlewares/loginRequired.js';
-import UserService from '../services/userService.js';
+import { Router } from "express";
+import passport from "passport";
+import { User } from "../db/models/User.js";
+import "../config/env.js";
+import loginRequired from "../middlewares/loginRequired.js";
+import UserService from "../services/userService.js";
 
 const userRouter = Router();
 userRouter.get(
-  '/googlecomplete',
-  passport.authenticate('google'),
+  "/googlecomplete",
+  passport.authenticate("google"),
   (req, res) => {
     if (req.isAuthenticated()) {
       res
-        .cookie('sessionId', req.sessionID, { maxAge: 900000, httpOnly: true })
+        .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
         .redirect(process.env.REDIRECT_URL);
     } else {
-      res.redirect('/user/failed');
+      res.redirect("/user/failed");
     }
   }
 );
 
-userRouter.get('/navercomplete', passport.authenticate('naver'), (req, res) => {
+userRouter.get("/navercomplete", passport.authenticate("naver"), (req, res) => {
   if (req.isAuthenticated()) {
     res
-      .cookie('sessionId', req.sessionID, { maxAge: 900000, httpOnly: true })
+      .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
       .redirect(process.env.REDIRECT_URL);
   } else {
-    res.redirect('/user/failed');
+    res.redirect("/user/failed");
   }
 });
 
-userRouter.get('/kakaocomplete', passport.authenticate('kakao'), (req, res) => {
+userRouter.get("/kakaocomplete", passport.authenticate("kakao"), (req, res) => {
   if (req.isAuthenticated()) {
     res
-      .cookie('sessionId', req.sessionID, { maxAge: 900000, httpOnly: true })
+      .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
       .redirect(process.env.REDIRECT_URL);
   } else {
-    res.redirect('/user/failed');
+    res.redirect("/user/failed");
   }
 });
 
-userRouter.get('/localcomplete', (req, res) => {
-  passport.authenticate('local');
+userRouter.get("/localcomplete", (req, res) => {
+  passport.authenticate("local");
   if (req.isAuthenticated()) {
     res
-      .cookie('sessionId', req.sessionID, { maxAge: 900000, httpOnly: true })
-      .redirect('/user/main');
+      .cookie("sessionId", req.sessionID, { maxAge: 900000, httpOnly: true })
+      .redirect("/user/main");
   } else {
-    res.redirect('/user/failed');
+    res.redirect("/user/failed");
   }
 });
 
 //Logout
 
-userRouter.get('/logout', (req, res) => {
+userRouter.get("/logout", (req, res) => {
   if (req.isAuthenticated()) {
     req.logout((err) => {
       res.send(true);
     });
   } else {
-    res.redirect('/user/failed');
+    res.redirect("/user/failed");
   }
 });
 
 //CallBack Url이 리다이렉트 하는 경로
 
 //성공이면 true
-userRouter.get('/main', (req, res) => {
+userRouter.get("/main", (req, res) => {
   if (req.isAuthenticated()) {
     res.send(true);
   } else {
@@ -75,11 +75,11 @@ userRouter.get('/main', (req, res) => {
 });
 
 // 실패면
-userRouter.get('/failed', (req, res) => {
+userRouter.get("/failed", (req, res) => {
   res.send(false);
 });
 // 회원가입
-userRouter.post('/signup/check', async (req, res) => {
+userRouter.post("/signup/check", async (req, res) => {
   const email = req.body.email;
   const result = await User.checkUser({ email });
   if (result) {
@@ -88,9 +88,9 @@ userRouter.post('/signup/check', async (req, res) => {
     res.send(false);
   }
 });
-userRouter.post('/signup', async (req, res) => {
+userRouter.post("/signup", async (req, res) => {
   const { email, pw, name } = req.body;
-  const social = 'local';
+  const social = "local";
   const result = await User.createUser({ email, pw, social, name });
   if (result == null) {
     res.send(false);
@@ -99,9 +99,9 @@ userRouter.post('/signup', async (req, res) => {
   }
 });
 
-userRouter.post('/signup/check', async (req, res) => {
+userRouter.post("/signup/check", async (req, res) => {
   const { email } = req.body.email;
-  const social = 'local';
+  const social = "local";
   const result = await User.checkUser({ email, local });
   if (result) {
     res.send(true);
@@ -110,7 +110,7 @@ userRouter.post('/signup/check', async (req, res) => {
   }
 });
 
-userRouter.get('/info', loginRequired, async (req, res) => {
+userRouter.get("/info", loginRequired, async (req, res) => {
   const userId = req.user.id;
   const user = await UserService.userInfo(userId);
   res.status(200).send(user);

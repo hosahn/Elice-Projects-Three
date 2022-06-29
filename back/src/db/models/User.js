@@ -1,5 +1,7 @@
 // import { BasicModel } from "../index.js";
 import { PrismaClient } from "@prisma/client";
+import bcrypt, { hash } from "bcrypt";
+
 const prisma = new PrismaClient();
 class User {
   static async createUser({ social, pw, email, name }) {
@@ -12,16 +14,18 @@ class User {
     });
     if (isUser) {
       return null;
+    } else {
+      const hashedPW = await bcrypt.hash(pw, 10);
+      const createdUser = await prisma.users.create({
+        data: {
+          social: social,
+          email: email,
+          pw: hashedPW,
+          name: name,
+        },
+      });
+      return createdUser;
     }
-    const createdUser = await prisma.users.create({
-      data: {
-        social: social,
-        email: email,
-        pw: pw,
-        name: name,
-      },
-    });
-    return createdUser;
   }
 
   static async checkUser({ email }) {
@@ -51,18 +55,17 @@ class User {
         where: {
           email: email,
           social: social,
-          pw: pw,
         },
       });
-      return foundUser;
+      const hashed = foundUser.pw;
+      const comparedResult = await bcrypt.compare(pw, hashed);
+      if (comparedResult) {
+        return foundUser;
+      } else {
+        return false;
+      }
     } else {
-      const foundUser = await prisma.users.findFirst({
-        where: {
-          email: email,
-          social: social,
-        },
-      });
-      return foundUser;
+      return false;
     }
   }
 
