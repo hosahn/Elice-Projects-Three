@@ -8,7 +8,6 @@ import {
   EmotionCard,
   Title,
   DiaryDate,
-  TitleContainer,
   DateWrapper,
 } from '../../styles/NoteStyle';
 
@@ -54,7 +53,6 @@ const EmotionList = () => {
     if (isLoaded === true) {
       try {
         const res = await Api.get(`diary/list/?cursor=${cursor}`);
-        console.log(res.data);
         if (diaryList.length !== 0 && diaryList[9].id === res.data[0].id) {
           return console.log('반복된 일기 list');
         }
@@ -76,6 +74,7 @@ const EmotionList = () => {
   };
 
   const handleChange = (e) => {
+    console.log(e.target.value);
     setSelect(e.target.value);
   };
 
@@ -84,7 +83,8 @@ const EmotionList = () => {
       try {
         const res = await Api.get(`diary/search/?${select}=${search}`);
         if (res.data.length === 0) {
-          return <h1>검색에 해당하는 일기가 없다아를 잘 보여주고 싶다</h1>;
+          console.log('이때 스낵바!!!');
+          setDiaryList(diaryList);
         } else {
           setDiaryList(res.data);
         }
@@ -98,21 +98,13 @@ const EmotionList = () => {
   return (
     <>
       <SearchContainer>
-        <FormControl onChange={handleChange}>
-          <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            선택
-          </InputLabel>
-          <NativeSelect
-            defaultValue={30}
-            inputProps={{
-              name: 'age',
-              id: 'uncontrolled-native',
-            }}
-          >
+        <FormControl>
+          <InputLabel>선택</InputLabel>
+          <NativeSelect onChange={handleChange}>
             <option value=""></option>
-            {SEARCH.map((it, index) => {
+            {SEARCH.map((it) => {
               return (
-                <option name={it.name} key={it.index} value={it.id}>
+                <option value={it.value} key={it.index}>
                   {it.name}
                 </option>
               );
@@ -132,7 +124,7 @@ const EmotionList = () => {
           </IconWrapper>
         </SearchWrapper>
       </SearchContainer>
-      <EmotionContainer>
+      <EmotionCardContainer>
         {diaryList.map((it) => (
           <EmotionCard
             onClick={openCard}
@@ -140,15 +132,14 @@ const EmotionList = () => {
             emotion={it.emotion}
             value={it.id}
           >
-            <TitleContainer>
-              <Title>{it.title}</Title>
-            </TitleContainer>
+            <Title>{it.title}</Title>
+
             <DateWrapper>
               <DiaryDate>{it.date.slice(0, 10)}</DiaryDate>
             </DateWrapper>
           </EmotionCard>
         ))}
-      </EmotionContainer>
+      </EmotionCardContainer>
     </>
   );
 };
@@ -170,7 +161,7 @@ const SearchWrapper = styled.div`
     width: 300px;
     height: 50px;
     color: black;
-    background: ;
+    background: white;
     padding: 0px 30px;
     border: none;
     border-radius: 1rem;
@@ -194,7 +185,7 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-const EmotionContainer = styled.div`
+const EmotionCardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
 `;

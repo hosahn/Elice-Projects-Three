@@ -61,6 +61,6 @@ const UserMainContainer = styled.div`
 const ContentsContainer = styled.div`
   border-radius: 10px;
   margin-top: 20px;
-  margin-left: 300px;
+  margin-left: 450px;
   width: 400px;
 `;

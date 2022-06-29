@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const EmotionCard = styled.button`
-  height: 200px;
-  width: 250px;
-  display: grid;
+  height: 70px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
   border-radius: 10px;
   padding: 20px 20px;
   margin-bottom: 20px;
@@ -34,6 +35,7 @@ export const Title = styled.div`
   font-weight: bold;
   font-size: 20px;
   margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const DiaryDate = styled.span`
@@ -41,10 +43,6 @@ export const DiaryDate = styled.span`
   font-weight: bold;
   font-size: 10px;
   margin-right: 10px;
-`;
-
-export const TitleContainer = styled.div`
-  margin: 20px 10px;
 `;
 
 export const DateWrapper = styled.div`
