@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 //@ts-check
 export default class Book {
@@ -47,7 +47,7 @@ export default class Book {
       },
       orderBy: {
         diary: {
-          _count: "desc",
+          _count: 'desc',
         },
       },
     });
@@ -66,7 +66,7 @@ export default class Book {
             deleted: false,
           },
           orderBy: {
-            id: "desc",
+            id: 'desc',
           },
         },
       },

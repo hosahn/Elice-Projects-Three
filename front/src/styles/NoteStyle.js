@@ -1,24 +1,41 @@
 import styled from 'styled-components';
 
 export const EmotionCard = styled.button`
-  background-color: ${({ theme }) => theme.color.lightGrayBg};
   height: 70px;
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
   padding: 20px 20px;
   margin-bottom: 20px;
-  span {
-    font-family: 'InfinitySans-RegularA1';
-  }
+  background-color: ${(props) => {
+    switch (props.emotion) {
+      case '행복':
+        return '#FFEC99';
+      case '슬픔':
+        return '#A5D8FF';
+      case '불안':
+        return '#FFD6A5';
+      case '혐오':
+        return '#FFD6A5';
+      case '분노':
+        return '#FFADAD';
+      case '놀람':
+        return '#BDB2FF';
+      case '평범':
+        return '#D8F5A2';
+      default:
+        return 'white';
+    }
+  }};
 `;
 
-export const Title = styled.span`
+export const Title = styled.div`
   font-family: 'GothicA1-Light';
   font-weight: bold;
   font-size: 20px;
   margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const DiaryDate = styled.span`
@@ -28,17 +45,13 @@ export const DiaryDate = styled.span`
   margin-right: 10px;
 `;
 
-export const TitleContainer = styled.div`
-  margin: 0px 20px;
-`;
-
 export const DateWrapper = styled.div`
   float: right;
 `;
 
 export const BtnContainer = styled.div`
   margin-top: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   margin-right: 200px;
   margin-left: 200px;
   padding-bottom: 1px;
@@ -46,17 +59,24 @@ export const BtnContainer = styled.div`
   border-bottom: solid 1px #ced4da;
 `;
 
-export const NoteBtn = styled.button`
-  font-family: 'InfinitySans-RegularA1';
+export const EmotionBtn = styled.button`
+  font-family: 'KyoboHand';
   font-size: 20px;
-  color: #868e96;
+  color: ${(props) => (props.state === false ? '#862e9c' : '#868e96')};
   margin-right: 50px;
   padding-bottom: 10px;
-  &:focus {
-    color: #862e9c;
-    border-bottom: solid 3px #862e9c;
-    outline: 0;
-  }
+  border-bottom: ${(props) => (props.state === false ? ' #862e9c' : '')};
+  border-bottom: ${(props) => (props.state === false ? ' solid 3px' : '')};
+`;
+
+export const TagBtn = styled.button`
+  font-family: 'KyoboHand';
+  font-size: 20px;
+  color: ${(props) => (props.state === true ? '#862e9c' : '#868e96')};
+  margin-right: 50px;
+  padding-bottom: 10px;
+  border-bottom: ${(props) => (props.state === true ? ' #862e9c' : '')};
+  border-bottom: ${(props) => (props.state === true ? ' solid 3px' : '')};
 `;
 
 export const BoardContainer = styled.div`
@@ -87,13 +107,12 @@ export const TagWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   min-height: 500px;
-  background-color: #f8f9fa;
+  background-color: white;
   margin-bottom: 20px;
   padding: 20px 30px;
   border-radius: 20px;
 `;
 
-//
 export const DiaryTitle = styled.span`
   font-size: 35px;
   font-family: 'InfinitySans-RegularA1';

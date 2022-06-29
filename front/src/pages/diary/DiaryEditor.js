@@ -1,40 +1,36 @@
-import React, { useRef, useState } from "react";
-import { Editor } from "@toast-ui/react-editor";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-import "tui-color-picker/dist/tui-color-picker.css";
-import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
-import { titleState, tagState, writeState } from "../../atoms";
-import Btn from "../../components/Btn";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import axios from "axios";
-import { Background } from "../../styles/ModalStyle";
-import { ClassicSpinner } from "react-spinners-kit";
-import DiaryModal from "./DiaryModal";
-import * as Api from "../../api";
+import React, { useRef, useState } from 'react';
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import Btn from '../../components/Btn';
+import axios from 'axios';
+import { Background } from '../../styles/ModalStyle';
+import { ClassicSpinner } from 'react-spinners-kit';
+import DiaryModal from './DiaryModal';
+import * as Api from '../../api';
+import { useSetRecoilState } from 'recoil';
+import { emotionState } from '../../atoms';
+import snackBar from '../../components/snackBar';
 
-const DiaryEditor = () => {
+const DiaryEditor = (props) => {
   const editorRef = useRef();
-  const title = useRecoilValue(titleState);
-  const tag = useRecoilValue(tagState);
-  const setWrite = useSetRecoilState(writeState);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [imageList, setImageList] = useState([]);
+  const setEmotion = useSetRecoilState(emotionState);
+  const { title, tag } = props;
 
   const uploadImage = async (blob) => {
     const name = blob.name;
-    const imgName = name.replace(/(\s*)/g, "");
+    const imgName = name.replace(/(\s*)/g, '');
     const res = await Api.get(`upload/${imgName}`);
 
-    setImageList((data) => [res.data.imageUrl, ...data]);
-    console.log(imageList);
     await axios({
-      method: "put",
+      method: 'put',
       url: res.data.url,
       data: blob,
     });
-
     return res.data.imageUrl;
   };
 
@@ -43,37 +39,41 @@ const DiaryEditor = () => {
     const temp = editorInstance.getMarkdown();
     const deleteImg = temp.replace(
       /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
-      ""
+      ''
     );
-    const diary = deleteImg.replace(/<([^>]+)>/g, "");
-    console.log(diary);
-    if (title.length > 0 && temp.length > 2) {
-      const res = await Api.postDiary({
-        diary: diary,
-      });
-      if (res.data.length !== 0) {
-        console.log(typeof res.data);
-        await Api.post("diary", {
-          tag,
-          text: temp,
-          title,
-          emotion: res.data,
+    const diary = deleteImg.replace(/<([^>]+)>/g, '');
+
+    if (title.length > 0 && temp.length > 0) {
+      try {
+        const res = await Api.postDiary({
+          diary: diary,
         });
-        setSubmit((prev) => !prev);
-        setLoading((prev) => !prev);
-        setWrite(true);
-        setTimeout(() => setLoading((prev) => !prev), 1500);
-        console.log(imageList);
-      } else {
-        alert("일기 작성 문구 ~~~~~");
+        if (res.data.length !== 0) {
+          setEmotion(res.data);
+          await Api.post('diary', {
+            tag,
+            text: temp,
+            title,
+            emotion: res.data,
+          });
+          setSubmit((prev) => !prev);
+          setLoading((prev) => !prev);
+          setTimeout(() => setLoading((prev) => !prev), 3500);
+        } else {
+          snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
+        }
+      } catch (err) {
+        snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
       }
+    } else if (title.length === 0 || temp.length === 0) {
+      snackBar('info', '제목, 내용은 필수로 작성 부탁드립니다!');
     }
   };
 
   return (
     <>
       <Editor
-        initialValue={"✏️"}
+        initialValue={'✏️'}
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
@@ -83,13 +83,13 @@ const DiaryEditor = () => {
         hooks={{
           addImageBlobHook: async (e, callback) => {
             const imgUrl = await uploadImage(e);
-            callback(imgUrl, "inputImg");
+            callback(imgUrl, 'inputImg');
             return false;
           },
         }}
       />
-      <div style={{ float: "right" }}>
-        <Btn text={"저장하기"} type={"main"} onClick={handleClick} />
+      <div style={{ float: 'right' }}>
+        <Btn text={'저장하기'} type={'main'} onClick={handleClick} />
       </div>
       {submit &&
         (loading ? (

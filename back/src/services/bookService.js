@@ -1,4 +1,4 @@
-import { Book } from "../db/index.js";
+import { Book } from '../db/index.js';
 
 export default class BookService {
   /**

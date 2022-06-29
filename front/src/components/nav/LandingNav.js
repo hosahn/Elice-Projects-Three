@@ -9,7 +9,7 @@ const NavWrapper = styled.div`
 `;
 
 const NavBtn = styled.button`
-  font-family: 'MICEMyungjo';
+  font-family: 'EliceDigitalBaeum';
   color: black;
   font-size: 20px;
   margin-right: 40px;

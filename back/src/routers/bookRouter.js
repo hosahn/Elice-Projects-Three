@@ -1,7 +1,7 @@
-import { Router } from "express";
-import loginRequired from "../middlewares/loginRequired.js";
-import BookService from "../services/bookService.js";
-import * as status from "../utils/status.js";
+import { Router } from 'express';
+import loginRequired from '../middlewares/loginRequired.js';
+import BookService from '../services/bookService.js';
+import * as status from '../utils/status.js';
 const bookRouter = Router();
 
 /**
@@ -82,7 +82,7 @@ const bookRouter = Router();
  *                     type: string
  *                     example: 테스트
  */
-bookRouter.get("/list", loginRequired, async (req, res, next) => {
+bookRouter.get('/list', loginRequired, async (req, res, next) => {
   const { id: userId } = req.user;
   const list = await BookService.bookList(userId);
   res.status(status.STATUS_200_OK).send(list);
@@ -171,7 +171,7 @@ bookRouter.get("/list", loginRequired, async (req, res, next) => {
  *                     type: number
  *                     example: 5
  */
-bookRouter.get("/diarys", loginRequired, async (req, res, next) => {
+bookRouter.get('/diarys', loginRequired, async (req, res, next) => {
   const { tag } = req.query;
   const { id: userId } = req.user;
   const list = await BookService.bookDiarys(userId, tag);
@@ -252,7 +252,7 @@ bookRouter.get("/diarys", loginRequired, async (req, res, next) => {
  *                   type: number
  *                   example: 테스트
  */
-bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
+bookRouter.post('/images/:id', loginRequired, async (req, res, next) => {
   const { id: userId } = req.user;
   const { id: bookId } = req.params;
   const { image } = req.body;
@@ -339,7 +339,7 @@ bookRouter.post("/images/:id", loginRequired, async (req, res, next) => {
  *                   type: number
  *                   example: 테스트
  */
-bookRouter.post("/colors/:id", loginRequired, async (req, res, next) => {
+bookRouter.post('/colors/:id', loginRequired, async (req, res, next) => {
   const { id: userId } = req.user;
   const { id: bookId } = req.params;
   const { color } = req.body;

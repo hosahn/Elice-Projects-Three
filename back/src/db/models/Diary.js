@@ -67,6 +67,7 @@ export default class Diary {
         tag: true,
         date: true,
         view: true,
+        emotion: true,
       },
     });
     return readDiary;
@@ -91,9 +92,10 @@ export default class Diary {
         tag: true,
         date: true,
         view: true,
+        emotion: true,
       },
       orderBy: {
-        id: "desc",
+        date: "desc",
       },
     });
     return diaryList;
@@ -122,6 +124,7 @@ export default class Diary {
         tag: true,
         date: true,
         view: true,
+        emotion: true,
       },
       orderBy: {
         date: "desc",

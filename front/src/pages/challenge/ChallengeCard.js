@@ -26,16 +26,24 @@ const ChallengeCard = ({
   }, []);
 
   const clickStart = async (e) => {
-    const res = await Api.get(`challenge/start/${e.target.id}`);
-    console.log(res.data);
-    setIsLoaded((prev) => !prev);
+    try {
+      const res = await Api.get(`challenge/start/${e.target.id}`);
+      console.log(res.data);
+      setIsLoaded((prev) => !prev);
+    } catch (err) {
+      alert('챌린지 신청 실패');
+    }
   };
 
   const clickStop = async (e) => {
-    const res = await Api.get(`challenge/stop/${e.target.id}`);
-    console.log(res.data);
-    setIsLoaded((prev) => !prev);
-    setCurrentChallenge('');
+    try {
+      const res = await Api.get(`challenge/stop/${e.target.id}`);
+      console.log(res.data);
+      setIsLoaded((prev) => !prev);
+      setCurrentChallenge('');
+    } catch (err) {
+      alert('챌린지 취소 실패');
+    }
   };
 
   return (
@@ -66,7 +74,7 @@ const ChallengeCard = ({
             {descriptionTwo}
             <br /> */}
             <div style={{ marginTop: '35px' }}>
-              {name === currentChallenge.name ? (
+              {name === currentChallenge ? (
                 <StartBtn onClick={clickStop} id={id}>
                   포기할래요🥲
                 </StartBtn>

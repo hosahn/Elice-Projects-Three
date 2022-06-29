@@ -6,7 +6,7 @@ export const NavWrap = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-  background-color: ${({ theme }) => theme.color.subPurple};
+  background-color: #7490b5;
   button {
     border: none;
     margin-right: 30px;
@@ -18,8 +18,9 @@ export const NavWrap = styled.div`
 
 export const Btn = styled.button`
   margin-right: 10px;
-  color: white;
+  color: black;
   font-weight: bold;
+  font-family: 'EliceDigitalBaeum';
 `;
 
 export const UserBtn = styled.button`
@@ -28,6 +29,6 @@ export const UserBtn = styled.button`
 
 export const HighLight = styled.div`
   &:hover {
-    background-image: linear-gradient(transparent 60%, #f8cd07 40%);
+    background-image: linear-gradient(transparent 60%, white 40%);
   }
 `;

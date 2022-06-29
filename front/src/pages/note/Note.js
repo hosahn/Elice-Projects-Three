@@ -1,17 +1,27 @@
-import { useRef, useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Nav from '../../components/nav/Nav';
 import EmotionList from './EmotionList';
 import TagList from './TagList';
-import { BoardContainer, NoteBtn, BtnContainer } from '../../styles/NoteStyle';
+import {
+  BoardContainer,
+  EmotionBtn,
+  TagBtn,
+  BtnContainer,
+} from '../../styles/NoteStyle';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
+import snackBar from '../../components/snackBar';
 
 const Note = () => {
+  const navigate = useNavigate();
   const [tagOpen, setTagOpen] = useState(false);
-  const emotionList = useRef();
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
-    if (tagOpen === false) {
-      emotionList.current.focus();
+    if (user.length === 0) {
+      snackBar('error', '로그인 후 서비스를 이용해주세요!');
+      navigate('/');
     }
   }, []);
 
@@ -27,10 +37,12 @@ const Note = () => {
     <>
       <Nav />
       <BtnContainer>
-        <NoteBtn onClick={clickEmotion} ref={emotionList}>
+        <EmotionBtn onClick={clickEmotion} state={tagOpen}>
           전체글
-        </NoteBtn>
-        <NoteBtn onClick={clickTag}>태그</NoteBtn>
+        </EmotionBtn>
+        <TagBtn onClick={clickTag} state={tagOpen}>
+          태그
+        </TagBtn>
       </BtnContainer>
       <BoardContainer>{tagOpen ? <TagList /> : <EmotionList />}</BoardContainer>
     </>

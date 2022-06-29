@@ -1,30 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import MainCurrentChallenge from './MainCurrentChallenge';
-import useGetChallenge from '../../hooks/useGetChallenge';
+import React, { useEffect } from 'react';
 import Nav from '../../components/nav/Nav';
 import styled from 'styled-components';
-
-import { SubContext, HighLightPurple } from '../../styles/CommonStyle';
 import Calendar from './Calendar';
 import MainDiaryList from './MainDiaryList';
+import { useNavigate } from 'react-router-dom';
+import MainIChallengeInfo from './MainIChallengeInfo';
+import * as Api from '../../api';
+import { userState, loginState, challengeState } from '../../atoms';
+import { useSetRecoilState } from 'recoil';
+import MainUserInfo from './MainUserInfo';
+import MainEmotionInfo from './MainEmotionInfo';
+import snackBar from '../../components/snackBar';
 
 const UserMain = () => {
-  const [user, setUser] = useState(''); // 백에서 받아오는 user정보
-  const { getDateDiff, date } = useGetChallenge();
+  const navigate = useNavigate();
+  const setUserState = useSetRecoilState(userState);
+  const setChallengeState = useSetRecoilState(challengeState);
+  const setLoginState = useSetRecoilState(loginState);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const res = await Api.get('user/info');
+      setUserState(res.data);
+      setChallengeState(res.data.user_challenge);
+      setLoginState(true);
+    } catch (err) {
+      snackBar('error', '로그인 후 서비스 이용 가능합니다.');
+      navigate('/login');
+    }
+  };
 
   return (
     <>
       <Nav />
-      <SubContext>
-        안녕하세요. <HighLightPurple>{user.name}</HighLightPurple>님! 저희와{' '}
-        <HighLightPurple>{date}</HighLightPurple>일째 인연을 지속하고 계시네요.
-      </SubContext>
       <UserMainContainer>
         <ContentsContainer>
-          <MainCurrentChallenge />
+          <MainEmotionInfo />
+          <MainUserInfo />
+          <MainIChallengeInfo />
           <MainDiaryList />
         </ContentsContainer>
-        <Calendar setUser={setUser} />
+        <Calendar />
       </UserMainContainer>
     </>
   );
@@ -41,7 +61,8 @@ const UserMainContainer = styled.div`
 `;
 
 const ContentsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 300px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 450px;
+  width: 400px;
 `;

@@ -11,6 +11,7 @@ import { validateEmail } from '../../utils/validation';
 import * as Api from '../../api';
 import LandingNav from '../../components/nav/LandingNav';
 import { useNavigate } from 'react-router-dom';
+import snackBar from '../../components/snackBar';
 
 const Container = styled.div`
   height: 100vh;
@@ -44,13 +45,11 @@ const Login = () => {
       if (res.data === true) {
         navigate('/usermain');
       } else {
-        alert('로그인을 실패하였습니다.');
+        snackBar('error', '로그인에 실패하였습니다.');
       }
     } catch (error) {
       if (error.response) {
-        const { data } = error.response;
-        console.error('data : ', data);
-        alert('로그인을 실패하였습니다.');
+        snackBar('error', '로그인에 실패하였습니다.');
         navigate('/');
       }
     }

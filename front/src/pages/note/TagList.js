@@ -1,52 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import images from '../../assets/images';
+import useEdit from '../../hooks/useEdit';
+import * as Api from '../../api';
+import TagBook from './TagBook';
 
 const TagList = () => {
+  const [tagList, setTagList] = useState([]);
+  const { openSubmit, openEditBtn, cancleBtn } = useEdit();
+
+  useEffect(() => {
+    getTagList();
+  }, []);
+
+  const getTagList = async () => {
+    try {
+      const res = await Api.get('book/list');
+      setTagList(res.data);
+      console.log(res.data);
+    } catch (err) {}
+  };
+
   return (
     <>
-      <TagContainer>
-        <TitleWrapper>
-          <span>#여행</span>
-        </TitleWrapper>
-        <ImageWrapper />
-      </TagContainer>
+      <TagListContainer>
+        {tagList.map((it) => {
+          if (it.name.length !== 0) {
+            return (
+              <TagBook
+                it={it}
+                key={it.id}
+                openEditBtn={openEditBtn}
+                cancleBtn={cancleBtn}
+                openSubmit={openSubmit}
+              />
+            );
+          }
+        })}
+      </TagListContainer>
     </>
   );
 };
 
-const TagContainer = styled.div`
-  position: relative;
-  width: 200px;
-  height: 250px;
-  background-color: #d0ebff;
-  border-radius: 5px;
+const TagListContainer = styled.div`
   display: grid;
-  place-items: center;
-`;
-
-const ImageWrapper = styled.div`
-  width: 150px;
-  height: 100px;
-  border-radius: 10px;
-  background-image: url(${images.Travel});
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-bottom: 25px;
-`;
-
-const TitleWrapper = styled.div`
-  width: 140px;
-  height: 40px;
-  background-color: white;
-  margin-top: 20px;
-  border-radius: 10px;
-  text-align: center;
-  padding-top: 6px;
-  span {
-    font-size: 20px;
-    font-family: 'EliceDigitalBaeum';
-  }
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  cursor: pointer;
 `;
 
 export default TagList;

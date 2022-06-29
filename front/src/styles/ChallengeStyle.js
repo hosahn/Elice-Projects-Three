@@ -38,7 +38,6 @@ export const BattlePassContainer = styled.div`
   width: ${(props) => `${props.containerWdith}rem`};
 `;
 
-//
 export const TitleWrap = styled.div`
   display: flex;
   font-size: 40px;
@@ -57,8 +56,8 @@ export const ChallengeBtn = styled.label`
 
 export const ChallengeTitle = styled.h1`
   font-size: 35px;
-  font-family: 'EliceDigitalBaeum_Bold';
-  color: black;
+  font-family: 'IM_Hyemin-Bold';
+  color: #495057;
   left: -440px;
 `;
 
@@ -101,6 +100,11 @@ export const StartBtn = styled.button`
   color: white;
   &:hover {
     background-color: ${({ theme }) => theme.color.subPurple};
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+    background: var(--button-bg-color, #025ce2);
   }
 `;
 

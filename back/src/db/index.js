@@ -5,11 +5,10 @@ import { Calendar } from "./models/Calendar.js";
 import { UserChallenge } from "./models/UserCh.js";
 import { Challenge } from "./models/Challenge.js";
 import { Reward } from "./models/Reward.js";
-import Book from "./models/book.js";
+import { Activity } from "./models/Activity.js";
 import { Fortune } from "./models/Fortune.js";
-import { Activity } from "./models/activity.js";
 import { Report } from "./models/report.js";
-
+import Book from "./models/book.js";
 export {
   User,
   Diary,
@@ -20,5 +19,8 @@ export {
   Book,
   Fortune,
   Activity,
+  Activity,
+  Fortune,
+  Book,
   Report,
 };

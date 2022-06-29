@@ -2,6 +2,9 @@ import { Router } from "express";
 import passport from "passport";
 import { User } from "../db/models/User.js";
 import "../config/env.js";
+import loginRequired from "../middlewares/loginRequired.js";
+import UserService from "../services/userService.js";
+
 const userRouter = Router();
 userRouter.get(
   "/googlecomplete",
@@ -88,6 +91,7 @@ userRouter.post("/signup/check", async (req, res) => {
 userRouter.post("/signup", async (req, res) => {
   const { email, pw, name } = req.body;
   const social = "local";
+
   const result = await User.createUser({ email, pw, social, name });
   if (result == null) {
     res.send(false);
@@ -99,6 +103,8 @@ userRouter.post("/signup", async (req, res) => {
 userRouter.get("/info", async (req, res) => {
   if (req.isAuthenticated()) {
     res.send(req.user);
+  } else {
+    res.sendStatus(404);
   }
 });
 

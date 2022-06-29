@@ -4,15 +4,34 @@ import { NavWrap, Btn, UserBtn, HighLight } from '../../styles/NavStyle';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import {
+  activeState,
+  challengeState,
+  emotionState,
+  userState,
+  randomListState,
+} from '../../atoms';
+import snackBar from '../snackBar';
 
 const Nav = () => {
   const navigate = useNavigate();
+  const resetUser = useResetRecoilState(userState);
+  const diaryCheck = useRecoilValue(userState);
+  const emotion = useResetRecoilState(emotionState);
+  const active = useResetRecoilState(activeState);
+  const randomList = useResetRecoilState(randomListState);
+  const challenge = useResetRecoilState(challengeState);
 
-  const logoutHandler = async (e) => {
-    e.preventDefault();
+  const logoutHandler = async () => {
     try {
       const res = await Api.get('user/logout');
       if (res.data === true) {
+        resetUser();
+        emotion();
+        active();
+        randomList();
+        challenge();
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');
@@ -27,15 +46,24 @@ const Nav = () => {
     }
   };
 
+  const clickDiary = () => {
+    console.log(diaryCheck);
+    if (diaryCheck.daily_check === true) {
+      snackBar('warning', '일기는 하루에 한 번만 작성 가능합니다..!');
+    } else {
+      navigate('/diaryEditor');
+    }
+  };
+
   return (
     <NavWrap>
       <Btn onClick={() => navigate('/challenge')}>
         <HighLight>챌린지</HighLight>
       </Btn>
-      <Btn>
+      <Btn onClick={() => navigate('/report')}>
         <HighLight>리포트</HighLight>
       </Btn>
-      <Btn onClick={() => navigate('/diaryEditor')}>
+      <Btn onClick={clickDiary}>
         <HighLight>일기 쓰기</HighLight>
       </Btn>
       <Btn onClick={() => navigate('/note')}>

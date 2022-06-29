@@ -1,19 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import * as Api from '../../api';
+import { randomListState } from '../../atoms';
 
 const MainDiaryList = () => {
   const navigate = useNavigate();
-  const [getDiary, setGetDiary] = useState([]);
+  const [radomDiary, setRandomDiary] = useRecoilState(randomListState);
+
   useEffect(() => {
-    getRandomList();
+    console.log(radomDiary.length);
+    if (radomDiary.length === 0) {
+      getRandomList();
+    }
   }, []);
 
   const getRandomList = async () => {
-    const res = await Api.get('diary/random/list');
-    setGetDiary(res.data);
-    console.log(res.data);
+    try {
+      const res = await Api.get('diary/random/list');
+      setRandomDiary(res.data);
+      console.log(res.data);
+    } catch (err) {
+      // alert('에러 발생');
+    }
   };
 
   const clickDiary = (e) => {
@@ -24,11 +34,14 @@ const MainDiaryList = () => {
 
   return (
     <DiaryListContainer>
-      <div>
-        <span>🎲 오늘의 일기</span>
-      </div>
-      {getDiary.map((it) => (
-        <DiaryCard onClick={clickDiary} id={it.id} key={it.id}>
+      <span>📓 오늘의 일기</span>
+      {radomDiary.map((it) => (
+        <DiaryCard
+          onClick={clickDiary}
+          id={it.id}
+          key={it.id}
+          emotion={it.emotion}
+        >
           {it.title}
         </DiaryCard>
       ))}
@@ -39,20 +52,14 @@ const MainDiaryList = () => {
 export default MainDiaryList;
 
 const DiaryListContainer = styled.div`
-  width: 400px;
-  height: 300px;
-  border-radius: 10px;
-  margin-top: 10px;
-  padding: 20px;
   span {
-    font-size: 20px;
     font-family: 'EliceDigitalBaeum';
+    font-size: 20px;
   }
 `;
 
 const DiaryCard = styled.button`
-  background-color: ${({ theme }) => theme.color.lightGrayBg};
-  height: 55px;
+  height: 70px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -62,7 +69,24 @@ const DiaryCard = styled.button`
   span {
     font-family: 'InfinitySans-RegularA1';
   }
-  :hover {
-    background-color: #f8f0fc;
-  }
+  background-color: ${(props) => {
+    switch (props.emotion) {
+      case '행복':
+        return '#FFEC99';
+      case '슬픔':
+        return '#A5D8FF';
+      case '불안':
+        return '#FFD6A5';
+      case '혐오':
+        return '#FFD6A5';
+      case '분노':
+        return '#FFADAD';
+      case '놀람':
+        return '#BDB2FF';
+      case '평범':
+        return '#D8F5A2';
+      default:
+        return 'white';
+    }
+  }};
 `;

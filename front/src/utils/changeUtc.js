@@ -21,10 +21,11 @@ const changeUtc = (date) => {
     getMinutes = '0' + getMinutes;
   }
 
-  let resultDate =
-    localDate.getFullYear() + getMonth + getDate + getHours + getMinutes;
+  let checkDate = localDate.getFullYear() + getMonth + getDate;
 
-  return resultDate;
+  let viewDate = localDate.getFullYear() + '-' + getMonth + '-' + getDate;
+
+  return { checkDate, viewDate };
 };
 
 export default changeUtc;
