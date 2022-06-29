@@ -58,19 +58,40 @@ const Landing = () => {
         <style.WhyWe>서비스 밤하늘</style.WhyWe>
         <style.PencilIcon />
         <style.PencilText>{Penciltext}</style.PencilText>
+        <style.SportIcon />
+        <style.SportText>{Sporttext}</style.SportText>
         <style.HeartIcon />
         <style.EmotionText>{Emotiontext}</style.EmotionText>
         <style.JustifyContainer>
           <style.HeartEmotion HeartColor="#FFEC99" Top="40px" Left="70px" />
+          <style.HeartText Top="60px" Left="-200px">
+            Happy
+          </style.HeartText>
+          <style.HeartText Top="131px" Left="-200px">
+            Sad
+          </style.HeartText>
+          <style.HeartText Top="202px" Left="-200px">
+            Digsuted
+          </style.HeartText>
           <style.HeartEmotion HeartColor="#A5D8FF" Top="160px" Left="70px" />
+          <style.HeartText Top="-89px" Left="50px">
+            ABC
+          </style.HeartText>
           <style.HeartEmotion HeartColor="#FFD6A5" Top="280px" Left="70px" />
+          <style.HeartText Top="-20px" Left="50px">
+            ABC
+          </style.HeartText>
           <style.HeartEmotion HeartColor="#CED4DA" Top="40px" Left="310px" />
+          <style.HeartText Top="51px" Left="50px">
+            ABC
+          </style.HeartText>
+          <style.HeartText Top="-121px" Left="300px">
+            ABC
+          </style.HeartText>
           <style.HeartEmotion HeartColor="#FFADAD" Top="160px" Left="310px" />
           <style.HeartEmotion HeartColor="#BDB2FF" Top="280px" Left="310px" />
           <style.HeartEmotion HeartColor="#D8F5A2" Top="160px" Left="550px" />
         </style.JustifyContainer>
-        <style.SportIcon />
-        <style.SportText>{Sporttext}</style.SportText>
         <style.ButtonDiv>
           <Btn text={"일기 쓰기 바로가기"} />
         </style.ButtonDiv>

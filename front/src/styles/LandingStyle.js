@@ -22,7 +22,7 @@ export const SportIcon = styled(MusicNoteList)`
   color: white;
   width: 100px;
   height: 100px;
-  top: 850px;
+  top: 780px;
   position: relative;
   left: 400px;
   margin: auto;
@@ -99,7 +99,7 @@ export const SportText = styled.h1`
   font-size: 38px;
   text-align: center;
   color: white;
-  top: 780px;
+  top: 705px;
   left: 100px;
   word-spacing: 10px;
   line-height: 39px;
@@ -171,12 +171,14 @@ export const WhyWe = styled.h1`
   word-spacing: 30px;
 `;
 
-export const HeartText = styled.h1`
+export const HeartText = styled.div`
   font-family: "EliceDigitalBaeum_Bold";
   font-size: 30px;
-  top : ${(props) => props.Top};
-  left : ${(props) => props.Left}
-  color: white;
+  top: ${(props) => props.Top};
+  left: ${(props) => props.Left};
+  color: black;
+  width: 50px;
+  height: 50px;
   word-spacing: 10px;
 `;
 

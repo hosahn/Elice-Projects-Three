@@ -39,7 +39,7 @@ const IntroDiv = styled.div`
 `;
 
 const ProDiv = styled.div`
-  opacity: 0.78;
+  opacity: 0.9;
   border-radius: 30px;
   position: relative;
   margin: auto;
@@ -49,6 +49,7 @@ const ProDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 150px;
 `;
 
 const Introduce = styled.div`
@@ -56,7 +57,7 @@ const Introduce = styled.div`
   font-size: 50px;
   text-align: center;
   color: white;
-  top: 500px;
+  top: 550px;
   word-spacing: 10px;
 `;
 
@@ -132,17 +133,6 @@ const AboutUs = () => {
             }}
           />
         </CardDiv>
-        <Introduce>멤버들의 한마디</Introduce>
-        <IntroDiv>
-          {" "}
-          <MySelf>나연 : 안녕하세요 프론트엔드 담당 김나연입니다!</MySelf>
-          <MySelf>주영 : 안녕하세요 AI 담당 배주영입니다!</MySelf>
-          <MySelf>호산 : 안녕하세요! 수린이 남친입니다!</MySelf>
-          <MySelf>
-            광천 : 다른 사람의 선택지에 도움을 줄 수 있는 개발자가 되고 싶은
-            백엔드 담당 신광천 입니다
-          </MySelf>
-        </IntroDiv>
         <Introduce>12팀의 작업과정</Introduce>
         <ProDiv>
           <img
@@ -152,6 +142,7 @@ const AboutUs = () => {
               width: "900px",
               height: "500px",
               marginTop: "70px",
+              borderRadius: "1%",
             }}
           />
           <img
@@ -160,10 +151,22 @@ const AboutUs = () => {
               width: "900px",
               height: "500px",
               marginTop: "100px",
+              borderRadius: "1%",
             }}
             alt="Figma"
           />
         </ProDiv>
+        <Introduce>멤버들의 한마디</Introduce>
+        <IntroDiv>
+          {" "}
+          <MySelf>나연 : 안녕하세요 프론트엔드 담당 김나연입니다!</MySelf>
+          <MySelf>주영 : 안녕하세요 AI 담당 배주영입니다!</MySelf>
+          <MySelf>호산 : 안녕하세요! 백엔드 담당 이호산입니다!</MySelf>
+          <MySelf>
+            광천 : 다른 사람의 선택지에 도움을 줄 수 있는 개발자가 되고 싶은
+            백엔드 담당 신광천 입니다
+          </MySelf>
+        </IntroDiv>
       </style.MainContainer>
       <MainFooter></MainFooter>
     </>
