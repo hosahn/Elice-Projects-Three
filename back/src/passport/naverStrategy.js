@@ -3,8 +3,6 @@ import passport from "passport";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
 import { User } from "../db/index.js";
-import bcrypt from "bcrypt";
-
 const prisma = new PrismaClient();
 
 const option = {
@@ -22,14 +20,10 @@ const verify = async (accessToken, refreshToken, profile, done) => {
     if (result) {
       return done(null, result);
     } else {
-      const hashedPW = bcrypt.hashSync(
-        process.env.LOCAL_PASSWORD,
-        process.env.SALT_ROUND
-      );
       const createdUser = await prisma.users.create({
         data: {
           email: email,
-          pw: hashedPW,
+          pw: process.env.LOCAL_PASSWORD,
           social: "naver",
           name: "밤하늘",
         },
