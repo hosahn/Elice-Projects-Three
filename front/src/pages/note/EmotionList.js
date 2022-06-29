@@ -13,6 +13,7 @@ import {
 
 import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
+import snackBar from '../../components/snackBar';
 
 const SEARCH = [
   { value: 'title', name: '⭐️ 제목', id: 1 },
@@ -83,11 +84,12 @@ const EmotionList = () => {
       try {
         const res = await Api.get(`diary/search/?${select}=${search}`);
         if (res.data.length === 0) {
+          snackBar('warning', '검색 키워드와 일치하는 결과가 없습니다.');
         } else {
           setDiaryList(res.data);
         }
       } catch (err) {
-        alert('검색 중 오류 발생');
+        snackBar('error', '에러가 발생하였습니다.');
       }
     } else {
     }

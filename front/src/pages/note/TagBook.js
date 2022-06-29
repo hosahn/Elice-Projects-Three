@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import TagEditCover from './TagEditCover';
 import TagDiaryList from './TagDiaryList';
+import snackBar from '../../components/snackBar';
 
 const TagBook = (props) => {
   const [openEditCover, setOpenEditCover] = useState(false);
@@ -36,15 +37,18 @@ const TagBook = (props) => {
   }, []);
 
   const clickSubmit = async () => {
-    console.log(it.id);
-    await axios.all([
-      Api.post(`book/images/${it.id}`, {
-        image: inputImage,
-      }),
-      Api.post(`book/colors/${it.id}`, {
-        color: bookColor,
-      }),
-    ]);
+    await axios
+      .all([
+        Api.post(`book/images/${it.id}`, {
+          image: inputImage,
+        }),
+        Api.post(`book/colors/${it.id}`, {
+          color: bookColor,
+        }),
+      ])
+      .catch(() => {
+        snackBar('error', '에러가 발생하였습니다.');
+      });
     setOpenEditBtn(false);
   };
 
