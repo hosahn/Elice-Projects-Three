@@ -10,15 +10,15 @@ import {
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
-
+//memberInfo : img, title, author, github, email
 export default function MemberCard({ memberInfo }) {
   return (
     <>
       <Grid item xs={2} sx={{ p: 1 }}>
-        <Card style={{ width: "200px", height: "270px" }}>
+        <Card style={{ width: "200px", height: "370px" }}>
           <CardMedia
             component="img"
-            height="110"
+            height="210"
             image={memberInfo.img}
             alt="card-media"
           />

@@ -33,6 +33,8 @@ import mysql from "mysql";
 
 process.setMaxListeners(15);
 export const app = express();
+
+//Redis와 MySQL Session 변환
 // const redisStore = connectRedis(session);
 // const redisCloud = createClient();
 // redisCloud.connect().catch(console.error);
@@ -76,6 +78,7 @@ export const app = express();
 //   })
 // );
 
+//여기부터
 if (process.env.NODE_ENV !== "test") {
   const mysqlStore = mysqlSession(session);
   var options = {
@@ -116,6 +119,7 @@ app.use(
     expires: new Date(Date.now() + 60 * 30),
   })
 );
+//여기까지
 
 passportStrategies();
 app.use(passport.initialize());
