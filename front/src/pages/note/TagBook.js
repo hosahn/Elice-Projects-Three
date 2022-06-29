@@ -128,7 +128,9 @@ const TagBook = (props) => {
           />
         )}
       </TagContainer>
-      {openTagList && <TagDiaryList setOpenTagList={setOpenTagList} />}
+      {openTagList && (
+        <TagDiaryList setOpenTagList={setOpenTagList} tagList={tagList} />
+      )}
     </>
   );
 };

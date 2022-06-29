@@ -52,7 +52,6 @@ const Register = () => {
           const post = await Api.post('user/signup/check', {
             email,
           });
-          console.log(post.data);
           if (post.data === false) {
             setOpenLoading(false);
             setCheckState(true);
@@ -81,7 +80,6 @@ const Register = () => {
         pw: password,
         name,
       });
-      console.log(response.data);
       if (response.data === 'true') {
         snackBar('sucess', '회원가입에 성공하였습니다.');
         navigate('/login');

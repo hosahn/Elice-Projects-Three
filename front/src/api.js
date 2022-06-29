@@ -49,7 +49,7 @@ async function put(endpoint, data) {
 
 async function del(endpoint, params = '') {
   console.log(`DELETE 요청 ${serverUrl + endpoint + '/' + params}`);
-  return axios.delete(serverUrl + endpoint + '/' + params, {
+  return axios.delete(serverUrl + endpoint + params, {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
     },

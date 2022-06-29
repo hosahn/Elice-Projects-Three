@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../../components/nav/Nav';
@@ -15,8 +15,11 @@ import {
   DiaryTitle,
   IconWrapper,
 } from '../../styles/NoteStyle';
+import styled from 'styled-components';
+import snackBar from '../../components/snackBar';
 
 const View = () => {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [diary, setDiary] = useState({});
   const viewerRef = useRef();
@@ -36,7 +39,7 @@ const View = () => {
       const res = await Api.get(`diary/${state}`);
       setDiary(res.data);
     } catch (err) {
-      alert('일기 로딩에 실패...');
+      snackBar('error', '일기 로딩을 실패하였습니다.');
     }
   };
 
@@ -59,6 +62,19 @@ const View = () => {
     }
   };
 
+  const clickDelete = async () => {
+    try {
+      await Api.delete(`diary/${diary.id}`);
+      snackBar('sucess', '삭제 완료되었습니다. ');
+      setTimeout(() => {
+        navigate('/note');
+      }, 500);
+    } catch (err) {
+      const { data } = err.response;
+      snackBar('error', data);
+    }
+  };
+
   return (
     <>
       <Nav />
@@ -76,9 +92,17 @@ const View = () => {
         <ContentWrapper>
           <Viewer ref={viewerRef} />
         </ContentWrapper>
+        <RemoveBtn onClick={clickDelete}>해당 일기 삭제하기</RemoveBtn>
       </ViewContainer>
     </>
   );
 };
 
 export default View;
+
+const RemoveBtn = styled.button`
+  float: right;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #ff6b6b;
+`;

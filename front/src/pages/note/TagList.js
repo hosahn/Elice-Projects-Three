@@ -16,7 +16,6 @@ const TagList = () => {
     try {
       const res = await Api.get('book/list');
       setTagList(res.data);
-      console.log(res.data);
     } catch (err) {}
   };
 

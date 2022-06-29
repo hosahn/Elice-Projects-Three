@@ -10,7 +10,6 @@ import {
   DiaryDate,
   DateWrapper,
 } from '../../styles/NoteStyle';
-
 import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 import snackBar from '../../components/snackBar';
@@ -133,7 +132,6 @@ const EmotionList = () => {
             value={it.id}
           >
             <Title>{it.title}</Title>
-
             <DateWrapper>
               <DiaryDate>{it.date.slice(0, 10)}</DiaryDate>
             </DateWrapper>

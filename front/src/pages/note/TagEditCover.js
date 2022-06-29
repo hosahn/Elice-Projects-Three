@@ -2,21 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from '../../components/modal/Modal';
 import * as Api from '../../api';
+import snackBar from '../../components/snackBar';
 
-const color = [
-  { value: '#FFEC99', id: 1 },
-  { value: '#A5D8FF', id: 2 },
-  { value: '#FFD6A5', id: 3 },
-  { value: '#BDB2FF', id: 4 },
-  { value: '#FFADAD', id: 5 },
-];
-
-// 아직 미완성된 코드입니다.
 const TagEditCover = (props) => {
   const { setBookColor, setOpenEditCover } = props;
   const [openPalette, setOpenPalette] = useState(false);
-  const [openImage, setOpenImage] = useState(false);
-  //   const [reward, setReward] = useState(1);
+  const [rewardColor, setRewardColor] = useState([]);
 
   useEffect(() => {
     clickPalette();
@@ -25,10 +16,10 @@ const TagEditCover = (props) => {
   const clickPalette = async () => {
     try {
       const res = await Api.get('reward/user');
-      console.log(res);
+      setRewardColor(res.data);
       setOpenPalette(true);
     } catch (err) {
-      alert('err');
+      snackBar('error');
     }
   };
 
@@ -40,11 +31,8 @@ const TagEditCover = (props) => {
   return (
     <Modal setOpen={setOpenEditCover}>
       <ColorContainer>
-        {color.map((it) => (
-          <ColorWrapper
-            onClick={() => selectColor(it.value)}
-            color={it.value}
-          />
+        {rewardColor.map((it) => (
+          <ColorWrapper onClick={() => selectColor(it.value)} color={it} />
         ))}
       </ColorContainer>
     </Modal>
