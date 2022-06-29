@@ -1,5 +1,5 @@
-import images from '../../assets/images';
-import { SocialBtn, Img } from '../../styles/LoginStyle';
+import images from "../../assets/images";
+import { SocialBtn, Img } from "../../styles/LoginStyle";
 
 const SocialLogin = () => {
   const googleUrl = process.env.REACT_APP_GOOGLE_URL;
@@ -7,13 +7,13 @@ const SocialLogin = () => {
   const naverUrl = process.env.REACT_APP_NAVER_URL;
 
   const clickGoogle = () => {
-    window.open(`${googleUrl}`, '_self');
+    window.open(`${googleUrl}`, "_self");
   };
   const clickKakao = () => {
-    window.open(`${kakaoUrl}`, '_self');
+    window.open(`${kakaoUrl}`, "_self");
   };
   const clickNaver = () => {
-    window.open(`${naverUrl}`, '_self');
+    window.open(`${naverUrl}`, "_self");
   };
 
   return (

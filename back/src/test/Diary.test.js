@@ -45,6 +45,7 @@ afterAll(async () => {
 
 describe("Diary Crate Success Test", () => {
   test("should have a DiaryService.create function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.create).toBe("function");
   });
   // test("Diary.create() Check the response structure", async () => {
@@ -54,6 +55,7 @@ describe("Diary Crate Success Test", () => {
   //   expect(result).toEqual(diaryResultMock);
   // });
   test("should return 201 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .post("/diary")
       .send(diaryMock)
@@ -62,6 +64,7 @@ describe("Diary Crate Success Test", () => {
     expect(res.statusCode).toBe(201);
   });
   test("Title parameter error test", async () => {
+    jest.setTimeout(30000);
     const titleErrorMock = deleteMock("title");
     const res = await request(app)
       .post("/diary")
@@ -71,6 +74,7 @@ describe("Diary Crate Success Test", () => {
     expect(res.statusCode).toBe(400);
   });
   test("Text parameter error test", async () => {
+    jest.setTimeout(30000);
     const textErrorMock = deleteMock("text");
     const res = await request(app)
       .post("/diary")
@@ -83,6 +87,7 @@ describe("Diary Crate Success Test", () => {
   });
 
   test("Diary Create only once per day", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .post("/diary")
       .send(diaryMock)
@@ -92,6 +97,7 @@ describe("Diary Crate Success Test", () => {
     );
   });
   test("Diary Create non-logged-in users Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).post("/diary").send(diaryMock);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
@@ -99,9 +105,11 @@ describe("Diary Crate Success Test", () => {
 
 describe("Diary Read Test", () => {
   test("should have a DiaryService.read function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.read).toBe("function");
   });
   test("DiaryService.read() Check the response structure", async () => {
+    jest.setTimeout(30000);
     const result = await DiaryService.read(diaryResultMock.id);
     expect(result).toEqual(
       expect.objectContaining({
@@ -115,12 +123,14 @@ describe("Diary Read Test", () => {
     );
   });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/${diaryResultMock.id}`)
       .set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
   test("should have a DiaryService.readList function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.readList).toBe("function");
   });
   // test("DiarySerivce.readList Check the response structure", async () => {
@@ -139,12 +149,14 @@ describe("Diary Read Test", () => {
   //   );
   // });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/list`).set("Cookie", cookie);
     cursor = res.body[res.body.length - 1];
     expect(res.statusCode).toBe(200);
   });
 
   test("should have a DiaryService.randomDiarys function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.randomDiarys).toBe("function");
   });
 
@@ -164,6 +176,7 @@ describe("Diary Read Test", () => {
   //   );
   // });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/random/list`)
       .set("Cookie", cookie);
@@ -171,10 +184,12 @@ describe("Diary Read Test", () => {
   });
 
   test("should have a DiaryService.secondReadList function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.secondReadList).toBe("function");
   });
 
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/list`)
       .query(cursor)
@@ -183,16 +198,19 @@ describe("Diary Read Test", () => {
   });
 
   test("Read non-existent Diary ID Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/-1`).set("Cookie", cookie);
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
 
   test("List Read non-logged-in users Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/list`);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
 
   test("Random List non-logged-in users Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/random/list`);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
@@ -200,9 +218,11 @@ describe("Diary Read Test", () => {
 
 describe("Diary Delete Test", () => {
   test("should have a DiaryServce.Delete function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.delete).toBe("function");
   });
   test("should return 204 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .delete(`/diary/${diaryResultMock.id}`)
       .set("Cookie", cookie);
@@ -210,10 +230,12 @@ describe("Diary Delete Test", () => {
   });
 
   test("Delete non-existent diary ID Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).delete(`/diary/-1`).set("Cookie", cookie);
     expect(res.body.error.message).toBe("Diary가 존재하지 않습니다.");
   });
   test("Delete non-logged-in users Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/${diaryResultMock.id}`);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
@@ -221,13 +243,16 @@ describe("Diary Delete Test", () => {
 
 describe("Get PreSignURL Test", () => {
   test("shuold have a createUrl function", () => {
+    jest.setTimeout(30000);
     expect(typeof createUrl).toBe("function");
   });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get("/upload/test").set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
   test("Get PreSignURL non-logged-in users Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/${diaryResultMock.id}`);
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
@@ -235,10 +260,12 @@ describe("Get PreSignURL Test", () => {
 
 describe("Diary Search Test", () => {
   test("should have a searchList function", async () => {
+    jest.setTimeout(30000);
     expect(typeof DiaryService.searchList).toBe("function");
   });
 
   test("Title Search should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -249,6 +276,7 @@ describe("Diary Search Test", () => {
   });
 
   test("Text Search should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -259,6 +287,7 @@ describe("Diary Search Test", () => {
   });
 
   test("Tag Search should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -269,6 +298,7 @@ describe("Diary Search Test", () => {
   });
 
   test("All Search should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -279,6 +309,7 @@ describe("Diary Search Test", () => {
   });
 
   test("Diary searchList query length must be greater than 1", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get(`/diary/search`)
       .query({
@@ -288,16 +319,19 @@ describe("Diary Search Test", () => {
     expect(res.body.error.message).toBe("검색어를 한 글자 이상 입력해주세요!");
   });
   test("Diary search don't have a Query", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get("/diary/search").set("Cookie", cookie);
     expect(res.body.error.message).toBe("올바른 쿼리 값을 입력해주세요.");
   });
   test("Diary searchList non-logged-in users Test", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get(`/diary/search`).query({
       title: "일기",
     });
     expect(res.body.error.message).toBe("로그인 후 사용해야 합니다.");
   });
   test("Diary searchList It's not the right kind of query.", async () => {
+    jest.setTimeout(30000);
     const res = await request(app)
       .get("/diary/search")
       .query({

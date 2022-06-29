@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowAltCircleRight,
   faArrowAltCircleLeft,
   faCircleQuestion,
-} from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
-import * as Api from '../../api';
-import changeUtc from '../../utils/changeUtc';
-import Alerts from './Alerts';
-import Star from '../../components/star';
+} from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import * as Api from "../../api";
+import changeUtc from "../../utils/changeUtc";
+import Alerts from "./Alerts";
+import Star from "../../components/star";
 
 const Calendar = () => {
   const navigate = useNavigate();
   const [getMoment, setMoment] = useState(moment());
   const today = getMoment;
-  const firstWeek = today.clone().startOf('month').week();
+  const firstWeek = today.clone().startOf("month").week();
   let calendar = [];
   const endWeek =
-    today.clone().endOf('month').week() === 1
+    today.clone().endOf("month").week() === 1
       ? 53
-      : today.clone().endOf('month').week();
+      : today.clone().endOf("month").week();
 
   const [calendarList, setCalendarList] = useState([]);
-  const [counter, setCounter] = useState('');
-  const [year, setYear] = useState(today.format('YYYY'));
-  const [month, setMonth] = useState(today.format('MM').replace(/(^0+)/, ''));
+  const [counter, setCounter] = useState("");
+  const [year, setYear] = useState(today.format("YYYY"));
+  const [month, setMonth] = useState(today.format("MM").replace(/(^0+)/, ""));
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -36,8 +36,8 @@ const Calendar = () => {
   }, [month]);
 
   useEffect(() => {
-    setMonth(today.format('MM').replace(/(^0+)/, ''));
-    setYear(today.format('YYYY'));
+    setMonth(today.format("MM").replace(/(^0+)/, ""));
+    setYear(today.format("YYYY"));
   }, [today]);
 
   const clickDiary = (e) => {
@@ -51,16 +51,16 @@ const Calendar = () => {
       setCalendarList(res.data);
       setCounter(res.data.length);
     } catch (err) {
-      alert('달력 에러 발생');
+      alert("달력 에러 발생");
     }
   };
 
   const addMonth = async () => {
-    setMoment(getMoment.clone().add(1, 'month'));
+    setMoment(getMoment.clone().add(1, "month"));
   };
 
   const subtractMonth = async () => {
-    setMoment(getMoment.clone().subtract(1, 'month'));
+    setMoment(getMoment.clone().subtract(1, "month"));
   };
 
   const clickOpen = () => {
@@ -77,27 +77,27 @@ const Calendar = () => {
               let current = today
                 .clone()
                 .week(week)
-                .startOf('week')
-                .add(n + i, 'day');
+                .startOf("week")
+                .add(n + i, "day");
 
               let isSelected =
-                moment().format('YYYYMMDD') === current.format('YYYYMMDD')
-                  ? 'true'
-                  : '';
+                moment().format("YYYYMMDD") === current.format("YYYYMMDD")
+                  ? "true"
+                  : "";
 
               let isGrayed =
-                current.format('MM') !== today.format('MM') ? 'true' : '';
+                current.format("MM") !== today.format("MM") ? "true" : "";
 
-              let diary = '';
-              let diaryId = '';
-              let emotion = '';
+              let diary = "";
+              let diaryId = "";
+              let emotion = "";
               if (calendar.list !== 0) {
                 for (let i = 0; i < counter; i++) {
                   const { checkDate } = changeUtc(calendarList[i].date);
                   diary =
-                    checkDate === current.format('YYYYMMDD') ? 'ok' : 'no';
+                    checkDate === current.format("YYYYMMDD") ? "ok" : "no";
 
-                  if (diary === 'ok') {
+                  if (diary === "ok") {
                     diaryId = calendarList[i].id;
                     emotion = calendarList[i].emotion;
                     break;
@@ -105,9 +105,9 @@ const Calendar = () => {
                 }
               }
 
-              let disabled = diaryId === '' ? true : false;
+              let disabled = diaryId === "" ? true : false;
 
-              return diary === 'ok' ? (
+              return diary === "ok" ? (
                 <Star
                   key={i}
                   diary={diary}
@@ -122,7 +122,7 @@ const Calendar = () => {
                   isGrayed={isGrayed}
                   isSelected={isSelected}
                 >
-                  <div>{current.format('D')}</div>
+                  <div>{current.format("D")}</div>
                 </Day>
               );
             })}
@@ -139,7 +139,7 @@ const Calendar = () => {
           <MoveBtn onClick={subtractMonth}>
             <FontAwesomeIcon icon={faArrowAltCircleLeft} className="user" />
           </MoveBtn>
-          <span>{today.format('YYYY년 MM월')}</span>
+          <span>{today.format("YYYY년 MM월")}</span>
           <MoveBtn onClick={addMonth}>
             <FontAwesomeIcon icon={faArrowAltCircleRight} className="user" />
           </MoveBtn>
@@ -149,7 +149,7 @@ const Calendar = () => {
         </ControlContainer>
         {open && <Alerts setOpen={setOpen} />}
         <CalendarHead>
-          {['일', '월', '화', '수', '목', '금', '토'].map((el) => (
+          {["일", "월", "화", "수", "목", "금", "토"].map((el) => (
             <HeadDiv key={el} day={el}>
               <span>{el}</span>
             </HeadDiv>
@@ -179,15 +179,15 @@ const Week = styled.div`
 
 const Day = styled.button`
   color: ${(props) =>
-    props.isGrayed === 'true'
-      ? '#adb5bd'
-      : props.isSelected === 'true'
-      ? '#862e9c'
-      : 'black'};
+    props.isGrayed === "true"
+      ? "#adb5bd"
+      : props.isSelected === "true"
+      ? "#862e9c"
+      : "black"};
   width: 80px;
   height: 70px;
   border-radius: 50px;
-  font-family: 'KyoboHand';
+  font-family: "KyoboHand";
   font-size: 12px;
   background-color: transparent;
 `;
@@ -197,9 +197,9 @@ const CalendarHead = styled.div`
   grid-template-columns: repeat(7, 1fr);
   gap: 70px;
   margin: 10px;
-  font-family: 'KyoboHand';
+  font-family: "KyoboHand";
   font-size: 20px;
-  color: ${(props) => (props.key === '일' ? 'red' : 'black')};
+  color: ${(props) => (props.key === "일" ? "red" : "black")};
   div {
     padding: 2px 2px;
   }
@@ -207,13 +207,13 @@ const CalendarHead = styled.div`
 
 const ControlContainer = styled.div`
   font-size: 22px;
-  font-family: 'KyoboHand';
+  font-family: "KyoboHand";
   margin-bottom: 15px;
 `;
 
 const HeadDiv = styled.div`
   color: ${(props) =>
-    props.day === '일' ? '#ff6b6b' : props.day === '토' ? ' #339af0' : 'black'};
+    props.day === "일" ? "#ff6b6b" : props.day === "토" ? " #339af0" : "black"};
   background-image: linear-gradient(transparent 60%, #ffc9c9 40%);
 `;
 

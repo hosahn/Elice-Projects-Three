@@ -1,4 +1,4 @@
-import ReactApexChart from 'react-apexcharts';
+import ReactApexChart from "react-apexcharts";
 
 const TimeGraph = (props) => {
   const data = props.data;
@@ -6,14 +6,14 @@ const TimeGraph = (props) => {
   const donutData = {
     series: [
       {
-        name: '작성 일기 수 ',
+        name: "작성 일기 수 ",
         data: [data.morning, data.afternoon, data.night, data.dawn], //data.morning, data.afternoon, data.night, data.dawn
       },
     ],
-    labels: ['아침', '점심', '저녁', '새벽'],
+    labels: ["아침", "점심", "저녁", "새벽"],
     options: {
       chart: {
-        type: 'bar',
+        type: "bar",
         height: 350,
       },
       plotOptions: {
@@ -26,14 +26,14 @@ const TimeGraph = (props) => {
         enabled: false,
       },
       xaxis: {
-        categories: ['아침', '점심', '저녁', '새벽'],
+        categories: ["아침", "점심", "저녁", "새벽"],
       },
       title: {
-        text: '',
-        align: 'left',
+        text: "",
+        align: "left",
       },
       fill: {
-        colors: ['#827397'],
+        colors: ["#827397"],
       },
     },
   };
