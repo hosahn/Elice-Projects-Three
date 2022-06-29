@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Box = styled.div`
   padding: 80px 60px;
@@ -43,7 +43,6 @@ export const FooterLink = styled.a`
   margin-bottom: 20px;
   font-size: 18px;
   text-decoration: none;
-
   &:hover {
     color: green;
     transition: 200ms ease-in;

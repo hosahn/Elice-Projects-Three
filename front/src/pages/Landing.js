@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import images from "../assets/images";
-import * as style from "../styles/LandingStyle";
-import LandingNav from "../components/nav/LandingNav";
-import MainFooter from "../components/footer";
-import DiaryGraph from "../components/graph/diaryGraph";
-import SocialGraph from "../components/graph/socialGraph";
-import Btn from "../components/Btn";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import images from '../assets/images';
+import * as style from '../styles/LandingStyle';
+import LandingNav from '../components/nav/LandingNav';
+import MainFooter from '../components/footer';
+import DiaryGraph from '../components/graph/diaryGraph';
+import SocialGraph from '../components/graph/socialGraph';
+import Btn from '../components/Btn';
+import { useNavigate } from 'react-router-dom';
 
 const Penciltext = `하루끝의 일기를 작성해보세요.`;
 const Emotiontext = `오늘의 감정을 확인해보세요.`;
@@ -26,6 +27,7 @@ const quotation = `"당신의 내일을 밤하늘이 응원합니다."
 
 -엘리스 12팀 일동-`;
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <>
       <style.MainContainer>
@@ -93,7 +95,12 @@ const Landing = () => {
           <style.HeartEmotion HeartColor="#D8F5A2" Top="160px" Left="550px" />
         </style.JustifyContainer>
         <style.ButtonDiv>
-          <Btn text={"일기 쓰기 바로가기"} />
+          <Btn
+            text={'일기 쓰기 바로가기'}
+            onClick={() => {
+              navigate('/login');
+            }}
+          />
         </style.ButtonDiv>
         <style.SocietyProblem>왜 밤하늘일까?</style.SocietyProblem>
         <style.GraphContainer>
@@ -102,7 +109,12 @@ const Landing = () => {
           <SocialGraph /> <style.RSocialText>{snsText}</style.RSocialText>
         </style.GraphContainer>
         <style.ButtonDiv>
-          <Btn text={"밤하늘 서비스 바로가기"} />
+          <Btn
+            text={'밤하늘 서비스 바로가기'}
+            onClick={() => {
+              navigate('/login');
+            }}
+          />
         </style.ButtonDiv>
         <style.Quotation>{quotation}</style.Quotation>
       </style.MainContainer>
