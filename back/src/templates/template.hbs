@@ -171,38 +171,17 @@ p
     <link rel="Stylesheet" href="essay.css" type="text/css" />
 </head>
 <body>
-    <h1>Essay Title Goes Here</h1>
-    <h3>by Author</h3>
+    <h1>{{title}}</h1>
+    <h3>{{user}}</h3>
+    <h3>{{tag}}</h3>
     <div id="intro">
-        <p>This is the intro section.  Give some background to the topic on the subject of your essay here.  On the Internet, you never know where your audience will come from.  Use this section to let them know if they are the target audience.</p>
-        <p>You can go on for more than one paragraph, but keep it brief.  Your essay should be the main show.</p>
+        <p>{{date}}</p>
     </div>
     <div id="main">
-      <p>Here is an example paragraph.  I could use Lorem Ipsum, but I don't care to, at the moment.  Just look at the text and see how readable it is.  Readable.  Yes, readable, gooooood.</p>
-        <blockquote>
-            <p>This is an example of blockquoted text.  Whether or not you are the author of the text in block quotes, it still has a different "voice" from the main body of text.  That's why it's indented differently.  It's also why the background color is slightly different.</p>
-        </blockquote>
+      <p>{{text}}</p>
+    </div>
         <hr />
-        <p>You can use horizontal rules like the one above this paragraph to divide your essay into sections.  You can also use the H3 tag as given below.</p>
-        <h3>Heading Title</h3>
-      <p>I got the idea for this HTML and CSS combo from using the <a href="http://www.readability.com/">Readability</a> add-on.  I used it so often that I became (even more) annoyed with the way that so many web pages get written, these days.  Web pages are made to be read.  Well, they're supposed to be.  Instead, too many web pages are so painful to read that some people made hacks to focus on the text, again.</p>
-      <p>The very existence of an add-on like Readable is an indictment on the web design profession.  If your users click on the Readable button while visiting your site, then that button may as well say "The designer sucks and needs to get another job!"  I got worried about being in the place of that hypothetical designer, so I decided to cut out the middle man and design my sites to look as if they had already gone through the Readable plugin.</p>
-      <p>The line lengths are short and the text size is large.  This eases reading.  It's all pixels, so there's no need to save paper by keeping things small.  The sides of the box hug the sides of the essay in order to guide the reader's eyes downward, further easing reading.</p>
-      <p>I centered everything.  In order to keep symmetry, I justified the text so that are no ragged edges on either the left or right sides of the paragraphs.  Since lines lengths are so short, the reader should have no problem going to the next line.</p>
-      <p>Most of the heavy lifting is done in the CSS file.  No JavaScript is required to make this work.</p>
-    </div>
-    <div id="extro">
-        <p>I use the extro to relate how the essay was received.  If the essay gets linked to on sites such as Slashdot or Hacker News, then I'll put up the appropriate links here.</p>
-        <p>I also use this section to thank people who helped me to write the essay or whose tools I used to write the essay.</p>
-    </div>
-    <hr style="width: 50%" />
-    <p>
-        <strong>Parting Message.  Call to Action.  Hire me.</strong>
-    </p>
-    <hr style="width: 50%" />
-    <div id="footer">
-        <p>The footer is for copyright information as well as giving the date when you published the essay.</p>
-        <p>If the essay appears elsewher, then you may want to put that information here, as well.</p>
+      <p>@Copyright 2022 Elice Team 12</p>
     </div>
 </body>
 </html>

@@ -4,7 +4,8 @@ import hbs from "handlebars";
 import fs from "fs-extra";
 import puppeteer from "puppeteer";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
-import { Diary } from "../db/index.js";
+import { Diary, User } from "../db/index.js";
+import { userInfo } from "os";
 const compile = async function (templateName, data) {
   const filePath = path.join(
     process.cwd(),
@@ -23,11 +24,26 @@ hbs.registerHelper("dataFormant", function (value, format) {
 
 class pdfService {
   static async pdfConverter({ id }) {
-    const diary = await Diary.find({ id });
+    const diary = await Diary.find(id);
+    const user = await User.findUserByEmail({ id: diary.id });
+    const name = user.name;
+    const title = diary.title;
+    const tag = diary.tag;
+    const text = diary.text;
+    const emotion = diary.emotion;
+    let date = String(diary.date);
+    date = date.slice(0, 15);
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     const filename = "myResume.pdf";
-    const content = await compile("template", {});
+    const content = await compile("template", {
+      title,
+      tag,
+      text,
+      emotion,
+      date,
+      name,
+    });
     await page.setContent(content);
     await page.emulateMediaType("screen");
     await page.pdf({
