@@ -1,5 +1,4 @@
-import { atom, selector } from 'recoil';
-import * as Api from './api';
+import { atom } from 'recoil';
 
 export const userState = atom({
   key: 'userState',
@@ -29,19 +28,4 @@ export const activeState = atom({
 export const emotionState = atom({
   key: 'emotionState',
   default: '',
-});
-
-export const getUserSelector = selector({
-  key: 'user/get',
-  get: async () => {
-    try {
-      const data = await Api.get('user/info');
-      return data.data;
-    } catch (err) {
-      throw new '테스트 오류'();
-    }
-  },
-  set: ({ set }, newValue) => {
-    set(userState, newValue);
-  },
 });

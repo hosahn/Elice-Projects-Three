@@ -13,6 +13,7 @@ import {
 } from '../../styles/RegisterStyle';
 import { validateEmail } from '../../utils/validation';
 import LandingNav from '../../components/nav/LandingNav';
+import snackBar from '../../components/snackBar';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -80,11 +81,15 @@ const Register = () => {
         pw: password,
         name,
       });
-      console.log(response);
-      navigate('/login');
+      console.log(response.data);
+      if (response.data === 'true') {
+        snackBar('sucess', '회원가입에 성공하였습니다.');
+        navigate('/login');
+      } else {
+        snackBar('sucess', '회원가입에 성공하였습니다.');
+      }
     } catch (err) {
-      console.log('회원가입 실패', err);
-      alert('회원가입 중 에러가 발생했습니다.');
+      snackBar('sucess', '회원가입에 성공하였습니다.');
     }
   };
 

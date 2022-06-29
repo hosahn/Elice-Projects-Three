@@ -47,6 +47,7 @@ export const TagContainer = styled.div`
 width:220px;
 height:280px;
 transform: translate(-50%, -50%);
+margin-bottom: 20px;
 top:50%;
 left: 50%;  
 background: ${(prop) => prop.color};
