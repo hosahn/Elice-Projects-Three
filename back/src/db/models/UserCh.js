@@ -88,12 +88,12 @@ class UserChallenge {
     return result;
   }
   static async findFailed({}) {
-    const result = prisma.user_challenge.findMany({
+    const result = prisma.users.findMany({
       where: {
-        is_broken: true,
+        daily_check: false,
       },
       select: {
-        user_id: true,
+        id: true,
       },
     });
     return result;

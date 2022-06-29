@@ -17,7 +17,6 @@ export {
   Challenge,
   Reward,
   Fortune,
-  Book,
   Report,
   Activity,
 };

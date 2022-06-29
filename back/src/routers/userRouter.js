@@ -81,7 +81,7 @@ userRouter.get("/failed", (req, res) => {
 // 회원가입
 userRouter.post("/signup/check", async (req, res) => {
   const email = req.body.email;
-  const result = await User.checkUser({ email });
+  const result = User.checkUser({ email });
   if (result) {
     res.send(true);
   } else {

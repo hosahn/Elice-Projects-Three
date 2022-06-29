@@ -1,13 +1,13 @@
-import { PrismaClient } from '@prisma/client';
-import pkg from 'moment';
+import { PrismaClient } from "@prisma/client";
+import pkg from "moment";
 const { months } = pkg;
-import moment from 'moment';
+import moment from "moment";
 const prisma = new PrismaClient();
 
 class Report {
   static async findMonthlyEmotion({ user_id }) {
-    const from = moment().add(1, 'days').format('YYYY-MM-DD');
-    const to = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    const from = moment().add(1, "days").format("YYYY-MM-DD");
+    const to = moment().subtract(1, "months").format("YYYY-MM-DD");
     const result =
       await prisma.$queryRaw`select count(*) as count, emotion from diary where user_id = ${user_id}
       AND ( date between ${to} and ${from}) group by emotion;
@@ -33,8 +33,8 @@ AND (select hour(date) >= 0 AND hour(date) < 6)
     return { morning, afternoon, night, dawn };
   }
   static async findTags({ user_id }) {
-    const from = moment().add(1, 'days').format('YYYY-MM-DD');
-    const to = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    const from = moment().add(1, "days").format("YYYY-MM-DD");
+    const to = moment().subtract(1, "months").format("YYYY-MM-DD");
     const result = await prisma.$queryRaw`
     select count(*) as count, tag from diary where user_id = ${user_id}
 AND ( date between ${to} and ${from})
@@ -44,8 +44,8 @@ group by tag order by count desc limit 3
   }
 
   static async findAllUserTags() {
-    const from = moment().add(1, 'days').format('YYYY-MM-DD');
-    const to = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    const from = moment().add(1, "days").format("YYYY-MM-DD");
+    const to = moment().subtract(1, "months").format("YYYY-MM-DD");
     const result = await prisma.$queryRaw`
     select count(*) as count, tag from diary where ( date between ${to} and ${from}) group by tag order by count desc limit 3
     `;

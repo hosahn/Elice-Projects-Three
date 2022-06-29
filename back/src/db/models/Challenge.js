@@ -21,9 +21,6 @@ class Challenge {
           in: challenge_array,
         },
       },
-      select: {
-        name: true,
-      },
     });
     return result;
   }

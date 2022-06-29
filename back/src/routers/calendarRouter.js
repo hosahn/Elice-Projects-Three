@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import CalendarService from "../services/calenderService.js";
 const calendarRouter = Router();
@@ -17,6 +16,7 @@ calendarRouter.get("/:year/:month", async (req, res) => {
     const year = req.params.year;
     const month = req.params.month;
     const result = await CalendarService.getMonthly({ year, month, user_id });
+    console.log(result);
     res.send(result);
   } else {
     res.send("Login first");
