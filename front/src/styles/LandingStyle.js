@@ -176,6 +176,7 @@ export const HeartText = styled.div`
   font-size: 30px;
   top: ${(props) => props.Top};
   left: ${(props) => props.Left};
+  white-space: nowrap;
   color: black;
   width: 50px;
   height: 50px;

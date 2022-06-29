@@ -4,6 +4,7 @@ import LandingNav from "../components/nav/LandingNav";
 import MainFooter from "../components/footer";
 import MemberCard from "../components/MemberCard";
 import styled from "styled-components";
+import Btn from "../components/Btn";
 
 const Hosan = require("../images/Hosan.jpg");
 const Nayeon = require("../images/Nayeon.jpg");
@@ -11,6 +12,7 @@ const Jooyeong = require("../images/Jooyeong.jpg");
 const GwangCheon = require("../images/GwangCheon.jpg");
 const Notion = require("../images/Notion.png");
 const Figma = require("../images/Figma.png");
+const ErdCloud = require("../images/ErdCloud.png");
 
 const CardDiv = styled.div`
   border-radius: 30px;
@@ -31,7 +33,7 @@ const IntroDiv = styled.div`
   top: 100px;
   line-height: 80px;
   width: 1000px;
-  height: 660px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   align: left;
@@ -52,12 +54,21 @@ const ProDiv = styled.div`
   margin-bottom: 150px;
 `;
 
+const MainContainer = styled.div`
+  position: relative;
+  height: 550vh;
+  width: 100%;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #09203f 0%, #537895 100%);
+`;
+
 const Introduce = styled.div`
   font-family: "EliceDigitalBaeum_Bold";
   font-size: 50px;
   text-align: center;
   color: white;
   top: 550px;
+  margin-top: 100px;
   word-spacing: 10px;
 `;
 
@@ -81,7 +92,7 @@ const About = styled.div`
 const AboutUs = () => {
   return (
     <>
-      <style.MainContainer>
+      <MainContainer>
         <LandingNav />
         <style.StarFalling></style.StarFalling>
         <style.StarFalling></style.StarFalling>
@@ -152,13 +163,14 @@ const AboutUs = () => {
               height: "500px",
               marginTop: "100px",
               borderRadius: "1%",
+              marginBottom: "100px",
             }}
             alt="Figma"
           />
+          <Btn text={"팀 페이지 방문하기"} />
         </ProDiv>
         <Introduce>멤버들의 한마디</Introduce>
         <IntroDiv>
-          {" "}
           <MySelf>나연 : 안녕하세요 프론트엔드 담당 김나연입니다!</MySelf>
           <MySelf>주영 : 안녕하세요 AI 담당 배주영입니다!</MySelf>
           <MySelf>호산 : 안녕하세요! 백엔드 담당 이호산입니다!</MySelf>
@@ -167,7 +179,7 @@ const AboutUs = () => {
             백엔드 담당 신광천 입니다
           </MySelf>
         </IntroDiv>
-      </style.MainContainer>
+      </MainContainer>
       <MainFooter></MainFooter>
     </>
   );

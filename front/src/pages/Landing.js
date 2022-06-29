@@ -65,28 +65,28 @@ const Landing = () => {
         <style.JustifyContainer>
           <style.HeartEmotion HeartColor="#FFEC99" Top="40px" Left="70px" />
           <style.HeartText Top="60px" Left="-200px">
-            Happy
+            행복
           </style.HeartText>
           <style.HeartText Top="131px" Left="-200px">
-            Sad
+            슬픔
           </style.HeartText>
           <style.HeartText Top="202px" Left="-200px">
-            Digsuted
+            혐오
           </style.HeartText>
           <style.HeartEmotion HeartColor="#A5D8FF" Top="160px" Left="70px" />
           <style.HeartText Top="-89px" Left="50px">
-            ABC
+            놀람
           </style.HeartText>
           <style.HeartEmotion HeartColor="#FFD6A5" Top="280px" Left="70px" />
           <style.HeartText Top="-20px" Left="50px">
-            ABC
+            평범
           </style.HeartText>
           <style.HeartEmotion HeartColor="#CED4DA" Top="40px" Left="310px" />
           <style.HeartText Top="51px" Left="50px">
-            ABC
+            화남
           </style.HeartText>
           <style.HeartText Top="-121px" Left="300px">
-            ABC
+            불안
           </style.HeartText>
           <style.HeartEmotion HeartColor="#FFADAD" Top="160px" Left="310px" />
           <style.HeartEmotion HeartColor="#BDB2FF" Top="280px" Left="310px" />
