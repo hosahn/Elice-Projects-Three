@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { PrismaClient } from "@prisma/client";
-=======
-import { PrismaClient } from '@prisma/client';
->>>>>>> origin/test/tag/ny
 const prisma = new PrismaClient();
 
 class Fortune {

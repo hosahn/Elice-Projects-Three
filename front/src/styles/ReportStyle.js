@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import styled from "styled-components";
 const sky = require("../images/nightsky.jpg");
-=======
-import styled from 'styled-components';
->>>>>>> origin/test/tag/ny
 
 export const Loading = styled.h1`
   text-transform: uppercase;
@@ -26,10 +22,6 @@ export const Loading = styled.h1`
   display: inline-block;
   font-size: 190px;
 `;
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/test/tag/ny
 export const BackGroundContainer = styled.div`
   position: relative;
   margin: auto;
@@ -70,11 +62,7 @@ export const ReportContainer = styled.div`
     opacity: 0.5;
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
     content: "";
-=======
-    content: '';
->>>>>>> origin/test/tag/ny
     position: absolute;
     top: 0;
     left: 0;
@@ -88,11 +76,7 @@ export const RDiaryText = styled.h3`
   height: 163px;
   left: 500px;
   top: 15px;
-<<<<<<< HEAD
   font-family: "EliceDigitalBaeum_Bold";
-=======
-  font-family: 'EliceDigitalBaeum_Bold';
->>>>>>> origin/test/tag/ny
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
@@ -108,11 +92,7 @@ export const RTitleWrap = styled.div`
 export const ReportTitle = styled.h1`
   top: 30px;
   font-size: 40px;
-<<<<<<< HEAD
   font-family: "EliceDigitalBaeum_Bold";
-=======
-  font-family: 'EliceDigitalBaeum_Bold';
->>>>>>> origin/test/tag/ny
   color: black;
   text-align: center;
   font-style: normal;
@@ -126,11 +106,7 @@ export const ReportTitle = styled.h1`
 export const DescTitle = styled.h1`
   top: 80px;
   font-size: 30px;
-<<<<<<< HEAD
   font-family: "EliceDigitalBaeum_Bold";
-=======
-  font-family: 'EliceDigitalBaeum_Bold';
->>>>>>> origin/test/tag/ny
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -152,11 +128,7 @@ export const ChallengeContainer = styled.div`
     opacity: 0.5;
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
     content: "";
-=======
-    content: '';
->>>>>>> origin/test/tag/ny
     position: absolute;
     top: 0;
     left: 0;
@@ -167,11 +139,7 @@ export const ChallengeContainer = styled.div`
 export const Quotation = styled.h1`
   top: 80px;
   font-size: 20px;
-<<<<<<< HEAD
   font-family: "EliceDigitalBaeum_Bold";
-=======
-  font-family: 'EliceDigitalBaeum_Bold';
->>>>>>> origin/test/tag/ny
   color: black;
   color: #3d2c8d;
   text-align: center;

@@ -57,10 +57,14 @@ class User {
           social: social,
         },
       });
-      const hashed = foundUser.pw;
-      const comparedResult = await bcrypt.compare(pw, hashed);
-      if (comparedResult) {
-        return foundUser;
+      if (foundUser) {
+        const hashed = foundUser.pw;
+        const comparedResult = await bcrypt.compare(pw, hashed);
+        if (comparedResult) {
+          return foundUser;
+        } else {
+          return false;
+        }
       } else {
         return false;
       }

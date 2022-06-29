@@ -138,10 +138,6 @@ model book {
   diary       diary[]
 
   @@unique([id, user_id], name: "idUserId")
-<<<<<<< HEAD
   @@index([user_id], map: "user_id")
 
-=======
-  @@index([user_id], map: "book_ibfk_1")
->>>>>>> origin/test/tag/ny
 }

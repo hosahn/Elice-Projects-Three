@@ -4,22 +4,16 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
-<<<<<<< HEAD
     "@emotion/style": "^0.8.0",
-=======
->>>>>>> origin/test/tag/ny
     "@emotion/styled": "^11.9.3",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
-<<<<<<< HEAD
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
     "@mui/styled-engine": "^5.8.0",
     "@styled-icons/octicons": "^10.44.0",
-=======
     "@mui/material": "^5.8.5",
->>>>>>> origin/test/tag/ny
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -28,7 +22,6 @@
     "@toast-ui/react-editor": "^3.1.7",
     "apexcharts": "^3.35.3",
     "axios": "^0.27.2",
-<<<<<<< HEAD
     "chart.js": "^3.8.0",
     "image-resize": "^1.2.7",
     "mdb-react-ui-kit": "^4.0.0",
@@ -36,11 +29,9 @@
     "react": "^18.1.0",
     "react-apexcharts": "^1.4.0",
     "react-chartjs-2": "^4.2.0",
-=======
     "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-apexcharts": "^1.4.0",
->>>>>>> origin/test/tag/ny
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
     "react-loading": "^2.0.3",
@@ -48,12 +39,9 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-spinners-kit": "^1.9.1",
-<<<<<<< HEAD
     "react-top-loading-bar": "^2.1.0",
     "react-use-cookie": "^1.4.0",
-=======
     "react-toastify": "^9.0.5",
->>>>>>> origin/test/tag/ny
     "recoil": "^0.7.3-alpha.2",
     "styled-components": "^5.3.5",
     "styled-icons": "^10.45.0",
