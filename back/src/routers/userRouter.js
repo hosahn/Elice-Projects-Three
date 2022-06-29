@@ -103,6 +103,8 @@ userRouter.post("/signup", async (req, res) => {
 userRouter.get("/info", async (req, res) => {
   if (req.isAuthenticated()) {
     res.send(req.user);
+  } else {
+    res.sendStatus(404);
   }
 });
 

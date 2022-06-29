@@ -4,7 +4,7 @@ import hbs from "handlebars";
 import fs from "fs-extra";
 import puppeteer from "puppeteer";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
-
+import { Diary } from "../db/index.js";
 const compile = async function (templateName, data) {
   const filePath = path.join(
     process.cwd(),
@@ -23,6 +23,7 @@ hbs.registerHelper("dataFormant", function (value, format) {
 
 class pdfService {
   static async pdfConverter({ id }) {
+    const diary = await Diary.find({ id });
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     const filename = "myResume.pdf";
