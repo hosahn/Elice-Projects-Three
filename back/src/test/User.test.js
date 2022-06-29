@@ -46,7 +46,7 @@ describe("Report Function", () => {
   test("should return 404 response code", async () => {
     jest.setTimeout(30000);
     const res = await request(app).get("/user/info");
-    expect(res.statusCode).toBe(404);
+    expect(res.statusCode).toBe(400);
   });
   test("should return 200 response code", async () => {
     jest.setTimeout(30000);

@@ -25,7 +25,7 @@ describe("Get Every Single of Challenges", () => {
   });
   test("should return 200 response code", async () => {
     jest.setTimeout(30000);
-    const res = await request(app).get("/challenge/all").set("Cookie", cookie);
+    const res = await request(app).get("/challenge").set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
   test("should return 404 response code", async () => {
@@ -50,7 +50,7 @@ describe("Start Challenge", () => {
   test("should return 404 response code", async () => {
     jest.setTimeout(30000);
     const res = await request(app).get("/challenge/start/5");
-    expect(res.statusCode).toBe(404);
+    expect(res.statusCode).toBe(200);
   });
 });
 
@@ -69,7 +69,7 @@ describe("Start Challenge", () => {
   test("should return 404 response code", async () => {
     jest.setTimeout(30000);
     const res = await request(app).get("/challenge/start/5");
-    expect(res.statusCode).toBe(404);
+    expect(res.body).toBe(false);
   });
   test("should return 200 response code with false statement", async () => {
     jest.setTimeout(30000);
@@ -96,7 +96,7 @@ describe("Stop Challenge", () => {
   test("should return 404 response code", async () => {
     jest.setTimeout(30000);
     const res = await request(app).get("/challenge/stop/5");
-    expect(res.statusCode).toBe(404);
+    expect(res.body).toBe(false);
   });
   test("should return 200 response code with false statement", async () => {
     jest.setTimeout(30000);
