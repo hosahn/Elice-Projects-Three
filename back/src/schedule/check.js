@@ -32,27 +32,31 @@ const ChallengeSchedule = () => {
   const checkRule = "0 24 2 * * *";
   schedule.scheduleJob(checkRule, async () => {
     const result = ChallengeService.findFailedPeople();
-    const array = result.map((result) => result.id);
-    await ChallengeService.deleteFailedPeople({ array });
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      host: "hosahn13@gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "hosahn13@gmail.com",
-        pass: "cxgwagqzkgegajzx",
-      },
-    });
-    const text = "챌린지를 실패하셨습니다 ,다음에 다시 도전해주세요!";
-    for (let i = 0; i < result.length; i++) {
-      await transporter.sendMail({
-        from: `"밤하늘" <${process.env.NODEMAILER_USER}>`,
-        to: result[i].email,
-        subject: "밤하늘 챌린지 실패",
-        text: text,
-        html: `<b>${text}</b>`,
+    if (result.length > 0) {
+      const array = result.map((result) => result.id);
+      await ChallengeService.deleteFailedPeople({ array });
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "hosahn13@gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "hosahn13@gmail.com",
+          pass: "cxgwagqzkgegajzx",
+        },
       });
+      const text = "챌린지를 실패하셨습니다 ,다음에 다시 도전해주세요!";
+      for (let i = 0; i < result.length; i++) {
+        await transporter.sendMail({
+          from: `"밤하늘" <${process.env.NODEMAILER_USER}>`,
+          to: result[i].email,
+          subject: "밤하늘 챌린지 실패",
+          text: text,
+          html: `<b>${text}</b>`,
+        });
+      }
+    } else {
+      console.log("오늘은 실패자가 없습니다");
     }
   });
 

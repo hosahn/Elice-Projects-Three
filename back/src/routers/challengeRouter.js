@@ -11,16 +11,13 @@ challengeRouter.get("/all", async (req, res) => {
     const challenges = await ChallengeService.findAllChallenges();
     res.send({ log: result, challenge: challenges });
   } else {
-    res.send(false);
+    res.sendStatus(404);
   }
 });
 
 challengeRouter.get("/start/:id", async (req, res) => {
   if (req.isAuthenticated()) {
     const user_id = req.user.id;
-    if (!user_id) {
-      res.send(false);
-    }
     const challenge_id = req.params.id;
     const result = await ChallengeService.setChallenge({
       user_id,
@@ -28,7 +25,7 @@ challengeRouter.get("/start/:id", async (req, res) => {
     });
     res.send(result);
   } else {
-    res.send(false);
+    res.sendStatus(404);
   }
 });
 
@@ -42,7 +39,7 @@ challengeRouter.get("/stop/:id", async (req, res) => {
     });
     res.send(result);
   } else {
-    res.send(false);
+    res.sendStatus(404);
   }
 });
 

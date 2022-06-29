@@ -12,6 +12,7 @@ import RegisterForm from "./components/RegisterForm";
 import Note from "./pages/note/Note";
 import View from "./pages/note/View";
 import TagPage from "./pages/reward/bookCover";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/reward" element={<TagPage />} />
         <Route path="/userMain" element={<UserMain />} />
