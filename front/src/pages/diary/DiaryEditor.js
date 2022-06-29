@@ -12,6 +12,7 @@ import DiaryModal from './DiaryModal';
 import * as Api from '../../api';
 import { useSetRecoilState } from 'recoil';
 import { emotionState } from '../../atoms';
+import snackBar from '../../components/snackBar';
 
 const DiaryEditor = (props) => {
   const editorRef = useRef();
@@ -42,7 +43,7 @@ const DiaryEditor = (props) => {
     );
     const diary = deleteImg.replace(/<([^>]+)>/g, '');
 
-    if (title.length > 0 && temp.length > 2) {
+    if (title.length > 0 && temp.length > 0) {
       try {
         const res = await Api.postDiary({
           diary: diary,
@@ -59,11 +60,13 @@ const DiaryEditor = (props) => {
           setLoading((prev) => !prev);
           setTimeout(() => setLoading((prev) => !prev), 3500);
         } else {
-          alert('일기 작성 문구 ~~~~~');
+          snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
         }
       } catch (err) {
-        alert('일기 저장에 실패');
+        snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
       }
+    } else if (title.length === 0 || temp.length === 0) {
+      snackBar('info', '제목, 내용은 필수로 작성 부탁드립니다!');
     }
   };
 

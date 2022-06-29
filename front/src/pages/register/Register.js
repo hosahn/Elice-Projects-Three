@@ -39,7 +39,7 @@ const Register = () => {
     checkEmail;
 
   useEffect(() => {
-    alert('이메일 먼저 작성 부탁드립니다.😊');
+    snackBar('info', '이메일 먼저 작성 부탁드립니다');
     emailRef.current.focus();
   }, []);
 

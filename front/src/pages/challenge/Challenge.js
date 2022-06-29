@@ -8,17 +8,28 @@ import {
   ChallengeTitle,
 } from '../../styles/ChallengeStyle';
 import * as Api from '../../api';
+import { useNavigate } from 'react-router-dom';
+import snackBar from '../../components/snackBar';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 
 const Challenge = () => {
+  const navigate = useNavigate();
   const [challengeList, setChallengeList] = useState([]);
   const [currentChallenge, setCurrentChallenge] = useState([]);
   const [completedChallenge, setCompletedChallenge] = useState([]);
   const [openCompletedChallenge, setOpenCompletedChallenge] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
-    getChallenge();
+    if (user.length === 0) {
+      snackBar('error', '로그인 후 서비스를 이용해주세요!');
+      navigate('/');
+    } else {
+      getChallenge();
+    }
   }, [isLoaded]);
 
   const getChallenge = async () => {

@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import UserMain from './pages/main/Main';
-import UserInfo from './pages/UserInfo';
 import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
 import Login from './pages/login/Login';
@@ -23,7 +22,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/userMain" element={<UserMain />} />
-          <Route path="/userInfo" element={<UserInfo />} />
           <Route path="/diaryEditor" element={<Diary />} />
           <Route path="/challenge" element={<Challenge />} />
           <Route path="/note" element={<Note />} />

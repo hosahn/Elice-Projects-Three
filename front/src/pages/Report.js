@@ -6,15 +6,26 @@ import TimeGraph from '../components/graph/timeGraph';
 import Nav from '../components/nav/Nav';
 import TagRanking from '../components/graph/allTagCount';
 import * as Api from '../api';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../atoms';
+import snackBar from '../components/snackBar';
 
 const Report = () => {
+  const navigate = useNavigate();
   const [diaryEmotion, setDiaryEmotion] = useState({});
   const [diaryTime, setdiaryTime] = useState({});
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
-    allFunction();
+    if (user.length === 0) {
+      snackBar('error', '로그인 후 서비스를 이용해주세요!');
+      navigate('/');
+    } else {
+      allFunction();
+    }
   }, []);
 
   const allFunction = async () => {

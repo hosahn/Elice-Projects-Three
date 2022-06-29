@@ -10,6 +10,7 @@ import { userState, loginState, challengeState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
 import MainUserInfo from './MainUserInfo';
 import MainEmotionInfo from './MainEmotionInfo';
+import snackBar from '../../components/snackBar';
 
 const UserMain = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const UserMain = () => {
       setChallengeState(res.data.user_challenge);
       setLoginState(true);
     } catch (err) {
+      snackBar('error', '로그인 후 서비스 이용 가능합니다.');
       navigate('/login');
     }
   };
