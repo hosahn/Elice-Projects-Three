@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import Calendar from './Calendar';
 import MainDiaryList from './MainDiaryList';
 import { useNavigate } from 'react-router-dom';
-import MainInfo from './MainInfo';
+import MainIChallengeInfo from './MainIChallengeInfo';
 import * as Api from '../../api';
 import { userState, loginState, challengeState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
+import MainUserInfo from './MainUserInfo';
 
 const UserMain = () => {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ const UserMain = () => {
   const getUser = async () => {
     try {
       const res = await Api.get('user/info');
-      console.log(res.data);
       setUserState(res.data);
       setChallengeState(res.data.user_challenge);
       setLoginState(true);
@@ -36,7 +36,8 @@ const UserMain = () => {
       <Nav />
       <UserMainContainer>
         <ContentsContainer>
-          <MainInfo />
+          <MainUserInfo />
+          <MainIChallengeInfo />
           <MainDiaryList />
         </ContentsContainer>
         <Calendar />

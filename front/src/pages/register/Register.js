@@ -12,6 +12,7 @@ import {
   WarningText,
 } from '../../styles/RegisterStyle';
 import { validateEmail } from '../../utils/validation';
+import LandingNav from '../../components/nav/LandingNav';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -43,29 +44,33 @@ const Register = () => {
 
   const isEmailDuplicate = async (e) => {
     e.preventDefault();
-    setOpenLoading(true);
-    setTimeout(async () => {
-      try {
-        const post = await Api.post('user/signup/check', {
-          email,
-        });
-        console.log(post.data);
-        if (post.data === false) {
-          setOpenLoading(false);
-          setCheckState(true);
-          setCheckEmail(true);
-          alert('사용 가능한 이메일 입니다. ');
-        } else {
-          setOpenLoading(false);
-          alert('중복된 이메일입니다. '); // 회원가입 버튼 disabled
+    if (isEmailValid) {
+      setOpenLoading(true);
+      setTimeout(async () => {
+        try {
+          const post = await Api.post('user/signup/check', {
+            email,
+          });
+          console.log(post.data);
+          if (post.data === false) {
+            setOpenLoading(false);
+            setCheckState(true);
+            setCheckEmail(true);
+            alert('사용 가능한 이메일 입니다. ');
+          } else {
+            setOpenLoading(false);
+            alert('중복된 이메일입니다. ');
+          }
+        } catch (error) {
+          if (error.response) {
+            setOpenLoading(false);
+            alert('중복체크 중 에러가 발생했습니다..');
+          }
         }
-      } catch (error) {
-        if (error.response) {
-          setOpenLoading(false);
-          alert('중복체크 중 에러가 발생했습니다..');
-        }
-      }
-    }, 1500);
+      }, 1500);
+    } else {
+      alert('올바른 이메일 형식 입력!');
+    }
   };
 
   const handleSubmit = async () => {
@@ -84,81 +89,86 @@ const Register = () => {
   };
 
   return (
-    <RegisterContainer id="RC">
-      <div onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '30px' }}>
-          <RegisterText>📧 이메일 주소 </RegisterText>
-          <RegisterInput
-            type="email"
-            autoComplete="off"
-            value={email}
-            ref={emailRef}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <IconWrapper onClick={isEmailDuplicate} color={checkState}>
-            {openLoading ? (
-              <ClassicSpinner size={20} color="pink" />
-            ) : (
-              <FontAwesomeIcon icon={faCircleCheck} className="user" />
+    <>
+      <LandingNav />
+      <RegisterContainer id="RC">
+        <div onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '30px' }}>
+            <RegisterText>📧 이메일 주소 </RegisterText>
+            <RegisterInput
+              type="email"
+              autoComplete="off"
+              value={email}
+              ref={emailRef}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <IconWrapper onClick={isEmailDuplicate} color={checkState}>
+              {openLoading ? (
+                <ClassicSpinner size={20} color="pink" />
+              ) : (
+                <FontAwesomeIcon icon={faCircleCheck} className="user" />
+              )}
+            </IconWrapper>
+            {!isEmailValid && (
+              <WarningText>이메일 형식이 올바르지 않습니다.</WarningText>
             )}
-          </IconWrapper>
-          {!isEmailValid && (
-            <WarningText>이메일 형식이 올바르지 않습니다.</WarningText>
-          )}
-        </div>
+          </div>
 
-        <div style={{ marginBottom: '30px' }}>
-          <RegisterText>🔑 비밀번호</RegisterText>
-          <RegisterInput
-            type="password"
-            autoComplete="off"
-            value={password}
-            disabled={!checkEmail}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {!isPasswordValid && (
-            <WarningText>비밀번호는 4글자 이상으로 설정해 주세요.</WarningText>
-          )}
-        </div>
+          <div style={{ marginBottom: '30px' }}>
+            <RegisterText>🔑 비밀번호</RegisterText>
+            <RegisterInput
+              type="password"
+              autoComplete="off"
+              value={password}
+              disabled={!checkEmail}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {!isPasswordValid && (
+              <WarningText>
+                비밀번호는 4글자 이상으로 설정해 주세요.
+              </WarningText>
+            )}
+          </div>
 
-        <div style={{ marginBottom: '30px' }}>
-          <RegisterText> ✅ 비밀번호 재확인</RegisterText>
-          <RegisterInput
-            type="password"
-            autoComplete="off"
-            value={confirmPassword}
-            disabled={!checkEmail}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          {!isPasswordSame && (
-            <WarningText>비밀번호가 일치하지 않습니다.</WarningText>
-          )}
-        </div>
+          <div style={{ marginBottom: '30px' }}>
+            <RegisterText> ✅ 비밀번호 재확인</RegisterText>
+            <RegisterInput
+              type="password"
+              autoComplete="off"
+              value={confirmPassword}
+              disabled={!checkEmail}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {!isPasswordSame && (
+              <WarningText>비밀번호가 일치하지 않습니다.</WarningText>
+            )}
+          </div>
 
-        <div style={{ marginBottom: '30px' }}>
-          <RegisterText> 🔖 닉네임</RegisterText>
-          <RegisterInput
-            type="text"
-            autoComplete="off"
-            value={name}
-            disabled={!checkEmail}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {!isNameValid && (
-            <WarningText>닉네임은 2글자 이상으로 설정해 주세요.</WarningText>
-          )}
-        </div>
+          <div style={{ marginBottom: '30px' }}>
+            <RegisterText> 🔖 닉네임</RegisterText>
+            <RegisterInput
+              type="text"
+              autoComplete="off"
+              value={name}
+              disabled={!checkEmail}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {!isNameValid && (
+              <WarningText>닉네임은 2글자 이상으로 설정해 주세요.</WarningText>
+            )}
+          </div>
 
-        <div style={{ textAlign: 'center' }}>
-          <Btn
-            text={'회원가입'}
-            type={'sub'}
-            disabled={!isFormValid}
-            onClick={handleSubmit}
-          />
+          <div style={{ textAlign: 'center' }}>
+            <Btn
+              text={'회원가입'}
+              type={'sub'}
+              disabled={!isFormValid}
+              onClick={handleSubmit}
+            />
+          </div>
         </div>
-      </div>
-    </RegisterContainer>
+      </RegisterContainer>
+    </>
   );
 };
 

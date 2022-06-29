@@ -4,7 +4,7 @@ import { NavWrap, Btn, UserBtn, HighLight } from '../../styles/NavStyle';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { useResetRecoilState } from 'recoil';
+import {  useResetRecoilState } from 'recoil';
 import { getUserSelector } from '../../atoms';
 
 const Nav = () => {

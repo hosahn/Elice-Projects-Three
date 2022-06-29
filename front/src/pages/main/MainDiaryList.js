@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import * as Api from '../../api';
+import { randomListState } from '../../atoms';
 
 const MainDiaryList = () => {
   const navigate = useNavigate();
-  const [getDiary, setGetDiary] = useState([]);
+  const [radomDiary, setRandomDiary] = useRecoilState(randomListState);
+
   useEffect(() => {
-    getRandomList();
+    console.log(radomDiary.length);
+    if (radomDiary.length === 0) {
+      getRandomList();
+    }
   }, []);
 
   const getRandomList = async () => {
     try {
       const res = await Api.get('diary/random/list');
-      setGetDiary(res.data);
+      setRandomDiary(res.data);
       console.log(res.data);
     } catch (err) {
       // alert('에러 발생');
@@ -29,7 +35,7 @@ const MainDiaryList = () => {
   return (
     <DiaryListContainer>
       <span>📓 오늘의 일기</span>
-      {getDiary.map((it) => (
+      {radomDiary.map((it) => (
         <DiaryCard
           onClick={clickDiary}
           id={it.id}

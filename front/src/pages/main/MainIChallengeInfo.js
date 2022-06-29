@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { challengeState } from '../../atoms';
 import changeUtc from '../../utils/changeUtc';
 
-const MainInfo = () => {
+const MainIChallengeInfo = () => {
   const challenge = useRecoilValue(challengeState);
   const [open, setOpen] = useState(false);
   const [currentChallenge, setCurrentChallenge] = useState({
@@ -29,26 +29,28 @@ const MainInfo = () => {
   }, [challenge]);
 
   return (
-    <InfoContainer>
-      <SubContext>
-        {open ? (
-          <div>
-            현재 <span>{currentChallenge.id} 챌린지</span> 를 진행 중입니다.{' '}
-            <br />
-            <DayWrapper>
-              시작일 {currentChallenge.start_date} - 종료일{' '}
-              {currentChallenge.end_date}
-            </DayWrapper>
-          </div>
-        ) : (
-          '현재 진행 중인 챌린지는 없습니다.'
-        )}
-      </SubContext>
-    </InfoContainer>
+    <>
+      <InfoContainer>
+        <SubContext>
+          {open ? (
+            <div>
+              현재 <span>{currentChallenge.id} 챌린지</span> 를 진행 중입니다.{' '}
+              <br />
+              <DayWrapper>
+                시작일 {currentChallenge.start_date} - 종료일{' '}
+                {currentChallenge.end_date}
+              </DayWrapper>
+            </div>
+          ) : (
+            '현재 진행 중인 챌린지는 없습니다.'
+          )}
+        </SubContext>
+      </InfoContainer>
+    </>
   );
 };
 
-export default MainInfo;
+export default MainIChallengeInfo;
 
 const SubContext = styled.div`
   font-family: 'EliceDigitalBaeum';
@@ -62,15 +64,11 @@ const SubContext = styled.div`
   }
 `;
 
-const HighLightPurple = styled.span`
-  color: ${({ theme }) => theme.color.mainPurple};
-`;
-
 const InfoContainer = styled.div`
   background-color: white;
   height: 100px;
   border-radius: 10px;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 `;
 
 const DayWrapper = styled.div`

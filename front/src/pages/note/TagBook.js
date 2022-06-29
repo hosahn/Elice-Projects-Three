@@ -18,7 +18,7 @@ import {
   faCircleCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import TagEditCover from './TagEditCover';
-import { motion, AnimatePresence } from 'framer-motion';
+import TagDiaryList from './TagDiaryList';
 
 const TagBook = (props) => {
   const [openEditCover, setOpenEditCover] = useState(false);
@@ -124,6 +124,7 @@ const TagBook = (props) => {
           />
         )}
       </TagContainer>
+      {openTagList && <TagDiaryList setOpenTagList={setOpenTagList} />}
     </>
   );
 };

@@ -57,18 +57,6 @@ async function del(endpoint, params = '') {
   });
 }
 
-async function putImg(endpoint, data) {
-  console.log(`%cPUT 요청: ${serverUrl + endpoint}`, 'color: #059c4b;');
-  console.log(`%cPUT 요청 데이터: ${data}`, 'color: #059c4b;');
-  const Url = 'http://kdt-ai4-team12-gpu.elicecoding.com:5000/predict';
-  return axios.post(Url, data, {
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('userToken')}`,
-    },
-    withCredentials: true,
-  });
-}
-
 async function getPdf(endpoint, params = '') {
   console.log(`%cGET 요청 ${serverUrl + endpoint + params}`, 'color: #a25cd1;');
   return axios.get(serverUrl + endpoint + params, {
@@ -79,7 +67,7 @@ async function getPdf(endpoint, params = '') {
 
 async function postDiary(data) {
   const bodyData = JSON.stringify(data);
-  const Url = 'http://kdt-ai4-team12-gpu.elicecoding.com:5000/predict';
+  const Url = 'http://kdt-ai4-team12.elicecoding.com:5000/predict';
   return axios.post(Url, bodyData, {
     headers: {
       'Content-Type': 'application/json',
@@ -88,4 +76,4 @@ async function postDiary(data) {
   });
 }
 
-export { get, post, put, del as delete, putImg, postDiary, getPdf };
+export { get, post, put, del as delete, postDiary, getPdf };

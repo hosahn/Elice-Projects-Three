@@ -6,7 +6,7 @@ import TagBook from './TagBook';
 
 const TagList = () => {
   const [tagList, setTagList] = useState([]);
-  const { openSubmit, openEditBtn, cancleBtn, checkType } = useEdit();
+  const { openSubmit, openEditBtn, cancleBtn } = useEdit();
 
   useEffect(() => {
     getTagList();
@@ -23,15 +23,19 @@ const TagList = () => {
   return (
     <>
       <TagListContainer>
-        {tagList.map((it) => (
-          <TagBook
-            it={it}
-            key={it.id}
-            openEditBtn={openEditBtn}
-            cancleBtn={cancleBtn}
-            openSubmit={openSubmit}
-          />
-        ))}
+        {tagList.map((it) => {
+          if (it.name.length !== 0) {
+            return (
+              <TagBook
+                it={it}
+                key={it.id}
+                openEditBtn={openEditBtn}
+                cancleBtn={cancleBtn}
+                openSubmit={openSubmit}
+              />
+            );
+          }
+        })}
       </TagListContainer>
     </>
   );

@@ -26,7 +26,8 @@ to {
 
 export const Content = styled.div`
   width: 600px;
-  height: 350px;
+  hieght: 100%;
+  padding: 20px 0px;
   margin-top: 70px;
   position: relative;
   border-radius: 10px;

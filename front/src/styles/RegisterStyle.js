@@ -21,12 +21,12 @@ export const RegisterInput = styled.input`
   color: black;
   background: transparent;
   padding: 1rem;
-  border: solid 1px #dbc7ff;
+  border: solid 1px #339af0;
   border-radius: 1rem;
   outline: none;
   font-size: 1rem;
   cursor: text;
   :focus {
-    border: 2px solid #845ef7;
+    border: 2px solid #339af0;
   }
 `;
