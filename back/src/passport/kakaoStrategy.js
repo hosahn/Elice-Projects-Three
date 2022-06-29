@@ -20,12 +20,15 @@ const verify = async (accessToken, refreshToken, profile, done) => {
     if (result) {
       return done(null, result);
     } else {
+      const hashedPW = bcrypt.hashSync(
+        process.env.LOCAL_PASSWORD,
+        process.env.SALT_ROUND
+      );
       const createdUser = await prisma.users.create({
         data: {
           email: email,
-          pw: process.env.LOCAL_PASSWORD,
+          pw: hashedPW,
           social: "kakao",
-
           name: name,
         },
       });
