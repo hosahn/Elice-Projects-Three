@@ -26,6 +26,11 @@ export const activeState = atom({
   default: [],
 });
 
+export const emotionState = atom({
+  key: 'emotionState',
+  default: '',
+});
+
 export const getUserSelector = selector({
   key: 'user/get',
   get: async () => {

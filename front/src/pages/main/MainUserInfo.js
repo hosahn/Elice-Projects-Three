@@ -22,10 +22,10 @@ const MainUserInfo = () => {
         <>
           <SubContext>
             <span>아직 오늘의 일기를 안 쓰셨네요 ㅠㅠ</span>
+            <button onClick={() => navigate('/diaryEditor')}>
+              일기 작성하러 가기
+            </button>
           </SubContext>
-          <button onClick={() => navigate('/diaryEditor')}>
-            일기 작성하러 가기
-          </button>
         </>
       )}
     </InfoContainer>
@@ -40,7 +40,7 @@ const SubContext = styled.div`
   line-height: 25px;
   font-family: 'KyoboHand';
   margin-top: 10px;
-  padding: 20px 20px;
+  padding: 20px;
   span {
     background-image: linear-gradient(transparent 60%, #a5d8ff 40%);
   }
@@ -48,7 +48,7 @@ const SubContext = styled.div`
 
 const InfoContainer = styled.div`
   background-color: white;
-  height: 100px;
+  height: 50px;
   border-radius: 10px;
   margin-bottom: 15px;
   button {

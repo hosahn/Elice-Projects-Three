@@ -10,11 +10,14 @@ import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
 import * as Api from '../../api';
+import { useSetRecoilState } from 'recoil';
+import { emotionState } from '../../atoms';
 
 const DiaryEditor = (props) => {
   const editorRef = useRef();
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const setEmotion = useSetRecoilState(emotionState);
   const { title, tag } = props;
 
   const uploadImage = async (blob) => {
@@ -27,7 +30,6 @@ const DiaryEditor = (props) => {
       url: res.data.url,
       data: blob,
     });
-
     return res.data.imageUrl;
   };
 
@@ -46,7 +48,7 @@ const DiaryEditor = (props) => {
           diary: diary,
         });
         if (res.data.length !== 0) {
-          console.log(typeof res.data);
+          setEmotion(res.data);
           await Api.post('diary', {
             tag,
             text: temp,
@@ -55,7 +57,7 @@ const DiaryEditor = (props) => {
           });
           setSubmit((prev) => !prev);
           setLoading((prev) => !prev);
-          setTimeout(() => setLoading((prev) => !prev), 1500);
+          setTimeout(() => setLoading((prev) => !prev), 3500);
         } else {
           alert('일기 작성 문구 ~~~~~');
         }

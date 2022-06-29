@@ -9,6 +9,7 @@ import * as Api from '../../api';
 import { userState, loginState, challengeState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
 import MainUserInfo from './MainUserInfo';
+import MainEmotionInfo from './MainEmotionInfo';
 
 const UserMain = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const UserMain = () => {
       <Nav />
       <UserMainContainer>
         <ContentsContainer>
+          <MainEmotionInfo />
           <MainUserInfo />
           <MainIChallengeInfo />
           <MainDiaryList />
