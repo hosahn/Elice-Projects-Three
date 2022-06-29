@@ -49,6 +49,9 @@ const DiaryEditor = (props) => {
       emotion: '슬픔',
     });
     setEmotion('슬픔');
+    setSubmit((prev) => !prev);
+    setLoading((prev) => !prev);
+    setTimeout(() => setLoading((prev) => !prev), 3500);
 
     // if (title.length > 0 && temp.length > 0) {
     //   try {
