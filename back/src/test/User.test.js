@@ -3,6 +3,7 @@ import "../config/env.js";
 import { User } from "../db/index.js";
 import app from "../app.js";
 import { Report } from "../db/index.js";
+import { UserService } from "../services/userService.js";
 
 const signUpMock = {
   email: "hosahn1@naver.com",
@@ -26,6 +27,9 @@ beforeAll(async () => {
 });
 
 describe("Report Function", () => {
+  test("should have a DiaryService.create function", async () => {
+    expect(typeof UserService.userInfo).toBe("function");
+  });
   test("should have a DiaryService.create function", async () => {
     expect(typeof User.createUser).toBe("function");
   });
