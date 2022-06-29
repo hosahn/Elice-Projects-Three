@@ -2,7 +2,6 @@ import request from "supertest";
 import "../config/env.js";
 import { User } from "../db/index.js";
 import app from "../app.js";
-import { Report } from "../db/index.js";
 import { UserService } from "../services/userService.js";
 
 const signUpMock = {
@@ -28,27 +27,34 @@ beforeAll(async () => {
 
 describe("Report Function", () => {
   test("should have a DiaryService.create function", async () => {
+    jest.setTimeout(30000);
     expect(typeof UserService.userInfo).toBe("function");
   });
   test("should have a DiaryService.create function", async () => {
+    jest.setTimeout(30000);
     expect(typeof User.createUser).toBe("function");
   });
   test("should have a DiaryService.create function", async () => {
+    jest.setTimeout(30000);
     expect(typeof User.checkUser).toBe("function");
   });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get("/user/info").set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
   test("should return 404 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get("/user/info");
     expect(res.statusCode).toBe(404);
   });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).post("/user/signup").send(signUpMock);
     expect(res.statusCode).toBe(200);
   });
   test("should return 200 response code with false", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).post("/user/signup").send(notPossible);
     expect(res.statusCode).toBe(200);
     expect(res.body).toBe(false);

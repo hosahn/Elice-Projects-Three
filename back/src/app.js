@@ -160,7 +160,7 @@ app.use("/pdf", pdfRouter);
 app.use(function (req, res, next) {
   res.status(404).send("존재하지 않는 페이지 입니다!");
 });
-ChallengeSchedule();
+// ChallengeSchedule();
 app.use(
   Sentry.Handlers.errorHandler({
     shouldHandleError(error) {

@@ -17,13 +17,16 @@ beforeAll(async () => {
 
 describe("User Reward Information", () => {
   test("should have a DiaryService.create function", async () => {
+    jest.setTimeout(30000);
     expect(typeof RewardService.getUserRewards).toBe("function");
   });
   test("should return 200 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get("/reward/user").set("Cookie", cookie);
     expect(res.statusCode).toBe(200);
   });
   test("should return 404 response code", async () => {
+    jest.setTimeout(30000);
     const res = await request(app).get("/reward/user");
     expect(res.statusCode).toBe(404);
   });
