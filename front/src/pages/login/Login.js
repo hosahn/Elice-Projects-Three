@@ -15,6 +15,7 @@ import snackBar from '../../components/snackBar';
 
 const Container = styled.div`
   height: 100vh;
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 `;
 
 const LoginMainContainer = styled.div`

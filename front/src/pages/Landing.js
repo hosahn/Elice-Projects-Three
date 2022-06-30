@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import images from '../assets/images';
 import * as style from '../styles/LandingStyle';
 import LandingNav from '../components/nav/LandingNav';
 import MainFooter from '../components/footer';

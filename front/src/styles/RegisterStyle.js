@@ -11,17 +11,16 @@ export const RegisterText = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 1rem;
   line-height: 1.5rem;
-  color: black;
+  color: white;
 `;
 
 export const RegisterInput = styled.input`
   display: inline-flex;
   width: 30rem;
   height: 3rem;
-  color: black;
   background: transparent;
   padding: 1rem;
-  border: solid 1px #339af0;
+  border: solid 1px white;
   border-radius: 1rem;
   outline: none;
   font-size: 1rem;

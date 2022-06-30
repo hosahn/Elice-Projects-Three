@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import Badge from "@mui/material/Badge";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { emotionState } from "../../atoms";
-import ActivityInfo from "./ActivityInfo";
-import * as Api from "../../api";
+import { useEffect, useState } from 'react';
+import Badge from '@mui/material/Badge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { emotionState } from '../../atoms';
+import ActivityInfo from './ActivityInfo';
+import * as Api from '../../api';
 
 const MainEmotionInfo = () => {
   const emotion = useRecoilValue(emotionState);
@@ -21,7 +21,7 @@ const MainEmotionInfo = () => {
   }, []);
 
   const clickBell = async () => {
-    const res = await Api.post("confirmed/submit", {
+    const res = await Api.post('confirmed/submit', {
       emotion,
     });
     console.log(res.data);
@@ -51,7 +51,7 @@ const MainEmotionInfo = () => {
 export default MainEmotionInfo;
 
 const MoveBtn = styled.button`
-  color: gray;
-  font-size: 20px;
+  color: #ffd43b;
+  font-size: 25px;
   margin-top: 20px;
 `;

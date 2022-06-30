@@ -103,6 +103,6 @@ export const TitleWrapper = styled.div`
   span {
     font-size: 25px;
     font-family: 'KyoboHand';
-    color: white;
+    color: #1864ab;
   }
 `;

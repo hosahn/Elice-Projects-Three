@@ -17,15 +17,11 @@ const Report = () => {
   const [diaryTime, setdiaryTime] = useState({});
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
+  const [loading, setLoading] = useState(false);
   const user = useRecoilValue(userState);
 
   useEffect(() => {
-    if (user.length === 0) {
-      snackBar('error', '로그인 후 서비스를 이용해주세요!');
-      navigate('/');
-    } else {
-      allFunction();
-    }
+    allFunction();
   }, []);
 
   const allFunction = async () => {

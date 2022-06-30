@@ -52,6 +52,7 @@ const MainDiaryList = () => {
 export default MainDiaryList;
 
 const DiaryListContainer = styled.div`
+  height: 300px;
   span {
     font-family: 'EliceDigitalBaeum';
     font-size: 20px;

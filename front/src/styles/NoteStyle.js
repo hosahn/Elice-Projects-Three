@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
 export const EmotionCard = styled.button`
-  height: 70px;
-  width: 80%;
+  height: 170px;
+  width: 200px;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
+  border: 7px solid;
+  background-color: white;
   padding: 20px 20px;
   margin-bottom: 20px;
-  background-color: ${(props) => {
+  border-color: ${(props) => {
     switch (props.emotion) {
       case '행복':
         return '#FFEC99';
@@ -60,22 +62,22 @@ export const BtnContainer = styled.div`
 `;
 
 export const EmotionBtn = styled.button`
-  font-family: 'KyoboHand';
-  font-size: 20px;
-  color: ${(props) => (props.state === false ? '#862e9c' : '#868e96')};
+  font-family: 'EliceDigitalBaeum_Bold';
+  font-size: 18px;
+  color: ${(props) => (props.state === false ? '#365885' : '#868e96')};
   margin-right: 50px;
   padding-bottom: 10px;
-  border-bottom: ${(props) => (props.state === false ? ' #862e9c' : '')};
+  border-bottom: ${(props) => (props.state === false ? ' #365885' : '')};
   border-bottom: ${(props) => (props.state === false ? ' solid 3px' : '')};
 `;
 
 export const TagBtn = styled.button`
-  font-family: 'KyoboHand';
-  font-size: 20px;
-  color: ${(props) => (props.state === true ? '#862e9c' : '#868e96')};
+  font-family: 'EliceDigitalBaeum_Bold';
+  font-size: 18px;
+  color: ${(props) => (props.state === true ? '#365885' : '#868e96')};
   margin-right: 50px;
   padding-bottom: 10px;
-  border-bottom: ${(props) => (props.state === true ? ' #862e9c' : '')};
+  border-bottom: ${(props) => (props.state === true ? ' #365885' : '')};
   border-bottom: ${(props) => (props.state === true ? ' solid 3px' : '')};
 `;
 

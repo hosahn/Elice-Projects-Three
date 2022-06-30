@@ -8,6 +8,7 @@ import {
   ChallengeTitle,
 } from '../../styles/ChallengeStyle';
 import * as Api from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
@@ -16,38 +17,43 @@ const Challenge = () => {
   const [openCompletedChallenge, setOpenCompletedChallenge] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getChallenge();
   }, [isLoaded]);
 
   const getChallenge = async () => {
-    const res = await Api.get('challenge');
-    console.log(res.data);
-    setChallengeList(res.data.challenge);
-    setDisabled(res.data.log.isRunning === true ? true : false);
+    try {
+      const res = await Api.get('challenge');
 
-    if (res.data.log.isRunning === true) {
-      const indexFalse = res.data.log.completed.indexOf(false);
-      setCurrentChallenge(res.data.log.challenge[indexFalse]);
-    }
+      setChallengeList(res.data.challenge);
+      setDisabled(res.data.log.isRunning === true ? true : false);
 
-    if (res.data.log.completed.indexOf(true) !== -1) {
-      // true 인 값이 존재한다면.
-      let idx = res.data.log.completed.indexOf(true);
-      let indices = [];
-      while (idx !== -1) {
-        indices.push(res.data.log.challenge[idx]);
-        idx = res.data.log.completed.indexOf(true, idx + 1);
+      if (res.data.log.isRunning === true) {
+        const indexFalse = res.data.log.completed.indexOf(false);
+        setCurrentChallenge(res.data.log.challenge[indexFalse]);
       }
 
-      let filterCompletedChallenge = res.data.challenge.filter((acc, cur) => {
-        console.log(acc.name);
-        return acc.name === indices[cur];
-      }, []);
+      if (res.data.log.completed.indexOf(true) !== -1) {
+        // true 인 값이 존재한다면.
+        let idx = res.data.log.completed.indexOf(true);
+        let indices = [];
+        while (idx !== -1) {
+          indices.push(res.data.log.challenge[idx]);
+          idx = res.data.log.completed.indexOf(true, idx + 1);
+        }
 
-      console.log(filterCompletedChallenge);
-      setCompletedChallenge(filterCompletedChallenge); // 성공한 챌린지 이름 저장
+        let filterCompletedChallenge = res.data.challenge.filter((acc, cur) => {
+          console.log(acc.name);
+          return acc.name === indices[cur];
+        }, []);
+
+        console.log(filterCompletedChallenge);
+        setCompletedChallenge(filterCompletedChallenge); // 성공한 챌린지 이름 저장
+      }
+    } catch (err) {
+      navigate('/');
     }
   };
 

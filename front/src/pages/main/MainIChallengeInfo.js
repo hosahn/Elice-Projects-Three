@@ -53,10 +53,8 @@ const MainIChallengeInfo = () => {
 export default MainIChallengeInfo;
 
 const SubContext = styled.div`
-  font-family: 'EliceDigitalBaeum';
-  font-size: 20px;
+  font-size: 18px;
   line-height: 25px;
-  font-family: 'KyoboHand';
   margin-top: 10px;
   padding: 20px 20px;
   span {
@@ -65,6 +63,7 @@ const SubContext = styled.div`
 `;
 
 const InfoContainer = styled.div`
+  font-family: 'EliceDigitalBaeum';
   background-color: white;
   height: 100px;
   border-radius: 10px;

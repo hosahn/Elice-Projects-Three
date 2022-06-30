@@ -32,16 +32,7 @@ const Register = () => {
   const isNameValid = name.length >= 2;
 
   const isFormValid =
-    isEmailValid &&
-    isPasswordValid &&
-    isPasswordSame &&
-    isNameValid &&
-    checkEmail;
-
-  useEffect(() => {
-    snackBar('info', '이메일 먼저 작성 부탁드립니다');
-    emailRef.current.focus();
-  }, []);
+    isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
   const isEmailDuplicate = async (e) => {
     e.preventDefault();
@@ -56,43 +47,48 @@ const Register = () => {
             setOpenLoading(false);
             setCheckState(true);
             setCheckEmail(true);
-            alert('사용 가능한 이메일 입니다. ');
+            snackBar('sucess', '사용 가능한 이메일 입니다. ');
           } else {
             setOpenLoading(false);
-            alert('중복된 이메일입니다. ');
+            snackBar('warning', '중복된 이메일입니다');
           }
         } catch (error) {
           if (error.response) {
             setOpenLoading(false);
-            alert('중복체크 중 에러가 발생했습니다..');
+            snackBar('error', '중복체크 중 에러가 발생했습니다.');
           }
         }
       }, 1500);
     } else {
-      alert('올바른 이메일 형식 입력!');
+      snackBar('warning', '올바른 이메일 형식을  입력해주세요!');
     }
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await Api.post('user/signup/', {
-        email,
-        pw: password,
-        name,
-      });
-      if (response.data === 'true') {
-        snackBar('sucess', '회원가입에 성공하였습니다.');
-        navigate('/login');
-      } else {
+    if (checkEmail) {
+      try {
+        const response = await Api.post('user/signup', {
+          email,
+          pw: password,
+          name,
+        });
+        if (response.data === true) {
+          snackBar('sucess', '회원가입에 성공하였습니다.');
+          navigate('/login');
+        } else {
+          console.log(response.data);
+          snackBar('error', '회원가입에 실패하였습니다.');
+        }
+      } catch (err) {
         snackBar('sucess', '회원가입에 성공하였습니다.');
       }
-    } catch (err) {
-      snackBar('sucess', '회원가입에 성공하였습니다.');
+    } else {
+      snackBar('warning', '이메일 중복  확인해주세요.');
     }
   };
 
   return (
-    <>
+    <Container>
       <LandingNav />
       <RegisterContainer id="RC">
         <div onSubmit={handleSubmit}>
@@ -123,7 +119,6 @@ const Register = () => {
               type="password"
               autoComplete="off"
               value={password}
-              disabled={!checkEmail}
               onChange={(e) => setPassword(e.target.value)}
             />
             {!isPasswordValid && (
@@ -139,7 +134,6 @@ const Register = () => {
               type="password"
               autoComplete="off"
               value={confirmPassword}
-              disabled={!checkEmail}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {!isPasswordSame && (
@@ -153,7 +147,6 @@ const Register = () => {
               type="text"
               autoComplete="off"
               value={name}
-              disabled={!checkEmail}
               onChange={(e) => setName(e.target.value)}
             />
             {!isNameValid && (
@@ -171,17 +164,21 @@ const Register = () => {
           </div>
         </div>
       </RegisterContainer>
-    </>
+    </Container>
   );
 };
 
 export default Register;
 
 const RegisterContainer = styled.div`
-  position: relative;
   display: grid;
   place-items: center;
+  margin-top: 100px;
+`;
+
+const Container = styled.div`
   height: 100vh;
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 `;
 
 const IconWrapper = styled.div`

@@ -19,7 +19,7 @@ const TagEditCover = (props) => {
       setRewardColor(res.data);
       setOpenPalette(true);
     } catch (err) {
-      snackBar('error');
+      snackBar('error', '다시 시도해주세요');
     }
   };
 
@@ -32,7 +32,7 @@ const TagEditCover = (props) => {
     <Modal setOpen={setOpenEditCover}>
       <ColorContainer>
         {rewardColor.map((it) => (
-          <ColorWrapper onClick={() => selectColor(it.value)} color={it} />
+          <ColorWrapper onClick={() => selectColor(it)} color={it} />
         ))}
       </ColorContainer>
     </Modal>

@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import * as style from "../../styles/ReportStyle";
-import EmotionGraph from "../../components/graph/emotionGraph";
-import TimeGraph from "../../components/graph/timeGraph";
-import Nav from "../../components/nav/Nav";
-import TagRanking from "../../components/graph/allTagCount";
-import MyTagRanking from "../../components/graph/tagCount";
-import * as Api from "../../api";
+import { useState, useEffect } from 'react';
+import * as style from '../../styles/ReportStyle';
+import EmotionGraph from '../../components/graph/emotionGraph';
+import TimeGraph from '../../components/graph/timeGraph';
+import Nav from '../../components/nav/Nav';
+import TagRanking from '../../components/graph/allTagCount';
+import MyTagRanking from '../../components/graph/tagCount';
+import * as Api from '../../api';
 
 const Report = () => {
   const [diaryEmotion, setDiaryEmotion] = useState({});
@@ -14,7 +14,7 @@ const Report = () => {
   const [allTags, setAllTags] = useState([]);
   const allFunction = () => {
     const isMounted = async () => {
-      const data = await Api.get("report");
+      const data = await Api.get('report');
       setDiaryEmotion(() => data.data.emotion);
       setdiaryTime(() => data.data.time);
     };
@@ -22,7 +22,7 @@ const Report = () => {
   };
   const allFunction2 = () => {
     const isMounted = async () => {
-      const data = await Api.get("report");
+      const data = await Api.get('report');
       setTags(() => data.data.userTag);
       setAllTags(() => data.data.allTag);
     };

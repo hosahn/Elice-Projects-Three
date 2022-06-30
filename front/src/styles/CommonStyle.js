@@ -14,6 +14,11 @@ export const ExplainContext = styled.div`
   line-height: 1.5rem;
   margin-bottom: ${(props) => `${props.bottom}rem`};
   margin-left: ${(props) => `${props.left}rem`};
+  span {
+    font-weight: bold;
+    color: #4577ba;
+    background-image: linear-gradient(transparent 60%, #a5d8ff 40%);
+  }
 `;
 
 export const MainTitle = styled.h1`
@@ -25,21 +30,6 @@ export const SubTitle = styled.h2`
   font-size: 1.4rem;
   font-family: 'EliceDigitalBaeum_Bold';
   color: ${(props) => (props.color == 'purple' ? '#3d2c8d' : '#e64980')};
-`;
-
-// HighLight
-export const HighLightPurple = styled.span`
-  color: ${({ theme }) => theme.color.mainPurple};
-`;
-
-export const HighLightPink = styled.span`
-  color: ${({ theme }) => theme.color.mainPink};
-`;
-
-export const HighLightExplain = styled.span`
-  font-family: EliceDigitalBaeum_Bold;
-  color: ${({ theme }) => theme.color.mainPink};
-  font-weight: 900;
 `;
 
 export const TextInput = styled.input`

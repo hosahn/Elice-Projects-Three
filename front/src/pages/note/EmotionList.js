@@ -64,7 +64,9 @@ const EmotionList = () => {
         if (length < 10) {
           setStop(true);
         }
-      } catch (err) {}
+      } catch (err) {
+        navigate('/');
+      }
     }
   };
 
@@ -185,5 +187,6 @@ const IconWrapper = styled.div`
 
 const EmotionCardContainer = styled.div`
   display: grid;
+  grid-template-columns: repeat(4, 1fr);
   place-items: center;
 `;
