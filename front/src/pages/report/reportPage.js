@@ -4,39 +4,38 @@ import EmotionGraph from '../../components/graph/emotionGraph';
 import TimeGraph from '../../components/graph/timeGraph';
 import Nav from '../../components/nav/Nav';
 import TagRanking from '../../components/graph/allTagCount';
-import MyTagRanking from '../../components/graph/tagCount';
 import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
 import * as Api from '../../api';
+import snackBar from '../../components/snackBar';
 
 const Report = () => {
   const [diaryEmotion, setDiaryEmotion] = useState({});
   const [diaryTime, setdiaryTime] = useState({});
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
-  const allFunction = () => {
-    const isMounted = async () => {
-      const data = await Api.get('report');
-      setDiaryEmotion(() => data.data.emotion);
-      setdiaryTime(() => data.data.time);
-    };
-    isMounted();
-  };
-  const allFunction2 = () => {
-    const isMounted = async () => {
-      const data = await Api.get('report');
-      setTags(() => data.data.userTag);
-      setAllTags(() => data.data.allTag);
-    };
-    isMounted();
-  };
+  const [challenge, setChallenge] = useState([]);
 
   useEffect(() => {
     allFunction();
-    allFunction2();
   }, []);
 
-  if (allTags.length === 0) {
+  const allFunction = async () => {
+    try {
+      const data = await Api.get('report');
+      setDiaryEmotion(() => data.data.emotion);
+      setdiaryTime(() => data.data.time);
+      setTags(() => data.data.userTag);
+      setAllTags(() => data.data.allTag);
+      setChallenge(() => data.data.challenge);
+      console.log(data.data.challenge.challenge);
+      console.log(data.data);
+    } catch (err) {
+      snackBar('error', '에러가 발생하였습니다. ');
+    }
+  };
+
+  if (tags.length === 0) {
     return (
       <Background>
         <ClassicSpinner size={100} color="pink" />
@@ -51,6 +50,7 @@ const Report = () => {
    6월 한달동안 작성해 주신 일기에서 
    가장 많이 나타난 감정은 행복입니다.
   `;
+
   let TimeText = `
   이번 달에는 총 ${
     diaryTime.morning + diaryTime.dawn + diaryTime.night + diaryTime.afternoon
@@ -59,6 +59,18 @@ const Report = () => {
   ${diaryTime.night}개를 저녁에, ${diaryTime.dawn}개를 새벽에
   작성하셨네요, 훌륭합니다!
   `;
+
+  let ChallengeText = challenge.challenge.map((it, index) => {
+    let name = it;
+    let state = challenge.completed[index]
+      ? '완료하였습니다.'
+      : '진행 중 입니다.';
+    return (
+      <p>
+        🎯 {name}를 {state}
+      </p>
+    );
+  });
 
   return (
     <>
@@ -92,10 +104,10 @@ const Report = () => {
             이번 달에 전체 사용자가 가장 많이 쓴 태그는 무엇일까요?
           </style.DescTitle>
           <style.ReportContainer>
-            <MyTagRanking data={allTags} />
+            <TagRanking data={allTags} />
           </style.ReportContainer>
           <style.DescTitle>현재까지의 도전과제 진행상황입니다.</style.DescTitle>
-          <style.ChallengeContainer></style.ChallengeContainer>
+          <style.ChallengeContainer>{ChallengeText}</style.ChallengeContainer>
           <style.Quotation>당신의 내일을 응원합니다</style.Quotation>
           <style.Quotation>-밤하늘-</style.Quotation>
         </style.MainContainers>

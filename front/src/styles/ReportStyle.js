@@ -1,5 +1,5 @@
-import styled from "styled-components";
-const sky = require("../images/nightsky.jpg");
+import styled from 'styled-components';
+const sky = require('../images/nightsky.jpg');
 
 export const Loading = styled.h1`
   text-transform: uppercase;
@@ -62,7 +62,7 @@ export const ReportContainer = styled.div`
     opacity: 0.5;
     width: 100%;
     height: 100%;
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -76,7 +76,7 @@ export const RDiaryText = styled.h3`
   height: 163px;
   left: 500px;
   top: 15px;
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
@@ -92,7 +92,7 @@ export const RTitleWrap = styled.div`
 export const ReportTitle = styled.h1`
   top: 30px;
   font-size: 40px;
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   color: black;
   text-align: center;
   font-style: normal;
@@ -106,7 +106,7 @@ export const ReportTitle = styled.h1`
 export const DescTitle = styled.h1`
   top: 80px;
   font-size: 30px;
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   color: black;
   color: #3d2c8d;
   text-align: center;
@@ -114,13 +114,13 @@ export const DescTitle = styled.h1`
 
 export const ChallengeContainer = styled.div`
   width: 800px;
-  height: 300px;
+  max-height: 300px;
   margin: 30px;
   padding: 20px;
   top: 80px;
   background-repeat: no-repeat;
   background-size: cover;
-  margin-bottom: 50px;
+  margin-bottom: 200px;
   z-index: 1;
   ::after {
     background-color: ${({ theme }) => theme.color.subPurple};
@@ -128,18 +128,22 @@ export const ChallengeContainer = styled.div`
     opacity: 0.5;
     width: 100%;
     height: 100%;
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     border-radius: 10px;
+  }
+  p {
+    font-family: 'EliceDigitalBaeum_Bold';
+    font-size: 20px;
   }
 `;
 
 export const Quotation = styled.h1`
   top: 80px;
   font-size: 20px;
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   color: black;
   color: #3d2c8d;
   text-align: center;

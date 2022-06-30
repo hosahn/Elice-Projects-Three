@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Landing from './pages/Landing';
-import Report from './pages/report/reportPage.js';
+import Report from './pages/report/reportPage';
 import UserMain from './pages/main/Main';
 import Diary from './pages/diary/Diary';
 import Challenge from './pages/challenge/Challenge';
