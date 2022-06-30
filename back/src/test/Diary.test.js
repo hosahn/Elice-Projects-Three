@@ -34,7 +34,7 @@ let cursor;
 beforeAll(async () => {
   const result = await request(app)
     .post("/login/local")
-    .send({ email: process.env.TEST_EMAIL, pw: process.env.TEST_PW });
+    .send({ email: "hosahn@naver.com", pw: "1234" });
   cookie = result.headers["set-cookie"][0];
   await User.dailyDelete(2);
   return cookie;
