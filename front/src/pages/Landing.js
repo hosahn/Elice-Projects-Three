@@ -71,22 +71,22 @@ const Landing = () => {
             슬픔
           </style.HeartText>
           <style.HeartText Top="202px" Left="-200px">
-            혐오
+            불안
           </style.HeartText>
           <style.HeartEmotion HeartColor="#A5D8FF" Top="160px" Left="70px" />
           <style.HeartText Top="-89px" Left="50px">
-            놀람
+            혐오
           </style.HeartText>
           <style.HeartEmotion HeartColor="#FFD6A5" Top="280px" Left="70px" />
           <style.HeartText Top="-20px" Left="50px">
-            평범
+            분노
           </style.HeartText>
           <style.HeartEmotion HeartColor="#CED4DA" Top="40px" Left="310px" />
           <style.HeartText Top="51px" Left="50px">
-            화남
+            놀람
           </style.HeartText>
           <style.HeartText Top="-121px" Left="300px">
-            불안
+            평범
           </style.HeartText>
           <style.HeartEmotion HeartColor="#FFADAD" Top="160px" Left="310px" />
           <style.HeartEmotion HeartColor="#BDB2FF" Top="280px" Left="310px" />

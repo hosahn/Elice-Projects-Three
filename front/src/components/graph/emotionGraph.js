@@ -1,8 +1,8 @@
-import ReactApexChart from "react-apexcharts";
+import ReactApexChart from 'react-apexcharts';
 
 const EmotionGraph = (props) => {
   const data = props.data;
-  console.log(data.happy);
+
   //도넛 차트 데이터 및 옵션
   const donutData = {
     series: [
@@ -32,25 +32,25 @@ const EmotionGraph = (props) => {
               total: {
                 showAlways: true,
                 show: true,
-                label: "Total",
-                fontSize: "20px",
-                fontFamily: "fantasy",
-                color: "#916bbf",
+                label: 'Total',
+                fontSize: '20px',
+                fontFamily: 'fantasy',
+                color: '#916bbf',
               },
               value: {
-                fontSize: "22px",
+                fontSize: '22px',
                 show: true,
-                color: "#916bbf",
+                color: '#916bbf',
               },
             },
           },
         },
       },
       title: {
-        text: "",
-        align: "left",
+        text: '',
+        align: 'left',
       },
-      labels: ["행복", "슬픔", "화남", "놀람", "불안", "혐오", "보통"],
+      labels: ['행복', '슬픔', '화남', '놀람', '불안', '혐오', '보통'],
     },
   };
   return (

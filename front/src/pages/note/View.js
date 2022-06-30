@@ -62,19 +62,6 @@ const View = () => {
     }
   };
 
-  const clickDelete = async () => {
-    try {
-      await Api.delete(`diary/${diary.id}`);
-      snackBar('sucess', '삭제 완료되었습니다. ');
-      setTimeout(() => {
-        navigate('/note');
-      }, 500);
-    } catch (err) {
-      const { data } = err.response;
-      snackBar('error', data);
-    }
-  };
-
   return (
     <>
       <Nav />
@@ -92,17 +79,9 @@ const View = () => {
         <ContentWrapper>
           <Viewer ref={viewerRef} />
         </ContentWrapper>
-        <RemoveBtn onClick={clickDelete}>해당 일기 삭제하기</RemoveBtn>
       </ViewContainer>
     </>
   );
 };
 
 export default View;
-
-const RemoveBtn = styled.button`
-  float: right;
-  margin-bottom: 100px;
-  font-weight: bold;
-  color: #ff6b6b;
-`;

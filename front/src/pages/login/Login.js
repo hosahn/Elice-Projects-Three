@@ -42,7 +42,7 @@ const Login = () => {
         email,
         pw: password,
       });
-      console.log(res);
+
       if (res.data === true) {
         navigate('/usermain');
       } else {

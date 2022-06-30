@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Star from '../../components/star';
 
 const emotion = [
-  { value: '행복', info: '행복한 하루였따!', id: 1 },
-  { value: '슬픔', info: '슬프네', id: 2 },
+  { value: '행복', info: '오늘 하루는 행복', id: 1 },
+  { value: '슬픔', info: '오늘 하루는 슬픔', id: 2 },
   { value: '불안', info: '오늘 하루는 불안', id: 3 },
   { value: '혐오', info: '오늘 하루는 혐오', id: 4 },
   { value: '분노', info: '오늘 하루는 분노', id: 5 },

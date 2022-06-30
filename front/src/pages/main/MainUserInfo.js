@@ -9,7 +9,7 @@ const MainUserInfo = () => {
   const user = useRecoilValue(userState);
 
   useEffect(() => {
-    console.log(user.daily_check);
+    // console.log(user.daily_check);
   }, []);
 
   return (

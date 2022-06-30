@@ -1,6 +1,6 @@
 // import { BasicModel } from "../index.js";
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 class User {
@@ -54,7 +54,7 @@ class User {
     const foundUser = await prisma.users.findFirst({
       where: {
         AND: {
-          social: "local",
+          social: 'local',
           email: email,
         },
       },
@@ -175,12 +175,10 @@ class User {
   }
 
   static async findUserLocal({ email, social, pw }) {
-    console.log(email, social, pw);
     if (pw) {
       const foundUser = await prisma.users.findFirst({
         where: {
-          email: email,
-          social: social,
+          AND: { email: email, social: social },
         },
       });
       if (foundUser) {

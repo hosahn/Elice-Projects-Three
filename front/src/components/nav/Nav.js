@@ -47,7 +47,6 @@ const Nav = () => {
   };
 
   const clickDiary = () => {
-    console.log(diaryCheck);
     if (diaryCheck.daily_check === true) {
       snackBar('warning', '일기는 하루에 한 번만 작성 가능합니다..!');
     } else {

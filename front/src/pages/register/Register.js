@@ -76,7 +76,6 @@ const Register = () => {
           snackBar('sucess', '회원가입에 성공하였습니다.');
           navigate('/login');
         } else {
-          console.log(response.data);
           snackBar('error', '회원가입에 실패하였습니다.');
         }
       } catch (err) {

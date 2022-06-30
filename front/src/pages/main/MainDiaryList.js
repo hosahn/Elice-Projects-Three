@@ -4,13 +4,14 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import * as Api from '../../api';
 import { randomListState } from '../../atoms';
+import snackBar from '../../components/snackBar';
 
 const MainDiaryList = () => {
   const navigate = useNavigate();
   const [radomDiary, setRandomDiary] = useRecoilState(randomListState);
 
   useEffect(() => {
-    console.log(radomDiary.length);
+    // console.log(radomDiary.length);
     if (radomDiary.length === 0) {
       getRandomList();
     }
@@ -20,16 +21,14 @@ const MainDiaryList = () => {
     try {
       const res = await Api.get('diary/random/list');
       setRandomDiary(res.data);
-      console.log(res.data);
     } catch (err) {
-      // alert('에러 발생');
+      snackBar('error', '에러가 발생하였습니다. ');
     }
   };
 
   const clickDiary = (e) => {
     const diaryId = e.target.id;
     navigate(`/diary/${diaryId}`, { state: diaryId });
-    console.log(e.currentTarget.name);
   };
 
   return (

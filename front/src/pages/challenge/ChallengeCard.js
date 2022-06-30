@@ -22,7 +22,7 @@ const ChallengeCard = ({
   const lock = false;
 
   useEffect(() => {
-    console.log(disabled);
+    // console.log(disabled);
   }, []);
 
   const clickStart = async (e) => {

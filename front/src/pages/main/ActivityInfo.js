@@ -6,8 +6,8 @@ const ActivityInfo = (props) => {
   const { setEmotion, getActivity, emotion, getFortune } = props;
 
   useEffect(() => {
-    console.log(getActivity.activity[0].title);
-    console.log(getFortune);
+    // console.log(getActivity.activity[0].title);
+    // console.log(getFortune);
   }, []);
 
   return (

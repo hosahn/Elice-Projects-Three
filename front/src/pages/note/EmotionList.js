@@ -54,7 +54,7 @@ const EmotionList = () => {
       try {
         const res = await Api.get(`diary/list/?cursor=${cursor}`);
         if (diaryList.length !== 0 && diaryList[9].id === res.data[0].id) {
-          return console.log('반복된 일기 list');
+          return snackBar('warning', '잘못된 요청입니다.');
         }
         const length = res.data.length;
         const sliceData = res.data.slice(0, length - 1);
@@ -64,7 +64,9 @@ const EmotionList = () => {
         if (length < 10) {
           setStop(true);
         }
-      } catch (err) {}
+      } catch (err) {
+        snackBar('warning', '잘못된 요청입니다.');
+      }
     }
   };
 
@@ -74,7 +76,6 @@ const EmotionList = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSelect(e.target.value);
   };
 

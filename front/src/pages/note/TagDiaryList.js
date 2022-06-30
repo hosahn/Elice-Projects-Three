@@ -10,7 +10,7 @@ const TagDiaryList = (props) => {
   const { setOpenTagList, tagList } = props;
 
   useEffect(() => {
-    console.log(tagList);
+    // console.log(tagList);
   }, []);
 
   const openCard = (e) => {

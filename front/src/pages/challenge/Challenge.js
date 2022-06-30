@@ -45,11 +45,9 @@ const Challenge = () => {
         }
 
         let filterCompletedChallenge = res.data.challenge.filter((acc, cur) => {
-          console.log(acc.name);
           return acc.name === indices[cur];
         }, []);
 
-        console.log(filterCompletedChallenge);
         setCompletedChallenge(filterCompletedChallenge); // 성공한 챌린지 이름 저장
       }
     } catch (err) {
@@ -58,7 +56,7 @@ const Challenge = () => {
   };
 
   if (openCompletedChallenge === true) {
-    console.log('openCompletedChallenge');
+    // console.log('openCompletedChallenge');
   }
 
   const clickCompleteCard = () => {
