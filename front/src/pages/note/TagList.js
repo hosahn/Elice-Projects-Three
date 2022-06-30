@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useEdit from '../../hooks/useEdit';
 import * as Api from '../../api';
 import TagBook from './TagBook';
+import snackBar from '../../components/snackBar';
 
 const TagList = () => {
   const [tagList, setTagList] = useState([]);
@@ -10,6 +11,10 @@ const TagList = () => {
 
   useEffect(() => {
     getTagList();
+    snackBar(
+      'info',
+      '태그에 해당하는 일기를 보기 위해서는 제목을 클릭해주세요.'
+    );
   }, []);
 
   const getTagList = async () => {

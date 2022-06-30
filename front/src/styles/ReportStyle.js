@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-const sky = require('../images/nightsky.jpg');
 
 export const Loading = styled.h1`
   text-transform: uppercase;

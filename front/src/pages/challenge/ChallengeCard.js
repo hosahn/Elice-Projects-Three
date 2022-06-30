@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import images from "../../assets/images";
+import { useEffect } from 'react';
+import images from '../../assets/images';
 import {
   CardsContainer,
   CardTitle,
@@ -7,9 +7,9 @@ import {
   ExplainContext,
   TargetImg,
   StartBtn,
-} from "../../styles/ChallengeStyle";
-import * as Api from "../../api";
-import changeUtc from "../../utils/changeUtc";
+} from '../../styles/ChallengeStyle';
+import * as Api from '../../api';
+import snackBar from '../../components/snackBar';
 
 const ChallengeCard = ({
   it,
@@ -18,7 +18,7 @@ const ChallengeCard = ({
   setIsLoaded,
   setCurrentChallenge,
 }) => {
-  const { name, description, id } = it;
+  const { name, id, description, descriptionOne, descriptionTwo } = it;
   const lock = false;
 
   useEffect(() => {
@@ -27,22 +27,20 @@ const ChallengeCard = ({
 
   const clickStart = async (e) => {
     try {
-      const res = await Api.get(`challenge/start/${e.target.id}`);
-      console.log(res.data);
+      await Api.get(`challenge/start/${e.target.id}`);
       setIsLoaded((prev) => !prev);
     } catch (err) {
-      alert("챌린지 신청 실패");
+      snackBar('error', '다시 시도해주세요.');
     }
   };
 
   const clickStop = async (e) => {
     try {
-      const res = await Api.get(`challenge/stop/${e.target.id}`);
-      console.log(res.data);
+      await Api.get(`challenge/stop/${e.target.id}`);
       setIsLoaded((prev) => !prev);
-      setCurrentChallenge("");
+      setCurrentChallenge('');
     } catch (err) {
-      alert("챌린지 취소 실패");
+      snackBar('error', '다시 시도해주세요.');
     }
   };
 
@@ -57,7 +55,7 @@ const ChallengeCard = ({
           </CardWrapper>
           <ExplainContext lock={true}>
             <h1>👷🏻‍♂️현재 준비 중인 챌린지 입니다.</h1>
-            <div style={{ marginTop: "35px" }}></div>
+            <div style={{ marginTop: '35px' }}></div>
           </ExplainContext>
         </>
       ) : (
@@ -70,17 +68,17 @@ const ChallengeCard = ({
           </CardWrapper>
           <ExplainContext lock={false}>
             <h1>{description}</h1>
-            {/* {descriptionOne} <br />
+            {descriptionOne} <br />
             {descriptionTwo}
-            <br /> */}
-            <div style={{ marginTop: "35px" }}>
+            <br />
+            <div style={{ marginTop: '35px' }}>
               {name === currentChallenge ? (
                 <StartBtn onClick={clickStop} id={id}>
                   포기할래요🥲
                 </StartBtn>
               ) : (
                 <StartBtn onClick={clickStart} id={id} disabled={disabled}>
-                  {disabled ? "도전 중인 챌린지가 있어요." : "도전하기🏁"}
+                  {disabled ? '도전 중인 챌린지가 있어요.' : '도전하기🏁'}
                 </StartBtn>
               )}
             </div>

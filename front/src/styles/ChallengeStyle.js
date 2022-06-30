@@ -61,11 +61,10 @@ export const ChallengeTitle = styled.h1`
   left: -440px;
 `;
 
-//
 export const CardTitle = styled.h1`
   font-size: 40px;
   font-family: 'EliceDigitalBaeum_Bold';
-  color: ${(props) => (props.lock === true ? '#495057' : '#916bbf')};
+  color: ${(props) => (props.lock === true ? '#495057' : '#1864ab')};
 `;
 
 export const CardWrapper = styled.div`
@@ -82,6 +81,7 @@ export const CardWrapper = styled.div`
 export const ExplainContext = styled.div`
   font-size: 20px;
   font-weigth: 500;
+  font-family: 'EliceDigitalBaeum';
   line-height: 25px;
   padding-top: 20px;
   h1 {
@@ -96,11 +96,8 @@ export const StartBtn = styled.button`
   font-size: 20px;
   padding: 10px;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.color.mainPurple};
+  background-color: #37498a;
   color: white;
-  &:hover {
-    background-color: ${({ theme }) => theme.color.subPurple};
-  }
   &:disabled {
     cursor: default;
     opacity: 0.5;

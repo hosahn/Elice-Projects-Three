@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import Badge from '@mui/material/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { emotionState } from '../../atoms';
 import ActivityInfo from './ActivityInfo';
 import * as Api from '../../api';
 
 const MainEmotionInfo = () => {
-  const emotion = useRecoilValue(emotionState);
+  const [emotion, setEmotion] = useRecoilState(emotionState);
   const [getEmotion, setGetEmotion] = useState(0);
+  const [getFortune, setGetFortune] = useState('');
   const [getActivity, setGetActivity] = useState([]);
-  const [openEmotion, setEmotion] = useState(false);
+  const [openEmotion, setOpenEmotion] = useState(false);
 
   useEffect(() => {
     if (emotion) {
@@ -24,22 +25,29 @@ const MainEmotionInfo = () => {
     const res = await Api.post('confirmed/submit', {
       emotion,
     });
-    console.log(res.data);
+    const fortune = await Api.get('confirmed/fortune');
+    setGetFortune(fortune.data);
     setGetActivity(res.data);
     setGetEmotion(0);
-    setEmotion(true);
+    setOpenEmotion(true);
+    setEmotion('');
   };
 
   return (
     <>
-      <MoveBtn onClick={clickBell} disabled={getEmotion === 0}>
+      <MoveBtn
+        onClick={clickBell}
+        disabled={getEmotion === 0}
+        getEmotion={getEmotion}
+      >
         <Badge badgeContent={getEmotion} color="primary">
-          <FontAwesomeIcon icon={faBell} className="user" />
+          <FontAwesomeIcon icon={faEnvelope} className="user" />
         </Badge>
       </MoveBtn>
       {openEmotion && (
         <ActivityInfo
-          setEmotion={setEmotion}
+          setEmotion={setOpenEmotion}
+          getFortune={getFortune}
           getActivity={getActivity}
           emotion={emotion}
         />
@@ -51,7 +59,7 @@ const MainEmotionInfo = () => {
 export default MainEmotionInfo;
 
 const MoveBtn = styled.button`
-  color: #ffd43b;
+  color: ${(props) => (props.getEmotion === 0 ? '#adb5bd' : '#ffd43b')};
   font-size: 25px;
   margin-top: 20px;
 `;

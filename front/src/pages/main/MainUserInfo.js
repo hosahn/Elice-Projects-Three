@@ -39,8 +39,9 @@ const SubContext = styled.div`
   font-size: 20px;
   line-height: 25px;
   height: 50px;
-  font-family: 'KyoboHand';
   margin-top: 10px;
+  border-radius: 10px;
+  background-color: white;
   padding: 20px;
   span {
     background-image: linear-gradient(transparent 60%, #a5d8ff 40%);
