@@ -78,7 +78,7 @@ const Report = () => {
       <style.BackGroundContainer>
         <style.MainContainers>
           <style.RTitleWrap>
-            <style.ReportTitle>🏁 2022년 5월 리포트 🏁</style.ReportTitle>
+            <style.ReportTitle>🏁 2022년 월 리포트 🏁</style.ReportTitle>
           </style.RTitleWrap>
           <style.DescTitle>
             이번 달에는 어떤 감정을 많이 느꼈을까요?

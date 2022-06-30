@@ -1,5 +1,5 @@
 import Modal from '../../components/modal/Modal';
-import { Title, DiaryDate, DateWrapper } from '../../styles/NoteStyle';
+import { DiaryDate, DateWrapper } from '../../styles/NoteStyle';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useEffect } from 'react';
@@ -9,20 +9,23 @@ const TagDiaryList = (props) => {
   const navigate = useNavigate();
   const { setOpenTagList, tagList } = props;
 
+  useEffect(() => {
+    console.log(tagList);
+  }, []);
+
   const openCard = (e) => {
-    const diaryId = e.currentTarget.value;
-    navigate(`/diary/${diaryId}`, { state: diaryId });
+    navigate(`/diary/${e.target.name}`, { state: e.target.name });
   };
 
   return (
     <Modal setOpen={setOpenTagList}>
       <EmotionContainer>
-        {tagList.map((it) => (
+        {tagList.map((it, index) => (
           <EmotionCard
             onClick={openCard}
-            key={it.id}
+            key={index}
             emotion={it.emotion}
-            value={it.id}
+            name={it.id}
           >
             <Title>{it.title}</Title>
             <DateWrapper>
@@ -48,10 +51,9 @@ const EmotionContainer = styled.div`
   width: 100%;
 `;
 
-const EmotionCard = styled.div`
-  background-color: ${({ theme }) => theme.color.lightGrayBg};
+const EmotionCard = styled.button`
   height: 70px;
-  width: 480px;
+  width: 500px;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
@@ -61,7 +63,6 @@ const EmotionCard = styled.div`
     font-family: 'InfinitySans-RegularA1';
   }
   border: 7px solid;
-  background-color: white;
   border-color: ${(props) => {
     switch (props.emotion) {
       case '행복':
@@ -82,4 +83,14 @@ const EmotionCard = styled.div`
         return 'white';
     }
   }};
+`;
+
+const Title = styled.div`
+  font-family: 'EliceDigitalBaeum';
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 70px;
+  background-color: #f1f3f5;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* 말줄임 적용 */
 `;

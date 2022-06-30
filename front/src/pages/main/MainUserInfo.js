@@ -15,9 +15,9 @@ const MainUserInfo = () => {
   return (
     <InfoContainer>
       {user.daily_check ? (
-        <SubContext>
+        <DiaryContext>
           <span>오늘 일기를 작성하셨네요.👍</span>
-        </SubContext>
+        </DiaryContext>
       ) : (
         <>
           <DiaryContext>
@@ -34,20 +34,6 @@ const MainUserInfo = () => {
 
 export default MainUserInfo;
 
-const SubContext = styled.div`
-  font-family: 'EliceDigitalBaeum';
-  font-size: 20px;
-  line-height: 25px;
-  height: 50px;
-  margin-top: 10px;
-  border-radius: 10px;
-  background-color: white;
-  padding: 20px;
-  span {
-    background-image: linear-gradient(transparent 60%, #a5d8ff 40%);
-  }
-`;
-
 const DiaryContext = styled.div`
   border-radius: 10px;
   background-color: #e9ecef;
@@ -56,7 +42,7 @@ const DiaryContext = styled.div`
   font-family: 'KyoboHand';
   margin-top: 10px;
   padding: 20px;
-  height: 100px;
+  height: 90px;
   span {
     font-family: 'EliceDigitalBaeum';
     background-image: linear-gradient(transparent 60%, #a5d8ff 40%);

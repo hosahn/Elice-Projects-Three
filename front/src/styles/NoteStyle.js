@@ -40,8 +40,8 @@ export const Title = styled.div`
   background-color: #f1f3f5;
   border-radius: 10px;
   white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis; /* 말줄임 적용 */
 `;
 
 export const DiaryDate = styled.span`
@@ -92,7 +92,7 @@ export const BoardContainer = styled.div`
 
 export const ViewContainer = styled.div`
   margin-top: 80px;
-  margin-bottom: 50px;
+  margin-bottom: 200px;
   margin-right: 200px;
   margin-left: 200px;
 `;

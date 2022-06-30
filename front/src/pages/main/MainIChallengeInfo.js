@@ -29,7 +29,8 @@ const MainIChallengeInfo = () => {
   }, [challenge]);
 
   return (
-    <>
+    <ChallengeContainer>
+      🎯 챌린지
       <InfoContainer>
         <SubContext>
           {open ? (
@@ -46,7 +47,7 @@ const MainIChallengeInfo = () => {
           )}
         </SubContext>
       </InfoContainer>
-    </>
+    </ChallengeContainer>
   );
 };
 
@@ -74,4 +75,9 @@ const DayWrapper = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 15px;
   color: #868e96;
+`;
+
+const ChallengeContainer = styled.div`
+  font-family: 'EliceDigitalBaeum';
+  font-size: 20px;
 `;

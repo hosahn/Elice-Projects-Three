@@ -24,7 +24,7 @@ export const Loading = styled.h1`
 export const BackGroundContainer = styled.div`
   position: relative;
   margin: auto;
-  background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   display: flex;
   flex-direction: column;
   align-items: center;

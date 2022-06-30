@@ -4,7 +4,7 @@ export const WarningText = styled.div`
   font-family: 'EliceDigitalBaeum';
   font-size: 15px;
   line-height: 20px;
-  color: #ff6b6b;
+  color: #faa2c1;
 `;
 
 export const RegisterText = styled.div`
