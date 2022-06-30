@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 const option = {
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:5001/user/googlecomplete',
+  callbackURL: 'http://kdt-ai4-team12.elicecoding.com/user/googlecomplete',
   passReqToCallback: true,
 };
 

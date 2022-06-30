@@ -8,7 +8,7 @@ import { Reward } from "./models/Reward.js";
 import { Fortune } from "./models/Fortune.js";
 import { Report } from "./models/report.js";
 import { Activity } from "./models/Activity.js";
-import Book from "./models/book.js";
+import Book from "./models/Book.js";
 export {
   User,
   Diary,

@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 const option = {
   clientID: process.env.NAVER_CLIENT_ID,
   clientSecret: process.env.NAVER_CLIENT_SECRET,
-  callbackURL: 'http://localhost:5001/user/navercomplete',
+  callbackURL: 'http://kdt-ai4-team12.elicecoding.com/user/navercomplete',
 };
 
 const verify = async (accessToken, refreshToken, profile, done) => {

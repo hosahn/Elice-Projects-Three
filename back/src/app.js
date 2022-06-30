@@ -100,10 +100,9 @@ const limiter = rateLimit({
 app.use(helmet());
 app.use(
   cors({
-    origin: "http://localhost:3000", // server의 url이 아닌, 요청하는 client의 url
+    origin: ["http://kdt-ai4-team12.elicecoding.com","http://kdt-ai4-team12.elicecoding.com:3000/"], // server의 url이 아닌, 요청하는 client의 url
     credentials: true,
-  })
-);
+  }));
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
