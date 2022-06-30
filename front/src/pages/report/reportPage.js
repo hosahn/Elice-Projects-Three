@@ -5,6 +5,8 @@ import TimeGraph from '../../components/graph/timeGraph';
 import Nav from '../../components/nav/Nav';
 import TagRanking from '../../components/graph/allTagCount';
 import MyTagRanking from '../../components/graph/tagCount';
+import { Background } from '../../styles/ModalStyle';
+import { ClassicSpinner } from 'react-spinners-kit';
 import * as Api from '../../api';
 
 const Report = () => {
@@ -36,9 +38,9 @@ const Report = () => {
 
   if (allTags.length === 0) {
     return (
-      <>
-        <h1>Loading...</h1>
-      </>
+      <Background>
+        <ClassicSpinner size={100} color="pink" />
+      </Background>
     );
   }
 

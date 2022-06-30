@@ -64,9 +64,7 @@ const EmotionList = () => {
         if (length < 10) {
           setStop(true);
         }
-      } catch (err) {
-        navigate('/');
-      }
+      } catch (err) {}
     }
   };
 

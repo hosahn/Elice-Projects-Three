@@ -102,7 +102,7 @@ export default View;
 
 const RemoveBtn = styled.button`
   float: right;
-  margin-bottom: 20px;
+  margin-bottom: 100px;
   font-weight: bold;
   color: #ff6b6b;
 `;

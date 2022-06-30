@@ -6,9 +6,10 @@ import TimeGraph from '../components/graph/timeGraph';
 import Nav from '../components/nav/Nav';
 import TagRanking from '../components/graph/allTagCount';
 import * as Api from '../api';
+import { Background } from '../../styles/ModalStyle';
+import { ClassicSpinner } from 'react-spinners-kit';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../atoms';
+
 import snackBar from '../components/snackBar';
 
 const Report = () => {
@@ -17,8 +18,6 @@ const Report = () => {
   const [diaryTime, setdiaryTime] = useState({});
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const user = useRecoilValue(userState);
 
   useEffect(() => {
     allFunction();
@@ -38,9 +37,9 @@ const Report = () => {
 
   if (tags.length === 0) {
     return (
-      <>
-        <h1>Loading...</h1>
-      </>
+      <Background>
+        <ClassicSpinner size={100} color="pink" />
+      </Background>
     );
   }
 

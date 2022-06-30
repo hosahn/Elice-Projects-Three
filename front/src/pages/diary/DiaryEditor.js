@@ -42,42 +42,42 @@ const DiaryEditor = (props) => {
       ''
     );
     const diary = deleteImg.replace(/<([^>]+)>/g, '');
-    await Api.post('diary', {
-      tag,
-      text: temp,
-      title,
-      emotion: '슬픔',
-    });
-    setEmotion('슬픔');
-    setSubmit((prev) => !prev);
-    setLoading((prev) => !prev);
-    setTimeout(() => setLoading((prev) => !prev), 3500);
+    // await Api.post('diary', {
+    //   tag,
+    //   text: temp,
+    //   title,
+    //   emotion: '슬픔',
+    // });
+    // setEmotion('슬픔');
+    // setSubmit((prev) => !prev);
+    // setLoading((prev) => !prev);
+    // setTimeout(() => setLoading((prev) => !prev), 3500);
 
-    // if (title.length > 0 && temp.length > 0) {
-    //   try {
-    //     const res = await Api.postDiary({
-    //       diary: diary,
-    //     });
-    //     if (res.data.length !== 0) {
-    //       setEmotion(res.data);
-    //       await Api.post('diary', {
-    //         tag,
-    //         text: temp,
-    //         title,
-    //         emotion: res.data,
-    //       });
-    //       setSubmit((prev) => !prev);
-    //       setLoading((prev) => !prev);
-    //       setTimeout(() => setLoading((prev) => !prev), 3500);
-    //     } else {
-    //       snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
-    //     }
-    //   } catch (err) {
-    //     snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
-    //   }
-    // } else if (title.length === 0 || temp.length === 0) {
-    //   snackBar('info', '제목, 내용은 필수로 작성 부탁드립니다!');
-    // }
+    if (title.length > 0 && temp.length > 0) {
+      try {
+        const res = await Api.postDiary({
+          diary: diary,
+        });
+        if (res.data.length !== 0) {
+          setEmotion(res.data);
+          await Api.post('diary', {
+            tag,
+            text: temp,
+            title,
+            emotion: res.data,
+          });
+          setSubmit((prev) => !prev);
+          setLoading((prev) => !prev);
+          setTimeout(() => setLoading((prev) => !prev), 3500);
+        } else {
+          snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
+        }
+      } catch (err) {
+        snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');
+      }
+    } else if (title.length === 0 || temp.length === 0) {
+      snackBar('info', '제목, 내용은 필수로 작성 부탁드립니다!');
+    }
   };
 
   return (

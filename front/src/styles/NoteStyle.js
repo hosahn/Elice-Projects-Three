@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const EmotionCard = styled.button`
   height: 170px;
   width: 200px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
   border-radius: 10px;
   border: 7px solid;
   background-color: white;
@@ -33,22 +32,27 @@ export const EmotionCard = styled.button`
 `;
 
 export const Title = styled.div`
-  font-family: 'GothicA1-Light';
+  font-family: 'EliceDigitalBaeum';
   font-weight: bold;
   font-size: 20px;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 70px;
+  background-color: #f1f3f5;
+  border-radius: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 export const DiaryDate = styled.span`
-  font-family: 'GothicA1-Light';
+  font-family: 'EliceDigitalBaeum';
   font-weight: bold;
   font-size: 10px;
-  margin-right: 10px;
 `;
 
 export const DateWrapper = styled.div`
   float: right;
+  margin-left: 70px;
 `;
 
 export const BtnContainer = styled.div`
