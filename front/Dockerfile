@@ -1,13 +1,8 @@
-FROM node:16
-
+FROM nginx
+RUN mkdir /app
 WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install --legacy-peer-deps
-
-COPY ./build ./build
-
+ADD ./build ./build
+RUN rm /etc/nginx/conf.d/*
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
-
-CMD ["npx", "serve", "-s", "build"]
+CMD ["nginx", "-g", "daemon off;"]
