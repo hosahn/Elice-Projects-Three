@@ -12,19 +12,20 @@ export const NavWrap = styled.div`
     margin-right: 30px;
     background-color: transparent;
     cursor: pointer;
-    font-size: 15px;
   }
 `;
 
 export const Btn = styled.button`
   margin-right: 10px;
   color: black;
+  font-size: 15px;
   font-weight: bold;
   font-family: 'EliceDigitalBaeum';
 `;
 
 export const UserBtn = styled.button`
   color: white;
+  font-size: 25px;
 `;
 
 export const HighLight = styled.div`

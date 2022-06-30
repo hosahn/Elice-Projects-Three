@@ -57,6 +57,9 @@ const Nav = () => {
 
   return (
     <NavWrap>
+      <UserBtn onClick={() => navigate('/usermain')}>
+        <FontAwesomeIcon icon={faCircleUser} className="user" />
+      </UserBtn>
       <Btn onClick={() => navigate('/challenge')}>
         <HighLight>챌린지</HighLight>
       </Btn>
@@ -72,9 +75,6 @@ const Nav = () => {
       <Btn onClick={logoutHandler}>
         <HighLight>로그아웃</HighLight>
       </Btn>
-      <UserBtn onClick={() => navigate('/usermain')}>
-        <FontAwesomeIcon icon={faCircleUser} className="user" />
-      </UserBtn>
     </NavWrap>
   );
 };

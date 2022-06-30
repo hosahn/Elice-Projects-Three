@@ -3,6 +3,7 @@ import * as style from '../../styles/ReportStyle';
 import EmotionGraph from '../../components/graph/emotionGraph';
 import TimeGraph from '../../components/graph/timeGraph';
 import Nav from '../../components/nav/Nav';
+import moment from 'moment';
 import TagRanking from '../../components/graph/allTagCount';
 import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
@@ -12,6 +13,7 @@ import snackBar from '../../components/snackBar';
 const Report = () => {
   const [diaryEmotion, setDiaryEmotion] = useState({});
   const [diaryTime, setdiaryTime] = useState({});
+  const today = moment();
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [challenge, setChallenge] = useState([]);
@@ -28,8 +30,6 @@ const Report = () => {
       setTags(() => data.data.userTag);
       setAllTags(() => data.data.allTag);
       setChallenge(() => data.data.challenge);
-      console.log(data.data.challenge.challenge);
-      console.log(data.data);
     } catch (err) {
       snackBar('error', '에러가 발생하였습니다. ');
     }
@@ -72,13 +72,14 @@ const Report = () => {
     );
   });
 
+  let month = today.format('MM').replace(/(^0+)/, '');
   return (
     <>
       <Nav />
       <style.BackGroundContainer>
         <style.MainContainers>
           <style.RTitleWrap>
-            <style.ReportTitle>🏁 2022년 월 리포트 🏁</style.ReportTitle>
+            <style.ReportTitle>🏁 2022년 {month}월 리포트 🏁</style.ReportTitle>
           </style.RTitleWrap>
           <style.DescTitle>
             이번 달에는 어떤 감정을 많이 느꼈을까요?
@@ -107,7 +108,13 @@ const Report = () => {
             <TagRanking data={allTags} />
           </style.ReportContainer>
           <style.DescTitle>현재까지의 도전과제 진행상황입니다.</style.DescTitle>
-          <style.ChallengeContainer>{ChallengeText}</style.ChallengeContainer>
+          <style.ChallengeContainer>
+            {challenge.challenge.length === 0 ? (
+              <p>도전 / 완료한 챌린지가 없습니다. 🥲</p>
+            ) : (
+              <p>{ChallengeText}</p>
+            )}
+          </style.ChallengeContainer>
           <style.Quotation>당신의 내일을 응원합니다</style.Quotation>
           <style.Quotation>-밤하늘-</style.Quotation>
         </style.MainContainers>
