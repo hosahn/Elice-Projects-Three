@@ -7,7 +7,7 @@ import { Challenge } from "./models/Challenge.js";
 import { Reward } from "./models/Reward.js";
 import { Fortune } from "./models/Fortune.js";
 import { Report } from "./models/report.js";
-import { Activity } from "./models/Activity.js";
+import { Activity } from "./models/activity.js";
 import Book from "./models/book.js";
 export {
   User,
