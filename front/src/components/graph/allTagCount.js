@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import images from '../../assets/images';
-import { useState, useEffect } from 'react';
 
 const FirstPlacePic = styled.img`
   position: absolute;

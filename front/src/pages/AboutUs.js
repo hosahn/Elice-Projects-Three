@@ -5,14 +5,15 @@ import MainFooter from '../components/footer';
 import MemberCard from '../components/MemberCard';
 import styled from 'styled-components';
 import Btn from '../components/Btn';
+import images from '../assets/images';
 
-const Hosan = require('../images/Hosan.jpg');
-const Nayeon = require('../images/Nayeon.jpg');
-const Jooyeong = require('../images/Jooyeong.jpg');
-const GwangCheon = require('../images/GwangCheon.jpg');
-const Notion = require('../images/Notion.png');
-const Figma = require('../images/Figma.png');
-const ErdCloud = require('../images/ErdCloud.png');
+const Hosan = require(images.Hosan);
+const Nayeon = require(images.Nayeon);
+const Jooyeong = require(images.Jooyeong);
+const GwangCheon = require(images.GwangCheon);
+const Notion = require(images.Notion);
+const Figma = require(images.Figma);
+const ErdCloud = require(images.ErdCloud);
 
 const CardDiv = styled.div`
   border-radius: 30px;
