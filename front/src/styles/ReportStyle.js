@@ -35,7 +35,7 @@ export const MainContainers = styled.div`
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-bottom: 60px;
   width: 1200px;
   height: 2400px;
@@ -83,6 +83,22 @@ export const RDiaryText = styled.h3`
   white-space: pre-wrap;
   color: #916bbf;
 `;
+
+export const RTimeText = styled.h3`
+  position: absolute;
+  width: 630px;
+  height: 163px;
+  left: 500px;
+  top: 15px;
+  font-family: 'EliceDigitalBaeum_Bold';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 32px;
+  white-space: pre-wrap;
+  color: #916bbf;
+`;
+
 export const RTitleWrap = styled.div`
   margin-top: 0px;
   display: flex;
@@ -98,7 +114,7 @@ export const ReportTitle = styled.h1`
   font-weight: 700;
   line-height: 44px;
   /* identical to box height */
-  margin-top: 30px;
+  margin-top: 10px;
   color: #3d2c8d;
 `;
 

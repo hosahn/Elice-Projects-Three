@@ -2,7 +2,6 @@ import Modal from '../../components/modal/Modal';
 import { DiaryDate, DateWrapper } from '../../styles/NoteStyle';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import snackBar from '../../components/snackBar';
 
 const TagDiaryList = (props) => {
   const navigate = useNavigate();

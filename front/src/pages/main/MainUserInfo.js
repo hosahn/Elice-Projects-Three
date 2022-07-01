@@ -8,9 +8,7 @@ const MainUserInfo = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(userState);
 
-  useEffect(() => {
-    // console.log(user.daily_check);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <InfoContainer>

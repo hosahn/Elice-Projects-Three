@@ -25,10 +25,7 @@ const ChallengeCard = ({
   const lock = false;
   const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    console.log(it.name);
-    console.log(sucess);
-  }, []);
+  useEffect(() => {}, []);
 
   const clickStart = async (e) => {
     try {

@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import * as Api from '../../api';
 import { randomListState } from '../../atoms';
 import snackBar from '../../components/snackBar';
+import changeUtc from '../../utils/changeUtc';
 
 const MainDiaryList = () => {
   const navigate = useNavigate();
   const [radomDiary, setRandomDiary] = useRecoilState(randomListState);
 
   useEffect(() => {
-    // console.log(radomDiary.length);
     if (radomDiary.length === 0) {
       getRandomList();
     }
@@ -27,23 +27,29 @@ const MainDiaryList = () => {
   };
 
   const clickDiary = (e) => {
-    const diaryId = e.target.id;
+    const diaryId = e.currentTarget.id;
     navigate(`/diary/${diaryId}`, { state: diaryId });
   };
 
   return (
     <DiaryListContainer>
       <span>📓 오늘의 일기</span>
-      {radomDiary.map((it) => (
-        <DiaryCard
-          onClick={clickDiary}
-          id={it.id}
-          key={it.id}
-          emotion={it.emotion}
-        >
-          {it.title}
-        </DiaryCard>
-      ))}
+      {radomDiary.map((it) => {
+        let date = changeUtc(it.date).viewDate;
+        return (
+          <DiaryCard
+            onClick={clickDiary}
+            id={it.id}
+            key={it.id}
+            emotion={it.emotion}
+          >
+            <Wrapper>
+              <div>{it.title}</div>
+              <div>{date}</div>
+            </Wrapper>
+          </DiaryCard>
+        );
+      })}
     </DiaryListContainer>
   );
 };
@@ -61,8 +67,6 @@ const DiaryListContainer = styled.div`
 const DiaryCard = styled.button`
   height: 70px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
   border-radius: 10px;
   padding: 20px 20px;
   margin: 20px 0px;
@@ -89,4 +93,9 @@ const DiaryCard = styled.button`
         return 'white';
     }
   }};
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

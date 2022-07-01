@@ -19,7 +19,6 @@ const Nav = () => {
   const resetUser = useResetRecoilState(userState);
   const diaryCheck = useRecoilValue(userState);
   const emotion = useResetRecoilState(emotionState);
-  const login = useResetRecoilState(loginState);
   const randomList = useResetRecoilState(randomListState);
   const challenge = useResetRecoilState(challengeState);
 
@@ -29,7 +28,6 @@ const Nav = () => {
       if (res.data === true) {
         resetUser();
         emotion();
-        login();
         randomList();
         challenge();
         navigate('/');

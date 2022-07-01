@@ -116,7 +116,7 @@ const Landing = () => {
         </style.ButtonDiv>
         <style.Quotation>{quotation}</style.Quotation>
       </style.MainContainer>
-      <MainFooter></MainFooter>
+      <MainFooter />
     </>
   );
 };
