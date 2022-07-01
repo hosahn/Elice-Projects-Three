@@ -11,6 +11,29 @@ import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
+
+export const emotionText = (e) => {
+  switch (e) {
+    case 'happy':
+      return '행복';
+    case 'sad':
+      return '슬픔';
+    case 'normal':
+      return '평범';
+    case 'angry':
+      return '분노';
+    case 'scunner':
+      return '혐오';
+    case 'surprised':
+      return '놀람';
+    case 'unrest':
+      return '불안';
+    default:
+      return '';
+  }
+};
 
 const Report = () => {
   const [diaryEmotion, setDiaryEmotion] = useState({});
@@ -19,20 +42,31 @@ const Report = () => {
   const [allTags, setAllTags] = useState([]);
   const [challenge, setChallenge] = useState([]);
   const navigate = useNavigate();
+  const [getEmotion, setGetEmotion] = useState('');
+  const user = useRecoilValue(userState);
   const today = moment();
 
   useEffect(() => {
-    allFunction();
+    if (user.length === 0) {
+      snackBar('error', '로그인 후 사용해주세요.');
+      navigate('/login');
+    } else {
+      allFunction();
+    }
   }, []);
 
   const allFunction = async () => {
     try {
       const data = await Api.get('report');
+
       setDiaryEmotion(() => data.data.emotion);
       setdiaryTime(() => data.data.time);
       setTags(() => data.data.userTag);
       setAllTags(() => data.data.allTag);
       setChallenge(() => data.data.challenge);
+      let arr = Object.entries(data.data.emotion);
+      let sort = arr.sort((a, b) => b[1] - a[1]);
+      setGetEmotion(emotionText(sort[0][0]));
     } catch (err) {
       snackBar('error', '에러가 발생하였습니다. ');
       navigate('/login');
@@ -49,16 +83,12 @@ const Report = () => {
 
   let reportDate = today.format('MM 월 DD 일');
 
-  let arr = Object.entries(diaryEmotion);
-  let sort = arr.sort((a, b) => b[1] - a[1]);
-  console.log(sort[0][0]);
-
   let DiaryText = `
    행복 감정 일기 작성은 ${diaryEmotion.happy}개, 
    슬픈 감정 일기 작성은 ${diaryEmotion.sad}개, 
    화난 감정 일기 작성은 ${diaryEmotion.angry}개로 
    한달동안 작성해 주신 일기에서 
-   가장 많이 나타난 감정은 행복입니다.
+   가장 많이 나타난 감정은 ${getEmotion}입니다.
   `;
 
   let TimeText = ` 

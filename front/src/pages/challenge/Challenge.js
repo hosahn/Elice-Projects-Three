@@ -11,6 +11,8 @@ import * as Api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import ChallengeInfo from './ChallengeInfo';
 import snackBar from '../../components/snackBar';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../atoms';
 
 const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
@@ -19,10 +21,16 @@ const Challenge = () => {
   const [openCompletedChallenge, setOpenCompletedChallenge] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getChallenge();
+    if (user.length === 0) {
+      snackBar('error', '로그인 후 사용해주세요');
+      navigate('/login');
+    } else {
+      getChallenge();
+    }
   }, [isLoaded]);
 
   const getChallenge = async () => {
@@ -40,7 +48,6 @@ const Challenge = () => {
           setCurrentChallenge(res.data.log.challenge[indexFalse]);
         }
         if (res.data.log.completed.indexOf(true) !== -1) {
-          // true 인 값이 존재한다면.
           let idx = res.data.log.completed.indexOf(true);
           let indices = [];
           while (idx !== -1) {
