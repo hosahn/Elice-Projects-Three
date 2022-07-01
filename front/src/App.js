@@ -37,7 +37,6 @@ function App() {
         position="top-center"
         autoClose={1200}
         closeOnClick={true}
-        theme={'colored'}
       />
     </>
   );

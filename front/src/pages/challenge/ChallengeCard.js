@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import images from '../../assets/images';
 import {
   CardsContainer,
@@ -10,6 +10,8 @@ import {
 } from '../../styles/ChallengeStyle';
 import * as Api from '../../api';
 import snackBar from '../../components/snackBar';
+import ChallengeCancle from './ChallengeCancle';
+import styled from 'styled-components';
 
 const ChallengeCard = ({
   it,
@@ -17,12 +19,15 @@ const ChallengeCard = ({
   currentChallenge,
   setIsLoaded,
   setCurrentChallenge,
+  sucess,
 }) => {
   const { name, id, description, descriptionOne, descriptionTwo } = it;
   const lock = false;
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    // console.log(disabled);
+    console.log(it.name);
+    console.log(sucess);
   }, []);
 
   const clickStart = async (e) => {
@@ -37,8 +42,11 @@ const ChallengeCard = ({
   const clickStop = async (e) => {
     try {
       await Api.get(`challenge/stop/${e.target.id}`);
-      setIsLoaded((prev) => !prev);
-      setCurrentChallenge('');
+      setModalOpen(true);
+      setTimeout(() => {
+        setCurrentChallenge('');
+        setIsLoaded((prev) => !prev);
+      }, 500);
     } catch (err) {
       snackBar('error', '다시 시도해주세요.');
     }
@@ -72,7 +80,12 @@ const ChallengeCard = ({
             {descriptionTwo}
             <br />
             <div style={{ marginTop: '35px' }}>
-              {name === currentChallenge ? (
+              {sucess == 'true' ? (
+                <CompletedWrapper>
+                  {' '}
+                  이미 완료한 챌린지 입니다.👍
+                </CompletedWrapper>
+              ) : name === currentChallenge ? (
                 <StartBtn onClick={clickStop} id={id}>
                   포기할래요🥲
                 </StartBtn>
@@ -85,8 +98,20 @@ const ChallengeCard = ({
           </ExplainContext>
         </>
       )}
+      {modalOpen && <ChallengeCancle setModalOpen={setModalOpen} />}
     </CardsContainer>
   );
 };
 
 export default ChallengeCard;
+
+const CompletedWrapper = styled.div`
+  height: 50px;
+  width: 300px;
+  color: #228be6;
+  background-color: #e9ecef;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 10px;
+  font-family: 'EliceDigitalBaeum';
+`;

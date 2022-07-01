@@ -65,7 +65,7 @@ const EmotionList = () => {
           setStop(true);
         }
       } catch (err) {
-        snackBar('warning', '잘못된 요청입니다.');
+        snackBar('info', '작성한 일기가 없습니다. ');
       }
     }
   };

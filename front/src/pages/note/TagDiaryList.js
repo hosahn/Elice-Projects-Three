@@ -2,19 +2,15 @@ import Modal from '../../components/modal/Modal';
 import { DiaryDate, DateWrapper } from '../../styles/NoteStyle';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import snackBar from '../../components/snackBar';
 
 const TagDiaryList = (props) => {
   const navigate = useNavigate();
   const { setOpenTagList, tagList } = props;
 
-  useEffect(() => {
-    // console.log(tagList);
-  }, []);
-
   const openCard = (e) => {
-    navigate(`/diary/${e.target.name}`, { state: e.target.name });
+    const diaryId = e.currentTarget.name;
+    navigate(`/diary/${diaryId}`, { state: diaryId });
   };
 
   return (

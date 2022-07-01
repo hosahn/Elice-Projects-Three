@@ -1,18 +1,19 @@
-import React from "react";
-import * as style from "../styles/LandingStyle";
-import LandingNav from "../components/nav/LandingNav";
-import MainFooter from "../components/footer";
-import MemberCard from "../components/MemberCard";
-import styled from "styled-components";
-import Btn from "../components/Btn";
+import React from 'react';
+import * as style from '../styles/LandingStyle';
+import LandingNav from '../components/nav/LandingNav';
+import MainFooter from '../components/footer';
+import MemberCard from '../components/MemberCard';
+import styled from 'styled-components';
+import Btn from '../components/Btn';
+import images from '../assets/images';
 
-const Hosan = require("../images/Hosan.jpg");
-const Nayeon = require("../images/Nayeon.jpg");
-const Jooyeong = require("../images/Jooyeong.jpg");
-const GwangCheon = require("../images/GwangCheon.jpg");
-const Notion = require("../images/Notion.png");
-const Figma = require("../images/Figma.png");
-const ErdCloud = require("../images/ErdCloud.png");
+const Hosan = require(images.Hosan);
+const Nayeon = require(images.Nayeon);
+const Jooyeong = require(images.Jooyeong);
+const GwangCheon = require(images.GwangCheon);
+const Notion = require(images.Notion);
+const Figma = require(images.Figma);
+const ErdCloud = require(images.ErdCloud);
 
 const CardDiv = styled.div`
   border-radius: 30px;
@@ -63,7 +64,7 @@ const MainContainer = styled.div`
 `;
 
 const Introduce = styled.div`
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   font-size: 50px;
   text-align: center;
   color: white;
@@ -73,7 +74,7 @@ const Introduce = styled.div`
 `;
 
 const MySelf = styled.div`
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   font-size: 40px;
   text-align: center;
   color: white;
@@ -82,7 +83,7 @@ const MySelf = styled.div`
 `;
 
 const About = styled.div`
-  font-family: "EliceDigitalBaeum_Bold";
+  font-family: 'EliceDigitalBaeum_Bold';
   font-size: 64px;
   text-align: center;
   color: white;
@@ -110,37 +111,37 @@ const AboutUs = () => {
           <MemberCard
             memberInfo={{
               img: Hosan,
-              title: "이호산",
-              author: "Back-End",
-              github: "https://github.com/hosahn/hosahn.github.io",
-              email: "hosahn13@gmail.com",
+              title: '이호산',
+              author: 'Back-End',
+              github: 'https://github.com/hosahn/hosahn.github.io',
+              email: 'hosahn13@gmail.com',
             }}
           />
           <MemberCard
             memberInfo={{
               img: GwangCheon,
-              title: "신광천",
-              author: "Back-End",
-              github: "https://github.com/hosahn/hosahn.github.io",
-              email: "hosahn13@gmail.com",
+              title: '신광천',
+              author: 'Back-End',
+              github: 'https://github.com/Shin-GC?tab=repositories',
+              email: 'cjs4022@gmail.com',
             }}
           />
           <MemberCard
             memberInfo={{
               img: Nayeon,
-              title: "김나연",
-              author: "Front-End, Leader",
-              github: "https://github.com/hosahn/hosahn.github.io",
-              email: "hosahn13@gmail.com",
+              title: '김나연',
+              author: 'Front-End, Leader',
+              github: 'https://github.com/Nayeon97',
+              email: 'naaay097@gmail.com',
             }}
           />
           <MemberCard
             memberInfo={{
               img: Jooyeong,
-              title: "배주영",
-              author: "AI-Engineer",
-              github: "https://github.com/hosahn/hosahn.github.io",
-              email: "hosahn13@gmail.com",
+              title: '배주영',
+              author: 'AI-Engineer',
+              github: 'https://github.com/Baejuyoung?tab=repositories',
+              email: 'baejuyoun49@gmail.com',
             }}
           />
         </CardDiv>
@@ -150,24 +151,24 @@ const AboutUs = () => {
             src={Notion}
             alt="Notion"
             style={{
-              width: "900px",
-              height: "500px",
-              marginTop: "70px",
-              borderRadius: "1%",
+              width: '900px',
+              height: '500px',
+              marginTop: '70px',
+              borderRadius: '1%',
             }}
           />
           <img
             src={Figma}
             style={{
-              width: "900px",
-              height: "500px",
-              marginTop: "100px",
-              borderRadius: "1%",
-              marginBottom: "100px",
+              width: '900px',
+              height: '500px',
+              marginTop: '100px',
+              borderRadius: '1%',
+              marginBottom: '100px',
             }}
             alt="Figma"
           />
-          <Btn text={"팀 페이지 방문하기"} />
+          <Btn text={'팀 페이지 방문하기'} />
         </ProDiv>
         <Introduce>멤버들의 한마디</Introduce>
         <IntroDiv>

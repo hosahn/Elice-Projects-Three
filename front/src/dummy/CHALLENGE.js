@@ -1,7 +1,7 @@
 const res = {
   data: {
     log: {
-      completed: [true, false],
+      completed: [false, false],
       challenge: ['5일 챌린지', '50일 챌린지', '20일챌린지', '30일챌린지'],
       isRunning: true,
     },

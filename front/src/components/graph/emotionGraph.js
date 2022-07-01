@@ -40,8 +40,19 @@ const EmotionGraph = (props) => {
               value: {
                 fontSize: '22px',
                 show: true,
-                color: '#916bbf',
+                colors: ['#f68b42'], // 표 색상 지정
               },
+            },
+            fill: {
+              colors: [
+                '#FFEC99',
+                '#A5D8FF',
+                '#FFD6A5',
+                '#CED4DA',
+                '#FFADAD',
+                '#BDB2FF',
+                '#D8F5A2',
+              ],
             },
           },
         },

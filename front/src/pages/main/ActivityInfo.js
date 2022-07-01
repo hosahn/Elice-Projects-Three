@@ -1,19 +1,13 @@
 import Modal from '../../components/modal/Modal';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const ActivityInfo = (props) => {
-  const { setEmotion, getActivity, emotion, getFortune } = props;
-
-  useEffect(() => {
-    // console.log(getActivity.activity[0].title);
-    // console.log(getFortune);
-  }, []);
+  const { setEmotion, getActivity, getFortune } = props;
 
   return (
     <Modal setOpen={setEmotion}>
       <ActivityContainer>
-        오늘의 감정 <span>{emotion}</span> 에 맞는 음악과 활동 추천드려요..!
+        오늘의 감정에 맞는 음악과 활동 추천드려요..!
         <br />
         🎵 추천 음악 :{' '}
         <span>
@@ -31,9 +25,10 @@ const ActivityInfo = (props) => {
 export default ActivityInfo;
 
 const ActivityContainer = styled.div`
-  margin-top: 50px;
-  margin-left: 50px;
-  padding: 0px 40px;
+  margin-top: 30px;
+  margin-left: 5px;
+  padding: 10px 40px;
+  width: 900px;
   font-family: 'EliceDigitalBaeum';
   font-size: 18px;
   text-align: left;

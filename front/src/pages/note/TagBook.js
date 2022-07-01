@@ -65,6 +65,7 @@ const TagBook = (props) => {
   };
 
   const clickBook = async (e) => {
+    console.log(it.name);
     const res = await Api.get(`book/diarys?tag=${it.name}`);
     setTagList(res.data);
     setOpenTagList(true);

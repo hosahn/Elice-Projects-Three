@@ -17,7 +17,7 @@ const MainEmotionInfo = () => {
 
   useEffect(() => {
     if (emotion) {
-      setGetEmotion(2);
+      setGetEmotion(3);
     }
   }, []);
 
@@ -30,7 +30,6 @@ const MainEmotionInfo = () => {
     setGetActivity(res.data);
     setGetEmotion(0);
     setOpenEmotion(true);
-    setEmotion('');
   };
 
   return (

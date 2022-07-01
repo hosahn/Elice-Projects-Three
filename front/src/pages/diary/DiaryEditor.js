@@ -42,7 +42,6 @@ const DiaryEditor = (props) => {
       ''
     );
     const diary = deleteImg.replace(/<([^>]+)>/g, '');
-
     if (title.length > 0 && temp.length > 0) {
       try {
         const res = await Api.postDiary({
