@@ -14,3 +14,8 @@ export const tagState = atom({
   key: 'tagState',
   default: '',
 });
+
+export const writeState = atom({
+  key: 'writeState',
+  default: false,
+});

@@ -2,6 +2,7 @@ import { Router } from "express";
 import DiaryService from "../services/diaryService.js";
 import { validate } from "../middlewares/validator.js";
 import { check, param, body } from "express-validator";
+import * as status from "../utils/status.js";
 const diaryRouter = Router();
 
 /**
@@ -25,10 +26,6 @@ const diaryRouter = Router();
  *         application/json:
  *           schema:
  *             properties:
- *               user_id:
- *                 type: number
- *                 example: 1
- *                 description: "현재 로그인한 유저의 ID값"
  *               text:
  *                 type: string
  *                 example: "일기 내용 입니다."
@@ -73,24 +70,27 @@ const diaryRouter = Router();
 diaryRouter.post(
   "/",
   [
-    body("userId", "현재 접속해 있는 유저의 ID 값이 들어가 있지 않습니다.")
-      .exists({ checkFalsy: true })
-      .bail(),
     body("title", "제목은 필수로 입력해야 합니다.").exists().bail(),
     body("text", "일기 내용은 필수로 적어주셔야 합니다.").exists().bail(),
     validate,
   ],
   async (req, res, next) => {
-    const data = req.body;
-    const { userId } = data;
-    if (await DiaryService.challengeCheck(userId)) {
-      await DiaryService.check(userId);
+    try {
+      if (!req.user) {
+        throw new Error("로그인 후 사용해야 합니다.");
+      }
+      const userId = req.user.id;
+      const data = { userId, ...req.body };
+      if (await DiaryService.challengeCheck(userId)) {
+        await DiaryService.check(userId);
+      }
+      const body = await DiaryService.create(data);
+      return res.status(status.STATUS_201_CREATED).json(body);
+    } catch (error) {
+      next(error);
     }
-    const body = await DiaryService.create(data);
-    return res.status(201).json(body);
   }
 );
-
 /**
  * @swagger
  * /diary/{id}:
@@ -123,7 +123,7 @@ diaryRouter.delete(
       .custom(async (value) => {
         const diary = await DiaryService.find(value);
         if (!diary) {
-          throw new Error("Diary가 존재하지 않습니다.", 404);
+          throw new Error("Diary가 존재하지 않습니다.", 400);
         }
       }),
     validate,
@@ -131,9 +131,145 @@ diaryRouter.delete(
   async (req, res, next) => {
     const { id } = req.params;
     const body = await DiaryService.delete(id);
-    return res.status(204).end();
+    return res.status(status.STATUS_204_NO_RESOURCE).end();
   }
 );
+
+/**
+ * @swagger
+ * /diary/list:
+ *   get:
+ *     tags: [Diary]
+ *     description: |
+ *       * 유저가 작성한 일기 조회
+ *       * 쿼리를 주지 않고 ``/diary/list``로 요청이 오면 가장 최근에 들어온 일기부터 순서대로 5개의 값과 cursor 값을 준다.
+ *       ```js
+ *       [
+ *         {
+ *             "id": 474,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:18.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 473,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:17.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 472,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:17.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 471,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:16.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "cursor": 471
+ *         }
+ *       ]
+ *       ```
+ *       그 후 무한 스크롤을 통해 새로운 리스트가 필요할 때 위에 받았던 cursor 값을 쿼리로 전달해주면 됩니다!
+ *       * ``/diray/list/?cursor=471``
+ *       ```js
+ *       [
+ *         {
+ *             "id": 470,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:16.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 469,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 468,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "id": 467,
+ *             "title": "제목",
+ *             "text": "이건 일기 내용",
+ *             "tag": "공부",
+ *             "date": "2022-06-18T06:14:15.000Z",
+ *             "view": 1
+ *         },
+ *         {
+ *             "cursor": 467
+ *         }
+ *       ]
+ *       ```
+ *     produces:
+ *     - application/json
+ *     responses:
+ *       '200':
+ *         description: "유저가 작성한 일기 조회 성공"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: number
+ *                     example: 37
+ *                   user_id:
+ *                     type: number
+ *                     example: 10
+ *                   text:
+ *                     type: string
+ *                     example: "일기 내용 입니다."
+ *                   title:
+ *                     type: string
+ *                     example: "제목"
+ *                   tag:
+ *                     type: string
+ *                     example: "공부"
+ *                   date:
+ *                     type: Date
+ *                     example: "2022-06-07T07:21:56.000Z"
+ *                   view:
+ *                     type: number
+ *                     example: 1
+ */
+diaryRouter.get("/list", async (req, res, next) => {
+  if (!req.user) {
+    throw new Error("로그인 후 사용해야 합니다.");
+  }
+  const userId = req.user.id;
+  const { cursor } = req.query;
+  if (cursor) {
+    const body = await DiaryService.secondReadList(userId, cursor);
+    return res.status(status.STATUS_200_OK).send(body);
+  }
+  const body = await DiaryService.readList(userId);
+  return res.status(status.STATUS_200_OK).send(body);
+});
 
 /**
  * @swagger
@@ -208,83 +344,9 @@ diaryRouter.get(
   async (req, res, next) => {
     const { id } = req.params;
     const body = await DiaryService.read(id);
-    return res.status(200).send(body);
+    return res.status(status.STATUS_200_OK).send(body);
   }
 );
-
-/**
- * @swagger
- * /diary/list/{user_id}:
- *   get:
- *     tags: [Diary]
- *     description: 유저가 작성한 일기 조회
- *     produces:
- *     - application/json
- *     parameters:
- *     - in: path
- *       name: user_id
- *       required: true
- *       example: 1
- *     responses:
- *       '200':
- *         description: "유저가 작성한 일기 조회 성공"
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: number
- *                     example: 37
- *                   user_id:
- *                     type: number
- *                     example: 10
- *                   text:
- *                     type: string
- *                     example: "일기 내용 입니다."
- *                   title:
- *                     type: string
- *                     example: "제목"
- *                   tag:
- *                     type: string
- *                     example: "공부"
- *                   date:
- *                     type: Date
- *                     example: "2022-06-07T07:21:56.000Z"
- *                   view:
- *                     type: number
- *                     example: 1
- *
- */
-diaryRouter.get(
-  "/list/:userId",
-  [
-    param("userId")
-      .trim()
-      .exists({ checkFalsy: true })
-      .withMessage("Diary ID 값을 path로 넣어주세요.")
-      .bail()
-      .toInt()
-      .isInt()
-      .withMessage("Diary ID 값은 Type이 Number 이여야 합니다.")
-      .bail()
-      .custom(async (value) => {
-        const user = await DiaryService.userCheck(value);
-        if (!user) {
-          throw new Error("유저가 존재하지 않습니다.");
-        }
-      }),
-    validate,
-  ],
-  async (req, res, next) => {
-    const { userId } = req.params;
-    const body = await DiaryService.readList(userId);
-    return res.status(200).send(body);
-  }
-);
-
 /**
  * @swagger
  * /diary/random/list:
@@ -337,8 +399,16 @@ diaryRouter.get(
  *                     example: 1
  */
 diaryRouter.get("/random/list", async (req, res, next) => {
-  const diarys = await DiaryService.randomDiarys();
-  return res.status(200).send(diarys);
+  try {
+    if (!req.user) {
+      throw new Error("로그인 후 사용해야 합니다.");
+    }
+    const userId = req.user.id;
+    const diarys = await DiaryService.randomDiarys(userId);
+    return res.status(status.STATUS_200_OK).send(diarys);
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default diaryRouter;
