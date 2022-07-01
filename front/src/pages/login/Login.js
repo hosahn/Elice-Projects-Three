@@ -42,7 +42,6 @@ const Login = () => {
         email,
         pw: password,
       });
-
       if (res.data === true) {
         navigate('/usermain');
       } else {

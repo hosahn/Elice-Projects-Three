@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const backendPortNumber = process.env.REACT_APP_SERVER_PORT;
+const backendPortNumber = 'api';
 const serverUrl =
-  'http://' + window.location.hostname + ':' + backendPortNumber + '/';
+  'https://' + window.location.hostname + '/' + backendPortNumber + '/';
 
 async function get(endpoint, params = '') {
   return axios.get(serverUrl + endpoint + params, {
@@ -60,7 +60,7 @@ async function getPdf(endpoint, params = '') {
 
 async function postDiary(data) {
   const bodyData = JSON.stringify(data);
-  const Url = 'http://kdt-ai4-team12.elicecoding.com:5000/predict';
+  const Url = 'https://kdt-ai4-team12.elicecoding.com/ai/predict';
   return axios.post(Url, bodyData, {
     headers: {
       'Content-Type': 'application/json',
