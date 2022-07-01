@@ -1,16 +1,25 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 
-export const titleState = atom({
-  key: 'titleState',
-  default: '',
+const { persistAtom } = recoilPersist();
+
+export const userState = atom({
+  key: 'userState',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
-export const textState = atom({
-  key: 'textState',
-  default: '',
+export const challengeState = atom({
+  key: 'challengeState',
+  default: [],
 });
 
-export const tagState = atom({
-  key: 'tagState',
+export const randomListState = atom({
+  key: 'randomListState',
+  default: [],
+});
+
+export const emotionState = atom({
+  key: 'emotionState',
   default: '',
 });

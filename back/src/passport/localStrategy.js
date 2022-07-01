@@ -3,7 +3,6 @@ import { Strategy } from "passport-local";
 import "../config/env.js";
 import { PrismaClient } from "@prisma/client";
 import { User } from "../db/index.js";
-
 const prisma = new PrismaClient();
 //config
 
@@ -12,7 +11,7 @@ const option = {
   passwordField: "pw",
 };
 const verify = async (username, password, done) => {
-  const result = await User.findUser({
+  const result = await User.findUserLocal({
     email: username,
     pw: password,
     social: "local",
