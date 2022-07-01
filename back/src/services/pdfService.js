@@ -33,17 +33,11 @@ class pdfService {
       /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
       ''
     );
-    let array = text.match(
-      /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g
-    );
-    array = array[0].slice(12, -1);
-    const image = array;
-    console.log(image);
     text = deleteImg;
     const emotion = diary.emotion;
     let date = String(diary.date);
     date = date.slice(0, 15);
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: [ '--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote' ] });
     const page = await browser.newPage();
     const filename = 'myResume.pdf';
     const content = await compile('template', {
@@ -53,7 +47,6 @@ class pdfService {
       emotion,
       date,
       name,
-      image,
     });
     await page.setContent(content);
     await page.emulateMediaType('screen');
