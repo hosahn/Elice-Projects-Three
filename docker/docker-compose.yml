@@ -5,6 +5,8 @@ services:
     restart: "always"
     volumes:
         - /etc/letsencrypt:/etc/letsencrypt
+        - /home/elice/nginx.conf:/etc/nginx/conf.d/nginx.conf
+        - /home/elice/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
         - 80:80
         - 443:443

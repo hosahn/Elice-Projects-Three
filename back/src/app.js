@@ -101,9 +101,9 @@ app.use(helmet());
 app.use(
   cors({
     origin: [
-      'http://kdt-ai4-team12.elicecoding.com',
-      'http://kdt-ai4-team12.elicecoding.com:3000/',
-      'http://localhost:3000',
+      'https://kdt-ai4-team12.elicecoding.com',
+      'https://kdt-ai4-team12.elicecoding.com:3000/',
+      'https://localhost:3000',
     ], // server의 url이 아닌, 요청하는 client의 url
     credentials: true,
   })
