@@ -3,20 +3,20 @@ import * as style from '../../styles/ReportStyle';
 import EmotionGraph from '../../components/graph/emotionGraph';
 import TimeGraph from '../../components/graph/timeGraph';
 import Nav from '../../components/nav/Nav';
-import moment from 'moment';
 import TagRanking from '../../components/graph/allTagCount';
 import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
 import * as Api from '../../api';
 import snackBar from '../../components/snackBar';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Report = () => {
-  const [diaryEmotion, setDiaryEmotion] = useState({});
+  const [diaryEmotion, setDiaryEmotion] = useState([]);
   const [diaryTime, setdiaryTime] = useState({});
-  const today = moment();
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [challenge, setChallenge] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     allFunction();
@@ -25,6 +25,7 @@ const Report = () => {
   const allFunction = async () => {
     try {
       const data = await Api.get('report');
+      console.log(data.data);
       setDiaryEmotion(() => data.data.emotion);
       setdiaryTime(() => data.data.time);
       setTags(() => data.data.userTag);
@@ -32,10 +33,11 @@ const Report = () => {
       setChallenge(() => data.data.challenge);
     } catch (err) {
       snackBar('error', '에러가 발생하였습니다. ');
+      navigate('/login');
     }
   };
 
-  if (tags.length === 0) {
+  if (allTags.length === 0) {
     return (
       <Background>
         <ClassicSpinner size={100} color="pink" />
@@ -47,7 +49,7 @@ const Report = () => {
    행복 감정 일기 작성은 ${diaryEmotion.happy}개, 
    슬픈 감정 일기 작성은 ${diaryEmotion.sad}개, 
    화난 감정 일기 작성은 ${diaryEmotion.angry}개로 
-   6월 한달동안 작성해 주신 일기에서 
+   한달동안 작성해 주신 일기에서
    가장 많이 나타난 감정은 행복입니다.
   `;
 
@@ -72,14 +74,13 @@ const Report = () => {
     );
   });
 
-  let month = today.format('MM').replace(/(^0+)/, '');
   return (
     <>
       <Nav />
       <style.BackGroundContainer>
         <style.MainContainers>
           <style.RTitleWrap>
-            <style.ReportTitle>🏁 2022년 {month}월 리포트 🏁</style.ReportTitle>
+            <style.ReportTitle>🏁 한달 리포트 🏁</style.ReportTitle>
           </style.RTitleWrap>
           <style.DescTitle>
             이번 달에는 어떤 감정을 많이 느꼈을까요?

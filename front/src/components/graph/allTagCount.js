@@ -130,31 +130,35 @@ const TagRanking = (props) => {
   const data = props.data;
   return (
     <>
-      <FirstPlace>
-        <FirstPlacePic src={images.Gold} />
-        <FirstPlaceTag>
-          {data[0].length != null ? data[0].tag : '없음'}
-        </FirstPlaceTag>
-        <FirstPlaceCount>
-          {data[0] != null ? `${data[0].count}개` : '없음'}
-        </FirstPlaceCount>
-      </FirstPlace>
-      <SecondPlace>
-        <SecondPlacePic src={images.Silver} />
-        <SecondPlaceTag>
-          {data[1] != null ? data[1].tag : '없음'}
-        </SecondPlaceTag>
-        <SecondPlaceCount>
-          {data[1] != null ? `${data[1].count}개` : '없음'}
-        </SecondPlaceCount>
-      </SecondPlace>
-      <ThirdPlace>
-        <ThirdPlacePic src={images.Broze} />
-        <ThirdPlaceTag>{data[2] != null ? data[2].tag : '없음'}</ThirdPlaceTag>
-        <ThirdPlaceCount>
-          {data[2] != null ? `${data[2].count}개` : '없음'}
-        </ThirdPlaceCount>
-      </ThirdPlace>
+      {data
+        .filter((it) => it.tag.length !== 0)
+        .map((it, index) =>
+          index === 0 ? (
+            <>
+              <FirstPlace>
+                <FirstPlacePic src={images.Gold} />
+                <FirstPlaceTag>{`${it.tag}`}</FirstPlaceTag>
+                <FirstPlaceCount>{`${it.count}개`}</FirstPlaceCount>
+              </FirstPlace>
+            </>
+          ) : index === 1 ? (
+            <>
+              <SecondPlace>
+                <SecondPlacePic src={images.Silver} />
+                <SecondPlaceTag>{`${it.tag}`}</SecondPlaceTag>
+                <SecondPlaceCount>{`${it.count}개`}</SecondPlaceCount>
+              </SecondPlace>
+            </>
+          ) : (
+            <>
+              <ThirdPlace>
+                <ThirdPlacePic src={images.Broze} />
+                <ThirdPlaceTag>{`${it.tag}`}</ThirdPlaceTag>
+                <ThirdPlaceCount>{`${it.count}개`}</ThirdPlaceCount>
+              </ThirdPlace>
+            </>
+          )
+        )}
     </>
   );
 };

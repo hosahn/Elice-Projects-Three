@@ -9,6 +9,8 @@ import {
 } from '../../styles/ChallengeStyle';
 import * as Api from '../../api';
 import { useNavigate } from 'react-router-dom';
+import ChallengeInfo from './ChallengeInfo';
+import snackBar from '../../components/snackBar';
 
 const Challenge = () => {
   const [challengeList, setChallengeList] = useState([]);
@@ -26,38 +28,39 @@ const Challenge = () => {
   const getChallenge = async () => {
     try {
       const res = await Api.get('challenge');
+      if (res.data === false) {
+        snackBar('error', '로그인 후 사용해주세요');
+        navigate('/login');
+      } else {
+        setChallengeList(res.data.challenge);
+        setDisabled(res.data.log.isRunning === true ? true : false);
 
-      setChallengeList(res.data.challenge);
-      setDisabled(res.data.log.isRunning === true ? true : false);
-
-      if (res.data.log.isRunning === true) {
-        const indexFalse = res.data.log.completed.indexOf(false);
-        setCurrentChallenge(res.data.log.challenge[indexFalse]);
-      }
-
-      if (res.data.log.completed.indexOf(true) !== -1) {
-        // true 인 값이 존재한다면.
-        let idx = res.data.log.completed.indexOf(true);
-        let indices = [];
-        while (idx !== -1) {
-          indices.push(res.data.log.challenge[idx]);
-          idx = res.data.log.completed.indexOf(true, idx + 1);
+        if (res.data.log.isRunning === true) {
+          const indexFalse = res.data.log.completed.indexOf(false);
+          setCurrentChallenge(res.data.log.challenge[indexFalse]);
         }
+        if (res.data.log.completed.indexOf(true) !== -1) {
+          // true 인 값이 존재한다면.
+          let idx = res.data.log.completed.indexOf(true);
+          let indices = [];
+          while (idx !== -1) {
+            indices.push(res.data.log.challenge[idx]);
+            idx = res.data.log.completed.indexOf(true, idx + 1);
+          }
 
-        let filterCompletedChallenge = res.data.challenge.filter((acc, cur) => {
-          return acc.name === indices[cur];
-        }, []);
-
-        setCompletedChallenge(filterCompletedChallenge); // 성공한 챌린지 이름 저장
+          let filterCompletedChallenge = res.data.challenge.filter(
+            (acc, cur) => {
+              return acc.name === indices[cur];
+            },
+            []
+          );
+          setCompletedChallenge(filterCompletedChallenge); // 성공한 챌린지 이름 저장
+        }
       }
     } catch (err) {
-      navigate('/');
+      snackBar('error', err.response);
     }
   };
-
-  if (openCompletedChallenge === true) {
-    // console.log('openCompletedChallenge');
-  }
 
   const clickCompleteCard = () => {
     setOpenCompletedChallenge((prev) => !prev);
@@ -74,17 +77,26 @@ const Challenge = () => {
               진행한 챌린지
             </ChallengeBtn>
           </TitleWrap>
-          {(openCompletedChallenge ? completedChallenge : challengeList).map(
-            (it) => (
-              <ChallengeCard
-                it={it}
-                key={it.id}
-                disabled={disabled}
-                currentChallenge={currentChallenge}
-                setIsLoaded={setIsLoaded}
-                setCurrentChallenge={setCurrentChallenge}
-              />
-            )
+          {openCompletedChallenge ? (
+            <ChallengeInfo completedChallenge={completedChallenge} />
+          ) : (
+            challengeList.map((it) => {
+              let sucess = completedChallenge.map((c) =>
+                c.name === it.name ? 'true' : 'false'
+              ); // 성공한 챌린지는 다시 신청 불가능
+              return (
+                <ChallengeCard
+                  it={it}
+                  key={it.id}
+                  disabled={disabled}
+                  currentChallenge={currentChallenge}
+                  completedChallenge={completedChallenge}
+                  setIsLoaded={setIsLoaded}
+                  setCurrentChallenge={setCurrentChallenge}
+                  sucess={sucess}
+                />
+              );
+            })
           )}
         </MainContainer>
       </div>

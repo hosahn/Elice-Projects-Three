@@ -1,16 +1,16 @@
-import path from "path";
-import moment from "moment";
-import hbs from "handlebars";
-import fs from "fs-extra";
-import puppeteer from "puppeteer";
-import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
-import { Diary, User } from "../db/index.js";
-import { userInfo } from "os";
+import path from 'path';
+import moment from 'moment';
+import hbs from 'handlebars';
+import fs from 'fs-extra';
+import puppeteer from 'puppeteer';
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
+import { Diary, User } from '../db/index.js';
+import { userInfo } from 'os';
 const compile = async function (templateName, data) {
   const filePath = path.join(
     process.cwd(),
-    "src",
-    "templates",
+    'src',
+    'templates',
     `${templateName}.hbs`
   );
   const html = await fs.readFile(filePath, `utf-8`);
@@ -18,10 +18,9 @@ const compile = async function (templateName, data) {
   return insecureHandlebars.compile(html)(data);
 };
 
-hbs.registerHelper("dataFormant", function (value, format) {
+hbs.registerHelper('dataFormant', function (value, format) {
   return moment(value).format(format);
 });
-
 class pdfService {
   static async pdfConverter({ id }) {
     const diary = await Diary.find(id);
@@ -29,31 +28,41 @@ class pdfService {
     const name = user.name;
     const title = diary.title;
     const tag = diary.tag;
-    const text = diary.text;
+    let text = diary.text;
+    const deleteImg = text.replace(
+      /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g,
+      ''
+    );
+    let array = text.match(
+      /\!\[inputImg]\(https:\/\/(.*?).[(png)|(jpeg)|(jpg)]\)/g
+    );
+    array = array[0].slice(12, -1);
+    const image = array;
+    console.log(image);
+    text = deleteImg;
     const emotion = diary.emotion;
     let date = String(diary.date);
     date = date.slice(0, 15);
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    const filename = "myResume.pdf";
-    const content = await compile("template", {
+    const filename = 'myResume.pdf';
+    const content = await compile('template', {
       title,
       tag,
       text,
       emotion,
       date,
       name,
+      image,
     });
     await page.setContent(content);
-    await page.emulateMediaType("screen");
+    await page.emulateMediaType('screen');
     await page.pdf({
-      path: "myResume.pdf",
-      format: "A4",
+      path: 'myResume.pdf',
+      format: 'A4',
       printBackground: true,
     });
-    console.log("done");
+    console.log('done');
     await browser.close();
     return filename;
   }

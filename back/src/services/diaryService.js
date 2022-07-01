@@ -1,4 +1,4 @@
-import { Diary, User, Book } from "../db/index.js";
+import { Diary, User, Book } from '../db/index.js';
 //@ts-check
 export default class DiaryService {
   /**
@@ -14,7 +14,7 @@ export default class DiaryService {
   static async create({ userId, text, title, tag, emotion }) {
     const { daily_check: check } = await User.dailyCheck(userId);
     if (check) {
-      throw Error("일기는 하루에 한번만 작성 가능합니다.");
+      throw Error('일기는 하루에 한번만 작성 가능합니다.');
     }
     try {
       const TagCheck = await Book.findTag(userId, tag);
@@ -77,7 +77,9 @@ export default class DiaryService {
    */
   static async readList(userId) {
     const body = await Diary.readList(userId);
-    body.push({ cursor: body[body.length - 1].id });
+    if (body.length > 0) {
+      body.push({ cursor: body[body.length - 1].id });
+    }
     return body;
   }
 
@@ -94,6 +96,7 @@ export default class DiaryService {
     }
     return body;
   }
+
   /**
    *  - 일기가 존재하는지 확인하는 함수
    * @param {number} id - 다이어리 고유 ID
@@ -138,15 +141,14 @@ export default class DiaryService {
    */
   static async searchList(userId, search, word) {
     switch (search) {
-      case "title":
+      case 'title':
         return await Diary.searchTitle(userId, word);
-      case "text":
+      case 'text':
         return await Diary.searchText(userId, word);
-      case "tag":
+      case 'tag':
         return await Diary.searchTag(userId, word);
-      case "all":
+      case 'all':
         return await Diary.searchAll(userId, word);
     }
   }
-
 }

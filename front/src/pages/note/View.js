@@ -17,12 +17,16 @@ import {
 } from '../../styles/NoteStyle';
 import styled from 'styled-components';
 import snackBar from '../../components/snackBar';
+import changeUtc from '../../utils/changeUtc';
+import { ClassicSpinner } from 'react-spinners-kit';
+import { Background } from '../../styles/ModalStyle';
 
 const View = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [diary, setDiary] = useState({});
   const viewerRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getDiary();
@@ -44,7 +48,6 @@ const View = () => {
   };
 
   const clickPdf = async (e) => {
-    e.preventDefault();
     try {
       const res = await Api.getPdf(`pdf/${diary.id}`);
       const blob = new Blob([res.data]);
@@ -52,7 +55,7 @@ const View = () => {
       const link = document.createElement('a');
       link.href = fileObjectUrl;
       link.style.display = 'none';
-      link.download = 'asdf.pdf';
+      link.download = '밤하늘.pdf';
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -62,10 +65,16 @@ const View = () => {
     }
   };
 
+  let date = changeUtc(diary.date).viewDate;
+
   return (
     <>
       <Nav />
       <ViewContainer>
+        <EmotionWrapper>
+          <span>{date}</span> 에 작성하신 일기의 감정은{' '}
+          <span>{diary.emotion} </span>이네요.
+        </EmotionWrapper>
         <IconWrapper onClick={clickPdf}>
           <FontAwesomeIcon icon={faFilePdf} className="user" />
           pdf로 다운로드하기
@@ -80,8 +89,20 @@ const View = () => {
           <Viewer ref={viewerRef} />
         </ContentWrapper>
       </ViewContainer>
+      {loading && (
+        <Background>
+          <ClassicSpinner size={100} color="pink" />
+        </Background>
+      )}
     </>
   );
 };
 
 export default View;
+
+const EmotionWrapper = styled.div`
+  color: #868e96;
+  span {
+    background-image: linear-gradient(transparent 60%, #a5d8ff 40%);
+  }
+`;

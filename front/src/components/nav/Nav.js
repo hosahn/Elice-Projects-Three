@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import {
-  activeState,
+  loginState,
   challengeState,
   emotionState,
   userState,
@@ -19,7 +19,7 @@ const Nav = () => {
   const resetUser = useResetRecoilState(userState);
   const diaryCheck = useRecoilValue(userState);
   const emotion = useResetRecoilState(emotionState);
-  const active = useResetRecoilState(activeState);
+  const login = useResetRecoilState(loginState);
   const randomList = useResetRecoilState(randomListState);
   const challenge = useResetRecoilState(challengeState);
 
@@ -29,7 +29,7 @@ const Nav = () => {
       if (res.data === true) {
         resetUser();
         emotion();
-        active();
+        login();
         randomList();
         challenge();
         navigate('/');

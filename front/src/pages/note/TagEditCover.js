@@ -31,9 +31,13 @@ const TagEditCover = (props) => {
   return (
     <Modal setOpen={setOpenEditCover}>
       <ColorContainer>
-        {rewardColor.map((it) => (
-          <ColorWrapper onClick={() => selectColor(it)} color={it} />
-        ))}
+        {rewardColor.length === 0 ? (
+          <TextWrapper>아직 사용할 수 있는 색상이 없습니다.🎨</TextWrapper>
+        ) : (
+          rewardColor.map((it) => (
+            <ColorWrapper onClick={() => selectColor(it)} color={it} />
+          ))
+        )}
       </ColorContainer>
     </Modal>
   );
@@ -53,6 +57,13 @@ const ColorContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 50px;
+`;
+
+const TextWrapper = styled.div`
+  width: 500px;
+  margin-left: 40px;
+  font-family: 'EliceDigitalBaeum';
+  color: #228be6;
 `;
 
 export default TagEditCover;

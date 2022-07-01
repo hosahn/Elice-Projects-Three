@@ -20,11 +20,6 @@ export const loginState = atom({
   default: false,
 });
 
-export const activeState = atom({
-  key: 'activeState',
-  default: [],
-});
-
 export const emotionState = atom({
   key: 'emotionState',
   default: '',

@@ -136,6 +136,7 @@ export const ChallengeContainer = styled.div`
   p {
     font-family: 'EliceDigitalBaeum_Bold';
     font-size: 20px;
+    color: #3d2c8d;
   }
 `;
 
@@ -143,7 +144,6 @@ export const Quotation = styled.h1`
   top: 80px;
   font-size: 20px;
   font-family: 'EliceDigitalBaeum_Bold';
-  color: black;
   color: #3d2c8d;
   text-align: center;
 `;
