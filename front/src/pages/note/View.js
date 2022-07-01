@@ -48,6 +48,7 @@ const View = () => {
   };
 
   const clickPdf = async (e) => {
+    snackBar('info', '잠시만 기다려주세요...');
     try {
       const res = await Api.getPdf(`pdf/${diary.id}`);
       const blob = new Blob([res.data]);

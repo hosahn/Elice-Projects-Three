@@ -7,14 +7,6 @@ import styled from 'styled-components';
 import Btn from '../components/Btn';
 import images from '../assets/images';
 
-const Hosan = require(images.Hosan);
-const Nayeon = require(images.Nayeon);
-const Jooyeong = require(images.Jooyeong);
-const GwangCheon = require(images.GwangCheon);
-const Notion = require(images.Notion);
-const Figma = require(images.Figma);
-const ErdCloud = require(images.ErdCloud);
-
 const CardDiv = styled.div`
   border-radius: 30px;
   position: relative;
@@ -110,7 +102,7 @@ const AboutUs = () => {
         <CardDiv>
           <MemberCard
             memberInfo={{
-              img: Hosan,
+              img: images.Hosan,
               title: '이호산',
               author: 'Back-End',
               github: 'https://github.com/hosahn/hosahn.github.io',
@@ -119,7 +111,7 @@ const AboutUs = () => {
           />
           <MemberCard
             memberInfo={{
-              img: GwangCheon,
+              img: images.GwangCheon,
               title: '신광천',
               author: 'Back-End',
               github: 'https://github.com/Shin-GC?tab=repositories',
@@ -128,7 +120,7 @@ const AboutUs = () => {
           />
           <MemberCard
             memberInfo={{
-              img: Nayeon,
+              img: images.Nayeon,
               title: '김나연',
               author: 'Front-End, Leader',
               github: 'https://github.com/Nayeon97',
@@ -137,7 +129,7 @@ const AboutUs = () => {
           />
           <MemberCard
             memberInfo={{
-              img: Jooyeong,
+              img: images.Jooyeong,
               title: '배주영',
               author: 'AI-Engineer',
               github: 'https://github.com/Baejuyoung?tab=repositories',
@@ -148,7 +140,7 @@ const AboutUs = () => {
         <Introduce>12팀의 작업과정</Introduce>
         <ProDiv>
           <img
-            src={Notion}
+            src={images.Notion}
             alt="Notion"
             style={{
               width: '900px',
@@ -158,7 +150,7 @@ const AboutUs = () => {
             }}
           />
           <img
-            src={Figma}
+            src={images.Figma}
             style={{
               width: '900px',
               height: '500px',
@@ -168,7 +160,6 @@ const AboutUs = () => {
             }}
             alt="Figma"
           />
-          <Btn text={'팀 페이지 방문하기'} />
         </ProDiv>
         <Introduce>멤버들의 한마디</Introduce>
         <IntroDiv>

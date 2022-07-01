@@ -25,7 +25,6 @@ const Report = () => {
   const allFunction = async () => {
     try {
       const data = await Api.get('report');
-      console.log(data.data);
       setDiaryEmotion(() => data.data.emotion);
       setdiaryTime(() => data.data.time);
       setTags(() => data.data.userTag);
@@ -53,12 +52,12 @@ const Report = () => {
    가장 많이 나타난 감정은 행복입니다.
   `;
 
-  let TimeText = `
+  let TimeText = ` 
   이번 달에는 총 ${
     diaryTime.morning + diaryTime.dawn + diaryTime.night + diaryTime.afternoon
   }개의 일기 중
-  ${diaryTime.morning}개를 아침에, ${diaryTime.afternoon}개를 점심에
-  ${diaryTime.night}개를 저녁에, ${diaryTime.dawn}개를 새벽에
+  ${diaryTime.morning}개를 아침에,  ${diaryTime.afternoon}개를 점심에
+  ${diaryTime.night}개를 저녁에,   ${diaryTime.dawn}개를 새벽에
   작성하셨네요, 훌륭합니다!
   `;
 
@@ -100,7 +99,7 @@ const Report = () => {
           </style.DescTitle>
           <style.ReportContainer>
             <TimeGraph data={diaryTime} />
-            <style.RDiaryText>{TimeText}</style.RDiaryText>
+            <style.RTimeText>{TimeText}</style.RTimeText>
           </style.ReportContainer>
           <style.DescTitle>
             이번 달에 전체 사용자가 가장 많이 쓴 태그는 무엇일까요?

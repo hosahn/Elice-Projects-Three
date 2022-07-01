@@ -10,7 +10,6 @@ import {
 import styled from 'styled-components';
 
 const ChallengeInfo = ({ completedChallenge }) => {
-  console.log(completedChallenge);
   return (
     <>
       {completedChallenge.length === 0 ? (

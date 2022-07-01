@@ -13,6 +13,7 @@ import {
 import { handleScroll } from '../../utils/handleScroll';
 import styled from 'styled-components';
 import snackBar from '../../components/snackBar';
+import changeUtc from '../../utils/changeUtc';
 
 const SEARCH = [
   { value: 'title', name: '⭐️ 제목', id: 1 },
@@ -125,19 +126,23 @@ const EmotionList = () => {
         </SearchWrapper>
       </SearchContainer>
       <EmotionCardContainer>
-        {diaryList.map((it) => (
-          <EmotionCard
-            onClick={openCard}
-            key={it.id}
-            emotion={it.emotion}
-            value={it.id}
-          >
-            <Title>{it.title}</Title>
-            <DateWrapper>
-              <DiaryDate>{it.date.slice(0, 10)}</DiaryDate>
-            </DateWrapper>
-          </EmotionCard>
-        ))}
+        {diaryList.map((it) => {
+          let date = changeUtc(it.date).viewDate;
+
+          return (
+            <EmotionCard
+              onClick={openCard}
+              key={it.id}
+              emotion={it.emotion}
+              value={it.id}
+            >
+              <Title>{it.title}</Title>
+              <DateWrapper>
+                <DiaryDate>{date}</DiaryDate>
+              </DateWrapper>
+            </EmotionCard>
+          );
+        })}
       </EmotionCardContainer>
     </>
   );

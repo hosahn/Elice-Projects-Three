@@ -11,10 +11,6 @@ const TagList = () => {
 
   useEffect(() => {
     getTagList();
-    snackBar(
-      'info',
-      '태그에 해당하는 일기를 보기 위해서는 제목을 클릭해주세요.'
-    );
   }, []);
 
   const getTagList = async () => {
@@ -25,7 +21,8 @@ const TagList = () => {
   };
 
   return (
-    <>
+    <TagContainer>
+      <p>해당 태그의 일기 리스트는 책 태그를 클릭해주세요.</p>
       <TagListContainer>
         {tagList.map((it) => {
           if (it.name.length !== 0) {
@@ -41,7 +38,7 @@ const TagList = () => {
           }
         })}
       </TagListContainer>
-    </>
+    </TagContainer>
   );
 };
 
@@ -50,6 +47,10 @@ const TagListContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   cursor: pointer;
+`;
+
+const TagContainer = styled.div`
+  color: gray;
 `;
 
 export default TagList;

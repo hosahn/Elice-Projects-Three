@@ -83,6 +83,22 @@ export const RDiaryText = styled.h3`
   white-space: pre-wrap;
   color: #916bbf;
 `;
+
+export const RTimeText = styled.h3`
+  position: absolute;
+  width: 630px;
+  height: 163px;
+  left: 500px;
+  top: 15px;
+  font-family: 'EliceDigitalBaeum_Bold';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 32px;
+  white-space: pre-wrap;
+  color: #916bbf;
+`;
+
 export const RTitleWrap = styled.div`
   margin-top: 0px;
   display: flex;
