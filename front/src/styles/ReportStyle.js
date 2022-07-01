@@ -35,7 +35,7 @@ export const MainContainers = styled.div`
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-bottom: 60px;
   width: 1200px;
   height: 2400px;
@@ -114,7 +114,7 @@ export const ReportTitle = styled.h1`
   font-weight: 700;
   line-height: 44px;
   /* identical to box height */
-  margin-top: 30px;
+  margin-top: 10px;
   color: #3d2c8d;
 `;
 

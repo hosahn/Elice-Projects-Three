@@ -6,7 +6,7 @@ import MainDiaryList from './MainDiaryList';
 import { useNavigate } from 'react-router-dom';
 import MainIChallengeInfo from './MainIChallengeInfo';
 import * as Api from '../../api';
-import { userState, loginState, challengeState } from '../../atoms';
+import { userState, challengeState } from '../../atoms';
 import { useSetRecoilState } from 'recoil';
 import MainUserInfo from './MainUserInfo';
 import MainEmotionInfo from './MainEmotionInfo';
@@ -16,7 +16,6 @@ const UserMain = () => {
   const navigate = useNavigate();
   const setUserState = useSetRecoilState(userState);
   const setChallengeState = useSetRecoilState(challengeState);
-  const setLoginState = useSetRecoilState(loginState);
 
   useEffect(() => {
     getUser();
@@ -27,7 +26,6 @@ const UserMain = () => {
       const res = await Api.get('user/info');
       setUserState(res.data);
       setChallengeState(res.data.user_challenge);
-      setLoginState(true);
     } catch (err) {
       snackBar('error', '로그인 후 서비스 이용 가능합니다.');
       navigate('/login');

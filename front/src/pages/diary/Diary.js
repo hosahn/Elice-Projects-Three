@@ -5,23 +5,27 @@ import DiaryEditor from './DiaryEditor';
 import Text from './DiaryText';
 import Nav from '../../components/nav/Nav';
 import { DiaryContext } from '../../styles/DiaryStyle';
-import { useRecoilValue } from 'recoil';
-import { loginState } from '../../atoms';
+import * as Api from '../../api';
 import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
 
 const Diary = () => {
   const [title, setTitle] = useState('');
   const [inputTag, setInputTag] = useState('');
-  const login = useRecoilValue(loginState);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (login === false) {
-      snackBar('error', '로그인 해주세요');
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      await Api.get('user/info');
+    } catch (err) {
+      snackBar('error', '로그인 후 서비스 이용 가능합니다.');
       navigate('/login');
     }
-  }, []);
+  };
 
   return (
     <div>

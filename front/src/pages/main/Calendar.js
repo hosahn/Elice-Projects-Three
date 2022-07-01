@@ -165,6 +165,7 @@ const CalendarContainer = styled.div`
   width: 600px;
   display: flex;
   justify-content: center;
+  align-self: start;
   align-items: center;
   flex-direction: column;
   margin-left: 100px;

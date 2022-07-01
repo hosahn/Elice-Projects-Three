@@ -8,15 +8,18 @@ import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
 import * as Api from '../../api';
 import snackBar from '../../components/snackBar';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import styled from 'styled-components';
 
 const Report = () => {
-  const [diaryEmotion, setDiaryEmotion] = useState([]);
+  const [diaryEmotion, setDiaryEmotion] = useState({});
   const [diaryTime, setdiaryTime] = useState({});
   const [tags, setTags] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [challenge, setChallenge] = useState([]);
   const navigate = useNavigate();
+  const today = moment();
 
   useEffect(() => {
     allFunction();
@@ -44,11 +47,17 @@ const Report = () => {
     );
   }
 
+  let reportDate = today.format('MM 월 DD 일');
+
+  let arr = Object.entries(diaryEmotion);
+  let sort = arr.sort((a, b) => b[1] - a[1]);
+  console.log(sort[0][0]);
+
   let DiaryText = `
    행복 감정 일기 작성은 ${diaryEmotion.happy}개, 
    슬픈 감정 일기 작성은 ${diaryEmotion.sad}개, 
    화난 감정 일기 작성은 ${diaryEmotion.angry}개로 
-   한달동안 작성해 주신 일기에서
+   한달동안 작성해 주신 일기에서 
    가장 많이 나타난 감정은 행복입니다.
   `;
 
@@ -57,7 +66,7 @@ const Report = () => {
     diaryTime.morning + diaryTime.dawn + diaryTime.night + diaryTime.afternoon
   }개의 일기 중
   ${diaryTime.morning}개를 아침에,  ${diaryTime.afternoon}개를 점심에
-  ${diaryTime.night}개를 저녁에,   ${diaryTime.dawn}개를 새벽에
+  ${diaryTime.night}개를 저녁에,   ${diaryTime.dawn}개를 새벽에 
   작성하셨네요, 훌륭합니다!
   `;
 
@@ -78,6 +87,9 @@ const Report = () => {
       <Nav />
       <style.BackGroundContainer>
         <style.MainContainers>
+          <DateWrapper>
+            📅 {reportDate}을 기준으로 한 달 동안 작성한 일기 통계입니다.{' '}
+          </DateWrapper>
           <style.RTitleWrap>
             <style.ReportTitle>🏁 한달 리포트 🏁</style.ReportTitle>
           </style.RTitleWrap>
@@ -123,3 +135,9 @@ const Report = () => {
   );
 };
 export default Report;
+
+const DateWrapper = styled.div`
+  margin-top: 20px;
+  left: 400px;
+  color: #228be6;
+`;
