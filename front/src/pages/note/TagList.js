@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import useEdit from '../../hooks/useEdit';
 import * as Api from '../../api';
 import TagBook from './TagBook';
 import snackBar from '../../components/snackBar';
 
 const TagList = () => {
   const [tagList, setTagList] = useState([]);
-  const { openSubmit, openEditBtn, cancleBtn } = useEdit();
 
   useEffect(() => {
     getTagList();
@@ -26,15 +24,7 @@ const TagList = () => {
       <TagListContainer>
         {tagList.map((it) => {
           if (it.name.length !== 0) {
-            return (
-              <TagBook
-                it={it}
-                key={it.id}
-                openEditBtn={openEditBtn}
-                cancleBtn={cancleBtn}
-                openSubmit={openSubmit}
-              />
-            );
+            return <TagBook it={it} key={it.id} />;
           }
         })}
       </TagListContainer>
