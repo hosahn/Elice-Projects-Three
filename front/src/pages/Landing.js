@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as style from '../styles/LandingStyle';
 import LandingNav from '../components/nav/LandingNav';
 import MainFooter from '../components/footer';
@@ -6,6 +6,7 @@ import DiaryGraph from '../components/graph/diaryGraph';
 import SocialGraph from '../components/graph/socialGraph';
 import Btn from '../components/Btn';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Penciltext = `하루끝의 일기를 작성해보세요.`;
 const Emotiontext = `오늘의 감정을 확인해보세요.`;
@@ -46,7 +47,6 @@ const Landing = () => {
           <style.LineThree />
           <style.LineFour />
           <style.Note />
-          <style.Note0 />
           <style.Note1 />
           <style.Note3 />
           <style.Note4 />
@@ -71,23 +71,23 @@ const Landing = () => {
           <style.HeartText Top="131px" Left="-200px">
             슬픔
           </style.HeartText>
-          <style.HeartText Top="202px" Left="-200px">
+          <style.HeartText Top="80px" Left="310px">
             불안
           </style.HeartText>
-          <style.HeartEmotion HeartColor="#FFD6A5" Top="280px" Left="70px" />
-          <style.HeartText Top="-20px" Left="50px">
-            분노
-          </style.HeartText>
-          <style.HeartEmotion HeartColor="#CED4DA" Top="40px" Left="310px" />
-          <style.HeartText Top="51px" Left="50px">
-            놀람
-          </style.HeartText>
-          <style.HeartText Top="-121px" Left="300px">
+          <style.HeartEmotion HeartColor="#A5D8FF" Top="160px" Left="70px" />
+          <style.HeartText Top="-89px" Left="50px">
             평범
           </style.HeartText>
-          <style.HeartEmotion HeartColor="#FFADAD" Top="160px" Left="310px" />
-          <style.HeartEmotion HeartColor="#BDB2FF" Top="280px" Left="310px" />
-          <style.HeartEmotion HeartColor="#D8F5A2" Top="160px" Left="550px" />
+          <style.HeartEmotion HeartColor="#FFD6A5" Top="160px" Left="550px" />
+          <style.HeartText Top="-139px" Left="310px">
+            분노
+          </style.HeartText>
+          <style.HeartEmotion HeartColor="#D8F5A2" Top="40px" Left="310px" />
+          <style.HeartText Top="-71px" Left="50px">
+            놀람
+          </style.HeartText>
+          <style.HeartEmotion HeartColor="#FFADAD" Top="40px" Left="550px" />
+          <style.HeartEmotion HeartColor="#BDB2FF" Top="160px" Left="310px" />
         </style.JustifyContainer>
         <style.ButtonDiv>
           <Btn
