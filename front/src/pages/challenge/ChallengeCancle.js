@@ -1,17 +1,25 @@
 import Modal from '../../components/modal/Modal';
 import styled from 'styled-components';
 import Btn from '../../components/Btn';
+import snackBar from '../../components/snackBar';
+import * as Api from '../../api';
 
-const ChallengeCancle = ({ setModalOpen }) => {
-  const clickModal = () => {
-    setModalOpen(false);
+const ChallengeCancle = ({ setModalOpen, setCurrentChallenge, id }) => {
+  const clickCancle = async () => {
+    try {
+      await Api.get(`challenge/stop/${id}`);
+      setCurrentChallenge('');
+      setModalOpen(false);
+    } catch (err) {
+      snackBar('error', '다시 시도해주세요.');
+    }
   };
 
   return (
     <Modal setOpen={setModalOpen}>
       <TextContainer>
-        <p>다음에 다시 도전해주세요.👍</p>
-        <Btn text={'확인'} onClick={clickModal} />
+        <p>포기하시겠어요..?🥲</p>
+        <Btn text={'포기'} onClick={clickCancle} />
       </TextContainer>
     </Modal>
   );

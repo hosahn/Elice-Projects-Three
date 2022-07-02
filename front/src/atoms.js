@@ -21,5 +21,18 @@ export const randomListState = atom({
 
 export const emotionState = atom({
   key: 'emotionState',
-  default: '',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const openEmotionState = atom({
+  key: 'openEmotionState',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const countEmotionState = atom({
+  key: 'countEmotion',
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
 });

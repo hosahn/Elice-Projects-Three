@@ -12,6 +12,7 @@ import * as Api from '../../api';
 import LandingNav from '../../components/nav/LandingNav';
 import { useNavigate } from 'react-router-dom';
 import snackBar from '../../components/snackBar';
+import { WarningText } from '../../styles/RegisterStyle';
 
 const Container = styled.div`
   height: 100vh;
@@ -33,6 +34,8 @@ const Login = () => {
   const isFormValid = isEmailValid && isPasswordValid;
 
   const navigate = useNavigate();
+
+  const openEmail = email.length === 0 ? false : true;
 
   const clickLogin = async (e) => {
     e.preventDefault();
@@ -70,6 +73,9 @@ const Login = () => {
                 setEmail(e.target.value);
               }}
             />
+            {openEmail && !isEmailValid && (
+              <WarningText>이메일 형식이 올바르지 않습니다.</WarningText>
+            )}
           </div>
           <div style={{ marginTop: '1rem' }}>
             <LoginText>비밀번호</LoginText>

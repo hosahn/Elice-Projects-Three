@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Btn from '../../components/Btn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { ClassicSpinner } from 'react-spinners-kit';
 import * as Api from '../../api';
 import styled from 'styled-components';
 import {
@@ -21,10 +20,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const emailRef = useRef();
-  const [checkState, setCheckState] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
-  const [openLoading, setOpenLoading] = useState(false);
 
   const isEmailValid = validateEmail(email);
   const isPasswordValid = password.length >= 4;
@@ -34,31 +30,28 @@ const Register = () => {
   const isFormValid =
     isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
+  const openEmail = email.length === 0 ? false : true;
+  const openPassword = password.length === 0 ? false : true;
+  const openName = name.length === 0 ? false : true;
+
   const isEmailDuplicate = async (e) => {
     e.preventDefault();
     if (isEmailValid) {
-      setOpenLoading(true);
-      setTimeout(async () => {
-        try {
-          const post = await Api.post('user/signup/check', {
-            email,
-          });
-          if (post.data === false) {
-            setOpenLoading(false);
-            setCheckState(true);
-            setCheckEmail(true);
-            snackBar('sucess', '사용 가능한 이메일 입니다. ');
-          } else {
-            setOpenLoading(false);
-            snackBar('warning', '중복된 이메일입니다');
-          }
-        } catch (error) {
-          if (error.response) {
-            setOpenLoading(false);
-            snackBar('error', '중복체크 중 에러가 발생했습니다.');
-          }
+      try {
+        const post = await Api.post('user/signup/check', {
+          email,
+        });
+        if (post.data === false) {
+          snackBar('sucess', '사용 가능한 이메일 입니다. ');
+          setCheckEmail(true);
+        } else {
+          snackBar('warning', '중복된 이메일입니다');
         }
-      }, 1500);
+      } catch (error) {
+        if (error.response) {
+          snackBar('error', '중복체크 중 에러가 발생했습니다.');
+        }
+      }
     } else {
       snackBar('warning', '올바른 이메일 형식을  입력해주세요!');
     }
@@ -91,26 +84,29 @@ const Register = () => {
       <LandingNav />
       <RegisterContainer id="RC">
         <div onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '30px' }}>
-            <RegisterText>📧 이메일 주소 </RegisterText>
-            <RegisterInput
-              type="email"
-              autoComplete="off"
-              value={email}
-              ref={emailRef}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <IconWrapper onClick={isEmailDuplicate} color={checkState}>
-              {openLoading ? (
-                <ClassicSpinner size={20} color="pink" />
-              ) : (
-                <FontAwesomeIcon icon={faCircleCheck} className="user" />
+          <EmailContainer>
+            <div style={{ marginBottom: '30px' }}>
+              <RegisterText>📧 이메일 주소 </RegisterText>
+              <RegisterInput
+                type="email"
+                autoComplete="off"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {openEmail && !isEmailValid && (
+                <WarningText>이메일 형식이 올바르지 않습니다.</WarningText>
               )}
-            </IconWrapper>
-            {!isEmailValid && (
-              <WarningText>이메일 형식이 올바르지 않습니다.</WarningText>
+            </div>
+            {checkEmail ? (
+              <IconWrapper>
+                <FontAwesomeIcon icon={faCircleCheck} className="user" />
+              </IconWrapper>
+            ) : (
+              <EmailBtn onClick={isEmailDuplicate}>
+                <p>중복 체크</p>
+              </EmailBtn>
             )}
-          </div>
+          </EmailContainer>
 
           <div style={{ marginBottom: '30px' }}>
             <RegisterText>🔑 비밀번호</RegisterText>
@@ -120,7 +116,7 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {!isPasswordValid && (
+            {openPassword && !isPasswordValid && (
               <WarningText>
                 비밀번호는 4글자 이상으로 설정해 주세요.
               </WarningText>
@@ -148,12 +144,12 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            {!isNameValid && (
+            {openName && !isNameValid && (
               <WarningText>닉네임은 2글자 이상으로 설정해 주세요.</WarningText>
             )}
           </div>
 
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', marginRight: '130px' }}>
             <Btn
               text={'회원가입'}
               type={'sub'}
@@ -180,16 +176,28 @@ const Container = styled.div`
   background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 `;
 
+const EmailBtn = styled.button`
+  font-size: 15px;
+  background-color: white;
+  padding: 10px;
+  height: 40px;
+  width: 80px;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-left: 20px;
+`;
+
+const EmailContainer = styled.div`
+  display: flex;
+`;
+
 const IconWrapper = styled.div`
-  color: ${(prop) => (prop.color ? 'pink' : '#808080')};
-  font-size: 20px;
-  position: absolute;
-  top: 38px;
-  right: 10px;
-  left: 430px;
-  width: 10px;
-  cursor: pointer;
-  :hover {
-    color: pink;
-  }
+  font-size: 30px;
+  padding: 10px;
+  height: 40px;
+  width: 80px;
+  color: pink;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
 `;

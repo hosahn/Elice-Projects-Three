@@ -37,16 +37,7 @@ const ChallengeCard = ({
   };
 
   const clickStop = async (e) => {
-    try {
-      await Api.get(`challenge/stop/${e.target.id}`);
-      setModalOpen(true);
-      setTimeout(() => {
-        setCurrentChallenge('');
-        setIsLoaded((prev) => !prev);
-      }, 500);
-    } catch (err) {
-      snackBar('error', '다시 시도해주세요.');
-    }
+    setModalOpen(true);
   };
 
   return (
@@ -79,7 +70,6 @@ const ChallengeCard = ({
             <div style={{ marginTop: '35px' }}>
               {sucess == 'true' ? (
                 <CompletedWrapper>
-                  {' '}
                   이미 완료한 챌린지 입니다.👍
                 </CompletedWrapper>
               ) : name === currentChallenge ? (
@@ -95,7 +85,13 @@ const ChallengeCard = ({
           </ExplainContext>
         </>
       )}
-      {modalOpen && <ChallengeCancle setModalOpen={setModalOpen} />}
+      {modalOpen && (
+        <ChallengeCancle
+          id={id}
+          setCurrentChallenge={setCurrentChallenge}
+          setModalOpen={setModalOpen}
+        />
+      )}
     </CardsContainer>
   );
 };

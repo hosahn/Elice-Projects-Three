@@ -69,7 +69,7 @@ const DiaryCard = styled.button`
   width: 100%;
   border-radius: 10px;
   padding: 20px 20px;
-  margin: 20px 0px;
+  margin: 5px 0px;
   span {
     font-family: 'InfinitySans-RegularA1';
   }

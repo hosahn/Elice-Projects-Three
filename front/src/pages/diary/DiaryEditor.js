@@ -10,8 +10,8 @@ import { Background } from '../../styles/ModalStyle';
 import { ClassicSpinner } from 'react-spinners-kit';
 import DiaryModal from './DiaryModal';
 import * as Api from '../../api';
-import { useSetRecoilState } from 'recoil';
-import { emotionState } from '../../atoms';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { emotionState, countEmotionState } from '../../atoms';
 import snackBar from '../../components/snackBar';
 
 const DiaryEditor = (props) => {
@@ -19,6 +19,7 @@ const DiaryEditor = (props) => {
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const setEmotion = useSetRecoilState(emotionState);
+  const [countEmotion, setCountEmotion] = useRecoilState(countEmotionState);
   const { title, tag } = props;
 
   const uploadImage = async (blob) => {
@@ -57,6 +58,7 @@ const DiaryEditor = (props) => {
           });
           setSubmit((prev) => !prev);
           setLoading((prev) => !prev);
+          setCountEmotion(1);
           setTimeout(() => setLoading((prev) => !prev), 3500);
         } else {
           snackBar('error', '일기 전송에 실패했습니다. ㅠ-ㅠ');

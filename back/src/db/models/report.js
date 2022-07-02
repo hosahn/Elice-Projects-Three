@@ -48,9 +48,19 @@ group by tag order by count desc limit 3
     const from = moment().add(1, 'days').format('YYYY-MM-DD');
     const to = moment().subtract(1, 'months').format('YYYY-MM-DD');
     const result = await prisma.$queryRaw`
-    select count(*) as count, tag from diary where ( date between ${to} and ${from}) AND (deleted = false)group by tag order by count desc limit 3
+    select count(*) as count, tag from diary where ( date between ${to} and ${from}) AND (deleted = false)group by tag order by count desc limit 4
     `;
-    return result;
+    let array = [];
+    for (let i = 0; i < 4; i++) {
+      if (result[i].tag == '') {
+        continue;
+      } else {
+        if (array.length != 3) {
+          array.push(result[i]);
+        }
+      }
+    }
+    return array;
   }
 }
 

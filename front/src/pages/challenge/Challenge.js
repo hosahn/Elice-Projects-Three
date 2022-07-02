@@ -33,6 +33,10 @@ const Challenge = () => {
     }
   }, [isLoaded]);
 
+  useEffect(() => {
+    getChallenge();
+  }, [currentChallenge]);
+
   const getChallenge = async () => {
     try {
       const res = await Api.get('challenge');
@@ -90,7 +94,7 @@ const Challenge = () => {
             challengeList.map((it) => {
               let sucess = completedChallenge.map((c) =>
                 c.name === it.name ? 'true' : 'false'
-              ); // 성공한 챌린지는 다시 신청 불가능
+              );
               return (
                 <ChallengeCard
                   it={it}
