@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as style from '../styles/LandingStyle';
 import LandingNav from '../components/nav/LandingNav';
 import MainFooter from '../components/footer';
@@ -46,6 +46,7 @@ const Landing = () => {
           <style.LineThree />
           <style.LineFour />
           <style.Note />
+          <style.Note0 />
           <style.Note1 />
           <style.Note3 />
           <style.Note4 />
@@ -72,10 +73,6 @@ const Landing = () => {
           </style.HeartText>
           <style.HeartText Top="202px" Left="-200px">
             불안
-          </style.HeartText>
-          <style.HeartEmotion HeartColor="#A5D8FF" Top="160px" Left="70px" />
-          <style.HeartText Top="-89px" Left="50px">
-            혐오
           </style.HeartText>
           <style.HeartEmotion HeartColor="#FFD6A5" Top="280px" Left="70px" />
           <style.HeartText Top="-20px" Left="50px">

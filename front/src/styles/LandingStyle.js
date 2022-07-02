@@ -226,7 +226,7 @@ export const Title = styled.h1`
 export const Explanation = styled.h1`
   font-family: 'EliceDigitalBaeum_Bold';
   font-size: 64px;
-  text-align: center;
+  text-align: start;
   color: white;
   top: 500px;
   word-spacing: 30px;
@@ -240,6 +240,16 @@ export const Note = styled.div`
   position: absolute;
   top: 480px;
   right: 504px;
+`;
+
+export const Note0 = styled.div`
+  width: 48px;
+  padding: 50px;
+  border: 5px solid white;
+  margin: auto;
+  position: absolute;
+  top: 480px;
+  right: 609px;
 `;
 
 export const Note1 = styled.div`
@@ -322,7 +332,7 @@ export const RSocialText = styled.h3`
 `;
 
 export const LineOne = styled.div`
-  width: 750px;
+  width: 800px;
   height: 4px;
   left: -65px;
   background-color: white;
@@ -330,7 +340,7 @@ export const LineOne = styled.div`
   top: 459px;
 `;
 export const LineTwo = styled.div`
-  width: 750px;
+  width: 800px;
   height: 4px;
   left: -65px;
   background-color: white;
@@ -339,7 +349,7 @@ export const LineTwo = styled.div`
 `;
 
 export const LineThree = styled.div`
-  width: 750px;
+  width: 800px;
   height: 4px;
   left: -65px;
   background-color: white;
@@ -348,7 +358,7 @@ export const LineThree = styled.div`
 `;
 
 export const LineFour = styled.div`
-  width: 750px;
+  width: 800px;
   height: 4px;
   left: -65px;
   background-color: white;

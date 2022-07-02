@@ -28,12 +28,13 @@ const ActivityContainer = styled.div`
   margin-top: 30px;
   margin-left: 5px;
   padding: 10px 40px;
-  width: 900px;
+  width: 500px;
   font-family: 'EliceDigitalBaeum';
   font-size: 18px;
   text-align: left;
   line-height: 25px;
   span {
     background-image: linear-gradient(transparent 20%, #d0ebff 20%);
+    white-space: pre-line;
   }
 `;

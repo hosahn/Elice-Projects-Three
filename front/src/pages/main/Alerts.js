@@ -7,10 +7,9 @@ const emotion = [
   { value: '행복', info: '오늘 하루는 행복', id: 1 },
   { value: '슬픔', info: '오늘 하루는 슬픔', id: 2 },
   { value: '불안', info: '오늘 하루는 불안', id: 3 },
-  { value: '혐오', info: '오늘 하루는 혐오', id: 4 },
-  { value: '분노', info: '오늘 하루는 분노', id: 5 },
-  { value: '놀람', info: '오늘 하루는 놀람', id: 6 },
-  { value: '평범', info: '오늘 하루는 평범', id: 7 },
+  { value: '분노', info: '오늘 하루는 분노', id: 4 },
+  { value: '놀람', info: '오늘 하루는 놀람', id: 5 },
+  { value: '평범', info: '오늘 하루는 평범', id: 6 },
 ];
 
 const Alerts = ({ setOpen }) => {

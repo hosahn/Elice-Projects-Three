@@ -170,6 +170,5 @@ export default Report;
 
 const DateWrapper = styled.div`
   margin-top: 20px;
-  left: 400px;
   color: #228be6;
 `;
