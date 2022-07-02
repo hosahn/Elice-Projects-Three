@@ -27,27 +27,17 @@ export default function MainFooter() {
           </Column>
           <Column>
             <Heading>Contact Us</Heading>
-            <FooterLink href="#">Nayeon Kim</FooterLink>
-            <FooterLink href="#">Gwangcheong Shin</FooterLink>
-            <FooterLink href="#">Jooyeong Bae</FooterLink>
-            <FooterLink href="#">Hosan Lee</FooterLink>
-          </Column>
-          <Column>
-            <Heading>Social Media</Heading>
-            <FooterLink href="#">
-              <i className="fab fa-facebook-f">
-                <span style={{ marginLeft: '10px' }}>Facebook</span>
-              </i>
+            <FooterLink href="https://github.com/Nayeon97">
+              Nayeon Kim
             </FooterLink>
-            <FooterLink href="#">
-              <i className="fab fa-instagram">
-                <span style={{ marginLeft: '10px' }}>Instagram</span>
-              </i>
+            <FooterLink href="https://github.com/Shin-GC?tab=repositories'">
+              Gwangcheong Shin
             </FooterLink>
-            <FooterLink href="#">
-              <i className="fab fa-twitter">
-                <span style={{ marginLeft: '10px' }}>Twitter</span>
-              </i>
+            <FooterLink href="https://github.com/Baejuyoung?tab=repositories">
+              Jooyeong Bae
+            </FooterLink>
+            <FooterLink href="https://github.com/hosahn/hosahn.github.io">
+              Hosan Lee
             </FooterLink>
           </Column>
         </Row>

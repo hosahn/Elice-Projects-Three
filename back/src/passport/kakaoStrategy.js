@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 const option = {
   clientID: process.env.KAKAO_CLIENT_ID,
   clientSecret: 'Qte99kpuJKNq1DWF3M3v7cEbc9LUuNPt',
-  callbackURL: 'http://kdt-ai4-team12.elicecoding.com/5001/user/kakaocomplete',
+  callbackURL: 'https://kdt-ai4-team12.elicecoding.com/api/user/kakaocomplete',
 };
 
 const verify = async (accessToken, refreshToken, profile, done) => {

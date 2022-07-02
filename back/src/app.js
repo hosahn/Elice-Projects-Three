@@ -93,7 +93,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: 1000000, // limit each IP to 100 requests per windowMs
   delayMs: 0, // disable delaying — full speed until the max limit is reached
 });
 
@@ -101,9 +101,9 @@ app.use(helmet());
 app.use(
   cors({
     origin: [
-      'http://kdt-ai4-team12.elicecoding.com',
-      'http://kdt-ai4-team12.elicecoding.com:3000/',
-      'http://localhost:3000',
+      'https://kdt-ai4-team12.elicecoding.com',
+      'https://kdt-ai4-team12.elicecoding.com:3000/',
+      'https://localhost:3000',
     ], // server의 url이 아닌, 요청하는 client의 url
     credentials: true,
   })

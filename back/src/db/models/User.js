@@ -181,7 +181,7 @@ class User {
           AND: { email: email, social: social },
         },
       });
-      if (foundUser) {
+      if (foundUser) {  
         const hashed = foundUser.pw;
         const comparedResult = await bcrypt.compare(pw, hashed);
         if (comparedResult) {

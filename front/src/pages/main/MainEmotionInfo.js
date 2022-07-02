@@ -30,6 +30,7 @@ const MainEmotionInfo = () => {
     setGetActivity(res.data);
     setGetEmotion(0);
     setOpenEmotion(true);
+    setEmotion('');
   };
 
   return (

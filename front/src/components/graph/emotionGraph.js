@@ -11,7 +11,6 @@ const EmotionGraph = (props) => {
       data.angry,
       data.surprised,
       data.unrest,
-      data.scunner,
       data.normal,
     ], // data.happy, data.sad, data.angry
     options: {
@@ -50,7 +49,6 @@ const EmotionGraph = (props) => {
                 '#FFD6A5',
                 '#CED4DA',
                 '#FFADAD',
-                '#BDB2FF',
                 '#D8F5A2',
               ],
             },
@@ -61,7 +59,7 @@ const EmotionGraph = (props) => {
         text: '',
         align: 'left',
       },
-      labels: ['행복', '슬픔', '화남', '놀람', '불안', '혐오', '보통'],
+      labels: ['행복', '슬픔', '화남', '놀람', '불안', '보통'],
     },
   };
   return (

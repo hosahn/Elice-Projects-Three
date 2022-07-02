@@ -66,8 +66,6 @@ const EmotionCard = styled.button`
         return '#A5D8FF';
       case '불안':
         return '#FFD6A5';
-      case '혐오':
-        return '#FFD6A5';
       case '분노':
         return '#FFADAD';
       case '놀람':

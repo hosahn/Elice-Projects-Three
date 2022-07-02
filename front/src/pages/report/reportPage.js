@@ -95,8 +95,10 @@ const Report = () => {
   이번 달에는 총 ${
     diaryTime.morning + diaryTime.dawn + diaryTime.night + diaryTime.afternoon
   }개의 일기 중
-  ${diaryTime.morning}개를 아침에,  ${diaryTime.afternoon}개를 점심에
-  ${diaryTime.night}개를 저녁에,   ${diaryTime.dawn}개를 새벽에 
+  ${diaryTime.morning}개를 아침에,  
+  ${diaryTime.afternoon}개를 점심에
+  ${diaryTime.night}개를 저녁에,  
+  ${diaryTime.dawn}개를 새벽에 
   작성하셨네요, 훌륭합니다!
   `;
 
@@ -168,6 +170,5 @@ export default Report;
 
 const DateWrapper = styled.div`
   margin-top: 20px;
-  left: 400px;
   color: #228be6;
 `;

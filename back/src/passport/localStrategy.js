@@ -17,9 +17,9 @@ const verify = async (username, password, done) => {
     social: "local",
   });
   if (result) {
-    done(null, result);
+    return done(null, result);
   } else {
-    done(null, false);
+    return done(null, false);
   }
 };
 

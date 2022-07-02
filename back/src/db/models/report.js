@@ -18,7 +18,7 @@ class Report {
   static async findWhen({ user_id }) {
     const morning = await prisma.$queryRaw`
     select count(*) as count from diary where user_id = ${user_id}
-AND ( hour(DATE_ADD(date, INTERVAL 9 HOUR))  >= 6 AND  hour(DATE_ADD(date, INTERVAL 9 HOUR))) AND (deleted = false);`;
+AND ( hour(DATE_ADD(date, INTERVAL 9 HOUR))  >= 6 AND  hour(DATE_ADD(date, INTERVAL 9 HOUR)) < 13)  AND (deleted = false);`;
     const afternoon = await prisma.$queryRaw`
     select count(*) as count from diary where user_id = ${user_id}
 AND ( hour(DATE_ADD(date, INTERVAL 9 HOUR)) >= 13 AND hour(DATE_ADD(date, INTERVAL 9 HOUR)) < 18) AND (deleted = false)
