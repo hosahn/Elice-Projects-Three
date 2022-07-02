@@ -45,7 +45,11 @@ const Landing = () => {
         <style.LogoContainer>
           <style.Title>밤 하 늘</style.Title>
           <style.MoonIcon />
-          <img src={images.Title} style={{ marginTop: '350px' }} alt="logo" />
+          <img
+            src={images.Title}
+            style={{ marginTop: '350px', position: 'absolute', left: '-90px' }}
+            alt="logo"
+          />
         </style.LogoContainer>
         <style.WhyWe>서비스 밤하늘</style.WhyWe>
         <style.PencilIcon />
