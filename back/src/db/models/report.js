@@ -45,8 +45,8 @@ group by tag order by count desc limit 3
     return result;
   }
   static async findAllUserTags() {
-    const from = moment().add(1, 'days').format('YYYY-MM-DD');
-    const to = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    const from = moment().add(1, "days").format("YYYY-MM-DD");
+    const to = moment().subtract(1, "months").format("YYYY-MM-DD");
     const result = await prisma.$queryRaw`
     select count(*) as count, tag from diary where ( date between ${to} and ${from}) AND (deleted = false)group by tag order by count desc limit 4
     `;
