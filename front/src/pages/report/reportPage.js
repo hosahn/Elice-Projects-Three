@@ -66,7 +66,7 @@ const Report = () => {
       setChallenge(() => data.data.challenge);
       let arr = Object.entries(data.data.emotion);
       let sort = arr.sort((a, b) => b[1] - a[1]);
-      setGetEmotion(emotionText(sort[0][0]));
+      setGetEmotion(sort);
     } catch (err) {
       snackBar('error', '에러가 발생하였습니다. ');
       navigate('/login');
@@ -84,11 +84,11 @@ const Report = () => {
   let reportDate = today.format('MM 월 DD 일');
 
   let DiaryText = `
-   행복 감정 일기 작성은 ${diaryEmotion.happy}개, 
-   슬픈 감정 일기 작성은 ${diaryEmotion.sad}개, 
-   화난 감정 일기 작성은 ${diaryEmotion.angry}개로 
-   한달동안 작성해 주신 일기에서 
-   가장 많이 나타난 감정은 ${getEmotion}입니다.
+${emotionText(getEmotion[0][0])} 감정 일기 작성은 ${getEmotion[0][1]}개
+${emotionText(getEmotion[1][0])} 감정 일기 작성은 ${getEmotion[1][1]}개
+${emotionText(getEmotion[2][0])} 감정 일기 작성은 ${getEmotion[2][1]}개
+한달동안 작성해 주신 일기에서 
+가장 많이 나타난 감정은 ${emotionText(getEmotion[0][0])}입니다.
   `;
 
   let TimeText = ` 

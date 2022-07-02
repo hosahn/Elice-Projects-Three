@@ -180,6 +180,7 @@ const Week = styled.div`
 `;
 
 const Day = styled.button`
+  font-size: 20px;
   color: ${(props) =>
     props.isGrayed === 'true'
       ? '#adb5bd'
@@ -190,7 +191,6 @@ const Day = styled.button`
   height: 70px;
   border-radius: 50px;
   font-family: 'KyoboHand';
-  font-size: 12px;
   background-color: transparent;
 `;
 

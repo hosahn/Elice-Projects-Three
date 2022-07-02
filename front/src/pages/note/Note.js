@@ -8,7 +8,6 @@ import {
   TagBtn,
   BtnContainer,
 } from '../../styles/NoteStyle';
-import * as Api from '../../api';
 import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

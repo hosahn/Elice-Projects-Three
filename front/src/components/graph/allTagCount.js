@@ -127,6 +127,7 @@ const ThirdPlaceCount = styled.h2`
 
 const TagRanking = (props) => {
   const data = props.data;
+
   return (
     <>
       {data

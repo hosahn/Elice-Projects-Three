@@ -52,7 +52,7 @@ group by tag order by count desc limit 3
     `;
     let array = [];
     for (let i = 0; i < 4; i++) {
-      if (result[i].tag == "") {
+      if (result[i].tag == '') {
         continue;
       } else {
         if (array.length != 3) {

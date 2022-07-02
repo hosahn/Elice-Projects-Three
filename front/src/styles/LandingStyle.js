@@ -22,7 +22,7 @@ export const SportIcon = styled(MusicNoteList)`
   color: white;
   width: 100px;
   height: 100px;
-  top: 780px;
+  top: 680px;
   position: relative;
   left: 400px;
   margin: auto;
@@ -36,7 +36,7 @@ export const HeartIcon = styled(HeartFill)`
   color: white;
   width: 100px;
   height: 100px;
-  top: 800px;
+  top: 700px;
   position: relative;
   left: 400px;
   margin: auto;
@@ -72,7 +72,7 @@ export const PencilIcon = styled(PencilAlt)`
   color: white;
   width: 100px;
   height: 100px;
-  top: 750px;
+  top: 650px;
   position: relative;
   left: 400px;
   margin: auto;
@@ -87,7 +87,7 @@ export const PencilText = styled.h1`
   font-size: 38px;
   text-align: center;
   color: white;
-  top: 680px;
+  top: 590px;
   left: 100px;
   word-spacing: 10px;
   line-height: 39px;
@@ -99,7 +99,7 @@ export const SportText = styled.h1`
   font-size: 38px;
   text-align: center;
   color: white;
-  top: 705px;
+  top: 600px;
   left: 100px;
   word-spacing: 10px;
   line-height: 39px;
@@ -111,8 +111,8 @@ export const EmotionText = styled.h1`
   font-size: 38px;
   text-align: center;
   color: white;
-  top: 725px;
-  left: 100px;
+  top: 620px;
+  left: 80px;
   word-spacing: 10px;
   line-height: 39px;
   white-space: pre-wrap;
@@ -142,7 +142,7 @@ export const JustifyContainer = styled.div`
   margin: auto;
   top: 800px;
   width: 800px;
-  height: 400px;
+  height: 300px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -167,7 +167,7 @@ export const WhyWe = styled.h1`
   font-size: 50px;
   text-align: center;
   color: white;
-  top: 650px;
+  top: 500px;
   word-spacing: 30px;
 `;
 
@@ -193,8 +193,8 @@ export const SocietyProblem = styled.h1`
 `;
 export const MainContainer = styled.div`
   position: relative;
-  height: 520vh;
   width: 100%;
+  height: 420vh;
   overflow: hidden;
   background-image: linear-gradient(to bottom, #09203f 0%, #537895 100%);
 `;
@@ -220,7 +220,7 @@ export const Title = styled.h1`
   font-size: 80px;
   text-align: center;
   color: white;
-  top: 590px;
+  top: 660px;
   word-spacing: 10px;
 `;
 export const Explanation = styled.h1`

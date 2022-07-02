@@ -5,6 +5,7 @@ import MainFooter from '../components/footer';
 import DiaryGraph from '../components/graph/diaryGraph';
 import SocialGraph from '../components/graph/socialGraph';
 import Btn from '../components/Btn';
+import images from '../assets/images';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -42,19 +43,9 @@ const Landing = () => {
         <style.StarFalling></style.StarFalling>
         <style.StarFalling></style.StarFalling>
         <style.LogoContainer>
-          <style.LineOne />
-          <style.LineTwo />
-          <style.LineThree />
-          <style.LineFour />
-          <style.Note />
-          <style.Note1 />
-          <style.Note3 />
-          <style.Note4 />
-          <style.Note5 />
-          <style.Note6 />
-          <style.Explanation>당 신 만 의 일 기</style.Explanation>
           <style.Title>밤 하 늘</style.Title>
           <style.MoonIcon />
+          <img src={images.Title} style={{ marginTop: '350px' }} alt="logo" />
         </style.LogoContainer>
         <style.WhyWe>서비스 밤하늘</style.WhyWe>
         <style.PencilIcon />

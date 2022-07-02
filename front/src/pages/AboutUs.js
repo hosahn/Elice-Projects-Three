@@ -4,7 +4,6 @@ import LandingNav from '../components/nav/LandingNav';
 import MainFooter from '../components/footer';
 import MemberCard from '../components/MemberCard';
 import styled from 'styled-components';
-import Btn from '../components/Btn';
 import images from '../assets/images';
 
 const CardDiv = styled.div`

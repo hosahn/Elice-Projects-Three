@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import {
-  loginState,
   challengeState,
   emotionState,
   userState,
   randomListState,
+  openEmotionState,
+  countEmotionState,
 } from '../../atoms';
 import snackBar from '../snackBar';
 
@@ -21,6 +22,8 @@ const Nav = () => {
   const emotion = useResetRecoilState(emotionState);
   const randomList = useResetRecoilState(randomListState);
   const challenge = useResetRecoilState(challengeState);
+  const openEmotion = useResetRecoilState(openEmotionState);
+  const countEmotion = useResetRecoilState(countEmotionState);
 
   const logoutHandler = async () => {
     try {
@@ -30,6 +33,8 @@ const Nav = () => {
         emotion();
         randomList();
         challenge();
+        openEmotion();
+        countEmotion();
         navigate('/');
       } else {
         alert('로그아웃에 실패하였습니다.');

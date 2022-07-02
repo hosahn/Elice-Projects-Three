@@ -5,7 +5,6 @@ import DiaryEditor from './DiaryEditor';
 import Text from './DiaryText';
 import Nav from '../../components/nav/Nav';
 import { DiaryContext } from '../../styles/DiaryStyle';
-import * as Api from '../../api';
 import snackBar from '../../components/snackBar';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

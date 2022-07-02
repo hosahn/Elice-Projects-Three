@@ -15,6 +15,7 @@ import Hosan from './image/Hosan.jpg';
 import Jooyeong from './image/Jooyeong.jpg';
 import Nayeon from './image/Nayeon.jpg';
 import Notion from './image/Notion.png';
+import Title from './image/Title.png';
 
 const images = {
   Bg,
@@ -34,6 +35,7 @@ const images = {
   Jooyeong,
   Nayeon,
   Notion,
+  Title,
 };
 
 export default images;

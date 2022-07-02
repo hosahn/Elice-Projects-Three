@@ -77,7 +77,14 @@ const EmotionList = () => {
   };
 
   const handleChange = (e) => {
+    console.log('select');
     setSelect(e.target.value);
+  };
+
+  const onKeyPress = (e) => {
+    if (e.target.value.length !== 0 && e.key === 'Enter') {
+      clickSearch();
+    }
   };
 
   const clickSearch = async () => {
@@ -119,6 +126,7 @@ const EmotionList = () => {
             onChange={(e) => {
               setSearch(e.target.value);
             }}
+            onKeyPress={onKeyPress}
           />
           <IconWrapper onClick={clickSearch}>
             <FontAwesomeIcon icon={faSearch} className="user" />
