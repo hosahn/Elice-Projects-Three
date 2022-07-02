@@ -11,7 +11,6 @@ const EmotionGraph = (props) => {
       data.angry,
       data.surprised,
       data.unrest,
-      data.scunner,
       data.normal,
     ], // data.happy, data.sad, data.angry
     options: {
